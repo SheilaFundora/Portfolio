@@ -4,37 +4,22 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import Image from "next/image";
 import {useEffect, useState} from "react";
-import MyMenuModal from "@/components/test";
-
-const pages = [
-    {
-        name: 'Resumen',
-        link: '/blog'
-    },
-    {
-        name: 'Portafolio',
-        link: '/blog'
-    },
-    {
-        name: 'Contacto',
-        link: '/blog'
-    }
-];
+import MyMenuModal from "@/components/MenuMobile";
+import {List, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
+import Link from "next/link";
+import {usePathname} from "next/navigation";
+import {pages} from "@/constants/navbar";
+import PersonIcon from '@mui/icons-material/Person';
 
 function Header() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [showShadow, setShowShadow] = useState(false);
+    const pathname = usePathname();
+
 
     useEffect(() => {
         const handleScroll = () => {
@@ -72,47 +57,78 @@ function Header() {
         >
             <Container maxWidth="lg">
                 <Toolbar className={'justify-content-between'}>
-                    <Image
-                        src={ '/../logo.svg'}
-                        alt={ 'Logotipo' }
-                        width={ 200 }
-                        height={ 100 }
-                        className={'bg-sucess'}
-                    />
+                    <Link href={'/'}>
+                        <Image
+                            src={'/../img/logo.svg'}
+                            alt={'Logotipo'}
+                            width={200}
+                            height={100}
+                        />
+                    </Link>
 
-                    <div>
-                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                            <IconButton
-                                size="large"
-                                aria-label="account of current user"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                onClick={handleOpenNavMenu}
-                                color="black"
-                            >
-                                <MenuIcon />
-                            </IconButton>
-                            <MyMenuModal open={Boolean(anchorElNav)} onClose={handleCloseNavMenu} pages={pages} />
 
-                        </Box>
-
-                        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                            {pages.map((page) => (
-                                <Button
-                                    key={page.name}
-                                    onClick={handleCloseNavMenu}
-                                    sx={{ my: 2, color: 'black', display: 'block' }}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div>
+                            <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
+                                <IconButton
+                                    size="large"
+                                    aria-label="account of current user"
+                                    aria-controls="menu-appbar"
+                                    aria-haspopup="true"
+                                    onClick={handleOpenNavMenu}
+                                    color="black"
                                 >
-                                    {page.name}
-                                </Button>
-                            ))}
+                                    <MenuIcon/>
+                                </IconButton>
+                                <MyMenuModal pathname={pathname} open={Boolean(anchorElNav)}
+                                             onClose={handleCloseNavMenu}
+                                             pages={pages}/>
+
+                            </Box>
+
+                            <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
+                                <List sx={{display: 'flex', flexDirection: 'row'}}>
+                                    {pages.map((page) => (
+                                        <ListItem key={page.name}>
+                                            <Link
+                                                href={page.link}
+                                                underline="none"
+                                                className={`link-sidebar ${pathname === page.link ? 'active' : ''}`}
+                                            >
+
+                                                <ListItemText>
+                                                <span style={{
+                                                    fontSize: '19px',
+                                                    fontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'
+                                                }}>{page.name}</span>
+                                                </ListItemText>
+                                            </Link>
+                                        </ListItem>
+
+                                    ))}
+                                </List>
+                            </Box>
+                        </div>
+                        <Box sx={{ marginLeft: '20px', display: {xs: 'none', md: 'flex'} }}>
+                            <Link href={'/admin'}
+                                  underline="none"
+                                  className={`link-sidebar ${pathname === '/admin' ? 'active' : ''}`}
+                            >
+                                <ListItemIcon>
+                                    <PersonIcon style={{ fontSize: '35px' }}
+                                                onMouseOver={(e) => e.target.style.color = '#6366F1'} onMouseOut={(e) => e.target.style.color = 'black'}
+                                    />
+                                </ListItemIcon>
+                            </Link>
                         </Box>
+
                     </div>
-                    
+
 
                 </Toolbar>
             </Container>
         </AppBar>
     );
 }
+
 export default Header;

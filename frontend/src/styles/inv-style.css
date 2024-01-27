@@ -1,0 +1,45 @@
+:root{
+    --blue-port: #6366F1;
+}
+
+.link-sidebar{
+    color: black;
+    width: 100%;
+    text-decoration: none;
+    transition: all;
+    transition-duration: 0.4s;
+    transition-timing-function: ease;
+}
+.link-sidebar:hover{
+    color: var(--blue-port);
+    transition: all;
+    transition-duration: 0.4s;
+    transition-timing-function: ease;
+}
+.link-sidebar:active{
+    color: var(--blue-port);
+}
+.active {
+    color: var(--blue-port);
+}
+
+.dow-cv{
+    margin-top: 25px;
+    border-radius: 5px;
+    border: 1px solid rgb(199 210 254);;
+    color: gray;
+    background-color: #EEF2FF;
+    transition: all;
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
+    fontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'
+}
+
+
+.dow-cv:hover{
+    color: white;
+    background-color:var(--blue-port) ;
+    transition: all;
+    transition-duration: 0.4s;
+    transition-timing-function: ease;
+}
