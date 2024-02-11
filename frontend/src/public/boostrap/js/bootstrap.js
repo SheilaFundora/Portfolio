@@ -1195,7 +1195,7 @@
     }
 
     nextWhenVisible() {
-      // Don't call next when the page isn't visible
+      // Don't call next when the pageSections isn't visible
       // or the carousel or its parent isn't visible
       if (!document.hidden && isVisible(this._element)) {
         this.next();

@@ -9,7 +9,7 @@ import Container from '@mui/material/Container';
 import Image from "next/image";
 import {useEffect, useState} from "react";
 import MyMenuModal from "@/components/MenuMobile";
-import {List, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
+import {Hidden, List, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
 import {pages} from "@/constants/navbar";
@@ -58,16 +58,31 @@ function Header() {
             <Container maxWidth="lg">
                 <Toolbar className={'justify-content-between'}>
                     <Link href={'/'}>
-                        <Image
-                            src={'/../img/logo.svg'}
-                            alt={'Logotipo'}
-                            width={200}
-                            height={100}
-                        />
+                        <div>
+                            {/* Oculta la imagen en dispositivos móviles */}
+                            <Hidden only={['xs', 'sm']}>
+                                <Image
+                                    src={'/../img/logo.svg'}
+                                    alt={'Logotipo'}
+                                    width={200}
+                                    height={100}
+                                />
+                            </Hidden>
+
+                            {/* Muestra la imagen pequeña en pantallas pequeñas */}
+                            <Hidden only={['md', 'lg', 'xl']}>
+                                <Image
+                                    src={'/../img/logo.svg'}
+                                    alt={'Logotipo'}
+                                    width={150}
+                                    height={70}
+                                />
+                            </Hidden>
+                        </div>
                     </Link>
 
 
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                         <div>
                             <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
                                 <IconButton
@@ -78,7 +93,7 @@ function Header() {
                                     onClick={handleOpenNavMenu}
                                     color="black"
                                 >
-                                    <MenuIcon/>
+                                    <MenuIcon style={{ fontSize: 35 }}/>
                                 </IconButton>
                                 <MyMenuModal pathname={pathname} open={Boolean(anchorElNav)}
                                              onClose={handleCloseNavMenu}
@@ -112,11 +127,11 @@ function Header() {
                         <Box sx={{ marginLeft: '20px', display: {xs: 'none', md: 'flex'} }}>
                             <Link href={'/admin'}
                                   underline="none"
-                                  className={`link-sidebar ${pathname === '/admin' ? 'active' : ''}`}
+                                  className={`link-sidebar-admin ${pathname === '/admin' ? 'active' : ''}`}
                             >
                                 <ListItemIcon>
                                     <PersonIcon style={{ fontSize: '35px' }}
-                                                onMouseOver={(e) => e.target.style.color = '#6366F1'} onMouseOut={(e) => e.target.style.color = 'black'}
+                                                onMouseOver={(e) => e.target.style.color = '#05097c '} onMouseOut={(e) => e.target.style.color = 'black'}
                                     />
                                 </ListItemIcon>
                             </Link>
