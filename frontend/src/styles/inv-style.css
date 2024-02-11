@@ -84,3 +84,43 @@
     font-size: 18px;
     text-align: justify;
 }
+.card-hov{
+    transition: all;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+}
+.card-hov:hover {
+    transition: all;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    background-color: #2196f3;
+    color: white;
+}
+.card-hov p{
+    transition: all;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    color: gray;
+}
+.card-hov:hover p{
+    transition: all;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    color: white;
+}
+.card-hov:hover .card-hov-icon{
+    transition: all;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    background-color: white;
+}
+.card-hov:hover .card-hov-icon-text{
+    transition: all;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    color: #2196f3;
+}
+
+
+
+

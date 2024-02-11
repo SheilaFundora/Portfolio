@@ -8,12 +8,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Image from "next/image";
 import {useEffect, useState} from "react";
-import MyMenuModal from "@/components/MenuMobile";
+import MyMenuModal from "@/components/other/MenuMobile";
 import {Hidden, List, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
 import {pages} from "@/constants/navbar";
 import PersonIcon from '@mui/icons-material/Person';
+import {motion} from "framer-motion";
 
 function Header() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -47,102 +48,104 @@ function Header() {
 
 
     return (
-        <AppBar
-            position="sticky"
-            className={'bg-white'}
-            elevation={0}
-            style={{
-                boxShadow: showShadow ? '0px 4px 8px rgba(0, 0, 0, 0.08)' : 'none',
-            }}
-        >
-            <Container maxWidth="lg">
-                <Toolbar className={'justify-content-between'}>
-                    <Link href={'/'}>
-                        <div>
-                            {/* Oculta la imagen en dispositivos móviles */}
-                            <Hidden only={['xs', 'sm']}>
-                                <Image
-                                    src={'/../img/logo.svg'}
-                                    alt={'Logotipo'}
-                                    width={200}
-                                    height={100}
-                                />
-                            </Hidden>
+        <motion.div initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 1}}>
+            <AppBar
+                position="sticky"
+                className={'bg-white'}
+                elevation={0}
+                style={{
+                    boxShadow: showShadow ? '0px 4px 8px rgba(0, 0, 0, 0.08)' : 'none',
+                }}
+            >
+                <Container maxWidth="lg">
+                    <Toolbar className={'justify-content-between'}>
+                        <Link href={'/'}>
+                            <div>
+                                {/* Oculta la imagen en dispositivos móviles */}
+                                <Hidden only={['xs', 'sm']}>
+                                    <Image
+                                        src={'/../img/logo.svg'}
+                                        alt={'Logotipo'}
+                                        width={200}
+                                        height={100}
+                                    />
+                                </Hidden>
 
-                            {/* Muestra la imagen pequeña en pantallas pequeñas */}
-                            <Hidden only={['md', 'lg', 'xl']}>
-                                <Image
-                                    src={'/../img/logo.svg'}
-                                    alt={'Logotipo'}
-                                    width={150}
-                                    height={70}
-                                />
-                            </Hidden>
-                        </div>
-                    </Link>
+                                {/* Muestra la imagen pequeña en pantallas pequeñas */}
+                                <Hidden only={['md', 'lg', 'xl']}>
+                                    <Image
+                                        src={'/../img/logo.svg'}
+                                        alt={'Logotipo'}
+                                        width={150}
+                                        height={70}
+                                    />
+                                </Hidden>
+                            </div>
+                        </Link>
 
 
-                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                        <div>
-                            <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
-                                <IconButton
-                                    size="large"
-                                    aria-label="account of current user"
-                                    aria-controls="menu-appbar"
-                                    aria-haspopup="true"
-                                    onClick={handleOpenNavMenu}
-                                    color="black"
-                                >
-                                    <MenuIcon style={{ fontSize: 35 }}/>
-                                </IconButton>
-                                <MyMenuModal pathname={pathname} open={Boolean(anchorElNav)}
-                                             onClose={handleCloseNavMenu}
-                                             pages={pages}/>
+                        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                            <div>
+                                <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
+                                    <IconButton
+                                        size="large"
+                                        aria-label="account of current user"
+                                        aria-controls="menu-appbar"
+                                        aria-haspopup="true"
+                                        onClick={handleOpenNavMenu}
+                                        color="black"
+                                    >
+                                        <MenuIcon style={{ fontSize: 35 }}/>
+                                    </IconButton>
+                                    <MyMenuModal pathname={pathname} open={Boolean(anchorElNav)}
+                                                 onClose={handleCloseNavMenu}
+                                                 pages={pages}/>
 
-                            </Box>
+                                </Box>
 
-                            <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
-                                <List sx={{display: 'flex', flexDirection: 'row'}}>
-                                    {pages.map((page) => (
-                                        <ListItem key={page.name}>
-                                            <Link
-                                                href={page.link}
-                                                underline="none"
-                                                className={`link-sidebar ${pathname === page.link ? 'active' : ''}`}
-                                            >
+                                <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
+                                    <List sx={{display: 'flex', flexDirection: 'row'}}>
+                                        {pages.map((page) => (
+                                            <ListItem key={page.name}>
+                                                <Link
+                                                    href={page.link}
+                                                    underline="none"
+                                                    className={`link-sidebar ${pathname === page.link ? 'active' : ''}`}
+                                                >
 
-                                                <ListItemText>
+                                                    <ListItemText>
                                                 <span style={{
                                                     fontSize: '19px',
                                                     fontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'
                                                 }}>{page.name}</span>
-                                                </ListItemText>
-                                            </Link>
-                                        </ListItem>
+                                                    </ListItemText>
+                                                </Link>
+                                            </ListItem>
 
-                                    ))}
-                                </List>
+                                        ))}
+                                    </List>
+                                </Box>
+                            </div>
+                            <Box sx={{ marginLeft: '20px', display: {xs: 'none', md: 'flex'} }}>
+                                <Link href={'/admin'}
+                                      underline="none"
+                                      className={`link-sidebar-admin ${pathname === '/admin' ? 'active' : ''}`}
+                                >
+                                    <ListItemIcon>
+                                        <PersonIcon style={{ fontSize: '35px' }}
+                                                    onMouseOver={(e) => e.target.style.color = '#05097c '} onMouseOut={(e) => e.target.style.color = 'black'}
+                                        />
+                                    </ListItemIcon>
+                                </Link>
                             </Box>
+
                         </div>
-                        <Box sx={{ marginLeft: '20px', display: {xs: 'none', md: 'flex'} }}>
-                            <Link href={'/admin'}
-                                  underline="none"
-                                  className={`link-sidebar-admin ${pathname === '/admin' ? 'active' : ''}`}
-                            >
-                                <ListItemIcon>
-                                    <PersonIcon style={{ fontSize: '35px' }}
-                                                onMouseOver={(e) => e.target.style.color = '#05097c '} onMouseOut={(e) => e.target.style.color = 'black'}
-                                    />
-                                </ListItemIcon>
-                            </Link>
-                        </Box>
-
-                    </div>
 
 
-                </Toolbar>
-            </Container>
-        </AppBar>
+                    </Toolbar>
+                </Container>
+            </AppBar>
+        </motion.div>
     );
 }
 
