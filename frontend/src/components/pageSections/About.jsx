@@ -3,6 +3,7 @@ import Image from "next/image";
 import Box from "@mui/material/Box";
 import {Grid} from "@mui/material";
 
+
 const About = () => {
     return (
         <Box>

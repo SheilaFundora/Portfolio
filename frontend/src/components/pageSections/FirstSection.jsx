@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Image from "next/image";
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import {ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
+import {motion} from "framer-motion";
 
 const FirstSection = () => {
     const handleDownload = () => {
@@ -35,14 +36,16 @@ const FirstSection = () => {
                 </button>
             </Box>
 
-            <Box sx={{ width: { xs: '100%', md: '65%'}, marginTop: { xs: 2, md: 0 } }}>
-                <Image
-                    src={ '../img/developer.svg'}
-                    alt={ 'Developer' }
-                    width={ 750 }
-                    height={ 500 }
-                    layout="responsive"
+            <Box sx={{width: {xs: '100%', md: '65%'}, marginTop: {xs: 2, md: 0}}}>
+
+                <motion.img
+                    src={'../img/developer.svg'}
+                    initial={{y: -120}}
+                    animate={{y: 0}}
+                    transition={{duration: 1}}
+                    alt="Imagen"
                 />
+
             </Box>
 
         </Box>
