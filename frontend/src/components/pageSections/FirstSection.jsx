@@ -15,7 +15,15 @@ const FirstSection = () => {
     };
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-between', alignItems: 'center' }} >
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: { xs: 'column', md: 'row' },
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginTop: { xs: 2, md: 0 }
+            }}
+        >
             <Box sx={{ textAlign: { xs: 'center', md: 'left'}, marginTop: {xs:'20px', md:'0'} }}>
                 <h2 style={{ fontWeight: 'bold'}}>HI, IAM STOMAN</h2>
                 <h4 style={{ color: 'gray', marginTop: '15px'}}>A Full-Stack Developer & Design Enthusiast</h4>
@@ -27,7 +35,7 @@ const FirstSection = () => {
                 </button>
             </Box>
 
-            <div style={{ width: '66%' }}>
+            <Box sx={{ width: { xs: '100%', md: '65%'}, marginTop: { xs: 2, md: 0 } }}>
                 <Image
                     src={ '../img/developer.svg'}
                     alt={ 'Developer' }
@@ -35,7 +43,7 @@ const FirstSection = () => {
                     height={ 500 }
                     layout="responsive"
                 />
-            </div>
+            </Box>
 
         </Box>
     );

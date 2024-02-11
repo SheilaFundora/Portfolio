@@ -25,6 +25,7 @@ const MyMenuModal = ({ open, onClose, pages, pathname }) => {
                 style: {
                     display: 'flex',
                     flexDirection: 'column',
+                    padding: '5px'
                 },
             }}
         >
@@ -54,16 +55,14 @@ const MyMenuModal = ({ open, onClose, pages, pathname }) => {
                 ))}
             </List>
 
-            <Box sx={{ marginLeft: '20px', display: {xs: 'flex', md: 'none'} }}>
+            <Box sx={{ marginLeft: '18px', display: {xs: 'flex', md: 'none'} }}>
                 <Link href={'/admin'}
                       underline="none"
                       className={`link-sidebar ${pathname === '/admin' ? 'active' : ''}`}
                 >
-                    <ListItemIcon>
-                        <PersonIcon style={{ fontSize: '35px' }}
-                                    onMouseOver={(e) => e.target.style.color = '#6366F1'} onMouseOut={(e) => e.target.style.color = 'black'}
-                        />
-                    </ListItemIcon>
+                    <ListItemText>
+                        <span style={{ fontSize: '17px',fontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'}}>Administración</span>
+                    </ListItemText>
                 </Link>
             </Box>
         </Dialog>

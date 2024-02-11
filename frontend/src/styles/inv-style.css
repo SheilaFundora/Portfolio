@@ -1,12 +1,12 @@
 :root{
-    --blue-port: #6366F1;
+    --blue-port: #05097c;
 }
 
 .link-sidebar{
+    position: relative; /* Asegura que el elemento ::after se posicione correctamente */
     color: black;
-    width: 100%;
+    transition: color 0.4s ease; /* Transición solo para el cambio de color */
     text-decoration: none;
-    transition: all;
     transition-duration: 0.4s;
     transition-timing-function: ease;
 }
@@ -15,6 +15,29 @@
     transition: all;
     transition-duration: 0.4s;
     transition-timing-function: ease;
+}
+
+.link-sidebar-admin:hover{
+    color: var(--blue-port);
+    transition: all;
+    transition-duration: 0.4s;
+    transition-timing-function: ease;
+}
+
+
+.link-sidebar::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px; /* Ajusta la posición vertical de la línea */
+    width: 0; /* Inicialmente, la línea tendrá longitud 0 */
+    height: 2px; /* Grosor de la línea */
+    background-color: var(--blue-port); /* Color de la línea */
+    transition: width 0.4s ease; /* Transición solo para el ancho de la línea */
+}
+
+.link-sidebar:hover::after {
+    width: 100%; /* Cuando se pasa el ratón por encima, la línea se extiende al 100% */
 }
 .link-sidebar:active{
     color: var(--blue-port);
@@ -42,4 +65,22 @@
     transition: all;
     transition-duration: 0.4s;
     transition-timing-function: ease;
+}
+
+.name-sections{
+    font-weight: bolder;
+    color: #5a656e;
+    font-family: "Playfair Display", serif;
+}
+.border-name{
+    border-bottom: 1px solid var(--blue-port); /* Ajusta el color de la línea según tu preferencia */
+    border-bottom-width: medium;
+    width: 60px;
+}
+
+.text-style{
+    font-family: "Open Sans", sans-serif;
+    color: #5a656e;
+    font-size: 18px;
+    text-align: justify;
 }
