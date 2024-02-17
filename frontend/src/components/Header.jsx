@@ -48,15 +48,16 @@ function Header() {
 
 
     return (
-        <motion.div initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 1}}>
-            <AppBar
-                position="sticky"
-                className={'bg-white'}
-                elevation={0}
-                style={{
-                    boxShadow: showShadow ? '0px 4px 8px rgba(0, 0, 0, 0.08)' : 'none',
-                }}
-            >
+        <AppBar
+            position="sticky"
+            className={'bg-white'}
+            elevation={0}
+            style={{
+                boxShadow: showShadow ? '0px 4px 8px rgba(0, 0, 0, 0.08)' : 'none',
+            }}
+        >
+            <motion.div initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 1}}>
+
                 <Container maxWidth="lg">
                     <Toolbar className={'justify-content-between'}>
                         <Link href={'/'}>
@@ -67,7 +68,7 @@ function Header() {
                                         src={'/../img/logo.svg'}
                                         alt={'Logotipo'}
                                         width={200}
-                                        height={100}
+                                        height={80}
                                     />
                                 </Hidden>
 
@@ -95,7 +96,7 @@ function Header() {
                                         onClick={handleOpenNavMenu}
                                         color="black"
                                     >
-                                        <MenuIcon style={{ fontSize: 35 }}/>
+                                        <MenuIcon style={{fontSize: 35}}/>
                                     </IconButton>
                                     <MyMenuModal pathname={pathname} open={Boolean(anchorElNav)}
                                                  onClose={handleCloseNavMenu}
@@ -126,14 +127,15 @@ function Header() {
                                     </List>
                                 </Box>
                             </div>
-                            <Box sx={{ marginLeft: '20px', display: {xs: 'none', md: 'flex'} }}>
+                            <Box sx={{marginLeft: '20px', display: {xs: 'none', md: 'flex'}}}>
                                 <Link href={'/admin'}
                                       underline="none"
                                       className={`link-sidebar-admin ${pathname === '/admin' ? 'active' : ''}`}
                                 >
                                     <ListItemIcon>
-                                        <PersonIcon style={{ fontSize: '35px' }}
-                                                    onMouseOver={(e) => e.target.style.color = '#05097c '} onMouseOut={(e) => e.target.style.color = 'black'}
+                                        <PersonIcon style={{fontSize: '35px'}}
+                                                    onMouseOver={(e) => e.target.style.color = '#05097c '}
+                                                    onMouseOut={(e) => e.target.style.color = 'black'}
                                         />
                                     </ListItemIcon>
                                 </Link>
@@ -144,9 +146,12 @@ function Header() {
 
                     </Toolbar>
                 </Container>
-            </AppBar>
-        </motion.div>
-    );
+
+            </motion.div>
+
+        </AppBar>
+)
+    ;
 }
 
 export default Header;

@@ -6,9 +6,9 @@ import Box from "@mui/material/Box";
 
 const CardServices = ({titulo, contenido}) => {
     return (
-        <div style={{ width: '250px', height: '300px', padding: '10px' }} >
+        <Box sx={{ width: { xs: '320px', md: '250px' }, height: '300px', padding: '10px', marginTop: '20px' }} >
             <Card elevation={5} style={{ height: '100%' }} className={'card-hov'}>
-                <CardContent style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                <CardContent style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', paddingTop: '20px' }}>
                     <div style={{ textAlign: 'center' }}>
                         <IconButton
                             sx={{
@@ -27,7 +27,7 @@ const CardServices = ({titulo, contenido}) => {
                     </div>
                 </CardContent>
             </Card>
-        </div>
+        </Box>
     );
 };
 

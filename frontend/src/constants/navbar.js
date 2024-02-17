@@ -1,5 +1,9 @@
 export const pages = [
     {
+        name: 'Inicio',
+        link: '/'
+    },
+    {
         name: 'Resumen',
         link: '/resumen'
     },
