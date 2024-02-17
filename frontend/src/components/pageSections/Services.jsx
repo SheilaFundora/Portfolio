@@ -17,7 +17,6 @@ function Services() {
                 display: 'flex',
                 flexWrap: 'wrap',
                 textAlign: 'center',
-                paddingY: 8,
                 alignItems: 'center', // Centrar verticalmente en dispositivos móviles
                 justifyContent: 'space-around',
             }} >
@@ -27,9 +26,7 @@ function Services() {
                         titulo={item.titulo}
                         contenido={item.contenido}
                         style={{
-                            flexBasis: 'calc(33.3333% - 20px)',
-                            margin: '10px'
-                        }} // Ajusta el estilo según tus necesidades
+                            flexBasis: 'calc(33.3333% - 20px)'}} // Ajusta el estilo según tus necesidades
                     />
                 ))}
             </Box>

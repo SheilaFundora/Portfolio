@@ -25,7 +25,7 @@ const FirstSection = () => {
                 marginTop: { xs: 2, md: 0 }
             }}
         >
-            <Box sx={{ textAlign: { xs: 'center', md: 'left'}, marginTop: {xs:'20px', md:'0'} }}>
+            <Box sx={{ textAlign: { xs: 'center', md: 'left'}, marginTop: {xs:'50px', md:'0'} }}>
                 <h2 style={{ fontWeight: 'bold'}}>HI, IAM STOMAN</h2>
                 <h4 style={{ color: 'gray', marginTop: '15px'}}>A Full-Stack Developer & Design Enthusiast</h4>
                 <button className={'dow-cv'} onClick={handleDownload}>
