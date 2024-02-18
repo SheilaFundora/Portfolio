@@ -120,7 +120,47 @@
     transition-timing-function: ease;
     color: #2196f3;
 }
+.img-hover {
+    transition: transform 0.3s; /* Agrega una transición suave */
+}
 
+.img-hover:hover {
+    transform: scale(1.1) !important; /* Aumenta el tamaño al 110% cuando se pasa el mouse por encima */
+    cursor: pointer;
+}
 
+.name-footer{
+    font-size: 36px;
+    margin: 0 0 10px 0;
+    padding: 0;
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--blue-port);
+}
 
+.network-hov-borde{
+    transition: 0.3s;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+    transition-property: all;
+}
 
+.network-hov-border:hover{
+    background-color: var(--blue-port);
+    transition: 0.3s;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+    transition-property: all;
+}
+.network-hov-border:hover .network-hov{
+    color: white;
+    transition: 0.3s;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+    transition-property: all;
+}
