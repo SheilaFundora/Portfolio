@@ -34,7 +34,7 @@ const About = () => {
                     ref={ref} // Ref para el elemento que queremos observar
                     initial={{x: -120}}  // Animación inicial desde la izquierda (-120px)
                     animate={{x: inView ? 0 : -120}} // Animación hacia la derecha (0px) cuando está en vista, de lo contrario -120px
-                    transition={{duration: 1}}
+                    transition={{duration: 0.6}}
                     src={'/img/personal.jpg'}
                     alt={'Developer'}
                     width={250}

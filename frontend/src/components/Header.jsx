@@ -9,7 +9,7 @@ import Container from '@mui/material/Container';
 import Image from "next/image";
 import {useEffect, useState} from "react";
 import MyMenuModal from "@/components/other/MenuMobile";
-import {Hidden, List, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
+import {Hidden, List, ListItem, ListItemIcon, ListItemText} from "@mui/material";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
 import {pages} from "@/constants/navbar";

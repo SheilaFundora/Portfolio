@@ -38,7 +38,7 @@ const DataAbout = () => {
                     ref={ref} // Ref para el elemento que queremos observar
                     initial={{scale: 0}} // Escala inicial de 0 (invisible)
                     animate={{scale: inView ? 1 : 0}} // Escala al tamaño original cuando está en vista, a 0 cuando no lo está
-                    transition={{duration: 0.8}} // Duración de la animación
+                    transition={{duration: 0.5}} // Duración de la animación
                 >
                     <CounterItem
                         title="Years of experience"
