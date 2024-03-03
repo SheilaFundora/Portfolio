@@ -211,7 +211,10 @@ const FooterInfo = () => {
 
                 <Box sx={{
                     flex: '1 1 calc(35% - 80px)',
-                    display: { xs: 'none', sm: 'block' } // Ocultar en pantallas xs y mostrar en pantallas sm y superiores
+                    display: 'flex',
+                    flexDirection: 'column', // Mostrar los elementos en una fila horizontal
+                    flexWrap: 'wrap', // Envolver los elementos si no caben en una sola fila
+                    width: '100%', // Asegurar que el contenedor padre ocupe todo el ancho disponibl// Ocultar en pantallas xs y mostrar en pantallas sm y superiores
                 }}>
                     <TextField
                         label="Nombre"
