@@ -1,7 +1,7 @@
 'use client'
 import React, {useEffect, useState} from 'react';
 import {Typography} from "@mui/material";
-import FooterInfo from "@/components/pageSections/FooterInfo";
+import FooterInfo from "@/components/FooterInfo";
 import IconButton from "@mui/material/IconButton";
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 

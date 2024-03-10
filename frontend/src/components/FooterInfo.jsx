@@ -19,8 +19,8 @@ const FooterInfo = () => {
                 marginTop: 10,
                 backgroundColor: 'rgb(247 248 252 )',
                 display: 'flex',
-                paddingY: 5,
-                paddingX: {xs: 3, md: 15},
+                paddingY:5,
+                paddingX: {xs: 4, md: 15},
                 flexDirection: { xs: 'column', md: 'row' },
                 alignItems: 'flex-start', // Centrar verticalmente en dispositivos móviles
                 justifyContent: 'space-beetween', // Ajustar el espacio entre los elementos
@@ -224,6 +224,9 @@ const FooterInfo = () => {
                         sx={{
                             width: '350px',
                             borderRadius: '8px', // Agregar border-radius
+                            '@media (max-width:600px)': {
+                                width: '100%', // Ancho completo en dispositivos con ancho de pantalla de hasta 600px (tamaño móvil)
+                            },
                         }}
                     />
                     <TextField
@@ -233,7 +236,10 @@ const FooterInfo = () => {
                         sx={{
                             width: '350px',
                             borderRadius: '8px', // Agregar border-radius
-                            marginTop: '10px' // Agregar margin
+                            marginTop: '10px', // Agregar margin
+                            '@media (max-width:600px)': {
+                                width: '100%', // Ancho completo en dispositivos con ancho de pantalla de hasta 600px (tamaño móvil)
+                            }
                         }}
                     />
                     <TextField
@@ -244,7 +250,10 @@ const FooterInfo = () => {
                             width: '350px',
                             padding: 0,
                             borderRadius: '8px', // Agregar border-radius
-                            marginTop: '10px' // Agregar margin
+                            marginTop: '10px', // Agregar margin
+                            '@media (max-width:600px)': {
+                                width: '100%', // Ancho completo en dispositivos con ancho de pantalla de hasta 600px (tamaño móvil)
+                            }
                         }}
                     />
                     <br/>
@@ -258,7 +267,10 @@ const FooterInfo = () => {
                             width: '350px',
                             padding: 0,
                             borderRadius: '8px', // Agregar border-radius
-                            marginTop: '10px' // Agregar margin
+                            marginTop: '10px', // Agregar margin
+                            '@media (max-width:600px)': {
+                                width: '100%', // Ancho completo en dispositivos con ancho de pantalla de hasta 600px (tamaño móvil)
+                            },
                         }}
                     />
                     <div  className={'mx-auto text-center mt-3'}>

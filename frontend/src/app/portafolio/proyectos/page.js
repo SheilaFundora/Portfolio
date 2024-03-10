@@ -1,6 +1,6 @@
 "use client"
 import React from 'react';
-import NameSections from "@/components/other/NameSections";
+import NameSections from "@/components/Portfolio/pageSections/NameSections";
 import Box from "@mui/material/Box";
 import Tab from '@mui/material/Tab';
 import {Card, CardActionArea, CardContent, CardMedia, Tabs, Typography} from "@mui/material";

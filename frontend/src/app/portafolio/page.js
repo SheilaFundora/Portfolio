@@ -1,15 +1,15 @@
 "use client"
 import Box from "@mui/material/Box";
-import FirstSection from "@/components/pageSections/FirstSection";
-import NameSections from "@/components/other/NameSections";
-import About from "@/components/pageSections/About";
-import DataAbout from "@/components/other/DataAbout";
+import FirstSection from "@/components/Portfolio/pageSections/FirstSection";
+import NameSections from "@/components/Portfolio/pageSections/NameSections";
+import About from "@/components/Portfolio/pageSections/About";
+import DataAbout from "@/components/Portfolio/other/DataAbout";
 import { motion } from "framer-motion"
 import React, {useEffect, useState} from "react";
-import Services from "@/components/pageSections/Services";
-import Skills from "@/components/pageSections/Skills";
+import Services from "@/components/Portfolio/pageSections/Services";
+import Skills from "@/components/Portfolio/pageSections/Skills";
 import Footer from "@/components/Footer";
-import FooterInfo from "@/components/pageSections/FooterInfo";
+import FooterInfo from "@/components/FooterInfo";
 
 export default function Home() {
 
@@ -22,17 +22,13 @@ export default function Home() {
                 <About/>
             </Box>
 
-
             <DataAbout />
 
             <Box sx={{paddingX: {xs: 4, md: '120px'}}}>
                 <NameSections name={'Habilidades'}/>
             </Box>
 
-
-
             <Skills />
-
 
             <Box sx={{paddingX: {xs: 4, md: '120px'}}}>
                 <br/>
