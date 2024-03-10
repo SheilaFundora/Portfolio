@@ -21,6 +21,7 @@ const FooterInfo = () => {
                 display: 'flex',
                 paddingY: 5,
                 paddingX: {xs: 3, md: 15},
+                flexDirection: { xs: 'column', md: 'row' },
                 alignItems: 'flex-start', // Centrar verticalmente en dispositivos móviles
                 justifyContent: 'space-beetween', // Ajustar el espacio entre los elementos
                 flexWrap: 'wrap', // Envolver los elementos si no caben en una sola fila
