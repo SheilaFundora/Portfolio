@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from "@mui/material/Box";
 import {motion} from "framer-motion";
-import CounterItem from "@/components/other/CounterItem";
+import CounterItem from "@/components/Portfolio/other/CounterItem";
 import { useCountUp } from 'react-countup';
 import {useInView} from "react-intersection-observer";
 

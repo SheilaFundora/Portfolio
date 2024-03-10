@@ -168,3 +168,40 @@ font-family: GeneralSans-Regular;
     transition-delay: 0s;
     transition-property: all;
 }
+
+.test-resume-style{
+    font-family: "Open Sans", sans-serif;
+    color: #5a656e;
+    font-size: 16px;
+    text-align: justify;
+}
+
+.resume-item {
+    position: relative;
+    padding-left: 30px; /* Ajusta el padding según sea necesario */
+}
+
+.resume-item::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    left: 0;
+    top: 0; /* Ajusta la posición del círculo al principio */
+    background: #fff;
+    border: 2px solid #05097c;
+    z-index: 1; /* Para que el círculo esté por encima de la línea izquierda */
+}
+
+.resume-item::after {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    left: 8px; /* Ajusta la posición de la línea izquierda según el tamaño del círculo */
+    top: 0;
+    background: #05097c;
+}
+
+

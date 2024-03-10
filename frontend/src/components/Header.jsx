@@ -8,7 +8,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Image from "next/image";
 import {useEffect, useState} from "react";
-import MyMenuModal from "@/components/other/MenuMobile";
+import MyMenuModal from "@/components/Portfolio/other/MenuMobile";
 import {Hidden, List, ListItem, ListItemIcon, ListItemText} from "@mui/material";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
@@ -128,9 +128,9 @@ function Header() {
                                 </Box>
                             </div>
                             <Box sx={{marginLeft: '20px', display: {xs: 'none', md: 'flex'}}}>
-                                <Link href={'/admin'}
+                                <Link href={'/adminCompoents'}
                                       underline="none"
-                                      className={`link-sidebar-admin ${pathname === '/admin' ? 'active' : ''}`}
+                                      className={`link-sidebar-admin ${pathname === '/adminCompoents' ? 'active' : ''}`}
                                 >
                                     <ListItemIcon>
                                         <PersonIcon style={{fontSize: '35px'}}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent, Typography, Grid } from '@mui/material';
-import CardServices from "@/components/other/CardServices";
+import CardServices from "@/components/Portfolio/other/CardServices";
 import Box from "@mui/material/Box";
 
 const datos = [
