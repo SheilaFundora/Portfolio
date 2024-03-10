@@ -11,7 +11,6 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import Box from "@mui/material/Box";
 import Link from "next/link";
-import PersonIcon from "@mui/icons-material/Person";
 
 
 const MyMenuModal = ({ open, onClose, pages, pathname }) => {
@@ -58,6 +57,7 @@ const MyMenuModal = ({ open, onClose, pages, pathname }) => {
             <Box sx={{ marginLeft: '18px', display: {xs: 'flex', md: 'none'} }}>
                 <Link href={'/admin'}
                       underline="none"
+                      onClick={onClose}
                       className={`link-sidebar ${pathname === '/admin' ? 'active' : ''}`}
                 >
                     <ListItemText>

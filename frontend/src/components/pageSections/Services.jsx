@@ -12,7 +12,7 @@ const datos = [
 
 function Services() {
     return (
-        <Box sx={{marginTop: 4}}>
+        <Box>
             <Box sx={{
                 display: 'flex',
                 flexWrap: 'wrap',

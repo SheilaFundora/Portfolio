@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from "@mui/material/Box";
 import Link from "next/link";
-import {List, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
+import {Button, List, ListItem, ListItemButton, ListItemIcon, ListItemText, TextField} from "@mui/material";
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -11,7 +11,6 @@ import IconButton from "@mui/material/IconButton";
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import {color} from "framer-motion";
 
 const FooterInfo = () => {
     return (
@@ -22,13 +21,14 @@ const FooterInfo = () => {
                 display: 'flex',
                 paddingY: 5,
                 paddingX: {xs: 3, md: 15},
-                alignItems: 'center', // Centrar verticalmente en dispositivos móviles
+                flexDirection: { xs: 'column', md: 'row' },
+                alignItems: 'flex-start', // Centrar verticalmente en dispositivos móviles
                 justifyContent: 'space-beetween', // Ajustar el espacio entre los elementos
                 flexWrap: 'wrap', // Envolver los elementos si no caben en una sola fila
                 gap: { xs: '40px', md: '80px' }
             }}
             >
-                <Box sx={{ flex: '1 1 calc(38% - 80px)'}}>
+                <Box sx={{ flex: '1 1 calc(35% - 80px)'}}>
                     <h2 className={'name-footer'}>Sheila</h2>
                     <p className={'text-secondary my-3 text-justify'}>
                         I am a dedicated person in all aspects of my life, committed to professional training, seeking
@@ -152,7 +152,7 @@ const FooterInfo = () => {
                     </Box>
                 </Box>
 
-                <Box sx={{ flex: '1 1 calc(35% - 80px)'}}>
+                <Box sx={{ flex: '1 1 calc(30% - 80px)'}}>
                     <Box sx={{
                         display: 'flex',
                         flexDirection: 'column', // Mostrar los elementos en una fila horizontal
@@ -211,13 +211,63 @@ const FooterInfo = () => {
                 </Box>
 
                 <Box sx={{
-                    flex: '1 1 calc(27% - 80px)',
-                    display: { xs: 'none', sm: 'block' } // Ocultar en pantallas xs y mostrar en pantallas sm y superiores
+                    flex: '1 1 calc(35% - 80px)',
+                    display: 'flex',
+                    flexDirection: 'column', // Mostrar los elementos en una fila horizontal
+                    flexWrap: 'wrap', // Envolver los elementos si no caben en una sola fila
+                    width: '100%', // Asegurar que el contenedor padre ocupe todo el ancho disponibl// Ocultar en pantallas xs y mostrar en pantallas sm y superiores
                 }}>
-                    <h4 style={{ color: 'var(--blue-port)' }}>Create your resume</h4>
-                    app.flowcv.com<br />
-                    novoresume.com<br />
-                    jobiblo.com<br />
+                    <TextField
+                        label="Nombre"
+                        type='text'
+                        size="small"
+                        sx={{
+                            width: '350px',
+                            borderRadius: '8px', // Agregar border-radius
+                        }}
+                    />
+                    <TextField
+                        label="Correo"
+                        type='text'
+                        size="small"
+                        sx={{
+                            width: '350px',
+                            borderRadius: '8px', // Agregar border-radius
+                            marginTop: '10px' // Agregar margin
+                        }}
+                    />
+                    <TextField
+                        label="Asunto"
+                        type='text'
+                        size="small"
+                        sx={{
+                            width: '350px',
+                            padding: 0,
+                            borderRadius: '8px', // Agregar border-radius
+                            marginTop: '10px' // Agregar margin
+                        }}
+                    />
+                    <br/>
+
+                    <TextField
+                        label="Mensaje"
+                        type='text'
+                        multiline
+                        rows={4}
+                        sx={{
+                            width: '350px',
+                            padding: 0,
+                            borderRadius: '8px', // Agregar border-radius
+                            marginTop: '10px' // Agregar margin
+                        }}
+                    />
+                    <div  className={'mx-auto text-center mt-3'}>
+                        <Button variant="contained"  style={{
+                            backgroundColor: '#05097c',
+                            color: 'white'
+                        }}>Enviar mensaje</Button>
+                    </div>
+
                 </Box>
 
 

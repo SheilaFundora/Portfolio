@@ -5,7 +5,7 @@ export const pages = [
     },
     {
         name: 'Portafolio',
-        link: '/portafolio'
+        link: '/proyectos'
     },
     {
         name: 'Contacto',

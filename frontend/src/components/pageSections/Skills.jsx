@@ -13,7 +13,7 @@ const Skills = () => {
     return (
         <div>
             <Box sx={{
-                marginTop: 10,
+                marginTop: 5,
                 backgroundColor: 'rgb(247 248 252 )',
                 display: 'flex',
                 textAlign: 'center',
@@ -37,7 +37,7 @@ const Skills = () => {
                     height={40}
                     initial={{scale: 0}} // Escala inicial de 0 (invisible)
                     animate={{scale: inView ? 1 : 0}} // Escala al tamaño original
-                    transition={{duration: 0.8}} // Duración de la animación
+                    transition={{duration: 0.1}} // Duración de la animación
                     className={'img-hover'}
                 />
 

@@ -1,10 +1,5 @@
-import { Inter } from "next/font/google";
-import Header from "@/components/Header";
-const inter = Inter({ subsets: ["latin"] });
 import "../styles/home-globals.css"
 import "../styles/port-style.css"
-import Footer from "@/components/Footer";
-import Head from "next/head";
 
 export const metadata = {
   title: "Portafolio",
@@ -13,11 +8,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-      <html lang="en">
+      <html lang='es'>
           <body>
-              <Header/>
-              {children}
-              <Footer/>
+             {children}
           </body>
       </html>
   );
