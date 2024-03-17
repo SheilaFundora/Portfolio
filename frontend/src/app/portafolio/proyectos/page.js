@@ -53,126 +53,134 @@ const Page = () => {
             <Box className={'d-flex justify-content-center flex-wrap'} sx={{ gap: '30px' }}>
                 <Link  href={'/portafolio/proyectos/view'} style={{ textDecoration: 'none' }}>
                     <Card sx={{ width: 330, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)' }}>
-                    <CardActionArea>
-                        <CardMedia
-                            component="img"
-                            height="140"
-                            image='/../img/ui-project-1.jpg'
-                            alt="green iguana"
-                            sx={{
-                                transition: 'transform 0.2s',
-                                '&:hover': {
-                                    transform: 'scale(1.1)',
-                                },
-                            }}
-                        />
-                        <CardContent sx={{ textAlign: 'center' }}>
-                            <Typography gutterBottom variant="h5" component="div">
-                                Google Health Platform
-                            </Typography>
-                            <Typography variant="body6" color="text.secondary">
-                                Web Application
-                            </Typography>
-                        </CardContent>
-                    </CardActionArea>
-                </Card>
+                        <CardActionArea>
+                            <CardMedia
+                                component="img"
+                                height="140"
+                                image='/img/ui-project-1.jpg'
+                                alt="green iguana"
+                                sx={{
+                                    transition: 'transform 0.2s',
+                                    '&:hover': {
+                                        transform: 'scale(1.1)',
+                                    },
+                                }}
+                            />
+                            <CardContent sx={{ textAlign: 'center' }}>
+                                <Typography gutterBottom variant="h5" component="div">
+                                    Google Health Platform
+                                </Typography>
+                                <Typography variant="body6" color="text.secondary">
+                                    Web Application
+                                </Typography>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
                 </Link>
-                <Card sx={{ width: 330, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)' }}>
-                    <CardActionArea>
-                        <CardMedia
-                            component="img"
-                            height="140"
-                            image='/../img/ui-project-2.jpg'
-                            alt="green iguana"
-                            sx={{
-                                transition: 'transform 0.2s',
-                                '&:hover': {
-                                    transform: 'scale(1.1)',
-                                },
-                            }}
-                        />
-                        <CardContent sx={{ textAlign: 'center' }}>
-                            <Typography gutterBottom variant="h5" component="div">
-                                Google Health Platform
-                            </Typography>
-                            <Typography variant="body6" color="text.secondary">
-                                Web Application
-                            </Typography>
-                        </CardContent>
-                    </CardActionArea>
-                </Card>
-                <Card sx={{ width: 330, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)' }}>
-                    <CardActionArea>
-                        <CardMedia
-                            component="img"
-                            height="140"
-                            image='/../img/web-project-2.jpg'
-                            alt="green iguana"
-                            sx={{
-                                transition: 'transform 0.2s',
-                                '&:hover': {
-                                    transform: 'scale(1.1)',
-                                },
-                            }}
-                        />
-                        <CardContent sx={{ textAlign: 'center' }}>
-                            <Typography gutterBottom variant="h5" component="div">
-                                Google Health Platform
-                            </Typography>
-                            <Typography variant="body6" color="text.secondary">
-                                Web Application
-                            </Typography>
-                        </CardContent>
-                    </CardActionArea>
-                </Card>
-                <Card sx={{ width: 330, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)' }}>
-                    <CardActionArea>
-                        <CardMedia
-                            component="img"
-                            height="140"
-                            image='/../img/web-project-2.jpg'
-                            alt="green iguana"
-                            sx={{
-                                transition: 'transform 0.2s',
-                                '&:hover': {
-                                    transform: 'scale(1.1)',
-                                },
-                            }}
-                        />
-                        <CardContent sx={{ textAlign: 'center' }}>
-                            <Typography gutterBottom variant="h5" component="div">
-                                Google Health Platform
-                            </Typography>
-                            <Typography variant="body6" color="text.secondary">
-                                Web Application
-                            </Typography>
-                        </CardContent>
-                    </CardActionArea>
-                </Card>
-                <Card sx={{ width: 330, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)' }}>
-                    <CardActionArea>
-                        <CardMedia
-                            component="img"
-                            height="140"
-                            image='/../img/ui-project-2.jpg'
-                            alt="green iguana"
-                            sx={{
-                                transition: 'transform 0.2s',
-                                '&:hover': {
-                                    transform: 'scale(1.1)',
-                                },
-                            }}
-                        />
-                        <CardContent sx={{ textAlign: 'center' }}>
-                            <Typography gutterBottom variant="h5" component="div">
-                                Google Health Platform
-                            </Typography>
-                            <Typography variant="body6" color="text.secondary">
-                                Web Application
-                            </Typography>
-                        </CardContent>
-                    </CardActionArea>
-                </Card>
+                <Link  href={'/portafolio/proyectos/view'} style={{ textDecoration: 'none' }}>
+                    <Card sx={{ width: 330, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)' }}>
+                        <CardActionArea>
+                            <CardMedia
+                                component="img"
+                                height="140"
+                                image='/img/ui-project-2.jpg'
+                                alt="green iguana"
+                                sx={{
+                                    transition: 'transform 0.2s',
+                                    '&:hover': {
+                                        transform: 'scale(1.1)',
+                                    },
+                                }}
+                            />
+                            <CardContent sx={{ textAlign: 'center' }}>
+                                <Typography gutterBottom variant="h5" component="div">
+                                    Google Health Platform
+                                </Typography>
+                                <Typography variant="body6" color="text.secondary">
+                                    Web Application
+                                </Typography>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
+                </Link>
+                <Link  href={'/portafolio/proyectos/view'} style={{ textDecoration: 'none' }}>
+                    <Card sx={{ width: 330, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)' }}>
+                        <CardActionArea>
+                            <CardMedia
+                                component="img"
+                                height="140"
+                                image='/img/web-project-2.jpg'
+                                alt="green iguana"
+                                sx={{
+                                    transition: 'transform 0.2s',
+                                    '&:hover': {
+                                        transform: 'scale(1.1)',
+                                    },
+                                }}
+                            />
+                            <CardContent sx={{ textAlign: 'center' }}>
+                                <Typography gutterBottom variant="h5" component="div">
+                                    Google Health Platform
+                                </Typography>
+                                <Typography variant="body6" color="text.secondary">
+                                    Web Application
+                                </Typography>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
+                </Link>
+                <Link  href={'/portafolio/proyectos/view'} style={{ textDecoration: 'none' }}>
+                    <Card sx={{ width: 330, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)' }}>
+                        <CardActionArea>
+                            <CardMedia
+                                component="img"
+                                height="140"
+                                image='/img/ui-project-2.jpg'
+                                alt="green iguana"
+                                sx={{
+                                    transition: 'transform 0.2s',
+                                    '&:hover': {
+                                        transform: 'scale(1.1)',
+                                    },
+                                }}
+                            />
+                            <CardContent sx={{ textAlign: 'center' }}>
+                                <Typography gutterBottom variant="h5" component="div">
+                                    Google Health Platform
+                                </Typography>
+                                <Typography variant="body6" color="text.secondary">
+                                    Web Application
+                                </Typography>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
+                </Link>
+                <Link  href={'/portafolio/proyectos/view'} style={{ textDecoration: 'none' }}>
+                    <Card sx={{ width: 330, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)' }}>
+                        <CardActionArea>
+                            <CardMedia
+                                component="img"
+                                height="140"
+                                image='/img/web-project-2.jpg'
+                                alt="green iguana"
+                                sx={{
+                                    transition: 'transform 0.2s',
+                                    '&:hover': {
+                                        transform: 'scale(1.1)',
+                                    },
+                                }}
+                            />
+                            <CardContent sx={{ textAlign: 'center' }}>
+                                <Typography gutterBottom variant="h5" component="div">
+                                    Google Health Platform
+                                </Typography>
+                                <Typography variant="body6" color="text.secondary">
+                                    Web Application
+                                </Typography>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
+                </Link>
             </Box>
         )
     }

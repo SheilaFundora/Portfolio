@@ -23,14 +23,14 @@ const FooterInfo = () => {
                 paddingX: {xs: 4, md: 15},
                 flexDirection: { xs: 'column', md: 'row' },
                 alignItems: 'flex-start', // Centrar verticalmente en dispositivos móviles
-                justifyContent: 'space-beetween', // Ajustar el espacio entre los elementos
+                justifyContent: 'center', // Ajustar el espacio entre los elementos
                 flexWrap: 'wrap', // Envolver los elementos si no caben en una sola fila
                 gap: { xs: '40px', md: '80px' }
             }}
             >
-                <Box sx={{ flex: '1 1 calc(35% - 80px)'}}>
+                <Box sx={{ flex: '1 1 calc(33% - 80px)'}}>
                     <h2 className={'name-footer'}>Sheila</h2>
-                    <p className={'text-secondary my-3 text-justify'}>
+                    <p className={'text-secondary my-3 text-justify'}  style={{ textAlign: 'justify' }} >
                         I am a dedicated person in all aspects of my life, committed to professional training, seeking
                         to acquire everything necessary to excel professionally.
                     </p>
@@ -152,7 +152,7 @@ const FooterInfo = () => {
                     </Box>
                 </Box>
 
-                <Box sx={{ flex: '1 1 calc(30% - 80px)'}}>
+                <Box sx={{ flex: '1 1 calc(33% - 80px)'}}>
                     <Box sx={{
                         display: 'flex',
                         flexDirection: 'column', // Mostrar los elementos en una fila horizontal
@@ -211,70 +211,78 @@ const FooterInfo = () => {
                 </Box>
 
                 <Box sx={{
-                    flex: '1 1 calc(35% - 80px)',
+                    flex: '1 1 calc(33% - 80px)',
                     display: 'flex',
+                    justifyContent: 'center', // Ajustar el espacio entre los elementos
                     flexDirection: 'column', // Mostrar los elementos en una fila horizontal
                     flexWrap: 'wrap', // Envolver los elementos si no caben en una sola fila
                     width: '100%', // Asegurar que el contenedor padre ocupe todo el ancho disponibl// Ocultar en pantallas xs y mostrar en pantallas sm y superiores
                 }}>
-                    <TextField
-                        label="Nombre"
-                        type='text'
-                        size="small"
-                        sx={{
-                            width: '350px',
-                            borderRadius: '8px', // Agregar border-radius
-                            '@media (max-width:600px)': {
-                                width: '100%', // Ancho completo en dispositivos con ancho de pantalla de hasta 600px (tamaño móvil)
-                            },
-                        }}
-                    />
-                    <TextField
-                        label="Correo"
-                        type='text'
-                        size="small"
-                        sx={{
-                            width: '350px',
-                            borderRadius: '8px', // Agregar border-radius
-                            marginTop: '10px', // Agregar margin
-                            '@media (max-width:600px)': {
-                                width: '100%', // Ancho completo en dispositivos con ancho de pantalla de hasta 600px (tamaño móvil)
-                            }
-                        }}
-                    />
-                    <TextField
-                        label="Asunto"
-                        type='text'
-                        size="small"
-                        sx={{
-                            width: '350px',
-                            padding: 0,
-                            borderRadius: '8px', // Agregar border-radius
-                            marginTop: '10px', // Agregar margin
-                            '@media (max-width:600px)': {
-                                width: '100%', // Ancho completo en dispositivos con ancho de pantalla de hasta 600px (tamaño móvil)
-                            }
-                        }}
-                    />
-                    <br/>
+                    <div className={'mx-auto text-center mt-3'}>
+                        <TextField
+                            label="Nombre"
+                            type='text'
+                            size="small"
+                            sx={{
+                                width: '350px',
+                                borderRadius: '8px', // Agregar border-radius
+                                '@media (max-width:600px)': {
+                                    width: '100%', // Ancho completo en dispositivos con ancho de pantalla de hasta 600px (tamaño móvil)
+                                },
+                            }}
+                        />
+                    </div>
+                    <div className={'mx-auto text-center mt-3'}>
+                        <TextField
+                            label="Correo"
+                            type='text'
+                            size="small"
+                            sx={{
+                                width: '350px',
+                                borderRadius: '8px', // Agregar border-radius
+                                marginTop: '10px', // Agregar margin
+                                '@media (max-width:600px)': {
+                                    width: '100%', // Ancho completo en dispositivos con ancho de pantalla de hasta 600px (tamaño móvil)
+                                }
+                            }}
+                        />
+                    </div>
+                    <div className={'mx-auto text-center mt-3'}>
+                        <TextField
+                            label="Asunto"
+                            type='text'
+                            size="small"
+                            sx={{
+                                width: '350px',
+                                padding: 0,
+                                borderRadius: '8px', // Agregar border-radius
+                                marginTop: '10px', // Agregar margin
+                                '@media (max-width:600px)': {
+                                    width: '100%', // Ancho completo en dispositivos con ancho de pantalla de hasta 600px (tamaño móvil)
+                                }
+                            }}
+                        />
+                    </div>
+                    <div className={'mx-auto text-center mt-3'}>
+                        <TextField
+                            label="Mensaje"
+                            type='text'
+                            multiline
+                            rows={4}
+                            sx={{
+                                width: '350px',
+                                padding: 0,
+                                borderRadius: '8px', // Agregar border-radius
+                                marginTop: '10px', // Agregar margin
+                                '@media (max-width:600px)': {
+                                    width: '100%', // Ancho completo en dispositivos con ancho de pantalla de hasta 600px (tamaño móvil)
+                                },
+                            }}
+                        />
+                    </div>
 
-                    <TextField
-                        label="Mensaje"
-                        type='text'
-                        multiline
-                        rows={4}
-                        sx={{
-                            width: '350px',
-                            padding: 0,
-                            borderRadius: '8px', // Agregar border-radius
-                            marginTop: '10px', // Agregar margin
-                            '@media (max-width:600px)': {
-                                width: '100%', // Ancho completo en dispositivos con ancho de pantalla de hasta 600px (tamaño móvil)
-                            },
-                        }}
-                    />
-                    <div  className={'mx-auto text-center mt-3'}>
-                        <Button variant="contained"  style={{
+                    <div className={'mx-auto text-center mt-3'}>
+                        <Button variant="contained" style={{
                             backgroundColor: '#05097c',
                             color: 'white'
                         }}>Enviar mensaje</Button>
@@ -286,7 +294,7 @@ const FooterInfo = () => {
             </Box>
 
         </div>
-    );
+);
 };
 
 export default FooterInfo;

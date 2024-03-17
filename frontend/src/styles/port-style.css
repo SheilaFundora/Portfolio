@@ -79,13 +79,8 @@
 }
 
 .text-style{
-    font-family: "Open Sans", sans-serif;
-    /*
-font-family: GeneralSans-Regular;
-*/
-
     color: #5a656e;
-    font-size: 19px;
+    font-size: 16px;
     text-align: justify;
 }
 .card-hov{

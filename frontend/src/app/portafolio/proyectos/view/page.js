@@ -10,46 +10,46 @@ import InformationsProyect from "@/components/Portfolio/proyectComponents/Inform
 
 const items = [
     {
-        src: '/../img/ui-project-1.jpg'
+        src: '/img/ui-project-1.jpg'
 
     },{
-        src: '/../img/ui-project-2.jpg'
+        src: '/img/ui-project-2.jpg'
 
     },
     {
-        src: '/../img/2.png'
+        src: '/img/2.png'
 
     },
     {
-        src: '/../img/4.png'
+        src: '/img/4.png'
 
     },
     {
-        src: '/../img/4.png'
+        src: '/img/4.png'
 
     },
     {
-        src: '/../img/4.png'
+        src: '/img/4.png'
 
     },
     {
-        src: '/../img/4.png'
+        src: '/img/4.png'
 
     },
     {
-        src: '/../img/4.png'
+        src: '/img/4.png'
 
     },
     {
-        src: '/../img/4.png'
+        src: '/img/4.png'
 
     },
     {
-        src: '/../img/4.png'
+        src: '/img/4.png'
 
     },
     {
-        src: '/../img/4.png'
+        src: '/img/4.png'
 
     }
 ]

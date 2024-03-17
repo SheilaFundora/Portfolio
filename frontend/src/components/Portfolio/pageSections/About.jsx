@@ -53,16 +53,16 @@ const About = () => {
 
                     <Grid container spacing={2} sx={{marginTop: {xs: 0, md: 1}}}>
                         <Grid item xs={12} md={8} lg={6}>
-                            <p><b style={{color: '#545556'}}>Birthday:</b> 04/09/2000</p>
-                            <p><b style={{color: '#545556'}}>Phone:</b> +1 754 610 0521</p>
-                            <p><b style={{color: '#545556'}}>City: </b>Estados Unidos, Florida</p>
-                            <p><b style={{color: '#545556'}}>Email: </b>sheilafundora04@gmail.com</p>
+                            <p className={'text-style'}><b>Birthday:</b> 04/09/2000</p>
+                            <p className={'text-style'}><b>Phone:</b> +1 754 610 0521</p>
+                            <p className={'text-style'}><b>City: </b>Estados Unidos, Florida</p>
+                            <p className={'text-style'}><b>Email: </b>sheilafundora04@gmail.com</p>
                         </Grid>
                         <Grid item xs={12} md={8} lg={6}>
-                            <p><b style={{color: '#545556'}}>Degree:</b> Engineer</p>
-                            <p><b style={{color: '#545556'}}>Level: </b>Junior</p>
-                            <p><b style={{color: '#545556'}}>Freelance: </b>Available</p>
-                            <p><b style={{color: '#545556'}}>Remote:</b> Available</p>
+                            <p className={'text-style'}><b>Degree:</b> Engineer</p>
+                            <p className={'text-style'}><b>Level: </b>Junior</p>
+                            <p className={'text-style'}><b>Freelance: </b>Available</p>
+                            <p className={'text-style'}><b>Remote:</b> Available</p>
                         </Grid>
                     </Grid>
 
