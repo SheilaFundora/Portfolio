@@ -6,7 +6,8 @@ const CardInformation = () => {
         <Card elevation={2} style={{
             height: '100%',
             width: {xs: '600px', md: '300px'},
-            marginTop: {xs: '10px', md: '0'}
+            marginLeft: '20px'
+
         }}>
             <CardContent style={{
                 height: '100%',

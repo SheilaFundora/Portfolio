@@ -9,6 +9,7 @@ const CarrouselImage = ({items}) => {
             height: {xs: '300px', md: '400px'},
             border: 'none',
             justifyContent: 'flex-start',
+            marginBottom: '30px'
         }}
                   indicatorIconButtonProps={{ style: { display: 'none' } }}
         >

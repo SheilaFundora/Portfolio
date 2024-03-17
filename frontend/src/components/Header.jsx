@@ -65,17 +65,17 @@ function Header() {
                                 {/* Oculta la imagen en dispositivos móviles */}
                                 <Hidden only={['xs', 'sm']}>
                                     <Image
-                                        src={'/../img/logo.svg'}
+                                        src={'/../img/logotipo.jpg'}
                                         alt={'Logotipo'}
-                                        width={200}
-                                        height={80}
+                                        width={180}
+                                        height={70}
                                     />
                                 </Hidden>
 
                                 {/* Muestra la imagen pequeña en pantallas pequeñas */}
                                 <Hidden only={['md', 'lg', 'xl']}>
                                     <Image
-                                        src={'/../img/logo.svg'}
+                                        src={'/img/logotipo.jpg'}
                                         alt={'Logotipo'}
                                         width={150}
                                         height={70}
@@ -128,7 +128,7 @@ function Header() {
                                 </Box>
                             </div>
                             <Box sx={{marginLeft: '20px', display: {xs: 'none', md: 'flex'}}}>
-                                <Link href={'/adminCompoents'}
+                                <Link href={'/login/'}
                                       underline="none"
                                       className={`link-sidebar-admin ${pathname === '/adminCompoents' ? 'active' : ''}`}
                                 >

@@ -31,7 +31,6 @@ export default function Home() {
             <Skills />
 
             <Box sx={{paddingX: {xs: 4, md: '120px'}}}>
-                <br/>
                 <NameSections name={'Servicios'}/>
                 <Services />
             </Box>

@@ -26,7 +26,7 @@ const FirstSection = () => {
             }}
         >
             <Box sx={{ textAlign: { xs: 'center', md: 'left'}, marginTop: {xs:'50px', md:'0'} }}>
-                <h2 style={{ fontWeight: 'bold'}}>HI, IAM STOMAN</h2>
+                <h2 style={{ fontWeight: 'bold'}}>HI, IAM Sheila</h2>
                 <h4 style={{ color: 'gray', marginTop: '15px'}}>A Full-Stack Developer & Design Enthusiast</h4>
                 <button className={'dow-cv'} onClick={handleDownload}>
                     <ListItemButton>
@@ -39,7 +39,7 @@ const FirstSection = () => {
             <Box sx={{width: {xs: '100%', md: '65%'}, marginTop: {xs: 2, md: 0}}}>
 
                 <motion.img
-                    src={'../img/developer.svg'}
+                    src={'/img/developer.svg'}
                     initial={{y: -120}}
                     animate={{y: 0}}
                     transition={{duration: 1}}

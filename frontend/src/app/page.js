@@ -14,10 +14,10 @@ export default function Home() {
     return (
         <div className={'pt-5 mx-auto text-center'}>
             <Image
-                src={'/../img/logo-light.svg'}
+                src={'/img/favorite.jpg'}
                 alt={'Logotipo'}
-                width={200}
-                height={80}
+                width={100}
+                height={100}
             />
             <Loading infoText={'Cargando ...'}/>
         </div>
