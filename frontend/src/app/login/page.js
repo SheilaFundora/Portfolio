@@ -54,6 +54,7 @@ export default function SignIn() {
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
+                        marginX: 3
                     }}
                 >
                     <div className={'my-2'}>
