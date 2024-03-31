@@ -65,7 +65,7 @@ function Header() {
                                 {/* Oculta la imagen en dispositivos móviles */}
                                 <Hidden only={['xs', 'sm']}>
                                     <Image
-                                        src={'/../img/logotipo.jpg'}
+                                        src={'/img/logotipo.jpg'}
                                         alt={'Logotipo'}
                                         width={180}
                                         height={70}
@@ -127,10 +127,11 @@ function Header() {
                                     </List>
                                 </Box>
                             </div>
+
                             <Box sx={{marginLeft: '20px', display: {xs: 'none', md: 'flex'}}}>
-                                <Link href={'/login/'}
+                                <Link href={'/login'}
                                       underline="none"
-                                      className={`link-sidebar-admin ${pathname === '/adminCompoents' ? 'active' : ''}`}
+                                      className={`link-sidebar-admin ${pathname === '/login' ? 'active' : ''}`}
                                 >
                                     <ListItemIcon>
                                         <PersonIcon style={{fontSize: '35px'}}

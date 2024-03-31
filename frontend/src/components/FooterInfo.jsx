@@ -11,6 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import FormContact from "@/components/Portfolio/other/formContact";
 
 const FooterInfo = () => {
     return (
@@ -210,85 +211,7 @@ const FooterInfo = () => {
                     </Box>
                 </Box>
 
-                <Box sx={{
-                    flex: '1 1 calc(33% - 80px)',
-                    display: 'flex',
-                    justifyContent: 'center', // Ajustar el espacio entre los elementos
-                    flexDirection: 'column', // Mostrar los elementos en una fila horizontal
-                    flexWrap: 'wrap', // Envolver los elementos si no caben en una sola fila
-                    width: '100%', // Asegurar que el contenedor padre ocupe todo el ancho disponibl// Ocultar en pantallas xs y mostrar en pantallas sm y superiores
-                }}>
-                    <div className={'mx-auto text-center mt-3'}>
-                        <TextField
-                            label="Nombre"
-                            type='text'
-                            size="small"
-                            sx={{
-                                width: '350px',
-                                borderRadius: '8px', // Agregar border-radius
-                                '@media (max-width:600px)': {
-                                    width: '100%', // Ancho completo en dispositivos con ancho de pantalla de hasta 600px (tamaño móvil)
-                                },
-                            }}
-                        />
-                    </div>
-                    <div className={'mx-auto text-center mt-3'}>
-                        <TextField
-                            label="Correo"
-                            type='text'
-                            size="small"
-                            sx={{
-                                width: '350px',
-                                borderRadius: '8px', // Agregar border-radius
-                                marginTop: '10px', // Agregar margin
-                                '@media (max-width:600px)': {
-                                    width: '100%', // Ancho completo en dispositivos con ancho de pantalla de hasta 600px (tamaño móvil)
-                                }
-                            }}
-                        />
-                    </div>
-                    <div className={'mx-auto text-center mt-3'}>
-                        <TextField
-                            label="Asunto"
-                            type='text'
-                            size="small"
-                            sx={{
-                                width: '350px',
-                                padding: 0,
-                                borderRadius: '8px', // Agregar border-radius
-                                marginTop: '10px', // Agregar margin
-                                '@media (max-width:600px)': {
-                                    width: '100%', // Ancho completo en dispositivos con ancho de pantalla de hasta 600px (tamaño móvil)
-                                }
-                            }}
-                        />
-                    </div>
-                    <div className={'mx-auto text-center mt-3'}>
-                        <TextField
-                            label="Mensaje"
-                            type='text'
-                            multiline
-                            rows={4}
-                            sx={{
-                                width: '350px',
-                                padding: 0,
-                                borderRadius: '8px', // Agregar border-radius
-                                marginTop: '10px', // Agregar margin
-                                '@media (max-width:600px)': {
-                                    width: '100%', // Ancho completo en dispositivos con ancho de pantalla de hasta 600px (tamaño móvil)
-                                },
-                            }}
-                        />
-                    </div>
-
-                    <div className={'mx-auto text-center mt-3'}>
-                        <Button variant="contained" style={{
-                            backgroundColor: '#05097c',
-                            color: 'white'
-                        }}>Enviar mensaje</Button>
-                    </div>
-
-                </Box>
+                <FormContact />
 
 
             </Box>

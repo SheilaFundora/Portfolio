@@ -55,7 +55,7 @@ const MyMenuModal = ({ open, onClose, pages, pathname }) => {
             </List>
 
             <Box sx={{ marginLeft: '18px', display: {xs: 'flex', md: 'none'} }}>
-                <Link href={'/adminCompoents'}
+                <Link href={'/login'}
                       underline="none"
                       onClick={onClose}
                       className={`link-sidebar ${pathname === '/adminCompoents' ? 'active' : ''}`}
