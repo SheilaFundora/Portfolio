@@ -21,6 +21,7 @@ import "../../styles/adminStyle.css"
 import {Button, ListItemText, Menu, MenuItem} from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Link from "next/link";
+import ContentsDrawer from "@/components/adminCompoents/Sidebar/DrawerPersonalized";
 
 const drawerWidth = 280;
 
@@ -28,20 +29,12 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
         flexGrow: 1,
         padding: theme.spacing(3),
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
         marginLeft: `-${drawerWidth}px`,
         ...(open && {
-            transition: theme.transitions.create('margin', {
-                easing: theme.transitions.easing.easeOut,
-                duration: theme.transitions.duration.enteringScreen,
-            }),
             marginLeft: 0,
+            padding: theme.spacing(5),
         }),
         background: 'red', // Establece el fondo como transparente
-
     }),
 );
 
@@ -51,14 +44,6 @@ const AppBar = styled(MuiAppBar, {
     transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
-    }),
-    ...(open && {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: `${drawerWidth}px`,
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
     }),
     background: 'none', // Establece el fondo como transparente
     border: 'none', // Quita el borde
@@ -75,138 +60,112 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft({children}) {
-    const theme = useTheme();
-    const [open, setOpen] = React.useState(true);
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = React.useState(false);
+    const [openDrawer, setOpenDrawer] = React.useState(true);
 
-
-    const handleDrawerOpen = () => {
-        setOpen(true);
+    const handleOpenDrawer = () => {
+      setOpenDrawer(!openDrawer);
     };
-
     const handleSetAnchor = () => {
         setAnchorEl(!anchorEl);
-    };
-
-    const handleDrawerClose = () => {
-        setOpen(false);
     };
 
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar position="fixed" open={open}>
+
+            <AppBar position="fixed" open={openDrawer} >
+              <Box sx={{ display: 'flex', justifyContent: 'space-between'}}>
+                <Toolbar>
+                  <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    edge="start"
+                    onClick={handleOpenDrawer}
+                    sx={{
+                      mr: 2,
+                      display: { xs: openDrawer ? 'block' : 'block', sm: 'none' },
+                      color: 'gray',
+                      padding: 2
+                    }}
+                  >
+                    <MenuIcon  sx={{fontSize: '28px'}}/>
+                  </IconButton>
+                </Toolbar>
+
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginY: 2, marginX: 3 }}>
-                    <IconButton onClick={handleSetAnchor}>
-                        <Avatar alt="Cindy Baker" src={'/img/me.jpg'} sx={{ width: 50, height: 50 }} />
-                    </IconButton>
+                  <IconButton onClick={handleSetAnchor}>
+                    <Avatar alt="Cindy Baker" src={'/img/me.jpg'} sx={{ width: 50, height: 50 }} />
+                  </IconButton>
                 </Box>
                 <Menu
-                    anchorEl={anchorEl}
-                    open={Boolean(anchorEl)}
-                    onClose={handleSetAnchor}
-                    sx={{ marginTop: '70px'}}
-                    anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                    }}
-                    transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                    }}
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={handleSetAnchor}
+                  sx={{ marginTop: '70px'}}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
                 >
-                    <MenuItem>
-                        <Link href="/login" underline="none">
-                            <Typography sx={{ color: 'black' }}>Cerrar sesión</Typography>
-                        </Link>
-                    </MenuItem>
+                  <MenuItem>
+                    <Link href="/login" underline="none" style={{ textDecoration: 'none' }}>
+                      <Typography sx={{ color: 'black' }}>Cerrar sesión</Typography>
+                    </Link>
 
-
+                  </MenuItem>
                 </Menu>
+              </Box>
             </AppBar>
+
+            <Drawer
+              sx={{
+                width: drawerWidth,
+                display: { xs: 'block', sm: 'none' },
+                '& .MuiDrawer-paper': {
+                  width: drawerWidth,
+                  boxSizing: 'border-box',
+                  backgroundColor: '#1C2536', // Color de fondo del Drawer
+                  color: 'white', // Color del texto en el Drawer
+                },
+              }}
+              variant="temporary"
+              anchor="left"
+              open={!openDrawer}
+              onClose={handleOpenDrawer}
+              ModalProps={{
+                keepMounted: true, // Better open performance on mobile.
+              }}
+            >
+              <ContentsDrawer/>
+            </Drawer>
 
             <Drawer
                 sx={{
                     width: drawerWidth,
-                    flexShrink: 0,
+                    display: { xs: 'none', sm: 'block' },
                     '& .MuiDrawer-paper': {
-                        width: drawerWidth,
-                        boxSizing: 'border-box',
-                        backgroundColor: '#1C2536', // Color de fondo del Drawer
-                        color: 'white', // Color del texto en el Drawer
+                          width: drawerWidth,
+                          boxSizing: 'border-box',
+                          backgroundColor: '#1C2536', // Color de fondo del Drawer
+                          color: 'white', // Color del texto en el Drawer
                     },
                 }}
-                variant="persistent"
+                variant="permanent"
                 anchor="left"
-                open={open}
+                open={openDrawer}
+                ModalProps={{
+                  keepMounted: true, // Better open performance on mobile.
+                }}
             >
-
-                <Box sx={{ p: 3 }}>
-                    <DrawerHeader>
-                        <Box
-                            component={NextLink}
-                            href="/"
-                            sx={{
-                                display: 'inline-flex',
-                                height: 32,
-                                width: 32
-                            }}
-                        >
-                            <Logo />
-                        </Box>
-                        <IconButton onClick={handleDrawerClose}   sx={{
-                            color: 'gray', // Color del ícono
-                            padding: 0, // Elimina el padding interno del IconButton
-                            margin: 0, // Elimina el margen del IconButton
-                        }}>
-                            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-                        </IconButton>
-                    </DrawerHeader>
-                    <Box
-                        sx={{
-                            alignItems: 'center',
-                            backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                            borderRadius: 1,
-                            cursor: 'pointer',
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            mt: 2,
-                            p: '12px'
-                        }}
-                    >
-                        <div>
-                            <Typography
-                                color="inherit"
-                                variant="subtitle1"
-                            >
-                                Sheila
-                            </Typography>
-                            <Typography
-                                sx={{ color: 'gray'}}
-                                variant="body2"
-                            >
-                                Panel de administración
-                            </Typography>
-                        </div>
-                    </Box>
-                </Box>
-
-                <Divider sx={{ borderColor: 'neutral.700' }} />
-
-                <Box sx={{ marginTop: 2}}>
-                    <List>
-                        {
-                            pagesAdmin.map((page) => (
-                                <SideBarItems key={page.name} route={page.link} name={page.name} icon={page.icon}/>
-                            ))
-                        }
-
-                    </List>
-                </Box>
-
+              <ContentsDrawer/>
             </Drawer>
 
-            <Main open={open}  sx={{
+            <Main open={openDrawer}  sx={{
                 backgroundColor: (theme) =>
                     theme.palette.mode === 'light'
                         ? theme.palette.grey[100]
