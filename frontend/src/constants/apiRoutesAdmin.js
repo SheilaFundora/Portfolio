@@ -1,51 +1,51 @@
-import PeopleIcon from '@mui/icons-material/People';
+import PersonIcon from '@mui/icons-material/Person';
+import PublicIcon from '@mui/icons-material/Public';
+import CodeIcon from '@mui/icons-material/Code';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import ImageIcon from '@mui/icons-material/Image';
+import DesignServicesIcon from '@mui/icons-material/DesignServices';
+import WorkIcon from '@mui/icons-material/Work';
 
 export const pagesAdmin = [
     {
-        name: 'Inicio',
+        name: 'Person',
         link: '/admin',
-        icon: <PeopleIcon/>
+        icon: <PersonIcon/>
     },
     {
-        name: 'Persona',
+        name: 'Social Network',
         link: '/proyectos',
-        icon: <PeopleIcon/>
+        icon: <PublicIcon/>
 
     },
     {
-        name: 'Redes Sociales',
+        name: 'Skills',
         link: '/proyectos',
-        icon: <PeopleIcon/>
+        icon: <CodeIcon/>
 
     },
     {
-        name: 'Portafolio',
+        name: 'Project',
         link: '/proyectos',
-        icon: <PeopleIcon/>
+        icon: <WorkIcon/>
 
     },
     {
-        name: 'Trabajo',
+        name: 'Resume',
         link: '/proyectos',
-        icon: <PeopleIcon/>
+        icon: <LibraryBooksIcon/>
 
     },
     {
-        name: 'Tecnlogias',
+        name: 'Images',
         link: '/contacto',
-        icon: <PeopleIcon/>
+        icon: <ImageIcon/>
     }
     ,
     {
-        name: 'Portafolio',
+        name: 'Services',
         link: '/proyectos',
-        icon: <PeopleIcon/>
+        icon: <DesignServicesIcon/>
 
-    },
-    {
-        name: 'Trabajo',
-        link: '/proyectos',
-        icon: <PeopleIcon/>
-
-    },
+    }
 ];
