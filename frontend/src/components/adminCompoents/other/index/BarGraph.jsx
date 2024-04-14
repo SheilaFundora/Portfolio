@@ -19,15 +19,18 @@ export const BarGraph = ({sx='100%'}) => {
       <CardHeader
         title="Views"
       />
-      <CardContent>
-        <BarChart
-          xAxis={[{ scaleType: 'band', data: monthsAbbreviated }]}
-          series={[{ data }]}
-          width={650}
-          height={230}
+      <div style={{overflow: 'auto', maxHeight: '230px'}}>
+        <CardContent>
+          <BarChart
+            xAxis={[{scaleType: 'band', data: monthsAbbreviated}]}
+            series={[{data}]}
+            width={600}
+            height={190}
+          />
+        </CardContent>
+      </div>
 
-        />
-      </CardContent>
+
     </Card>
 
   );

@@ -9,42 +9,42 @@ import WorkIcon from '@mui/icons-material/Work';
 export const pagesAdmin = [
     {
         name: 'Person',
-        link: '/admin',
+        link: '/admin/person',
         icon: <PersonIcon/>
     },
     {
         name: 'Social Network',
-        link: '/proyectos',
+        link: '/admin/socialNetworks',
         icon: <PublicIcon/>
 
     },
     {
         name: 'Skills',
-        link: '/proyectos',
+        link: '/admin/skills',
         icon: <CodeIcon/>
 
     },
     {
         name: 'Project',
-        link: '/proyectos',
+        link: '/admin/project',
         icon: <WorkIcon/>
 
     },
     {
         name: 'Resume',
-        link: '/proyectos',
+        link: '/admin/resume',
         icon: <LibraryBooksIcon/>
 
     },
     {
         name: 'Images',
-        link: '/contacto',
+        link: '/admin/images',
         icon: <ImageIcon/>
     }
     ,
     {
         name: 'Services',
-        link: '/proyectos',
+        link: '/admin/services',
         icon: <DesignServicesIcon/>
 
     }

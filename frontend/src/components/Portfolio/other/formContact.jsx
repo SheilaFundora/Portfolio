@@ -58,6 +58,7 @@ const FormContact = () => {
                         id="email"
                         type="email"
                         name="email"
+                        required
                         value={formData.email}
                         onChange={handleChange}
                         size="small"
@@ -107,6 +108,7 @@ const FormContact = () => {
                     <TextField
                         label="Mensaje"
                         type='text'
+                        required
                         id="message"
                         name="message"
                         multiline

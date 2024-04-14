@@ -22,42 +22,11 @@ import {Button, ListItemText, Menu, MenuItem} from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Link from "next/link";
 import ContentsDrawer from "@/components/adminCompoents/Sidebar/DrawerPersonalized";
+import {useEffect, useState} from "react";
+import 'primereact/resources/themes/lara-light-indigo/theme.css'
+import 'primereact/resources/primereact.min.css'
 
 const drawerWidth = 280;
-
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
-        flexGrow: 1,
-        padding: theme.spacing(3),
-        marginLeft: `-${drawerWidth}px`,
-        ...(open && {
-            marginLeft: 0,
-            padding: theme.spacing(5),
-        }),
-        background: 'red', // Establece el fondo como transparente
-    }),
-);
-
-const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-    transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-    }),
-    background: 'none', // Establece el fondo como transparente
-    border: 'none', // Quita el borde
-    boxShadow: 'none', // Quita la sombra
-}));
-
-
-const DrawerHeader = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: 'space-between',
-}));
 
 export default function PersistentDrawerLeft({children}) {
     const [anchorEl, setAnchorEl] = React.useState(false);
@@ -70,11 +39,48 @@ export default function PersistentDrawerLeft({children}) {
         setAnchorEl(!anchorEl);
     };
 
-    return (
+
+  const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
+    ({ theme, open }) => ({
+      flexGrow: 1,
+      padding: theme.spacing(3),
+      marginLeft: `-${drawerWidth}px`,
+      ...(open && {
+        marginLeft: 0,
+        padding: theme.spacing(5),
+      }),
+    }),
+  );
+
+  const AppBar = styled(MuiAppBar, {
+    shouldForwardProp: (prop) => prop !== 'open',
+  })(({ theme, open, showShadow }) => ({
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    border: 'none', // Quita el borde
+    backgroundColor: '#f5f5f5',
+    boxShadow: 'none',
+  }));
+
+
+  const DrawerHeader = styled('div')(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: 'space-between',
+  }));
+
+
+  return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
 
-            <AppBar position="fixed" open={openDrawer} >
+            <AppBar position="fixed"
+                    open={openDrawer}
+            >
               <Box sx={{ display: 'flex', justifyContent: 'space-between'}}>
                 <Toolbar>
                   <IconButton
