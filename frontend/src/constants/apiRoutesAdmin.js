@@ -5,6 +5,7 @@ import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import ImageIcon from '@mui/icons-material/Image';
 import DesignServicesIcon from '@mui/icons-material/DesignServices';
 import WorkIcon from '@mui/icons-material/Work';
+import BookmarksIcon from '@mui/icons-material/Bookmarks';
 
 export const pagesAdmin = [
     {
@@ -46,6 +47,12 @@ export const pagesAdmin = [
         name: 'Services',
         link: '/admin/services',
         icon: <DesignServicesIcon/>
+
+    },
+    {
+      name: 'Section',
+      link: '/admin/section',
+      icon: <BookmarksIcon/>
 
     }
 ];
