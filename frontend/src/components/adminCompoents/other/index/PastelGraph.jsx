@@ -21,7 +21,7 @@ const PastelGraph = () => {
         <PieChart
           series={[{data: datas}]}
           width={370}
-          height={230}
+          height={190}
           slotProps={{
             legend: { hidden: true },
           }}        />

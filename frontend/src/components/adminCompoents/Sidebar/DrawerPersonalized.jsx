@@ -23,7 +23,7 @@ const ContentsDrawer = ({ }) => {
           <DrawerHeader>
             <Box
               component={NextLink}
-              href="/"
+              href="/admin"
               sx={{
                 display: 'inline-flex',
                 height: 32,

@@ -2,13 +2,13 @@ import React from 'react';
 import Box from "@mui/material/Box";
 import {Grid} from "@mui/material";
 import Container from "@mui/material/Container";
-import CardIndex from "@/components/adminCompoents/other/CardIndex";
+import CardIndex from "@/components/adminCompoents/other/index/CardIndex";
 import {CurrencyDollarIcon} from "@heroicons/react/16/solid";
 import CodeIcon from '@mui/icons-material/Code';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import LanguageIcon from '@mui/icons-material/Language';
-import {BarGraph} from "@/components/adminCompoents/other/BarGraph";
-import PastelGraph from "@/components/adminCompoents/other/PastelGraph";
+import {BarGraph} from "@/components/adminCompoents/other/index/BarGraph";
+import PastelGraph from "@/components/adminCompoents/other/index/PastelGraph";
 
 const Page = () => {
     return (
@@ -64,6 +64,7 @@ const Page = () => {
               item
               xs={12}
               lg={8}
+              sx={{marginTop: 3}}
             >
               <BarGraph/>
             </Grid>
@@ -72,6 +73,7 @@ const Page = () => {
               item
               xs={12}
               lg={4}
+              sx={{marginTop: 3}}
             >
               <PastelGraph />
 
