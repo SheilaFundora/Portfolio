@@ -8,4 +8,5 @@ export class CreateServiceDto {
 
 
     description:string;
+    icon: Buffer;
 }
