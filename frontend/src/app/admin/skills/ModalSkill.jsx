@@ -15,16 +15,30 @@ const ModalSkill = ({handleClickOpen}) => {
       <form onSubmit={handleSubmit(handleSubmitSkills)}>
         <DialogContent>
           <h4 className='mt-4 text-center'>Form to add Skill</h4>
-
-
+          <TextField
+            label="Name"
+            type='text'
+            sx={{m: 2, width: '245px'}}
+            {...register("name", {
+              required: 'Required field'
+            })}
+            error={!!errors.name}
+            helperText={errors.nombre && errors.name.message}
+          />
           <div className={'d-flex w-100 align-items-center justify-content-between'}>
             <TextField
-              label="Name"
+              label="Percent"
               type='text'
-              sx={{m: 2, width: '500px'}}
-              {...register("nombre", {
-                required: 'Required field'
-              })}
+              sx={{m: 2, width: '250px'}}
+              {...register("percent")}
+              error={!!errors.nombre}
+              helperText={errors.nombre && errors.nombre.message}
+            />
+
+            <TextField
+              type='file'
+              sx={{m: 2, width: '250px'}}
+              {...register("icon")}
               error={!!errors.nombre}
               helperText={errors.nombre && errors.nombre.message}
             />

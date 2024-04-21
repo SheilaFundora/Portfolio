@@ -1,6 +1,6 @@
 import React from 'react';
-import TittleSecion from "@/components/Portfolio/resume/ContentResume/TittleSecion";
-import Tittle from "@/components/Portfolio/resume/ContentResume/Tittle";
+import TitleSection from "@/components/Portfolio/resume/ContentResume/TitleSection";
+import Title from "@/components/Portfolio/resume/ContentResume/Title";
 import DatesAndPlace from "@/components/Portfolio/resume/ContentResume/DatesAndPlace";
 import TextDescriptive from "@/components/Portfolio/resume/ContentResume/TextDescriptive";
 import ListInfo from "@/components/Portfolio/resume/ContentResume/ListInfo";
@@ -28,13 +28,13 @@ const awards = [
 const Education = () => {
     return (
         <div>
-            <TittleSecion name={'Education'}/>
+            <TitleSection name={'Education'}/>
             <div className={'resume-item'}>
-                <Tittle name={'UCI'} subinfo={'Universidad de las Ciencias Informáticas'} linkPlace={'dd'}/>
+                <Title name={'UCI'} subinfo={'Universidad de las Ciencias Informáticas'} linkPlace={'dd'}/>
                 <DatesAndPlace info={'2021 - Present | La Habana Cuba'}/>
                 <TextDescriptive text={'Informatic Science Engineer'}/>
                 <ListInfo info={educationInfo}/>
-                <Tittle name={'Awards'} />
+                <Title name={'Awards'} />
                 <ListInfo info={awards}/>
             </div>
 

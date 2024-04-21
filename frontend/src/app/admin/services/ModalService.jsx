@@ -8,7 +8,7 @@ const ModalService = ({handleClickOpen}) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmitService= async (data) => {
-    console.log(data)
+    console.log( data);
   }
   return (
     <Box>
@@ -19,16 +19,41 @@ const ModalService = ({handleClickOpen}) => {
 
           <div className={'d-flex w-100 align-items-center justify-content-between'}>
             <TextField
-              label="Name"
+              label="Title"
               type='text'
-              sx={{m: 2, width: '500px'}}
-              {...register("nombre", {
+              sx={{m: 2, width: '250px'}}
+              {...register("title", {
                 required: 'Required field'
               })}
-              error={!!errors.nombre}
-              helperText={errors.nombre && errors.nombre.message}
+              error={!!errors.title}
+              helperText={errors.title && errors.tttle.message}
+            />
+            <TextField
+              label="Icon"
+              type='text'
+              sx={{m: 2, width: '250px'}}
+              {...register("icon", {
+                required: 'Required field'
+              })}
+              error={!!errors.icon}
+              helperText={errors.icon && errors.icon.message}
             />
           </div>
+
+          <TextField
+            label="Description"
+            type='text'
+            required
+            multiline
+            rows={4}
+            sx={{m: 2, width: '520px'}}
+            {...register("description", {
+              required: 'Required field'
+            })}
+            error={!!errors.description}
+            helperText={errors.description && errors.description.message}
+          />
+
 
           {errorMessage && <div className='error-message text-danger text-start ms-4'>{errorMessage}</div>}
 

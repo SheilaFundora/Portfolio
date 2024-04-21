@@ -120,7 +120,7 @@ export default function PersistentDrawerLeft({children}) {
                 >
                   <MenuItem>
                     <Link href="/login" underline="none" style={{ textDecoration: 'none' }}>
-                      <Typography sx={{ color: 'black' }}>Cerrar sesión</Typography>
+                      <Typography sx={{ color: 'black' }}>Logout</Typography>
                     </Link>
 
                   </MenuItem>
