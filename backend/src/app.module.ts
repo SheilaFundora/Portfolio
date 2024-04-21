@@ -3,7 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { UsuarioModule } from './usuario/user.module';
-import { PersonModule } from './person/person.module';
+
 import { ProjectModule } from './project/project.module';
 import { ProjectImgModule } from './project-img/project-img.module';
 import { SectionModule } from './section/section.module';
@@ -13,6 +13,8 @@ import { PhotoModule } from './photo/photo.module';
 import { ResumeModule } from './resume/resume.module';
 import { SkillModule } from './skill/skill.module';
 import { DataSourceConfig } from './database/data.source';
+import { LenguajesModule } from './lenguajes/lenguajes.module';
+
 
 @Module({
   imports: [
@@ -21,8 +23,8 @@ import { DataSourceConfig } from './database/data.source';
       isGlobal: true
     }),
     TypeOrmModule.forRoot({...DataSourceConfig}),
-    TypeOrmModule.forFeature([UsuarioModule, PersonModule, ProjectModule, ProjectImgModule, SectionModule, SocialNetworkModule, ServicesModule, PhotoModule, ResumeModule, SkillModule])
-  ],
+    UsuarioModule,PhotoModule,
+     ProjectModule, ProjectImgModule, SectionModule, SocialNetworkModule, ServicesModule, ResumeModule, SkillModule, LenguajesModule],
   controllers: [],
   providers: [],
 })

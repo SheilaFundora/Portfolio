@@ -1,9 +1,8 @@
 export class CreateResumeDto {
 
 
-    id:number;
 
-    title:string;
+    titleImpt:string;
 
     date_init:string;
 
@@ -11,13 +10,15 @@ export class CreateResumeDto {
 
     description:string;
 
-    company:string;
+    titleSecondary:string;
 
     link:string;
 
-    employer:string;
+    country:string;
 
     city:string;
     
     name_section:string;
+
+    subtitle:string;
 }

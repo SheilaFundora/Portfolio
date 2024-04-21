@@ -8,9 +8,10 @@ export class Services {
     id:number;
     @Column({nullable:false})
     name:string;
-
     @Column({nullable:false,type:'varchar'})
     description:string;
+    @Column({ type: 'bytea', nullable: true })
+    icon: Buffer;
 
 
     
