@@ -16,14 +16,14 @@ const ModalSection = ({handleClickOpen}) => {
         <DialogContent>
           <h4 className='mt-4 text-center'>Form to add Section</h4>
           <TextField
-            label="Tittle"
+            label="Title"
             type='text'
             sx={{m: 2, width: '500px'}}
-            {...register("tittle", {
+            {...register("title", {
               required: 'Required field'
             })}
-            error={!!errors.nombre}
-            helperText={errors.nombre && errors.nombre.message}
+            error={!!errors.title}
+            helperText={errors.title && errors.title.message}
           />
           <TextField
             label="Description"

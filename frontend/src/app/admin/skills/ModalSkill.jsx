@@ -30,9 +30,7 @@ const ModalSkill = ({handleClickOpen}) => {
               label="Percent"
               type='text'
               sx={{m: 2, width: '250px'}}
-              {...register("percent", {
-                required: 'Required field'
-              })}
+              {...register("percent")}
               error={!!errors.nombre}
               helperText={errors.nombre && errors.nombre.message}
             />
@@ -40,9 +38,7 @@ const ModalSkill = ({handleClickOpen}) => {
             <TextField
               type='file'
               sx={{m: 2, width: '250px'}}
-              {...register("icon", {
-                required: 'Required field'
-              })}
+              {...register("icon")}
               error={!!errors.nombre}
               helperText={errors.nombre && errors.nombre.message}
             />

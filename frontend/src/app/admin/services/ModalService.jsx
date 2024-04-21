@@ -8,16 +8,7 @@ const ModalService = ({handleClickOpen}) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmitService= async (data) => {
-    if (typeof data === 'string') {
-      const lines = data.split('\n');
-      console.log(lines);
-      console.log(lines);
-    } else {
-      console.log('Data is not a string');
-      return null;
-    }
-
-
+    console.log( data);
   }
   return (
     <Box>
@@ -28,14 +19,14 @@ const ModalService = ({handleClickOpen}) => {
 
           <div className={'d-flex w-100 align-items-center justify-content-between'}>
             <TextField
-              label="Tittle"
+              label="Title"
               type='text'
               sx={{m: 2, width: '250px'}}
-              {...register("tittle", {
+              {...register("title", {
                 required: 'Required field'
               })}
-              error={!!errors.tittle}
-              helperText={errors.tittle && errors.tittle.message}
+              error={!!errors.title}
+              helperText={errors.title && errors.tttle.message}
             />
             <TextField
               label="Icon"

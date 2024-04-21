@@ -101,6 +101,23 @@ export default function SignIn() {
                         >
                             Acceder
                         </Button>
+
+                      <Box
+                        sx={{
+                          marginTop: 1,
+                          color: '#0d6efd',
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                        }}
+                      >
+                        <Link href="/register" underline="none" sx={{ fontSize: '14px', color: 'inherit' }}>
+                          Register now
+                        </Link>
+{/*
+                        <Link href="/forgot-password" underline="none" sx={{  fontSize: '14px', color: 'inherit' }}>Forgot password ?</Link>
+*/}
+
+                      </Box>
                     </Box>
                 </Box>
                 <Copyright sx={{ mt: 8, mb: 4 }} />
