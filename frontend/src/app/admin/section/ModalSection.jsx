@@ -15,20 +15,29 @@ const ModalSection = ({handleClickOpen}) => {
       <form onSubmit={handleSubmit(handleSubmitSection)}>
         <DialogContent>
           <h4 className='mt-4 text-center'>Form to add Section</h4>
-
-
-          <div className={'d-flex w-100 align-items-center justify-content-between'}>
-            <TextField
-              label="Name"
-              type='text'
-              sx={{m: 2, width: '500px'}}
-              {...register("nombre", {
-                required: 'Required field'
-              })}
-              error={!!errors.nombre}
-              helperText={errors.nombre && errors.nombre.message}
-            />
-          </div>
+          <TextField
+            label="Tittle"
+            type='text'
+            sx={{m: 2, width: '500px'}}
+            {...register("tittle", {
+              required: 'Required field'
+            })}
+            error={!!errors.nombre}
+            helperText={errors.nombre && errors.nombre.message}
+          />
+          <TextField
+            label="Description"
+            type='text'
+            required
+            multiline
+            rows={4}
+            sx={{m: 2, width: '500px'}}
+            {...register("description", {
+              required: 'Required field'
+            })}
+            error={!!errors.description}
+            helperText={errors.description && errors.description.message}
+          />
 
           {errorMessage && <div className='error-message text-danger text-start ms-4'>{errorMessage}</div>}
 

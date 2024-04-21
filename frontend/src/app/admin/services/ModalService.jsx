@@ -8,7 +8,16 @@ const ModalService = ({handleClickOpen}) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmitService= async (data) => {
-    console.log(data)
+    if (typeof data === 'string') {
+      const lines = data.split('\n');
+      console.log(lines);
+      console.log(lines);
+    } else {
+      console.log('Data is not a string');
+      return null;
+    }
+
+
   }
   return (
     <Box>
@@ -19,16 +28,41 @@ const ModalService = ({handleClickOpen}) => {
 
           <div className={'d-flex w-100 align-items-center justify-content-between'}>
             <TextField
-              label="Name"
+              label="Tittle"
               type='text'
-              sx={{m: 2, width: '500px'}}
-              {...register("nombre", {
+              sx={{m: 2, width: '250px'}}
+              {...register("tittle", {
                 required: 'Required field'
               })}
-              error={!!errors.nombre}
-              helperText={errors.nombre && errors.nombre.message}
+              error={!!errors.tittle}
+              helperText={errors.tittle && errors.tittle.message}
+            />
+            <TextField
+              label="Icon"
+              type='text'
+              sx={{m: 2, width: '250px'}}
+              {...register("icon", {
+                required: 'Required field'
+              })}
+              error={!!errors.icon}
+              helperText={errors.icon && errors.icon.message}
             />
           </div>
+
+          <TextField
+            label="Description"
+            type='text'
+            required
+            multiline
+            rows={4}
+            sx={{m: 2, width: '520px'}}
+            {...register("description", {
+              required: 'Required field'
+            })}
+            error={!!errors.description}
+            helperText={errors.description && errors.description.message}
+          />
+
 
           {errorMessage && <div className='error-message text-danger text-start ms-4'>{errorMessage}</div>}
 

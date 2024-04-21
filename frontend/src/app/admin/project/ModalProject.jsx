@@ -22,7 +22,17 @@ const ModalProject = ({handleClickOpen}) => {
               label="Name"
               type='text'
               sx={{m: 2, width: '500px'}}
-              {...register("nombre", {
+              {...register("name", {
+                required: 'Required field'
+              })}
+              error={!!errors.nombre}
+              helperText={errors.nombre && errors.nombre.message}
+            />
+            <TextField
+              label="Category"
+              type='text'
+              sx={{m: 2, width: '500px'}}
+              {...register("categoryx", {
                 required: 'Required field'
               })}
               error={!!errors.nombre}

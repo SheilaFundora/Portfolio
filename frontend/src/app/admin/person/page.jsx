@@ -13,12 +13,8 @@ const Page = () => {
   };
 
   return (
-    <Box sx={{ marginTop: 2}}>
-      <BtnModal name={'person'}
-                modalAdd={<ModalPerson handleClickOpen={handleClickOpen}/>}
-                openModal={openModal}
-                handleClickOpen={handleClickOpen}
-      />
+    <Box sx={{ marginTop: 4}}>
+
       <TableAdmin />
     </Box>
   );
