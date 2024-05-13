@@ -6,17 +6,9 @@ import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import NextLink from 'next/link';
-import {Logo} from "@/components/adminCompoents/Sidebar/logo";
-import {pagesAdmin} from "@/constants/apiRoutesAdmin";
-import SideBarItems from "@/components/adminCompoents/Sidebar/sideBarItems";
 import "../../styles/adminStyle.css"
 import {Button, ListItemText, Menu, MenuItem} from "@mui/material";
 import Avatar from "@mui/material/Avatar";
@@ -25,6 +17,7 @@ import ContentsDrawer from "@/components/adminCompoents/Sidebar/DrawerPersonaliz
 import {useEffect, useState} from "react";
 import 'primereact/resources/themes/lara-light-indigo/theme.css'
 import 'primereact/resources/primereact.min.css'
+import {routesAuth} from "@/constants/apiRoutesAuth";
 
 const drawerWidth = 280;
 
@@ -119,7 +112,7 @@ export default function PersistentDrawerLeft({children}) {
                   }}
                 >
                   <MenuItem>
-                    <Link href="/login" underline="none" style={{ textDecoration: 'none' }}>
+                    <Link href={routesAuth[0].link} underline="none" style={{ textDecoration: 'none' }}>
                       <Typography sx={{ color: 'black' }}>Logout</Typography>
                     </Link>
 

@@ -1,4 +1,4 @@
-export const pages = [
+export const routesPage = [
     {
         name: 'Inicio',
         link: '/portafolio'

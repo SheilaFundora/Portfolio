@@ -7,7 +7,7 @@ import DesignServicesIcon from '@mui/icons-material/DesignServices';
 import WorkIcon from '@mui/icons-material/Work';
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
 
-export const pagesAdmin = [
+export const routesAdmin = [
     {
         name: 'Person',
         link: '/admin/person',

@@ -12,7 +12,8 @@ import MyMenuModal from "@/components/Portfolio/other/MenuMobile";
 import {Hidden, List, ListItem, ListItemIcon, ListItemText} from "@mui/material";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
-import {pages} from "@/constants/navbar";
+import {routesPage} from "@/constants/apiRoutesPage";
+import {routesAuth} from "@/constants/apiRoutesAuth";
 import PersonIcon from '@mui/icons-material/Person';
 import {motion} from "framer-motion";
 
@@ -100,13 +101,13 @@ function Header() {
                                     </IconButton>
                                     <MyMenuModal pathname={pathname} open={Boolean(anchorElNav)}
                                                  onClose={handleCloseNavMenu}
-                                                 pages={pages}/>
+                                                 pages={routesPage}/>
 
                                 </Box>
 
                                 <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
                                     <List sx={{display: 'flex', flexDirection: 'row'}}>
-                                        {pages.map((page) => (
+                                        {routesPage.map((page) => (
                                             <ListItem key={page.name}>
                                                 <Link
                                                     href={page.link}
@@ -129,10 +130,7 @@ function Header() {
                             </div>
 
                             <Box sx={{marginLeft: '20px', display: {xs: 'none', md: 'flex'}}}>
-                                <Link href={'/login'}
-                                      underline="none"
-                                      className={`link-sidebar-admin ${pathname === '/login' ? 'active' : ''}`}
-                                >
+                              <Link href={routesAuth[0].link} underline="none" className={`link-sidebar-admin ${pathname === '/auth/login' ? 'active' : ''}`}>
                                     <ListItemIcon>
                                         <PersonIcon style={{fontSize: '35px'}}
                                                     onMouseOver={(e) => e.target.style.color = '#05097c '}
