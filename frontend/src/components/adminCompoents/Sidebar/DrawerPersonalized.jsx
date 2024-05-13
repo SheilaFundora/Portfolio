@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Box, Drawer, Typography, List, Divider } from '@mui/material';
 import NextLink from 'next/link';
-import {pagesAdmin} from "@/constants/apiRoutesAdmin";
+import {routesAdmin} from "@/constants/apiRoutesAdmin";
 import {styled} from "@mui/material/styles";
 import {Logo} from "@/components/adminCompoents/Sidebar/logo";
 import SideBarItems from "@/components/adminCompoents/Sidebar/sideBarItems";
@@ -66,7 +66,7 @@ const ContentsDrawer = ({ }) => {
         <Box sx={{ marginTop: 2}}>
           <List>
             {
-              pagesAdmin.map((page) => (
+              routesAdmin.map((page) => (
                 <SideBarItems key={page.name} route={page.link} name={page.name} icon={page.icon}/>
               ))
             }
