@@ -47,7 +47,7 @@ export default function SignIn() {
         router.push('/admin');
     }
     return (
-      <Box>
+      <Box sx={{ px: 5, mt: 3}}>
         <Stack
           spacing={1}
           sx={{ mb: 3 }}
