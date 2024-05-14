@@ -3,7 +3,6 @@ import React from 'react';
 import TableAdmin from "@/components/adminCompoents/other/TableAdmin";
 import Box from "@mui/material/Box";
 import BtnModal from "@/components/adminCompoents/other/BtnModal";
-import ModalPerson from "@/app/admin/person/ModalPerson";
 import ModalSocialNet from "@/app/admin/socialNetworks/ModalSocialNet";
 
 const Page = () => {

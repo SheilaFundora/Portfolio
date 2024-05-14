@@ -56,18 +56,16 @@ export default function PersistentDrawerLeft({children}) {
                   <CssBaseline/>
                   <Box
                     sx={{
-                      marginTop: 3,
-                      paddingX: 3,
                       display: 'flex',
                       flexDirection: 'column',
                     }}
                   >
                     {children}
                   </Box>
-                  <Typography variant="body1" align="center" color="textSecondary" style={{ marginTop: '20px', marginBottom: '20px' }}>
+                 {/* <Typography variant="body1" align="center" color="textSecondary" style={{ marginTop: '20px', marginBottom: '20px' }}>
                     © {new Date().getFullYear()} <span style={{ color: '#05097c' }}>Sheila</span>. Todos los derechos reservados.
                   </Typography>
-
+*/}
                 </Container>
             </Grid>
             <Grid
