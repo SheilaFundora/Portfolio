@@ -37,4 +37,10 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
     profession:string;
 
     logo: Buffer;
+
+    cvPath: string; // Ruta del archivo CV
+    
+    level:string
+
+    experience:string;
 }
