@@ -24,7 +24,7 @@ export const DataSourceConfig:DataSourceOptions = {
     logging: false,
     migrationsRun: true,
     namingStrategy: new SnakeNamingStrategy(),
-    
+
 };
 
 

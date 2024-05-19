@@ -22,13 +22,26 @@ const ModalSocialNet = ({handleClickOpen}) => {
               label="Name"
               type='text'
               sx={{m: 2, width: '500px'}}
-              {...register("nombre", {
+              {...register("name", {
                 required: 'Required field'
               })}
-              error={!!errors.nombre}
-              helperText={errors.nombre && errors.nombre.message}
+              error={!!errors.name}
+              helperText={errors.name && errors.name.message}
+            />
+
+            <TextField
+              label="Link"
+              type='text'
+              sx={{m: 2, width: '500px'}}
+              {...register("link", {
+                required: 'Required field'
+              })}
+              error={!!errors.link}
+              helperText={errors.link && errors.link.message}
             />
           </div>
+
+
 
           {errorMessage && <div className='error-message text-danger text-start ms-4'>{errorMessage}</div>}
 

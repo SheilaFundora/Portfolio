@@ -2,7 +2,7 @@ import React from 'react';
 import LaunchIcon from '@mui/icons-material/Launch';
 import Link from "next/link";
 
-const Tittle = ({name, subinfo='', linkPlace = ''}) => {
+const Title = ({name, subinfo='', linkPlace = ''}) => {
     return (
         <div>
             <span style={{color: '#2c4964', fontWeight: '500', fontSize: '18px'}}>
@@ -18,4 +18,4 @@ const Tittle = ({name, subinfo='', linkPlace = ''}) => {
 );
 };
 
-export default Tittle;
+export default Title;

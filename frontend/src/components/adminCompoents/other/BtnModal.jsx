@@ -4,7 +4,7 @@ import {Button, Dialog} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
-const BtnModal = ({name, modalAdd, openModal, handleClickOpen}) => {
+const BtnModal = ({name, modalAdd, openModal, handleClickOpen, size='sm'}) => {
   return (
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end'}}>
@@ -19,6 +19,8 @@ const BtnModal = ({name, modalAdd, openModal, handleClickOpen}) => {
         onClose={handleClickOpen}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        maxWidth={size} // Establece el tamaño máximo del modal, 'lg' es grande, 'md' es mediano, 'sm' es pequeño
+
       >
         <IconButton
           aria-label="close"
