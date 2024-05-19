@@ -48,4 +48,10 @@ export class Usuario {
     experienceYears:number;
     @Column({nullable:true})
     startsGitHub:number;
+    @Column({nullable:true})
+    cvPath: string; // Ruta del archivo CV
+    @Column({nullable:true})
+    experience:string
+    @Column({nullable:true})
+    level:string;
 }

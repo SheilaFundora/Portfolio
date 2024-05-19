@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { UsuarioService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -10,13 +10,35 @@ import { changePasswordDto } from './dto/change-password.dto';
 import { GetUser } from './get-user.decorator';
 import { Usuario } from './entities/user.entity';
 import { AuthGuard } from '@nestjs/passport';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 
 @Controller('auth')
 export class UsuarioController {
   constructor(private readonly userService: UsuarioService) {}
 
   @Post('/register')
-  create(@Body() createUserDto: CreateUserDto) {
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './uploads',
+        filename: (req, file, callback) => {
+          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+          const ext = extname(file.originalname);
+          callback(null, `${file.fieldname}-${uniqueSuffix}${ext}`);
+        },
+      }),
+      fileFilter: (req, file, callback) => {
+        if (!file.originalname.match(/\.(pdf)$/)) {
+          return callback(new Error('Only PDF files are allowed!'), false);
+        }
+        callback(null, true);
+      },
+    }),
+  )
+  create(@UploadedFile() file: Express.Multer.File,@Body() createUserDto: CreateUserDto) {
+    createUserDto.cvPath = file.filename;
     return this.userService.create(createUserDto);
   }
   @Post('/login')

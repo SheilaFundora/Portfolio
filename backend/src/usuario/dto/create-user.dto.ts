@@ -36,4 +36,10 @@ export class CreateUserDto {
 
     logo: Buffer;
 
+    cvPath: string;
+
+    level:string
+
+    experience:string;
+
 }
