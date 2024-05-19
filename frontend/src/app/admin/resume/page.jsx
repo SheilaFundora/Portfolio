@@ -2,7 +2,7 @@
 import React from 'react';
 import TableAdmin from "@/components/adminCompoents/other/TableAdmin";
 import Box from "@mui/material/Box";
-import BtnModal from "@/components/adminCompoents/other/BtnModal";
+import ModalToAdd from "@/components/adminCompoents/other/modalToAdd";
 import ModalSocialNet from "@/app/admin/socialNetworks/ModalSocialNet";
 import ModalSkill from "@/app/admin/skills/ModalSkill";
 import ModalResume from "@/app/admin/resume/ModalResume";
@@ -16,10 +16,10 @@ const Page = () => {
 
   return (
     <Box sx={{ marginTop: 2}}>
-      <BtnModal name={'resume'}
-                modalAdd={<ModalResume handleClickOpen={handleClickOpen}/>}
-                openModal={openModal}
-                handleClickOpen={handleClickOpen}
+      <ModalToAdd name={'resume'}
+                  modalAdd={<ModalResume handleClickOpen={handleClickOpen}/>}
+                  openModal={openModal}
+                  handleClickOpen={handleClickOpen}
       />
       <TableAdmin />
     </Box>

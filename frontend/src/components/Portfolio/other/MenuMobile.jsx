@@ -11,6 +11,7 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import Box from "@mui/material/Box";
 import Link from "next/link";
+import {routesAuth} from "@/constants/apiRoutesAuth";
 
 
 const MyMenuModal = ({ open, onClose, pages, pathname }) => {
@@ -55,7 +56,7 @@ const MyMenuModal = ({ open, onClose, pages, pathname }) => {
             </List>
 
             <Box sx={{ marginLeft: '18px', display: {xs: 'flex', md: 'none'} }}>
-                <Link href={'/login'}
+                <Link href={routesAuth[0].link}
                       underline="none"
                       onClick={onClose}
                       className={`link-sidebar ${pathname === '/adminCompoents' ? 'active' : ''}`}

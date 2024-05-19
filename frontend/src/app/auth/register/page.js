@@ -11,11 +11,16 @@ import {
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Box from "@mui/material/Box";
 import {Controller, useForm} from "react-hook-form";
+import Swal from "sweetalert2";
+import {fetchData} from "@/helper/fetch";
+import {register_end} from "@/constants/endpoints";
+import Typography from "@mui/material/Typography";
 
 const steps = [
   'Paso 1: Información personal',
   'Paso 2: Dirección de envío',
   'Paso 3: Método de pago',
+  'Paso 4: Cargando ',
 ];
 
 const Page = () => {
@@ -23,7 +28,7 @@ const Page = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [activeStep, setActiveStep] = useState(0);
 
-
+  console.log(activeStep)
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -33,8 +38,28 @@ const Page = () => {
   };
 
   const handleSubmitPerson = async (data) => {
-    // Aquí puedes enviar formData a tu servidor o hacer lo que necesites con los datos
+    delete data.password2;
+
     console.log(data);
+
+    try {
+      const resp = await fetchData(register_end, data, "POST");
+
+      if (resp.status === 400) {
+        setErrorMessage('La cafeteria ya existe')
+
+      }else{
+        if (resp.status === 201) {
+          console.log(resp);
+
+          await Swal.fire('Exito', "Se ha creado correctamente el dependiente", 'success');
+        }else{
+          await Swal.fire('Error', "Error del servidor", 'error');
+        }
+      }
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   return (
@@ -61,9 +86,9 @@ const Page = () => {
                     label="Name"
                     type='text'
                     sx={{mb: 1, width: '35%'}}
-                    {...register("name")}
-                    error={!!errors.name}
-                    helperText={errors.name && errors.name.message}
+                    {...register("firstName")}
+                    error={!!errors.firstName}
+                    helperText={errors.firstName && errors.firstName.message}
                   />
                   <TextField
                     label="Lastname"
@@ -107,13 +132,12 @@ const Page = () => {
               <Box>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between'}}>
                   <TextField
-                    label="Profesion"
-                    name="profesion"
+                    label="Profession"
                     sx={{mb: 2, width: '65%'}}
                     type="text"
-                    {...register("profesion")}
-                    error={!!errors.profesion}
-                    helperText={errors.profesion && errors.profesion.message}
+                    {...register("profession")}
+                    error={!!errors.profession}
+                    helperText={errors.profession && errors.profession.message}
                   />
                   <TextField
                     label="Degree"
@@ -133,7 +157,6 @@ const Page = () => {
                     render={({ field }) => (
                       <TextField
                         select
-                        required
                         label="Remote"
                         {...field}
                         sx={{ my: 2, width: '30%' }}
@@ -145,14 +168,13 @@ const Page = () => {
                   />
 
                   <Controller
-                    name="frelancer"
+                    name="freelancer"
                     control={control}
                     defaultValue=""
                     render={({ field }) => (
                       <TextField
                         select
-                        required
-                        label="Frelancer"
+                        label="Freelancer"
                         {...field}
                         sx={{ my: 2, width: '30%' }}
                       >
@@ -172,15 +194,13 @@ const Page = () => {
 
                 </Box>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between'}}>
-                  <TextField
+                 {/* <TextField
                     type='file'
                     helperText='CV'
-                    sx={{my: 1, width: '30%'}}
-                    {...register("cv", {
-                      required: 'Required field'
-                    })}
+                    sx={{my: 1, width: '65%'}}
+                    {...register("cv")}
                     error={!!errors.nombre}
-                  />
+                  />*/}
                   <TextField
                     label="Experience"
                     type='number'
@@ -188,25 +208,6 @@ const Page = () => {
                     {...register("experience")}
                     error={!!errors.experience}
                     helperText={errors.experience && errors.experience.message}
-                  />
-                  <Controller
-                    name="Job type Available"
-                    control={control}
-                    defaultValue=""
-                    render={({ field }) => (
-                      <TextField
-                        select
-                        required
-                        label="Job Available"
-                        {...field}
-                        sx={{ my: 1, width: '30%' }}
-                      >
-                        <MenuItem value="true">Part time</MenuItem>
-                        <MenuItem value="false">Full time</MenuItem>
-                        <MenuItem value="false">Hibrido</MenuItem>
-                        <MenuItem value="false">Contract</MenuItem>
-                      </TextField>
-                    )}
                   />
                 </Box>
 
@@ -244,7 +245,7 @@ const Page = () => {
                   />
 
                   <TextField
-                    label="Repit Password"
+                    label="Confirm Password"
                     name="password"
                     fullWidth
                     type="password"
@@ -255,19 +256,42 @@ const Page = () => {
                   />
               </Box>
             )}
+            {activeStep === 3 && (
+              <Box sx={{ mx: 'auto', mt: 3 }}>
+                <Typography variant="h5" align="center" gutterBottom>
+                  Information completed, register now
+                </Typography>
+                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
+                  <Button
+                    onClick={handleSubmit}
+                    variant="contained"
+                    type="submit"
+                    sx={{ width: '50%' }}
+                  >
+                    Register
+                  </Button>
+                </Box>
+
+              </Box>
+            )}
 
             {errorMessage && <div className='error-message text-danger text-start ms-4'>{errorMessage}</div>}
 
-            <Box sx={{display: 'flex', justifyContent: 'center', mt: 3}}>
-              <Button
-                onClick={activeStep === 2 ? handleSubmit : handleNext}
-                variant="contained"
-                type="submit"
-                  sx={{width: '50%'}}
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
+              {activeStep !== 3 ?
+                <Button
+                  onClick={handleNext}
+                  variant="contained"
+                  type="button"
+                  sx={{ width: '50%' }}
                 >
-                  {activeStep === 2 ? 'Registrarse' : 'Continuar'}
+                  Continue
                 </Button>
-              </Box>
+               :
+                ''
+              }
+            </Box>
+
           </DialogContent>
         </form>
       </Box>

@@ -77,7 +77,7 @@ export default function SignIn() {
             name="username"
             type="text"
             autoFocus
-            helperText="Usuario"
+            helperText="Username"
           />
           <TextField
             margin="normal"
@@ -85,11 +85,7 @@ export default function SignIn() {
             name="password"
             type="password"
             id="password"
-            helperText="Contraseña"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary"/>}
-            label="Recordarme"
+            helperText="Password"
           />
 
           <Button
@@ -99,7 +95,7 @@ export default function SignIn() {
             sx={{mt: 3, mb: 2}}
             onClick={onSubmit}
           >
-            Acceder
+            Login
           </Button>
 
           <Box
