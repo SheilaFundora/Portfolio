@@ -1,12 +1,12 @@
-version: '3.1'
+version: "3.8"
 
 services:
 
-  postgresql1:
+  portfolio:
     image: postgres
     ports:
-      - 5433:5432
+      - 5432:5432
     environment:
-      POSTGRES_USER: postgres
+      POSTGRES_USER: sheila
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: portfolio

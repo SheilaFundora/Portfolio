@@ -1,7 +1,8 @@
+'use client'
 import React from 'react';
+import {useEffect, useState} from "react";
 import Box from "@mui/material/Box";
 import {Grid} from "@mui/material";
-import Container from "@mui/material/Container";
 import CardIndex from "@/components/adminCompoents/other/index/CardIndex";
 import {CurrencyDollarIcon} from "@heroicons/react/16/solid";
 import CodeIcon from '@mui/icons-material/Code';
@@ -9,9 +10,37 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import LanguageIcon from '@mui/icons-material/Language';
 import {BarGraph} from "@/components/adminCompoents/other/index/BarGraph";
 import PastelGraph from "@/components/adminCompoents/other/index/PastelGraph";
+import axios from "axios";
 
 const Page = () => {
-    return (
+
+
+  console.log('Componente montado');
+
+  useEffect( () => {
+    console.log('Ejecutando useEffect');
+
+    const getTestDB = async () => {
+
+      try{
+        await axios.get(
+          process.env.NEXT_PUBLIC_API_HOST + "/api/project"
+        )
+          .then(response => {
+            console.log(response)
+          })
+
+      }catch (error) {
+        console.log(error)
+
+      }
+    }
+
+    getTestDB();
+
+  }, [])
+
+  return (
       <Box
         component="main"
         sx={{
