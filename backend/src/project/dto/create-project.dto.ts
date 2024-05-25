@@ -1,4 +1,5 @@
 import { Skill } from "src/skill/entities/skill.entity";
+import { Usuario } from "src/usuario/entities/user.entity";
 
 export class CreateProjectDto {
 
@@ -13,4 +14,5 @@ export class CreateProjectDto {
     description:string;
     url:string;
     skill_id:Skill;
+    user_id:Usuario;
 }

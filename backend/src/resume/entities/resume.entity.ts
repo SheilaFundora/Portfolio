@@ -1,3 +1,4 @@
+import { Usuario } from 'src/usuario/entities/user.entity';
 import {Entity, Column, PrimaryGeneratedColumn, Unique, OneToMany, ManyToOne, JoinColumn} from 'typeorm';
 
 
@@ -27,5 +28,8 @@ export class Resume {
     @Column({nullable:true})
     subtitle:string;
 
+    @ManyToOne(() => Usuario, (user_id) => user_id.resumes, {eager: true,onDelete:'CASCADE', onUpdate:'CASCADE'})
+    @JoinColumn({name: 'user_id'})
+    user_id:Usuario;
 
 }

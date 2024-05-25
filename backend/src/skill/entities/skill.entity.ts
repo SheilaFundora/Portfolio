@@ -1,3 +1,4 @@
+import { Usuario } from 'src/usuario/entities/user.entity';
 import { Project } from '../../project/entities/project.entity';
 import {Entity, Column, PrimaryGeneratedColumn, Unique, OneToMany, ManyToOne, JoinColumn} from 'typeorm';
 
@@ -15,4 +16,8 @@ export class Skill {
     @OneToMany(() => Project, (pro) => pro.skill_id)
     pros: Project[];
 
+
+    @ManyToOne(() => Usuario, (user_id) => user_id.skills, {eager: true,onDelete:'CASCADE', onUpdate:'CASCADE'})
+    @JoinColumn({name: 'user_id'})
+    user_id:Usuario;
 }

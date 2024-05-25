@@ -1,3 +1,4 @@
+import { Usuario } from 'src/usuario/entities/user.entity';
 import { ProjectIMG } from '../../project-img/entities/project-img.entity';
 import { Skill } from '../../skill/entities/skill.entity';
 import {Entity, Column, PrimaryGeneratedColumn, Unique, OneToMany, ManyToOne, JoinColumn} from 'typeorm';
@@ -27,6 +28,10 @@ export class Project {
 
 
     @OneToMany(() => ProjectIMG, (prosImg) => prosImg.project_id)
-    prosImgs: Project[];
+    prosImgs: ProjectIMG[];
+
+    @ManyToOne(() => Usuario, (user_id) => user_id.projects, {eager: true,onDelete:'CASCADE', onUpdate:'CASCADE'})
+    @JoinColumn({name: 'user_id'})
+    user_id:Usuario;
 
 }
