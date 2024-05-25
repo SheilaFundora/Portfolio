@@ -3,7 +3,7 @@ import {Button, DialogActions, DialogContent, DialogContentText, TextField} from
 import Box from "@mui/material/Box";
 import {useForm} from "react-hook-form";
 
-const ModalSocialNet = ({handleClickOpen}) => {
+const ModalSocialNet = ({handleClickOpen, action='add'}) => {
   const { register, control, handleSubmit, formState: { errors } } = useForm('formSN');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -14,7 +14,12 @@ const ModalSocialNet = ({handleClickOpen}) => {
     <Box>
       <form onSubmit={handleSubmit(handleSubmitSN)}>
         <DialogContent>
-          <h4 className='mt-4 text-center'>Form to add Social Network</h4>
+          <h4 className='mt-4 text-center'>
+            { action === 'add' ?
+              "Form to add Social Network" :
+              "Form to edit Social Network"
+            }
+          </h4>
 
 
           <div className={'d-flex w-100 align-items-center justify-content-between'}>
@@ -22,22 +27,35 @@ const ModalSocialNet = ({handleClickOpen}) => {
               label="Name"
               type='text'
               sx={{m: 2, width: '500px'}}
-              {...register("nombre", {
+              {...register("name", {
                 required: 'Required field'
               })}
-              error={!!errors.nombre}
-              helperText={errors.nombre && errors.nombre.message}
+              error={!!errors.name}
+              helperText={errors.name && errors.name.message}
+            />
+
+            <TextField
+              label="Link"
+              type='text'
+              sx={{m: 2, width: '500px'}}
+              {...register("link", {
+                required: 'Required field'
+              })}
+              error={!!errors.link}
+              helperText={errors.link && errors.link.message}
             />
           </div>
+
+
 
           {errorMessage && <div className='error-message text-danger text-start ms-4'>{errorMessage}</div>}
 
           <DialogActions sx={{pb: 3, justifyContent: 'center'}}>
             <Button autoFocus onClick={handleClickOpen} variant="contained" color='error'>
-              Cancelar
+              Cancel
             </Button>
             <Button variant="contained" type="submit" className={'ms-4'}>
-              Agregar
+              Submit
             </Button>
           </DialogActions>
         </DialogContent>

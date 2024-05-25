@@ -1,6 +1,6 @@
 import React from 'react';
-import TittleSecion from "@/components/Portfolio/resume/ContentResume/TittleSecion";
-import Tittle from "@/components/Portfolio/resume/ContentResume/Tittle";
+import TitleSection from "@/components/Portfolio/resume/ContentResume/TitleSection";
+import Title from "@/components/Portfolio/resume/ContentResume/Title";
 import TextDescriptive from "@/components/Portfolio/resume/ContentResume/TextDescriptive";
 import ListInfo from "@/components/Portfolio/resume/ContentResume/ListInfo";
 
@@ -13,10 +13,10 @@ const Sumary = () => {
 
     return (
         <div>
-            <TittleSecion name={'Sumary'} />
+            <TitleSection name={'Sumary'} />
 
             <div className={'resume-item'}>
-                <Tittle name={'Sheila Fundora'} />
+                <Title name={'Sheila Fundora'} />
 
                 <TextDescriptive text={text} />
 

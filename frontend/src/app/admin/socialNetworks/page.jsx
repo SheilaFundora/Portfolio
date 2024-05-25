@@ -2,9 +2,9 @@
 import React from 'react';
 import TableAdmin from "@/components/adminCompoents/other/TableAdmin";
 import Box from "@mui/material/Box";
-import BtnModal from "@/components/adminCompoents/other/BtnModal";
-import ModalPerson from "@/app/admin/person/ModalPerson";
+import ModalToAdd from "@/components/adminCompoents/other/modalToAdd";
 import ModalSocialNet from "@/app/admin/socialNetworks/ModalSocialNet";
+import TableSocialNet from "@/app/admin/socialNetworks/TableSocialNet";
 
 const Page = () => {
   const [openModal, setOpenModal] = React.useState(false);
@@ -15,12 +15,12 @@ const Page = () => {
 
   return (
     <Box sx={{ marginTop: 2}}>
-      <BtnModal name={'social net'}
-                modalAdd={<ModalSocialNet handleClickOpen={handleClickOpen}/>}
-                openModal={openModal}
-                handleClickOpen={handleClickOpen}
+      <ModalToAdd name={'social net'}
+                  modalAdd={<ModalSocialNet handleClickOpen={handleClickOpen}/>}
+                  openModal={openModal}
+                  handleClickOpen={handleClickOpen}
       />
-      <TableAdmin />
+      <TableSocialNet />
     </Box>
   );
 };

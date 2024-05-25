@@ -15,14 +15,21 @@ const ModalImage = ({handleClickOpen}) => {
       <form onSubmit={handleSubmit(handleSubmitImage)}>
         <DialogContent>
           <h4 className='mt-4 text-center'>Form to add Image</h4>
-
-
-          <div className={'d-flex w-100 align-items-center justify-content-between'}>
+          <div className='d-flex '>
             <TextField
-              label="Name"
+              label="Name section"
               type='text'
-              sx={{m: 2, width: '500px'}}
-              {...register("nombre", {
+              sx={{m: 2, width: '300px'}}
+              {...register("section", {
+                required: 'Required field'
+              })}
+              error={!!errors.section}
+              helperText={errors.section && errors.section.message}
+            />
+            <TextField
+              type='file'
+              sx={{m: 2, width: '300px'}}
+              {...register("icon", {
                 required: 'Required field'
               })}
               error={!!errors.nombre}
