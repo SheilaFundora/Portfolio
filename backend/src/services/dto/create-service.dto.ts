@@ -1,3 +1,5 @@
+import { Usuario } from "src/usuario/entities/user.entity";
+
 export class CreateServiceDto {
 
 
@@ -8,5 +10,6 @@ export class CreateServiceDto {
 
 
     description:string;
+    user_id:Usuario;
     icon: Buffer;
 }

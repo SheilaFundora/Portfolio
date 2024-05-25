@@ -1,3 +1,5 @@
+import { Usuario } from "src/usuario/entities/user.entity";
+
 export class CreateSectionDto {
 
 
@@ -7,4 +9,5 @@ export class CreateSectionDto {
 
 
     description:string;
+    user_id:Usuario;
 }

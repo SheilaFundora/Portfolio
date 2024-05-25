@@ -37,8 +37,7 @@ export class UsuarioController {
       },
     }),
   )
-  create(@UploadedFile() file: Express.Multer.File,@Body() createUserDto: CreateUserDto) {
-    createUserDto.cvPath = file.filename;
+  create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
   @Post('/login')

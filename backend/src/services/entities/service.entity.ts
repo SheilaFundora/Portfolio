@@ -1,3 +1,4 @@
+import { Usuario } from 'src/usuario/entities/user.entity';
 import {Entity, Column, PrimaryGeneratedColumn, Unique, OneToMany, ManyToOne, JoinColumn} from 'typeorm';
 
 
@@ -14,7 +15,9 @@ export class Services {
     icon: Buffer;
 
 
-    
+    @ManyToOne(() => Usuario, (user_id) => user_id.services, {eager: true,onDelete:'CASCADE', onUpdate:'CASCADE'})
+    @JoinColumn({name: 'user_id'})
+    user_id:Usuario;
 
 
 }

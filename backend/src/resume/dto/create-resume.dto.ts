@@ -1,3 +1,5 @@
+import { Usuario } from "src/usuario/entities/user.entity";
+
 export class CreateResumeDto {
 
 
@@ -21,4 +23,5 @@ export class CreateResumeDto {
     name_section:string;
 
     subtitle:string;
+    user_id:Usuario;
 }

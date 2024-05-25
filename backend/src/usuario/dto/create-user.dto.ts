@@ -16,9 +16,6 @@ export class CreateUserDto {
 
     lastName:string;
 
-    age:string;
-
-    lastname:string;
 
     phone:string;
 
@@ -34,7 +31,6 @@ export class CreateUserDto {
 
     profession:string;
 
-    logo: Buffer;
 
     cvPath: string;
 

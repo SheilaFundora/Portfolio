@@ -40,6 +40,17 @@ async create(CreateUserDto: CreateUserDto): Promise<Usuario> {
     const NewUser = this.UserRep.create({    
       email: CreateUserDto.email,
       username: CreateUserDto.username,
+      firstName:CreateUserDto.firstName,
+      lastName:CreateUserDto.lastName,
+      phone:CreateUserDto.phone,
+      birthday:CreateUserDto.birthday,
+      address:CreateUserDto.address,
+      degree:CreateUserDto.degree,
+      freelancer:CreateUserDto.freelancer,
+      remote:CreateUserDto.remote,
+      profession:CreateUserDto.profession,
+      level:CreateUserDto.level,
+      experience:CreateUserDto.experience,
       password: hashedPassword,
       activationToken: v4()});
     try{
