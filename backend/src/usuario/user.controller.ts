@@ -19,24 +19,24 @@ export class UsuarioController {
   constructor(private readonly userService: UsuarioService) {}
 
   @Post('/register')
-  @UseInterceptors(
-    FileInterceptor('file', {
-      storage: diskStorage({
-        destination: './uploads',
-        filename: (req, file, callback) => {
-          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-          const ext = extname(file.originalname);
-          callback(null, `${file.fieldname}-${uniqueSuffix}${ext}`);
-        },
-      }),
-      fileFilter: (req, file, callback) => {
-        if (!file.originalname.match(/\.(pdf)$/)) {
-          return callback(new Error('Only PDF files are allowed!'), false);
-        }
-        callback(null, true);
-      },
-    }),
-  )
+  //@UseInterceptors(
+  //FileInterceptor('file', {
+    //storage: diskStorage({
+      //destination: './uploads',
+      //filename: (req, file, callback) => {
+        //const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+        //const ext = extname(file.originalname);
+        //callback(null, `${file.fieldname}-${uniqueSuffix}${ext}`);
+      //},
+    //}),
+      //fileFilter: (req, file, callback) => {
+        //if (!file.originalname.match(/\.(pdf)$/)) {
+          //return callback(new Error('Only PDF files are allowed!'), false);
+        //}
+        //callback(null, true);
+      //},
+    //}),
+  //)
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
@@ -73,7 +73,7 @@ export class UsuarioController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.userService.getId(id);
+    return this.userService.getUser(id);
   }
 
   @Patch(':id')
@@ -83,6 +83,6 @@ export class UsuarioController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.userService.Delete(+id);
+    return this.userService.Delete(id);
   }
 }
