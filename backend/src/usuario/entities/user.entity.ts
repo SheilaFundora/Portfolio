@@ -21,15 +21,15 @@ export class Usuario {
     lastName:string;
     @Column({nullable:true})
     phone:string;
-    @Column({nullable:true, type:"timestamp without time zone"})
-    birthday:string;
+    @Column({ nullable: true, type: "timestamp without time zone", default: () => 'CURRENT_DATE' })
+    birthday: string;
     @Column({nullable:true})
     address:string;
     @Column({nullable:true})
     degree:string;
-    @Column({nullable:true})
+    @Column({nullable:true, default:false})
     freelancer:boolean;
-    @Column({nullable:true})
+    @Column({nullable:true, default:false})
     remote:boolean;
     @Column({nullable:true})
     profession:string;
