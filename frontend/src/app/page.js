@@ -5,21 +5,13 @@ import Image from "next/image";
 import {useRouter} from "next/navigation";
 
 export default function Home() {
-    const router = useRouter();
+  const router = useRouter();
 
-    useEffect( () => {
+  useEffect( () => {
         return router.push('/portafolio');
     }, [])
 
     return (
-        <div className={'pt-5 mx-auto text-center'}>
-            <Image
-                src={'/img/favorite.jpg'}
-                alt={'Logotipo'}
-                width={100}
-                height={100}
-            />
-            <Loading infoText={'Cargando ...'}/>
-        </div>
+      <Loading infoText={'Loading ...'}/>
     );
 }

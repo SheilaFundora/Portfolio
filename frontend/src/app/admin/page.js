@@ -19,25 +19,6 @@ const Page = () => {
 
   useEffect( () => {
     console.log('Ejecutando useEffect');
-
-    const getTestDB = async () => {
-
-      try{
-        await axios.get(
-          process.env.NEXT_PUBLIC_API_HOST + "/api/project"
-        )
-          .then(response => {
-            console.log(response)
-          })
-
-      }catch (error) {
-        console.log(error)
-
-      }
-    }
-
-    getTestDB();
-
   }, [])
 
   return (

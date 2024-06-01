@@ -12,8 +12,9 @@ import Footer from "@/components/Footer";
 import FooterInfo from "@/components/FooterInfo";
 
 export default function Home() {
+  console.log('Componente pp');
 
-    return (
+  return (
         <motion.div initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 1.56}}>
             <Box sx={{paddingX: {xs: 4, md: '120px'}}}>
                 <FirstSection/>

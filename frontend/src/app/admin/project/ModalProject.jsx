@@ -39,7 +39,7 @@ const ModalProject = ({handleClickOpen}) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmitProject= async (data) => {
-    console.log(data)
+    console.log(errors)
   }
   return (
     <Box>
@@ -53,8 +53,8 @@ const ModalProject = ({handleClickOpen}) => {
             {...register("name", {
               required: 'Required field'
             })}
-            error={!!errors.nombre}
-            helperText={errors.nombre && errors.nombre.message}
+            error={!!errors.name}
+            helperText={errors.name && errors.name.message}
           />
 
           <div className={'d-flex w-100 align-items-center justify-content-between'}>
