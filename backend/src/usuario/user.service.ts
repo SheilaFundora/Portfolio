@@ -27,42 +27,59 @@ findAll()
 return  this.UserRep.find();
 }
 
-getId(username: string)
+getUser(username: string)
 {
     return this.UserRep.findOneBy({username});
 }
 
-async create(CreateUserDto: CreateUserDto): Promise<Usuario> {
-    
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(CreateUserDto.password,salt);
-    
-    const NewUser = this.UserRep.create({    
-      email: CreateUserDto.email,
-      username: CreateUserDto.username,
-      firstName:CreateUserDto.firstName,
-      lastName:CreateUserDto.lastName,
-      phone:CreateUserDto.phone,
-      birthday:CreateUserDto.birthday,
-      address:CreateUserDto.address,
-      degree:CreateUserDto.degree,
-      freelancer:CreateUserDto.freelancer,
-      remote:CreateUserDto.remote,
-      profession:CreateUserDto.profession,
-      level:CreateUserDto.level,
-      experience:CreateUserDto.experience,
-      password: hashedPassword,
-      activationToken: v4()});
-    try{
-      return this.UserRep.save(NewUser);
-    } catch (e){
-      if (e.code === 'ER_DUP_ENTRY'){
-        throw new ConflictException('email en uso')
-      }
-      throw new InternalServerErrorException();
-    }
-    
+async create(createUserDto: CreateUserDto): Promise<Usuario> {
+  const { email, username, password, birthday } = createUserDto;
+
+  // Verificación de campos requeridos
+  if (!email || !username || !password) {
+    throw new BadRequestException('Email, username, and password are required');
   }
+
+  // Verificación de duplicados de correo electrónico
+  const existingUserByEmail = await this.UserRep.findOneBy({ email });
+  if (existingUserByEmail) {
+    throw new ConflictException('Email is already in use');
+  }
+
+  // Verificación de duplicados de nombre de usuario
+  const existingUserByUsername = await this.UserRep.findOneBy({ username });
+  if (existingUserByUsername) {
+    throw new ConflictException('Username is already in use');
+  }
+
+  // Hash de la contraseña
+  const salt = await bcrypt.genSalt();
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  // Creación de la nueva instancia de usuario
+  const newUser = this.UserRep.create({
+    email,
+    username,
+    firstName: createUserDto.firstName,
+    lastName: createUserDto.lastName,
+    phone: createUserDto.phone,
+    birthday: birthday ? birthday : null,
+    address: createUserDto.address,
+    degree: createUserDto.degree,
+    freelancer: createUserDto.freelancer,
+    remote: createUserDto.remote,
+    profession: createUserDto.profession,
+    level: createUserDto.level,
+    experience: createUserDto.experience,
+    password: hashedPassword,
+    activationToken: v4(),
+  });
+
+  // Guardado del nuevo usuario en la base de datos
+  return this.UserRep.save(newUser);
+}
+    
+  
 
 
 async update (id:string, body:CreateUserDto){
@@ -76,33 +93,37 @@ async update (id:string, body:CreateUserDto){
 }
 
 
-async Delete(id:number){
-    await this.UserRep.delete(id);
-    return true;
+async Delete(id: string) {
+  const user = await this.UserRep.findOneBy({ id });
+  if (!user) {
+      throw new NotFoundException(`Usuario con id ${id} no encontrado`);
+  }
+  await this.UserRep.delete(id);
+  return true;
 }
 
-async login(loginDto: loginDto):Promise<{accessToken:string}> {
+
+async login(loginDto: loginDto): Promise<{ accessToken: string, username: string }> {
   const { username, password } = loginDto;
   const user = await this.UserRep.findOneBy({ username });
-  if (!user){
+  if (!user) {
     throw new UnauthorizedException('Revise las credenciales');
-  }
-  else{
-  const hashedPassword = user.password;
-
-  const comparacion = await bcrypt.compare(password, hashedPassword);
-
-  console.log(comparacion);
-
-  if (comparacion) {
-    const payload:JwtPayload = {id:user.id,username,active:user.active};
-    const accessToken = await this.jwtService.sign(payload);
-
-    return {accessToken}
   } else {
-    throw new UnauthorizedException('Revise las credenciales');
-  }}
+    const hashedPassword = user.password;
+
+    const comparacion = await bcrypt.compare(password, hashedPassword);
+
+    if (comparacion) {
+      const payload: JwtPayload = { id: user.id, username, active: user.active };
+      const accessToken = await this.jwtService.sign(payload);
+
+      return { accessToken, username };
+    } else {
+      throw new UnauthorizedException('Revise las credenciales');
+    }
+  }
 }
+
 
 async activateUser(ActivateUserDto:ActivateUserDto){
   const {id, code}=ActivateUserDto;
