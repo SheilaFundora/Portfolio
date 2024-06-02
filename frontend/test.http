@@ -1,0 +1,24 @@
+
+
+POST http://localhost:5000/auth/register
+Content-Type: application/json
+
+
+{
+  "username": "sheila",
+  "email": "sheilafuora0@4gmail.com",
+  "password": "12345"
+}
+###
+
+GET http://localhost:5000/auth/
+Content-Type: application/json
+
+###
+
+DELETE http://localhost:5000/auth/f419a6e6-faa7-4dba-b287-106a4dc6db35
+
+Content-Type: application/json
+
+###
+

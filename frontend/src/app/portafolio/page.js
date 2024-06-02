@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import FirstSection from "@/components/Portfolio/pageSections/FirstSection";
 import NameSections from "@/components/Portfolio/pageSections/NameSections";
 import About from "@/components/Portfolio/pageSections/About";
-import DataAbout from "@/components/Portfolio/other/DataAbout";
+import DataAbout from "@/components/Portfolio/pageSections/DataAbout";
 import { motion } from "framer-motion"
 import React, {useEffect, useState} from "react";
 import Services from "@/components/Portfolio/pageSections/Services";
@@ -12,8 +12,9 @@ import Footer from "@/components/Footer";
 import FooterInfo from "@/components/FooterInfo";
 
 export default function Home() {
+  console.log('Componente pp');
 
-    return (
+  return (
         <motion.div initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 1.56}}>
             <Box sx={{paddingX: {xs: 4, md: '120px'}}}>
                 <FirstSection/>

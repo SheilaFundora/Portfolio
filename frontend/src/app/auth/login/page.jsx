@@ -1,23 +1,20 @@
 'use client'
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Image from "next/image";
 import {useRouter} from "next/navigation";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {routesAuth} from "@/constants/apiRoutesAuth";
 import {Stack} from "@mui/material";
+import {fetchData} from "@/helper/fetch";
+import {login_end, register_end} from "@/constants/endpoints";
+import Swal from "sweetalert2";
+import {useForm} from "react-hook-form";
+import Loading from "@/components/Loading";
 
 function Copyright(props) {
     return (
@@ -27,91 +24,125 @@ function Copyright(props) {
     );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-    const router = useRouter();
+  const { register, control, handleSubmit } = useForm('formSN');
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
-    };
+  const handleLogin= async (data) => {
+      try {
+        setIsLoading(true); // Activar el estado de carga
 
-    const onSubmit = () => {
-        router.push('/admin');
-    }
-    return (
-      <Box sx={{ px: 5, mt: 3}}>
-        <Stack
-          spacing={1}
-          sx={{ mb: 3 }}
-        >
-          <Typography variant="h4" style={{ fontWeight: 'bold' }}>
-            Login
-          </Typography>
+        const resp = await fetchData(login_end, data, "POST");
+        const body = await resp.json();
 
-          <Typography
-            color="text.secondary"
-            variant="body2"
+        if (resp.status === 201) {
+          router.push('/admin')
+          const username = body.username;
+          const token = body.accessToken;
+/*
+          const id = body.id;
+*/
+          const id = 'dccbb1cd-01bc-4a1d-a92f-4338fff303e9';
+          window.localStorage.setItem('username', username)
+          window.localStorage.setItem('token', token)
+          window.localStorage.setItem('id', id)
+
+        }else{
+          if (resp.status === 401) {
+            await Swal.fire('Error', "Incorrect credentials", 'error');
+
+          }else{
+            await Swal.fire('Error', "Error del servidor", 'error');
+          }
+        }
+      }catch (error) {
+        console.log(error)
+      }finally {
+        setIsLoading(false); // Desactivar el estado de carga después de terminar la solicitud
+      }
+  };
+
+
+
+  return (
+    <Box sx={{ px: 5, mt: 3}}>
+      {isLoading ?
+        <Loading infoText={'Loading ...'}/>
+        :
+        <Box>
+          <Stack
+            spacing={1}
+            sx={{ mb: 3 }}
           >
-            Don&apos;t have an account?
-            &nbsp;
-            <Link href={routesAuth[2].link} underline="none" sx={{fontSize: '14px', color: 'var(--blue-port)'}}>
-              Register now
-            </Link>
+            <Typography variant="h4" style={{ fontWeight: 'bold' }}>
+              Login
+            </Typography>
 
-          </Typography>
-        </Stack>
+            <Typography
+              color="text.secondary"
+              variant="body2"
+            >
+              Don&apos;t have an account?
+              <Link href={routesAuth[2].link} underline="none" sx={{fontSize: '14px', color: 'var(--blue-port)', marginLeft: 1}}>
+                Register now
+              </Link>
 
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{mt: 1}}>
-          <TextField
-            margin="normal"
-            fullWidth
-            id="username"
-            name="username"
-            type="text"
-            autoFocus
-            helperText="Username"
-          />
-          <TextField
-            margin="normal"
-            fullWidth
-            name="password"
-            type="password"
-            id="password"
-            helperText="Password"
-          />
+            </Typography>
+          </Stack>
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{mt: 3, mb: 2}}
-            onClick={onSubmit}
-          >
-            Login
-          </Button>
+          <Box sx={{mt: 1}}>
+            <form onSubmit={handleSubmit(handleLogin)}>
+              <TextField
+                margin="normal"
+                fullWidth
+                id="username"
+                name="username"
+                type="text"
+                autoFocus
+                helperText="Username"
+                {...register("username")}
+                autoComplete="username" // Agregar este atributo
+              />
+              <TextField
+                margin="normal"
+                fullWidth
+                name="password"
+                type="password"
+                id="password"
+                helperText="Password"
+                {...register("password")}
+                autoComplete="current-password" // Agregar este atributo
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{mt: 3, mb: 2}}
+              >
+                Login
+              </Button>
 
-          <Box
-            sx={{
-              marginTop: 1,
-              color: '#0d6efd',
-              display: 'flex',
-              justifyContent: 'space-between',
-            }}
-          >
-            {/*
-                        <Link href="/forgot-password" underline="none" sx={{  fontSize: '14px', color: 'inherit' }}>Forgot password ?</Link>
-*/}
+              {/*  <Box
+                sx={{
+                  marginTop: 1,
+                  color: '#0d6efd',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                }}
+              >
 
+                          <Link href="/forgot-password" underline="none" sx={{  fontSize: '14px', color: 'inherit' }}>Forgot password ?</Link>
+
+
+              </Box>*/}
+            </form>
           </Box>
         </Box>
-      </Box>
-    );
+      }
+
+    </Box>
+  );
 }

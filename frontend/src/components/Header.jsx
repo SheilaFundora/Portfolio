@@ -70,6 +70,7 @@ function Header() {
                                         alt={'Logotipo'}
                                         width={180}
                                         height={70}
+                                        priority
                                     />
                                 </Hidden>
 

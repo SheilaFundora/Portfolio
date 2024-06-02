@@ -6,16 +6,10 @@ import {Button, Grid, ListItemText, Menu, MenuItem, Stack} from "@mui/material";
 import 'primereact/resources/themes/lara-light-indigo/theme.css'
 import 'primereact/resources/primereact.min.css'
 import Typography from "@mui/material/Typography";
-import {ThemeProvider} from "@mui/material/styles";
 import Image from "next/image";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
-import Link from "@mui/material/Link";
-import {routesAuth} from "@/constants/apiRoutesAuth";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import {Copyright} from "@mui/icons-material";
+
 
 const drawerWidth = 280;
 

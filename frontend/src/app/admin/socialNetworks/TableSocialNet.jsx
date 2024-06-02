@@ -8,8 +8,8 @@ import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ModalResume from "@/app/admin/resume/ModalResume";
-import ModalToAdd from "@/components/adminCompoents/other/modalToAdd";
-import ModalToEdit from "@/components/adminCompoents/other/modalToEdit";
+import ModalToAdd from "@/components/adminComponents/other/modalToAdd";
+import ModalToEdit from "@/components/adminComponents/other/modalToEdit";
 import ModalPerson from "@/app/admin/person/ModalPerson";
 import ModalSocialNet from "@/app/admin/socialNetworks/ModalSocialNet";
 

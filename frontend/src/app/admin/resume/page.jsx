@@ -1,8 +1,8 @@
 'use client'
 import React from 'react';
-import TableAdmin from "@/components/adminCompoents/other/TableAdmin";
+import TableAdmin from "@/components/adminComponents/other/TableAdmin";
 import Box from "@mui/material/Box";
-import ModalToAdd from "@/components/adminCompoents/other/modalToAdd";
+import ModalToAdd from "@/components/adminComponents/other/modalToAdd";
 import ModalSocialNet from "@/app/admin/socialNetworks/ModalSocialNet";
 import ModalSkill from "@/app/admin/skills/ModalSkill";
 import ModalResume from "@/app/admin/resume/ModalResume";

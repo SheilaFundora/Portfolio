@@ -59,7 +59,7 @@ const MyMenuModal = ({ open, onClose, pages, pathname }) => {
                 <Link href={routesAuth[0].link}
                       underline="none"
                       onClick={onClose}
-                      className={`link-sidebar ${pathname === '/adminCompoents' ? 'active' : ''}`}
+                      className={`link-sidebar ${pathname === '/adminComponents' ? 'active' : ''}`}
                 >
                     <ListItemText>
                         <span style={{ fontSize: '17px',fontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'}}>Administración</span>
