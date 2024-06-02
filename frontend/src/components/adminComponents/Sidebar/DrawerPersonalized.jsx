@@ -3,9 +3,10 @@ import { Box, Drawer, Typography, List, Divider } from '@mui/material';
 import NextLink from 'next/link';
 import {routesAdmin} from "@/constants/apiRoutesAdmin";
 import {styled} from "@mui/material/styles";
-import {Logo} from "@/components/adminCompoents/Sidebar/logo";
-import SideBarItems from "@/components/adminCompoents/Sidebar/sideBarItems";
-
+import {Logo} from "@/components/adminComponents/Sidebar/logo";
+import SideBarItems from "@/components/adminComponents/Sidebar/sideBarItems";
+import {useEffect} from "react";
+import {usePathname, useRouter} from "next/navigation";
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -15,7 +16,25 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'space-between',
 }));
 
-const ContentsDrawer = ({ }) => {
+const DrawerPersonalized = ({ }) => {
+  const [username, setUsername] = React.useState('');
+  const router = useRouter();
+
+
+  useEffect( () => {
+    const username = window.localStorage.getItem('username');
+
+    const hanldeUsername = () => {
+      setUsername(username)
+    }
+    hanldeUsername();
+
+  }, [])
+
+
+
+  console.log(username)
+
   return (
 
     <Box>
@@ -48,14 +67,20 @@ const ContentsDrawer = ({ }) => {
               <Typography
                 color="inherit"
                 variant="subtitle1"
+                sx={{
+                  '&::first-letter': {
+                    textTransform: 'uppercase',
+                  },
+                }}
               >
-                Sheila
+                {username}
               </Typography>
+
               <Typography
                 sx={{ color: 'gray'}}
                 variant="body2"
               >
-                Panel de administración
+                Administration panel
               </Typography>
             </div>
           </Box>
@@ -78,4 +103,4 @@ const ContentsDrawer = ({ }) => {
   );
 };
 
-export default ContentsDrawer;
+export default DrawerPersonalized;

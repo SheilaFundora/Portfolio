@@ -3,23 +3,16 @@ import React from 'react';
 import {useEffect, useState} from "react";
 import Box from "@mui/material/Box";
 import {Grid} from "@mui/material";
-import CardIndex from "@/components/adminCompoents/other/index/CardIndex";
+import CardIndex from "@/components/adminComponents/other/index/CardIndex";
 import {CurrencyDollarIcon} from "@heroicons/react/16/solid";
 import CodeIcon from '@mui/icons-material/Code';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import LanguageIcon from '@mui/icons-material/Language';
-import {BarGraph} from "@/components/adminCompoents/other/index/BarGraph";
-import PastelGraph from "@/components/adminCompoents/other/index/PastelGraph";
+import {BarGraph} from "@/components/adminComponents/other/index/BarGraph";
+import PastelGraph from "@/components/adminComponents/other/index/PastelGraph";
 import axios from "axios";
 
 const Page = () => {
-
-
-  console.log('Componente montado');
-
-  useEffect( () => {
-    console.log('Ejecutando useEffect');
-  }, [])
 
   return (
       <Box

@@ -10,16 +10,15 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import "../../styles/adminStyle.css"
-import {Button, ListItemText, Menu, MenuItem} from "@mui/material";
+import { Menu, MenuItem} from "@mui/material";
 import Avatar from "@mui/material/Avatar";
-import Link from "next/link";
-import ContentsDrawer from "@/components/adminCompoents/Sidebar/DrawerPersonalized";
 import {useEffect, useState} from "react";
 import 'primereact/resources/themes/lara-light-indigo/theme.css'
 import 'primereact/resources/primereact.min.css'
 import {routesAuth} from "@/constants/apiRoutesAuth";
-import {usePathname, useRouter} from "next/navigation";
-import Loading from "@/components/Portfolio/other/Loading";
+import { useRouter} from "next/navigation";
+import Loading from "@/components/Loading";
+import DrawerPersonalized from "@/components/adminComponents/Sidebar/DrawerPersonalized";
 
 
 const drawerWidth = 280;
@@ -80,9 +79,11 @@ export default function PersistentDrawerLeft({children}) {
   };
 
   useEffect( () => {
-    const userAuthenticated = window.localStorage.getItem('token');
+    const token = window.localStorage.getItem('token');
+    const username = window.localStorage.getItem('username');
+    const id = window.localStorage.getItem('id');
 
-    if (userAuthenticated === null) {
+    if (token === null || username === null || id === null) {
         router.push('/auth/login');
     }else{
       handleLoading();
@@ -130,73 +131,78 @@ export default function PersistentDrawerLeft({children}) {
             <IconButton onClick={handleSetAnchor}>
               <Avatar alt="Cindy Baker" src={'/img/me.jpg'} sx={{ width: 50, height: 50 }} />
             </IconButton>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleSetAnchor}
+              sx={{ marginTop: '70px'}}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+            >
+              <MenuItem>
+                <div onClick={handleLogout} style={{ textDecoration: 'none' }}>
+                  <Typography sx={{ color: 'black' }}>Logout</Typography>
+                </div>
+              </MenuItem>
+            </Menu>
           </Box>
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleSetAnchor}
-            sx={{ marginTop: '70px'}}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-          >
-            <MenuItem>
-              <div onClick={handleLogout} style={{ textDecoration: 'none' }}>
-                <Typography sx={{ color: 'black' }}>Logout</Typography>
-              </div>
 
-            </MenuItem>
-          </Menu>
         </Box>
       </AppBar>
 
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          display: { xs: 'block', sm: 'none' },
-          '& .MuiDrawer-paper': {
+      { openDrawer ?
+        <Drawer
+          sx={{
             width: drawerWidth,
-            boxSizing: 'border-box',
-            backgroundColor: '#1C2536', // Color de fondo del Drawer
-            color: 'white', // Color del texto en el Drawer
-          },
-        }}
-        variant="temporary"
-        anchor="left"
-        open={!openDrawer}
-        onClose={handleOpenDrawer}
-        ModalProps={{
-          keepMounted: true, // Better open performance on mobile.
-        }}
-      >
-        <ContentsDrawer/>
-      </Drawer>
+            display: { xs: 'none', sm: 'block' },
+            '& .MuiDrawer-paper': {
+              width: drawerWidth,
+              boxSizing: 'border-box',
+              backgroundColor: '#1C2536', // Color de fondo del Drawer
+              color: 'white', // Color del texto en el Drawer
+            },
+          }}
+          variant="permanent"
+          anchor="left"
+          open={openDrawer}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+        >
+          <DrawerPersonalized/>
+        </Drawer>
+        :
+        <Drawer
+          sx={{
+            width: drawerWidth,
+            display: { xs: 'block', sm: 'none' },
+            '& .MuiDrawer-paper': {
+              width: drawerWidth,
+              boxSizing: 'border-box',
+              backgroundColor: '#1C2536', // Color de fondo del Drawer
+              color: 'white', // Color del texto en el Drawer
+            },
+          }}
+          variant="temporary"
+          anchor="left"
+          open={!openDrawer}
+          onClose={handleOpenDrawer}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+        >
+          <DrawerPersonalized/>
+        </Drawer>
+      }
 
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          display: { xs: 'none', sm: 'block' },
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-            backgroundColor: '#1C2536', // Color de fondo del Drawer
-            color: 'white', // Color del texto en el Drawer
-          },
-        }}
-        variant="permanent"
-        anchor="left"
-        open={openDrawer}
-        ModalProps={{
-          keepMounted: true, // Better open performance on mobile.
-        }}
-      >
-        <ContentsDrawer/>
-      </Drawer>
+
+
 
       <Main open={openDrawer}  sx={{
         backgroundColor: (theme) =>

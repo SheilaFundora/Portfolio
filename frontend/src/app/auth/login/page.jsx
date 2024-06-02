@@ -14,7 +14,7 @@ import {fetchData} from "@/helper/fetch";
 import {login_end, register_end} from "@/constants/endpoints";
 import Swal from "sweetalert2";
 import {useForm} from "react-hook-form";
-import Loading from "@/components/Portfolio/other/Loading";
+import Loading from "@/components/Loading";
 
 function Copyright(props) {
     return (
@@ -40,13 +40,16 @@ export default function SignIn() {
 
         if (resp.status === 201) {
           router.push('/admin')
-          const username = 'lulo';
+          const username = body.username;
           const token = body.accessToken;
+/*
+          const id = body.id;
+*/
+          const id = 'dccbb1cd-01bc-4a1d-a92f-4338fff303e9';
           window.localStorage.setItem('username', username)
           window.localStorage.setItem('token', token)
-/*
-          grabar el username de q m devuelva
-*/
+          window.localStorage.setItem('id', id)
+
         }else{
           if (resp.status === 401) {
             await Swal.fire('Error', "Incorrect credentials", 'error');
@@ -83,8 +86,7 @@ export default function SignIn() {
               variant="body2"
             >
               Don&apos;t have an account?
-              &nbsp;
-              <Link href={routesAuth[2].link} underline="none" sx={{fontSize: '14px', color: 'var(--blue-port)'}}>
+              <Link href={routesAuth[2].link} underline="none" sx={{fontSize: '14px', color: 'var(--blue-port)', marginLeft: 1}}>
                 Register now
               </Link>
 

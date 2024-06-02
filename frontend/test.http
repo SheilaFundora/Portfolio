@@ -16,7 +16,8 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:5000/auth/04283714-7e30-44bc-822e-accc46b46c7b
+DELETE http://localhost:5000/auth/f419a6e6-faa7-4dba-b287-106a4dc6db35
+
 Content-Type: application/json
 
 ###

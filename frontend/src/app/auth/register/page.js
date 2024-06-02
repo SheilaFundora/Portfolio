@@ -2,7 +2,7 @@
 import React, {useEffect, useState} from 'react';
 import {
   Button,
-  DialogContent, MenuItem,
+  DialogContent, MenuItem, Stack,
   Step,
   StepLabel,
   Stepper,
@@ -16,6 +16,8 @@ import {fetchData} from "@/helper/fetch";
 import {register_end} from "@/constants/endpoints";
 import Swal from "sweetalert2";
 import {useRouter} from "next/navigation";
+import Link from "@mui/material/Link";
+import {routesAuth} from "@/constants/apiRoutesAuth";
 
 const steps = [
   'Paso 1: Información personal',
@@ -29,6 +31,7 @@ const Page = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [activeStep, setActiveStep] = useState(0);
   const router = useRouter();
+
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -50,7 +53,10 @@ const Page = () => {
     }else if (data.email === ''){
       setErrorMessage('The email is required')
 
-    }else if(data.password !== data.password2){
+    }else if (!/\S+@\S+\.\S+/.test(data.email)) {
+      setErrorMessage('Invalid email format');
+    }
+    else if(data.password !== data.password2){
       setErrorMessage('Passwords must match')
 
     }else {
@@ -74,15 +80,32 @@ const Page = () => {
         console.log(error)
       }
     }
-
-
   };
 
   return (
     <Box sx={{ mt: 1, mb:2}}>
-      <Button autoFocus onClick={handleBack} disabled={activeStep === 0}  >
-        <ArrowBackIcon/>
-      </Button>
+
+      <Box sx={{ marginLeft: 2 }}>
+        <Stack
+          spacing={1}
+          sx={{ mb: 3 }}
+        >
+          <Typography variant="h4" style={{ fontWeight: 'bold' }}>
+            Register
+          </Typography>
+
+          <Typography
+            color="text.secondary"
+            variant="body2"
+          >
+            I already have an account
+            <Link href={routesAuth[1].link} underline="none" sx={{fontSize: '14px', color: 'var(--blue-port)', marginLeft: 1}}>
+              Login now
+            </Link>
+
+          </Typography>
+        </Stack>
+      </Box>
 
       <Stepper activeStep={activeStep} sx={{ mt: 2 }}>
         {steps.map((label, index) => (
@@ -92,7 +115,12 @@ const Page = () => {
         ))}
       </Stepper>
 
-      <Box sx={{mt: 5}}>
+      <Button autoFocus onClick={handleBack} disabled={activeStep === 0}  sx={{ marginTop: 2}} >
+        <ArrowBackIcon/>
+      </Button>
+
+
+      <Box sx={{mb: 2}}>
         <form onSubmit={handleSubmit(handleSubmitPerson)}>
           <DialogContent>
             {activeStep === 0 && (
@@ -196,13 +224,13 @@ const Page = () => {
 
                 </Box>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between'}}>
-                  <Controller
+                 {/* <Controller
                     name="cvPath"
                     control={control}
                     render={({ field }) => (
                       <input type="file" onChange={(e) => field.onChange(e.target.files[0])} />
                     )}
-                  />
+                  />*/}
 
                   <TextField
                     label="Experience"
@@ -285,7 +313,7 @@ const Page = () => {
                 <Button
                   onClick={handleNext}
                   variant="contained"
-                  type="button"
+                  type={activeStep === 2 ? "submit" : "button"}
                   sx={{ width: '50%' }}
                 >
                   Continue

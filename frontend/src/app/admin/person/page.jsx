@@ -1,7 +1,7 @@
 'use client'
 import React from 'react';
 import Box from "@mui/material/Box";
-import TableAdmin from "@/components/adminCompoents/other/TableAdmin";
+import TableAdmin from "@/components/adminComponents/other/TableAdmin";
 import TablePerson from "@/app/admin/person/TablePerson";
 
 const Page = () => {

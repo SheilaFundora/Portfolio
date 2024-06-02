@@ -1,2 +1,4 @@
 export const register_end = "/auth/register"
 export const login_end = "/auth/login"
+export const user_end = "/auth"
+export const project_end = "/api/project"
