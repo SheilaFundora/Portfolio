@@ -38,8 +38,6 @@ export default function SignIn() {
         const resp = await fetchData(login_end, data, "POST");
         const body = await resp.json();
 
-        console.log(body)
-
         if (resp.status === 201) {
           router.push('/admin')
           const username = body.username;

@@ -20,6 +20,9 @@ import { useRouter} from "next/navigation";
 import Loading from "@/components/Loading";
 import DrawerPersonalized from "@/components/adminComponents/Sidebar/DrawerPersonalized";
 import LogoutIcon from '@mui/icons-material/Logout';
+import ModalForm from "@/components/adminComponents/other/ModalForm";
+import ModalPerson from "@/app/admin/person/ModalPerson";
+import ModalChangePass from "@/components/adminComponents/other/ModalChangePass";
 
 const drawerWidth = 280;
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -60,10 +63,14 @@ export default function PersistentDrawerLeft({children}) {
   const [openDrawer, setOpenDrawer] = React.useState(true);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
-
+  const [openModalCP, setOpenModalCP] = React.useState(false);
 
   const handleOpenDrawer = () => {
     setOpenDrawer(!openDrawer);
+  };
+  const handleOpenModalCP = () => {
+    setAnchorEl(false);
+    setOpenModalCP(!openModalCP);
   };
   const handleSetAnchor = () => {
       setAnchorEl(!anchorEl);
@@ -153,7 +160,7 @@ export default function PersistentDrawerLeft({children}) {
                 </div>
               </MenuItem>
               <MenuItem >
-                <div onClick={handleLogout} style={{ textDecoration: 'none' }}>
+                <div onClick={handleOpenModalCP} style={{ textDecoration: 'none' }}>
                   <Typography sx={{ color: 'black' }}>Change pass</Typography>
                 </div>
               </MenuItem>
@@ -223,6 +230,14 @@ export default function PersistentDrawerLeft({children}) {
         {children}
         <DrawerHeader />
       </Main>
+
+
+      {openModalCP &&
+        <ModalForm modal={<ModalChangePass handleClickOpen={handleOpenModalCP}/>}
+                   openModal={openModalCP}
+                   handleClickOpen={handleOpenModalCP}
+        />
+      }
     </Box>
     );
 }

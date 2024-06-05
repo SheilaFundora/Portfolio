@@ -4,7 +4,7 @@ import NextLink from 'next/link';
 import {routesAdmin} from "@/constants/apiRoutesAdmin";
 import {styled} from "@mui/material/styles";
 import {Logo} from "@/components/adminComponents/Sidebar/logo";
-import SideBarItems from "@/components/adminComponents/Sidebar/sideBarItems";
+import SideBarItems from "@/components/adminComponents/Sidebar/SideBarItems";
 import {useEffect} from "react";
 import {usePathname, useRouter} from "next/navigation";
 

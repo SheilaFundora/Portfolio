@@ -7,10 +7,7 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import ModalResume from "@/app/admin/resume/ModalResume";
-import ModalToAdd from "@/components/adminComponents/other/modalToAdd";
-import ModalForm from "@/components/adminComponents/other/modalForm";
-import ModalPerson from "@/app/admin/person/ModalPerson";
+import ModalForm from "@/components/adminComponents/other/ModalForm";
 import ModalSocialNet from "@/app/admin/socialNetworks/ModalSocialNet";
 
 const personas = [

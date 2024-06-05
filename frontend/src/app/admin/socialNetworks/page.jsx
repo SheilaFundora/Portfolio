@@ -1,10 +1,10 @@
 'use client'
 import React from 'react';
-import TableAdmin from "@/components/adminComponents/other/TableAdmin";
 import Box from "@mui/material/Box";
-import ModalToAdd from "@/components/adminComponents/other/modalToAdd";
 import ModalSocialNet from "@/app/admin/socialNetworks/ModalSocialNet";
 import TableSocialNet from "@/app/admin/socialNetworks/TableSocialNet";
+import ModalForm from "@/components/adminComponents/other/ModalForm";
+import ButtonAdd from "@/components/adminComponents/other/ButtonAdd";
 
 const Page = () => {
   const [openModal, setOpenModal] = React.useState(false);
@@ -15,11 +15,14 @@ const Page = () => {
 
   return (
     <Box sx={{ marginTop: 2}}>
-      <ModalToAdd name={'social net'}
-                  modalAdd={<ModalSocialNet handleClickOpen={handleClickOpen}/>}
-                  openModal={openModal}
-                  handleClickOpen={handleClickOpen}
-      />
+      <ButtonAdd name={'Social Net'} handleClickOpen={handleClickOpen}/>
+
+      { openModal &&
+        <ModalForm modal={<ModalSocialNet handleClickOpen={handleClickOpen} action={'add'} />}
+                   openModal={openModal}
+                   handleClickOpen={handleClickOpen}
+        />
+      }
       <TableSocialNet />
     </Box>
   );

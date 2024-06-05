@@ -1,14 +1,112 @@
 'use client'
-import React from 'react';
+import React, {useEffect} from 'react';
 import Box from "@mui/material/Box";
 import TableAdmin from "@/components/adminComponents/other/TableAdmin";
-import TablePerson from "@/app/admin/person/TablePerson";
+import {Button, Grid} from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import ModalForm from "@/components/adminComponents/other/ModalForm";
+import ModalPerson from "@/app/admin/person/ModalPerson";
+import axios from "axios";
+import {user_end} from "@/constants/endpoints";
+import ActionsTable from "@/components/adminComponents/other/ActionsTable";
 
 const Page = () => {
+  const [openEdit, setOpenEdit] = React.useState(false);
+  const [personData, setPersonData] = React.useState([]);
+
+
+  useEffect( () => {
+    getData()
+  }, [])
+
+  const getData = async () => {
+    const username = window.localStorage.getItem('username')
+
+    try {
+      await axios.get(
+        process.env.NEXT_PUBLIC_API_HOST + user_end + '/' + username + '/'
+      )
+        .then(response => {
+          setPersonData([response.data])
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  console.log('personData', personData)
+
+
+  const handleOpenEdit = () => {
+    setOpenEdit(!openEdit);
+  }
+
+  const confirmEditPerson = (idEdit) =>{
+    const _person = personas.filter((val) => val.id === idEdit)
+    handleOpenEdit();
+    console.log(openEdit)
+  }
+
+  const actionBodyTemplate = (rowData) => {
+    return (
+      <ActionsTable confirmEditPerson={confirmEditPerson} rowData={rowData}/>
+    )
+  }
 
   return (
-    <Box sx={{ marginTop: 4}}>
-      <TablePerson />
+    <Box >
+      <Box sx={{paddingX: 5 , paddingY: 1}}>
+        <Box sx={{paddingTop: {xs: 3, md: 0}}}>
+          <h2 style={{color: '#545556', fontFamily: '"Playfair Display", serif'}}>
+            Personal Information:
+          </h2>
+        </Box>
+
+        {personData.map((person) => (
+          <Grid container spacing={3} sx={{marginTop: {xs: 0, md: 1}}} key={person.id}>
+            <Grid item xs={12} md={8} lg={6}>
+              <p className={'text-style'}><b>Name:</b> {person.firstName}</p>
+              <p className={'text-style'}><b>Last Name:</b> {person.lastName}</p>
+              <p className={'text-style'}><b>Email:</b> {person.email}</p>
+              <p className={'text-style'}><b>Phone:</b> {person.phone}</p>
+              <p className={'text-style'}><b>Birthday:</b> {person.birthday}</p>
+              <p className={'text-style'}><b>Address:</b> {person.address}</p>
+              <p className={'text-style'}><b>Username:</b> {person.username}</p>
+            </Grid>
+            <Grid item xs={12} md={8} lg={6}>
+              <p className={'text-style'}><b>Profession:</b> {person.profession}</p>
+              <p className={'text-style'}><b>Degree:</b> {person.degree}</p>
+              <p className={'text-style'}><b>Level:</b> {person.level}</p>
+              <p className={'text-style'}><b>Experience:</b> {person.experience}</p>
+              <p className={'text-style'}><b>Remote:</b> {(person.remote) ? 'Available' : 'Not available'}</p>
+              <p className={'text-style'}><b>Freelancer:</b> {(person.freelancer) ? 'Available' : 'Not available'}</p>
+              {/*<p className={'text-style'}><b>Cv english:</b> </p>
+            <p className={'text-style'}><b>Cv spanish:</b> </p>*/}
+            </Grid>
+          </Grid>
+
+
+        ))}
+
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end'}}>
+          <Button variant="contained"
+                  color="warning"
+                  onClick={handleOpenEdit}>
+
+            <EditIcon fontSize="inherit" />
+            <span className={'ms-1'}>Editar</span>
+          </Button>
+        </Box>
+
+
+        {openEdit &&
+          <ModalForm modal={<ModalPerson handleClickOpen={handleOpenEdit} action={'edit'}/>}
+                     openModal={openEdit}
+                     handleClickOpen={handleOpenEdit}
+          />
+        }
+
+      </Box>
     </Box>
   );
 };
