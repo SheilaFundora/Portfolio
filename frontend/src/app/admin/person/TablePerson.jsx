@@ -9,11 +9,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ModalResume from "@/app/admin/resume/ModalResume";
 import ModalToAdd from "@/components/adminComponents/other/modalToAdd";
-import ModalToEdit from "@/components/adminComponents/other/modalToEdit";
+import ModalForm from "@/components/adminComponents/other/modalForm";
 import ModalPerson from "@/app/admin/person/ModalPerson";
 import {project_end, user_end} from "@/constants/endpoints";
 import axios from "axios";
 import ActionsTable from "@/components/adminComponents/other/actionsTable";
+import {Button, Grid} from "@mui/material";
 
 const personas = [
   {
@@ -111,32 +112,54 @@ const TablePerson = () => {
   }
 
   return (
-    <Box sx={{marginTop: 4 }}>
-      <DataTable value={personData || []}
-                 paginator rows={5}
-                 rowsPerPageOptions={[5, 10, 25, 50]}
-                 tableStyle={{ minWidth: '50rem' }}
-                 className="p-datatable-hgridlines"
-      >
-        <Column field="firstName" header="Name" sortable filter style={{width: '25%'}}></Column>
-        <Column field="lastName" header="Last Name" sortable filter style={{width: '25%'}}></Column>
-        <Column field="birthday" header="Birthday" sortable filter style={{width: '25%'}}></Column>
-        <Column field="address" header="Address" sortable filter style={{width: '25%'}}></Column>
-        <Column field="profession" header="Profession" sortable filter style={{width: '25%'}}></Column>
-        <Column field="degree" header="Degree" sortable filter style={{width: '25%'}}></Column>
-        <Column field="remote" header="Remote" sortable filter style={{width: '25%'}}></Column>
-        <Column field="freelancer" header="Freelancer" sortable filter style={{width: '25%'}}></Column>
-        <Column field="level" header="Level" sortable filter style={{width: '25%'}}></Column>
-        <Column field="experience" header="Experience" sortable filter style={{width: '25%'}}></Column>
-        <Column field="username" header="Username" sortable filter style={{width: '25%'}}></Column>
-        <Column field="email" header="Email" sortable filter style={{width: '25%'}}></Column>
-        <Column body={actionBodyTemplate} exportable={false} style={{minWidth: '12rem'}}/>
-      </DataTable>
+    <Box sx={{paddingX: 5 , paddingY: 1}}>
+      <Box sx={{paddingTop: {xs: 3, md: 0}}}>
+        <h2 style={{color: '#545556', fontFamily: '"Playfair Display", serif'}}>
+          Personal Information:
+        </h2>
+      </Box>
+
+      {personData.map((person) => (
+        <Grid container spacing={3} sx={{marginTop: {xs: 0, md: 1}}}>
+          <Grid item xs={12} md={8} lg={6}>
+            <p className={'text-style'}><b>Name:</b> {person.firstName}</p>
+            <p className={'text-style'}><b>Last Name:</b> {person.lastName}</p>
+            <p className={'text-style'}><b>Email:</b> {person.email}</p>
+            <p className={'text-style'}><b>Phone:</b> {person.phone}</p>
+            <p className={'text-style'}><b>Birthday:</b> {person.birthday}</p>
+            <p className={'text-style'}><b>Address:</b> {person.address}</p>
+            <p className={'text-style'}><b>Username:</b> {person.username}</p>
+          </Grid>
+          <Grid item xs={12} md={8} lg={6}>
+            <p className={'text-style'}><b>Profession:</b> {person.profession}</p>
+            <p className={'text-style'}><b>Degree:</b> {person.degree}</p>
+            <p className={'text-style'}><b>Level:</b> {person.level}</p>
+            <p className={'text-style'}><b>Experience:</b> {person.experience}</p>
+            <p className={'text-style'}><b>Remote:</b> {(person.remote) ? 'Available' : 'Not available'}</p>
+            <p className={'text-style'}><b>Freelancer:</b> {(person.freelancer) ? 'Available' : 'Not available'}</p>
+            {/*<p className={'text-style'}><b>Cv english:</b> </p>
+            <p className={'text-style'}><b>Cv spanish:</b> </p>*/}
+          </Grid>
+        </Grid>
+
+
+      ))}
+
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end'}}>
+        <Button variant="contained"
+                color="warning"
+                onClick={handleOpenEdit}>
+
+          <EditIcon fontSize="inherit" />
+          <span className={'ms-1'}>Editar</span>
+        </Button>
+      </Box>
+
 
       {openEdit &&
-        <ModalToEdit modal={<ModalPerson handleClickOpen={handleOpenEdit}/>}
-                    openModal={openEdit}
-                    handleClickOpen={handleOpenEdit}
+        <ModalForm modal={<ModalPerson handleClickOpen={handleOpenEdit}/>}
+                   openModal={openEdit}
+                   handleClickOpen={handleOpenEdit}
         />
       }
 

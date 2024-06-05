@@ -9,7 +9,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ModalResume from "@/app/admin/resume/ModalResume";
 import ModalToAdd from "@/components/adminComponents/other/modalToAdd";
-import ModalToEdit from "@/components/adminComponents/other/modalToEdit";
+import ModalForm from "@/components/adminComponents/other/modalForm";
 import ModalPerson from "@/app/admin/person/ModalPerson";
 import ModalSocialNet from "@/app/admin/socialNetworks/ModalSocialNet";
 
@@ -106,9 +106,9 @@ const TableSocialNet = () => {
       </DataTable>
 
       {openEdit &&
-        <ModalToEdit modal={<ModalSocialNet handleClickOpen={handleOpenEdit} action={'edit'} />}
-                    openModal={openEdit}
-                    handleClickOpen={handleOpenEdit}
+        <ModalForm modal={<ModalSocialNet handleClickOpen={handleOpenEdit} action={'edit'} />}
+                   openModal={openEdit}
+                   handleClickOpen={handleOpenEdit}
         />
       }
 

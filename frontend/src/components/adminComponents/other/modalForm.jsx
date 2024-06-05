@@ -4,7 +4,7 @@ import {Button, Dialog} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
-const ModalToEdit = ({ modal, openModal, handleClickOpen, size='sm'}) => {
+const ModalForm = ({ modal, openModal, handleClickOpen, size='sm'}) => {
   return (
     <Box>
       <Dialog
@@ -35,4 +35,4 @@ const ModalToEdit = ({ modal, openModal, handleClickOpen, size='sm'}) => {
   );
 };
 
-export default ModalToEdit;
+export default ModalForm;

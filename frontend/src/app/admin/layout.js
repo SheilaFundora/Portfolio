@@ -19,7 +19,7 @@ import {routesAuth} from "@/constants/apiRoutesAuth";
 import { useRouter} from "next/navigation";
 import Loading from "@/components/Loading";
 import DrawerPersonalized from "@/components/adminComponents/Sidebar/DrawerPersonalized";
-
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const drawerWidth = 280;
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -145,9 +145,16 @@ export default function PersistentDrawerLeft({children}) {
                 horizontal: 'right',
               }}
             >
-              <MenuItem>
+              <MenuItem >
                 <div onClick={handleLogout} style={{ textDecoration: 'none' }}>
-                  <Typography sx={{ color: 'black' }}>Logout</Typography>
+                  <Typography sx={{ color: 'black' }}>Logout
+                    <span className={'ms-2'}><LogoutIcon fontSize="small" /></span>
+                  </Typography>
+                </div>
+              </MenuItem>
+              <MenuItem >
+                <div onClick={handleLogout} style={{ textDecoration: 'none' }}>
+                  <Typography sx={{ color: 'black' }}>Change pass</Typography>
                 </div>
               </MenuItem>
             </Menu>
