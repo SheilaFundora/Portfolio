@@ -78,9 +78,9 @@ export class UsuarioController {
     return { valid: isValid };
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.getUser(id);
+  @Get(':username')
+  async getUser(@Param('username') username: string) {
+    return this.userService.getUser(username);
   }
 
   @Patch(':id')

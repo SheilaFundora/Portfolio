@@ -34,10 +34,35 @@ findAll()
 return  this.UserRep.find();
 }
 
-getUser(username: string)
-{
-    return this.UserRep.findOneBy({username});
+async getUser(username: string): Promise<Partial<Usuario>> {
+  const user = await this.UserRep.findOne({
+    where: { username },
+    select: [
+      'id',
+      'firstName',
+      'lastName',
+      'phone',
+      'birthday',
+      'address',
+      'degree',
+      'freelancer',
+      'remote',
+      'profession',
+      'email',
+      'username',
+      'cvPath',
+      'experience',
+      'level'
+    ],
+  });
+
+  if (!user) {
+    throw new NotFoundException(`User with username ${username} not found`);
+  }
+
+  return user;
 }
+
 
 async create(createUserDto: CreateUserDto): Promise<Usuario> {
   const { email, username, password, birthday } = createUserDto;
