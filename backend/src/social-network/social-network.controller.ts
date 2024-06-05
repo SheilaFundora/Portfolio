@@ -3,7 +3,7 @@ import { SocialNetworkService } from './social-network.service';
 import { CreateSocialNetworkDto } from './dto/create-social-network.dto';
 import { UpdateSocialNetworkDto } from './dto/update-social-network.dto';
 
-@Controller('social-network')
+@Controller('api/social-network')
 export class SocialNetworkController {
   constructor(private readonly socialNetworkService: SocialNetworkService) {}
 
