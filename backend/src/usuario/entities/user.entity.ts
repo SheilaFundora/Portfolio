@@ -46,7 +46,9 @@ export class Usuario {
     @Column({type:'uuid', unique:true, nullable:true})
     resetPass: string
     @Column({nullable:true})
-    cvPath: string; // Ruta del archivo CV
+    cvPathEs: string; // Ruta del archivo CV en español
+    @Column({nullable:true})
+    cvPathEn: string; // Ruta del archivo CV en inglés
     @Column({nullable:true})
     experience:string
     @Column({nullable:true})

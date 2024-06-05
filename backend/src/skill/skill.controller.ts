@@ -3,7 +3,7 @@ import { SkillService } from './skill.service';
 import { CreateSkillDto } from './dto/create-skill.dto';
 import { UpdateSkillDto } from './dto/update-skill.dto';
 
-@Controller('skill')
+@Controller('api/skill')
 export class SkillController {
   constructor(private readonly skillService: SkillService) {}
 

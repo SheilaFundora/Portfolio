@@ -15,6 +15,13 @@ import { resetPassword } from './dto/password-reset.dto';
 import { linkPassDto } from './dto/linkPass.dto';
 import { changePasswordDto } from './dto/change-password.dto';
 
+
+interface LoginResponse {
+  accessToken: string;
+  username: string;
+  id: string;
+}
+
 @Injectable()
 export class UsuarioService {
   constructor(
@@ -27,12 +34,36 @@ findAll()
 return  this.UserRep.find();
 }
 
-getUser(username: string)
-{
-    return this.UserRep.findOneBy({username});
+async getUser(username: string): Promise<Partial<Usuario>> {
+  const user = await this.UserRep.findOne({
+    where: { username },
+    select: [
+      'id',
+      'firstName',
+      'lastName',
+      'phone',
+      'birthday',
+      'address',
+      'degree',
+      'freelancer',
+      'remote',
+      'profession',
+      'email',
+      'username',
+      'experience',
+      'level'
+    ],
+  });
+
+  if (!user) {
+    throw new NotFoundException(`User with username ${username} not found`);
+  }
+
+  return user;
 }
 
-async create(createUserDto: CreateUserDto): Promise<Usuario> {
+
+async create(createUserDto: CreateUserDto, files: { cvSpanish?: Express.Multer.File[], cvEnglish?: Express.Multer.File[] }): Promise<Usuario> {
   const { email, username, password, birthday } = createUserDto;
 
   // Verificación de campos requeridos
@@ -73,11 +104,15 @@ async create(createUserDto: CreateUserDto): Promise<Usuario> {
     experience: createUserDto.experience,
     password: hashedPassword,
     activationToken: v4(),
+    cvPathEs: files.cvSpanish && files.cvSpanish[0] ? files.cvSpanish[0].path : null,
+    cvPathEn: files.cvEnglish && files.cvEnglish[0] ? files.cvEnglish[0].path : null,
   });
 
   // Guardado del nuevo usuario en la base de datos
   return this.UserRep.save(newUser);
 }
+
+
     
   
 
@@ -103,7 +138,7 @@ async Delete(id: string) {
 }
 
 
-async login(loginDto: loginDto): Promise<{ accessToken: string, username: string }> {
+async login(loginDto: loginDto): Promise<LoginResponse> {
   const { username, password } = loginDto;
   const user = await this.UserRep.findOneBy({ username });
   if (!user) {
@@ -117,10 +152,21 @@ async login(loginDto: loginDto): Promise<{ accessToken: string, username: string
       const payload: JwtPayload = { id: user.id, username, active: user.active };
       const accessToken = await this.jwtService.sign(payload);
 
-      return { accessToken, username };
+      return { accessToken, username, id: user.id };
     } else {
       throw new UnauthorizedException('Revise las credenciales');
     }
+  }
+}
+
+async validateToken(token: string): Promise<boolean> {
+  try {
+    const decoded = this.jwtService.verify(token);
+    // Aquí puedes añadir más lógica si necesitas verificar más cosas, como el estado del usuario
+    return !!decoded;
+  } catch (error) {
+    // Puedes manejar diferentes errores aquí, por ejemplo, token expirado, token inválido, etc.
+    throw new UnauthorizedException('Invalid token');
   }
 }
 
