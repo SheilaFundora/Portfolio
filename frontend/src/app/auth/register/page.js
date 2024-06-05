@@ -224,20 +224,33 @@ const Page = () => {
 
                 </Box>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between'}}>
-                 {/* <Controller
-                    name="cvPath"
-                    control={control}
-                    render={({ field }) => (
-                      <input type="file" onChange={(e) => field.onChange(e.target.files[0])} />
-                    )}
-                  />*/}
+                  <Box sx={{ width: '65%'}}>
+                  {/*  <Controller
+                      name="cvPathEs"
+                      control={control}
+                      render={({ field }) => (
+                        <input type="file" onChange={(e) => field.onChange(e.target.files[0])} />
+                      )}
+                    />*/}
+                    {/*<Controller
+                      name="cvPathEn"
+                      control={control}
+                      render={({ field }) => (
+                        <input type="file" onChange={(e) => field.onChange(e.target.files[0])} />
+                      )}
+                    />*/}
+                  </Box>
+                  <Box sx={{width: '30%'}} >
+                    <TextField
+                      label="Experience"
+                      type='number'
+                      sx={{my: 1, width: '100%'}}
+                      {...register("experience")}
+                    />
+                  </Box>
 
-                  <TextField
-                    label="Experience"
-                    type='number'
-                    sx={{my: 1, width: '30%'}}
-                    {...register("experience")}
-                  />
+
+
                 </Box>
 
               </Box>

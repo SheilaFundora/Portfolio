@@ -2,8 +2,9 @@
 import React from 'react';
 import TableAdmin from "@/components/adminComponents/other/TableAdmin";
 import Box from "@mui/material/Box";
-import ModalToAdd from "@/components/adminComponents/other/modalToAdd";
 import ModalSection from "@/app/admin/section/ModalSection";
+import ButtonAdd from "@/components/adminComponents/other/ButtonAdd";
+import ModalForm from "@/components/adminComponents/other/ModalForm";
 
 const Page = () => {
   const [openModal, setOpenModal] = React.useState(false);
@@ -14,11 +15,14 @@ const Page = () => {
 
   return (
     <Box sx={{ marginTop: 2}}>
-      <ModalToAdd name={'section'}
-                  modalAdd={<ModalSection handleClickOpen={handleClickOpen}/>}
-                  openModal={openModal}
-                  handleClickOpen={handleClickOpen}
-      />
+      <ButtonAdd name={'Section'} handleClickOpen={handleClickOpen}/>
+
+      { openModal &&
+        <ModalForm modal={<ModalSection handleClickOpen={handleClickOpen} action={'add'} />}
+                   openModal={openModal}
+                   handleClickOpen={handleClickOpen}
+        />
+      }
       <TableAdmin />
     </Box>
   );

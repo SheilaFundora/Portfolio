@@ -2,8 +2,8 @@
 import React from 'react';
 import TableAdmin from "@/components/adminComponents/other/TableAdmin";
 import Box from "@mui/material/Box";
-import ModalToAdd from "@/components/adminComponents/other/modalToAdd";
 import ModalService from "@/app/admin/services/ModalService";
+import ModalForm from "@/components/adminComponents/other/ModalForm";
 
 const Page = () => {
   const [openModal, setOpenModal] = React.useState(false);
@@ -14,11 +14,12 @@ const Page = () => {
 
   return (
     <Box sx={{ marginTop: 2}}>
-      <ModalToAdd name={'service'}
-                  modalAdd={<ModalService handleClickOpen={handleClickOpen}/>}
-                  openModal={openModal}
-                  handleClickOpen={handleClickOpen}
-      />
+      { openModal &&
+        <ModalForm modal={<ModalService handleClickOpen={handleClickOpen} action={'add'} />}
+                   openModal={openModal}
+                   handleClickOpen={handleClickOpen}
+        />
+      }
       <TableAdmin />
     </Box>
   );

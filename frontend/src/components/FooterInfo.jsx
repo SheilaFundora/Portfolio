@@ -11,7 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import FormContact from "@/components/Portfolio/other/formContact";
+import FormContact from "@/components/Portfolio/other/FormContact";
 
 const FooterInfo = () => {
     return (

@@ -42,10 +42,7 @@ export default function SignIn() {
           router.push('/admin')
           const username = body.username;
           const token = body.accessToken;
-/*
           const id = body.id;
-*/
-          const id = 'dccbb1cd-01bc-4a1d-a92f-4338fff303e9';
           window.localStorage.setItem('username', username)
           window.localStorage.setItem('token', token)
           window.localStorage.setItem('id', id)
