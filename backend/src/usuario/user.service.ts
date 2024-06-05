@@ -15,6 +15,13 @@ import { resetPassword } from './dto/password-reset.dto';
 import { linkPassDto } from './dto/linkPass.dto';
 import { changePasswordDto } from './dto/change-password.dto';
 
+
+interface LoginResponse {
+  accessToken: string;
+  username: string;
+  id: string;
+}
+
 @Injectable()
 export class UsuarioService {
   constructor(
@@ -103,7 +110,7 @@ async Delete(id: string) {
 }
 
 
-async login(loginDto: loginDto): Promise<{ accessToken: string, username: string }> {
+async login(loginDto: loginDto): Promise<LoginResponse> {
   const { username, password } = loginDto;
   const user = await this.UserRep.findOneBy({ username });
   if (!user) {
@@ -117,10 +124,21 @@ async login(loginDto: loginDto): Promise<{ accessToken: string, username: string
       const payload: JwtPayload = { id: user.id, username, active: user.active };
       const accessToken = await this.jwtService.sign(payload);
 
-      return { accessToken, username };
+      return { accessToken, username, id: user.id };
     } else {
       throw new UnauthorizedException('Revise las credenciales');
     }
+  }
+}
+
+async validateToken(token: string): Promise<boolean> {
+  try {
+    const decoded = this.jwtService.verify(token);
+    // Aquí puedes añadir más lógica si necesitas verificar más cosas, como el estado del usuario
+    return !!decoded;
+  } catch (error) {
+    // Puedes manejar diferentes errores aquí, por ejemplo, token expirado, token inválido, etc.
+    throw new UnauthorizedException('Invalid token');
   }
 }
 

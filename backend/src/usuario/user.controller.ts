@@ -13,6 +13,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { ValidateTokenDto } from './dto/validate-token.dto';
 
 @Controller('auth')
 export class UsuarioController {
@@ -69,6 +70,12 @@ export class UsuarioController {
   @Get()
   findAll() {
     return this.userService.findAll();
+  }
+
+  @Post('validate-token')
+  async validateToken(@Body() validateTokenDto: ValidateTokenDto): Promise<{ valid: boolean }> {
+    const isValid = await this.userService.validateToken(validateTokenDto.token);
+    return { valid: isValid };
   }
 
   @Get(':id')
