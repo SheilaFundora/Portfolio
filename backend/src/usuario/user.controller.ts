@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards, UseInterceptors, UploadedFile, BadRequestException, UploadedFiles } from '@nestjs/common';
 import { UsuarioService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -10,7 +10,7 @@ import { changePasswordDto } from './dto/change-password.dto';
 import { GetUser } from './get-user.decorator';
 import { Usuario } from './entities/user.entity';
 import { AuthGuard } from '@nestjs/passport';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FileFieldsInterceptor, FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { ValidateTokenDto } from './dto/validate-token.dto';
@@ -20,27 +20,34 @@ export class UsuarioController {
   constructor(private readonly userService: UsuarioService) {}
 
   @Post('/register')
-  //@UseInterceptors(
-  //FileInterceptor('file', {
-    //storage: diskStorage({
-      //destination: './uploads',
-      //filename: (req, file, callback) => {
-        //const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-        //const ext = extname(file.originalname);
-        //callback(null, `${file.fieldname}-${uniqueSuffix}${ext}`);
-      //},
-    //}),
-      //fileFilter: (req, file, callback) => {
-        //if (!file.originalname.match(/\.(pdf)$/)) {
-          //return callback(new Error('Only PDF files are allowed!'), false);
-        //}
-        //callback(null, true);
-      //},
-    //}),
-  //)
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  @UseInterceptors(
+    FileFieldsInterceptor([
+      { name: 'cvSpanish', maxCount: 1 },
+      { name: 'cvEnglish', maxCount: 1 }
+    ], {
+      storage: diskStorage({
+        destination: './uploads',
+        filename: (req, file, cb) => {
+          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+          cb(null, `${uniqueSuffix}${extname(file.originalname)}`);
+        },
+      }),
+      fileFilter: (req, file, cb) => {
+        if (file.mimetype !== 'application/pdf') {
+          return cb(new BadRequestException('Only PDF files are allowed!'), false);
+        }
+        cb(null, true);
+      },
+    }),
+  )
+  async create(
+    @Body() createUserDto: CreateUserDto,
+    @UploadedFiles() files: { cvSpanish?: Express.Multer.File[], cvEnglish?: Express.Multer.File[] }
+  ) {
+    return this.userService.create(createUserDto, files);
   }
+
+
   @Post('/login')
   login(@Body() loginDto: loginDto):Promise<{accessToken:string}> {
     return this.userService.login(loginDto);

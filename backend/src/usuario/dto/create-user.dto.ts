@@ -34,10 +34,13 @@ export class CreateUserDto {
     profession:string;
 
 
-    cvPath: string;
-
     level:string
 
     experience:string;
 
+    @IsOptional()
+    cvPathEs: string;
+
+    @IsOptional()
+    cvPathEn: string;
 }

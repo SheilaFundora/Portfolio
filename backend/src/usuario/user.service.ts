@@ -50,7 +50,6 @@ async getUser(username: string): Promise<Partial<Usuario>> {
       'profession',
       'email',
       'username',
-      'cvPath',
       'experience',
       'level'
     ],
@@ -64,7 +63,7 @@ async getUser(username: string): Promise<Partial<Usuario>> {
 }
 
 
-async create(createUserDto: CreateUserDto): Promise<Usuario> {
+async create(createUserDto: CreateUserDto, files: { cvSpanish?: Express.Multer.File[], cvEnglish?: Express.Multer.File[] }): Promise<Usuario> {
   const { email, username, password, birthday } = createUserDto;
 
   // Verificación de campos requeridos
@@ -105,11 +104,15 @@ async create(createUserDto: CreateUserDto): Promise<Usuario> {
     experience: createUserDto.experience,
     password: hashedPassword,
     activationToken: v4(),
+    cvPathEs: files.cvSpanish && files.cvSpanish[0] ? files.cvSpanish[0].path : null,
+    cvPathEn: files.cvEnglish && files.cvEnglish[0] ? files.cvEnglish[0].path : null,
   });
 
   // Guardado del nuevo usuario en la base de datos
   return this.UserRep.save(newUser);
 }
+
+
     
   
 

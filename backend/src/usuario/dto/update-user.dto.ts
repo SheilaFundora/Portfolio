@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateUserDto } from './create-user.dto';
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {
     @IsNotEmpty()
@@ -37,10 +37,14 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
     profession:string;
 
     logo: Buffer;
-
-    cvPath: string; // Ruta del archivo CV
     
     level:string
 
     experience:string;
+    @IsOptional()
+    cvPathEs: string;
+
+    @IsOptional()
+    cvPathEn: string;
 }
+
