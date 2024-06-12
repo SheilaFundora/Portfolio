@@ -9,4 +9,5 @@ export class CreateSocialNetworkDto {
     name:string;
     link:string;
     user_id:Usuario;
+    
 }
