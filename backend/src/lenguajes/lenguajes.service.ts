@@ -4,6 +4,7 @@ import { UpdateLenguajeDto } from './dto/update-lenguaje.dto';
 import { Lenguaje } from './entities/lenguaje.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class LenguajesService {
@@ -17,12 +18,21 @@ export class LenguajesService {
     return this.LenguajeRepo.save(NewResume);
   }
 
-  findAll() {
-    return  this.LenguajeRepo.find();
+   async findAll() {
+    const lenguajes =  this.LenguajeRepo.find();
+    return (await lenguajes).map(lenguaje => plainToClass(Lenguaje, lenguaje));
   }
 
-  findOne(id: number) {
-    return  this.LenguajeRepo.findOneBy({id});
+  async findByUserId(user_id: string) {
+    const lenguajes = this.LenguajeRepo.find({
+      where: {
+        user_id: {
+          id: user_id,
+        },
+      },
+      relations: ['user_id'],
+    });
+    return (await lenguajes).map(lenguaje => plainToClass(Lenguaje, lenguaje));
   }
 
   async update(id: number, updateLenguajeDto: UpdateLenguajeDto) {

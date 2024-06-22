@@ -4,23 +4,33 @@ import { UpdateSkillDto } from './dto/update-skill.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Skill } from './entities/skill.entity';
 import { Repository } from 'typeorm';
+import { Usuario } from 'src/usuario/entities/user.entity';
+import { plainToClass } from 'class-transformer';
 
 
 @Injectable()
 export class SkillService {
   constructor(
     @InjectRepository(Skill) private SkillRep:Repository<Skill>,
-
+    @InjectRepository(Usuario) private UserRep:Repository<Usuario>,
 )
 {}
-findAll()
+async findAll()
 {
-return  this.SkillRep.find();
+const skills =  this.SkillRep.find();
+return (await skills).map(skill => plainToClass(Skill, skill));
 }
 
-getId(id: number)
-{
-    return this.SkillRep.findOneBy({id});
+async findByUserId(user_id: string) {
+  const skills = this.SkillRep.find({
+    where: {
+      user_id: {
+        id: user_id,
+      },
+    },
+    relations: ['user_id'],
+  });
+  return (await skills).map(skill => plainToClass(Skill, skill));
 }
 
 async create(CreateSkillDto: CreateSkillDto): Promise<Skill> {

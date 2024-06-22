@@ -17,9 +17,9 @@ export class LenguajesController {
     return this.lenguajesService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.lenguajesService.findOne(+id);
+  @Get('user/:user_id')
+  findByUserId(@Param('user_id') user_id: string) {
+    return this.lenguajesService.findByUserId(user_id);
   }
 
   @Patch(':id')

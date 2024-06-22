@@ -4,6 +4,7 @@ import { UpdateServiceDto } from './dto/update-service.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Services } from './entities/service.entity';
 import { Repository } from 'typeorm';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class ServicesService {
@@ -12,14 +13,22 @@ export class ServicesService {
 
 )
 {}
-findAll()
+async findAll()
 {
-return  this.ServicesRep.find();
+const services = this.ServicesRep.find();
+return (await services).map(service => plainToClass(Services, service));
 }
 
-getId(id: number)
-{
-    return this.ServicesRep.findOneBy({id});
+async findByUserId(user_id: string) {
+  const services = this.ServicesRep.find({
+    where: {
+      user_id: {
+        id: user_id,
+      },
+    },
+    relations: ['user_id'],
+  });
+  return (await services).map(service => plainToClass(Services, service));
 }
 
 async create(CreateServiceDto: CreateServiceDto): Promise<Services> {

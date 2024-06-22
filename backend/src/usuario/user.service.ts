@@ -14,6 +14,7 @@ import { ActivateUserDto } from './dto/activate-user.dto';
 import { resetPassword } from './dto/password-reset.dto';
 import { linkPassDto } from './dto/linkPass.dto';
 import { changePasswordDto } from './dto/change-password.dto';
+import { plainToClass } from 'class-transformer';
 
 
 interface LoginResponse {
@@ -29,9 +30,10 @@ export class UsuarioService {
     private jwtService:JwtService
 )
 {}
-findAll()
+async findAll()
 {
-return  this.UserRep.find();
+const users = this.UserRep.find();
+return (await users).map(user => plainToClass(Usuario, user));
 }
 
 async getUser(username: string): Promise<Partial<Usuario>> {

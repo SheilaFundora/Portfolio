@@ -8,6 +8,7 @@ import { Services } from 'src/services/entities/service.entity';
 import { Skill } from 'src/skill/entities/skill.entity';
 import { SocialNetwork } from 'src/social-network/entities/social-network.entity';
 import { ProjectIMG } from 'src/project-img/entities/project-img.entity';
+import { Exclude } from 'class-transformer';
 
 
 @Entity()
@@ -37,12 +38,16 @@ export class Usuario {
     email:string;
     @Column({unique:true})
     username:string;
+    @Exclude()
     @Column({unique:false})
     password:string;
+    @Exclude()
     @Column({type:'boolean', default:false})
     active:boolean
+    @Exclude()
     @Column({type:'uuid', unique:true})
     activationToken:string;
+    @Exclude()
     @Column({type:'uuid', unique:true, nullable:true})
     resetPass: string
     @Column({nullable:true})

@@ -17,9 +17,9 @@ export class PhotoController {
     return this.photoService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.photoService.getId(+id);
+  @Get('user/:user_id')
+  findByUserId(@Param('user_id') user_id: string) {
+    return this.photoService.findByUserId(user_id);
   }
 
   @Patch(':id')
