@@ -17,9 +17,9 @@ export class ProjectImgController {
     return this.projectImgService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.projectImgService.getId(+id);
+  @Get('user/:user_id')
+  findByUserId(@Param('user_id') user_id: string) {
+    return this.projectImgService.findByUserId(user_id);
   }
 
   @Patch(':id')

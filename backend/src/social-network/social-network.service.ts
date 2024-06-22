@@ -4,6 +4,7 @@ import { UpdateSocialNetworkDto } from './dto/update-social-network.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SocialNetwork } from './entities/social-network.entity';
 import { Repository } from 'typeorm';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class SocialNetworkService {
@@ -12,14 +13,22 @@ export class SocialNetworkService {
 
 )
 {}
-findAll()
+async findAll()
 {
-return  this.SocialNetworkRep.find();
+const socials = this.SocialNetworkRep.find();
+return (await socials).map(social => plainToClass(SocialNetwork, social));
 }
 
-getId(id: number)
-{
-    return this.SocialNetworkRep.findOneBy({id});
+async findByUserId(user_id: string) {
+  const socials = this.SocialNetworkRep.find({
+    where: {
+      user_id: {
+        id: user_id,
+      },
+    },
+    relations: ['user_id'],
+  });
+  return (await socials).map(social => plainToClass(SocialNetwork, social));
 }
 
 async create(CreateSocialNetworkDto: CreateSocialNetworkDto): Promise<SocialNetwork> {

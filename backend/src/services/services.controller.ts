@@ -16,10 +16,9 @@ export class ServicesController {
   findAll() {
     return this.servicesService.findAll();
   }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.servicesService.getId(+id);
+  @Get('user/:user_id')
+  findByUserId(@Param('user_id') user_id: string) {
+    return this.servicesService.findByUserId(user_id);
   }
 
   @Patch(':id')

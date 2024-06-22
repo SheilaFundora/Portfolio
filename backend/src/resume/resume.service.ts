@@ -4,6 +4,7 @@ import { UpdateResumeDto } from './dto/update-resume.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Resume } from './entities/resume.entity';
 import { Repository } from 'typeorm';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class ResumeService {
@@ -12,14 +13,22 @@ export class ResumeService {
 
 )
 {}
-findAll()
+async findAll()
 {
-return  this.ResumeRep.find();
+const resumes = this.ResumeRep.find();
+return (await resumes).map(resume => plainToClass(Resume, resume));
 }
 
-getId(id: number)
-{
-    return this.ResumeRep.findOneBy({id});
+async findByUserId(user_id: string) {
+  const resumes = this.ResumeRep.find({
+    where: {
+      user_id: {
+        id: user_id,
+      },
+    },
+    relations: ['user_id'],
+  });
+  return (await resumes).map(resume => plainToClass(Resume, resume));
 }
 
 async create(CreateResumeDto: CreateResumeDto): Promise<Resume> {

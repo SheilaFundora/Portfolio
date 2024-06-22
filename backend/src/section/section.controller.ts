@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { SectionService } from './section.service';
 import { CreateSectionDto } from './dto/create-section.dto';
 import { UpdateSectionDto } from './dto/update-section.dto';
+import { SectionModule } from './section.module';
 
 @Controller('api/section')
 export class SectionController {
@@ -17,9 +18,9 @@ export class SectionController {
     return this.sectionService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.sectionService.getId(+id);
+  @Get('user/:user_id')
+  findByUserId(@Param('user_id') user_id: string) {
+    return this.sectionService.findByUserId(user_id);
   }
 
   @Patch(':id')
