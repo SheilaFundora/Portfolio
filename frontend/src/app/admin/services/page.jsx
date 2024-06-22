@@ -5,9 +5,7 @@ import Box from "@mui/material/Box";
 import ModalService from "@/app/admin/services/ModalService";
 import ModalForm from "@/components/adminComponents/other/ModalForm";
 import ButtonAdd from "@/components/adminComponents/other/ButtonAdd";
-import ModalSocialNet from "@/app/admin/socialNetworks/ModalSocialNet";
-import axios from "axios";
-import {socialNet_end} from "@/constants/endpoints";
+
 
 const Page = () => {
   const [openModal, setOpenModal] = React.useState(false);

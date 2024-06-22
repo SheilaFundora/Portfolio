@@ -22,9 +22,10 @@ const Page = () => {
 
     try {
       await axios.get(
-        process.env.NEXT_PUBLIC_API_HOST + socialNet_end /*+ '/' + username + '/'*/
+        process.env.NEXT_PUBLIC_API_HOST + socialNet_end /*+ '/user/' + username + '/'*/
       )
         .then(response => {
+          console.log(response.data)
           setSocialNetData(response.data)
         })
     } catch (error) {

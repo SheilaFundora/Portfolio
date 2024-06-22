@@ -93,24 +93,23 @@ export default function PersistentDrawerLeft({children}) {
     const username = window.localStorage.getItem('username');
     const id = window.localStorage.getItem('id');
     setUsername(username);
-    const json_token = JSON.stringify({ token: token });
+    const json_token = {token: token};
 
 
     if (token === null || username === null || id === null) {
         router.push('/auth/login');
     }else{
-      handleLoading();
-     /* try{
-        const resp =  fetchData(validateToken_end, json_token, "POST");
-        console.log(resp)
+     /* fetchData(validateToken_end, json_token, "POST").then((isValid) => {
+        if( isValid.status === 401){
+          console.log(isValid)
 
-      }catch (e) {
-        console.log(e)
-      }
-*/
-      /*
-           validar si token existe sino botarlo
-      */
+
+        }else{
+          console.log(isValid)
+
+        }
+      })*/
+
     }
 
   }, [])

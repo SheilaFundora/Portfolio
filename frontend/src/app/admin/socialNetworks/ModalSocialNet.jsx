@@ -6,7 +6,7 @@ import {socialNet_end} from "@/constants/endpoints";
 import {fetchData} from "@/helper/fetch";
 import Swal from "sweetalert2";
 
-const ModalSocialNet = ({handleClickOpen, action, social_net, hanleRefreshTable}) => {
+const ModalSocialNet = ({handleClickOpen, action, social_net = null, hanleRefreshTable}) => {
   const { register, control, handleSubmit, formState: { errors } } = useForm('formSN');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -40,7 +40,7 @@ const ModalSocialNet = ({handleClickOpen, action, social_net, hanleRefreshTable}
     const endpoint = socialNet_end + '/' + social_net.id +'/'
     data.user_id = social_net.user_id
 
-    try{
+   /* try{
       const resp = await fetchData(endpoint, data, "PUT");
       console.log('id',social_net.link)
       console.log('data',data)
@@ -56,12 +56,21 @@ const ModalSocialNet = ({handleClickOpen, action, social_net, hanleRefreshTable}
           await Swal.fire('Exito', "Social Network created with exit.", 'success');
         }else{
           await Swal.fire('Error', "Error del servidor", 'error');
-        }
-      }
-
-    }catch (e) {
+        } }catch (e) {
       console.log(e);
     }
+      }*/
+
+      try {
+        const resp = await fetch(endpoint, {
+          method: 'PATCH',
+          body: data,
+        });
+        console.log(resp);
+
+      } catch (error) {
+        console.error(error);
+      }
   }
 
   const handleOperationSN= async (data) => {

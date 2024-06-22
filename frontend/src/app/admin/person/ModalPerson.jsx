@@ -18,14 +18,19 @@ const ModalPerson = ({handleClickOpen, personData}) => {
   }, [])
 
   const handleEditPerson = async (data) => {
+    const endpoint = user_end  + '/' + personData.id
+
     try {
-      const endpoint = user_end  + '/' + personData.id
-      const resp = await fetchData(endpoint, data, "PUT");
+      const resp = await fetch(endpoint, {
+        method: 'PATCH',
+        body: data,
+      });
       console.log(resp);
 
-    }catch (error) {
-      console.log(error)
+    } catch (error) {
+      console.error(error);
     }
+
   }
 
   return (
