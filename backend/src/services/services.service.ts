@@ -19,11 +19,11 @@ const services = this.ServicesRep.find();
 return (await services).map(service => plainToClass(Services, service));
 }
 
-async findByUserId(user_id: string) {
+async findByUserId(username: string) {
   const services = this.ServicesRep.find({
     where: {
       user_id: {
-        id: user_id,
+        username: username
       },
     },
     relations: ['user_id'],

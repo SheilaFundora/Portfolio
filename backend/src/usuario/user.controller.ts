@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards, UseInterceptors, UploadedFile, BadRequestException, UploadedFiles } from '@nestjs/common';
+import { Controller, Get, Post, Headers, Body, Patch, Param, Delete, Query, UseGuards, UseInterceptors, UploadedFile, BadRequestException, UploadedFiles } from '@nestjs/common';
 import { UsuarioService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -80,9 +80,21 @@ export class UsuarioController {
   }
 
   @Post('validate-token')
-  async validateToken(@Body() validateTokenDto: ValidateTokenDto): Promise<{ valid: boolean }> {
-    const isValid = await this.userService.validateToken(validateTokenDto.token);
+  async validateToken(@Headers() headers: ValidateTokenDto): Promise<{ valid: boolean }> {
+    const token = this.extractToken(headers.authorization);
+    const isValid = await this.userService.validateToken(token);
     return { valid: isValid };
+  }
+
+  private extractToken(authorization: string): string {
+    if (!authorization) {
+      throw new Error('Authorization header is missing');
+    }
+    const parts = authorization.split(' ');
+    if (parts.length !== 2 || parts[0] !== 'Bearer') {
+      throw new Error('Authorization header format is "Bearer <token>"');
+    }
+    return parts[1];
   }
 
   @Get(':username')

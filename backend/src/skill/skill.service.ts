@@ -21,11 +21,11 @@ const skills =  this.SkillRep.find();
 return (await skills).map(skill => plainToClass(Skill, skill));
 }
 
-async findByUserId(user_id: string) {
+async findByUserId(username: string) {
   const skills = this.SkillRep.find({
     where: {
       user_id: {
-        id: user_id,
+        username: username
       },
     },
     relations: ['user_id'],

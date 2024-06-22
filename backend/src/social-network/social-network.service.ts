@@ -19,16 +19,17 @@ const socials = this.SocialNetworkRep.find();
 return (await socials).map(social => plainToClass(SocialNetwork, social));
 }
 
-async findByUserId(user_id: string) {
-  const socials = this.SocialNetworkRep.find({
+async findByUsername(username: string) {
+  const socials = await this.SocialNetworkRep.find({
     where: {
       user_id: {
-        id: user_id,
+        username: username,
       },
     },
     relations: ['user_id'],
   });
-  return (await socials).map(social => plainToClass(SocialNetwork, social));
+
+  return socials.map(social => plainToClass(SocialNetwork, social));
 }
 
 async create(CreateSocialNetworkDto: CreateSocialNetworkDto): Promise<SocialNetwork> {

@@ -20,11 +20,11 @@ const projects =  this.ProjectRep.find();
 return (await projects).map(project => plainToClass(Project, project));
 }
 
-async findByUserId(user_id: string) {
+async findByUserId(username: string) {
   const projects = this.ProjectRep.find({
     where: {
       user_id: {
-        id: user_id,
+        username: username
       },
     },
     relations: ['user_id'],
