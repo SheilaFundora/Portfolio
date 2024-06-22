@@ -23,6 +23,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import ModalForm from "@/components/adminComponents/other/ModalForm";
 import ModalPerson from "@/app/admin/person/ModalPerson";
 import ModalChangePass from "@/components/adminComponents/other/ModalChangePass";
+import {fetchData} from "@/helper/fetch";
+import {socialNet_end, validateToken_end} from "@/constants/endpoints";
 
 const drawerWidth = 280;
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -64,6 +66,7 @@ export default function PersistentDrawerLeft({children}) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [openModalCP, setOpenModalCP] = React.useState(false);
+  const [username, setUsername] = React.useState('');
 
   const handleOpenDrawer = () => {
     setOpenDrawer(!openDrawer);
@@ -89,12 +92,22 @@ export default function PersistentDrawerLeft({children}) {
     const token = window.localStorage.getItem('token');
     const username = window.localStorage.getItem('username');
     const id = window.localStorage.getItem('id');
+    setUsername(username);
+    const json_token = JSON.stringify({ token: token });
+
 
     if (token === null || username === null || id === null) {
         router.push('/auth/login');
     }else{
       handleLoading();
+     /* try{
+        const resp =  fetchData(validateToken_end, json_token, "POST");
+        console.log(resp)
 
+      }catch (e) {
+        console.log(e)
+      }
+*/
       /*
            validar si token existe sino botarlo
       */
@@ -189,7 +202,7 @@ export default function PersistentDrawerLeft({children}) {
             keepMounted: true, // Better open performance on mobile.
           }}
         >
-          <DrawerPersonalized/>
+          <DrawerPersonalized username={username}/>
         </Drawer>
         :
         <Drawer
@@ -211,11 +224,9 @@ export default function PersistentDrawerLeft({children}) {
             keepMounted: true, // Better open performance on mobile.
           }}
         >
-          <DrawerPersonalized/>
+          <DrawerPersonalized username={username}/>
         </Drawer>
       }
-
-
 
 
       <Main open={openDrawer}  sx={{

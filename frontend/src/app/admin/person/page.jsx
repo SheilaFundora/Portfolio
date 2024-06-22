@@ -8,13 +8,12 @@ import ModalForm from "@/components/adminComponents/other/ModalForm";
 import ModalPerson from "@/app/admin/person/ModalPerson";
 import axios from "axios";
 import {user_end} from "@/constants/endpoints";
-import ActionsTable from "@/components/adminComponents/other/ActionsTable";
 
 const Page = () => {
   const [openEdit, setOpenEdit] = React.useState(false);
   const [personData, setPersonData] = React.useState([]);
 
-
+  console.log(personData)
   useEffect( () => {
     getData()
   }, [])
@@ -34,23 +33,8 @@ const Page = () => {
     }
   }
 
-  console.log('personData', personData)
-
-
   const handleOpenEdit = () => {
     setOpenEdit(!openEdit);
-  }
-
-  const confirmEditPerson = (idEdit) =>{
-    const _person = personas.filter((val) => val.id === idEdit)
-    handleOpenEdit();
-    console.log(openEdit)
-  }
-
-  const actionBodyTemplate = (rowData) => {
-    return (
-      <ActionsTable confirmEditPerson={confirmEditPerson} rowData={rowData}/>
-    )
   }
 
   return (
@@ -100,7 +84,7 @@ const Page = () => {
 
 
         {openEdit &&
-          <ModalForm modal={<ModalPerson handleClickOpen={handleOpenEdit} action={'edit'}/>}
+          <ModalForm modal={<ModalPerson handleClickOpen={handleOpenEdit} action={'edit'} personData={personData[0]}/>}
                      openModal={openEdit}
                      handleClickOpen={handleOpenEdit}
           />

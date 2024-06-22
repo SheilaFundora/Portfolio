@@ -13,31 +13,12 @@ import ModalDelete from "@/components/adminComponents/other/ModalDelete";
 import Swal from "sweetalert2";
 
 
-const TableSocialNet = () => {
+const TableSocialNet = ({socialNetData, hanleRefreshTable}) => {
   const [openEdit, setOpenEdit] = React.useState(false);
   const [openDelete, setOpenDelete] = React.useState(false);
-  const [socialNetData, setSocialNetData] = React.useState([]);
   const [snSelect, setSnSelect] = React.useState([]);
   const [snId, setSId] = React.useState(null);
 
-  useEffect( () => {
-    getData()
-  }, [])
-
-  const getData = async () => {
-    const username = window.localStorage.getItem('username')
-
-    try {
-      await axios.get(
-        process.env.NEXT_PUBLIC_API_HOST + socialNet_end /*+ '/' + username + '/'*/
-      )
-        .then(response => {
-          setSocialNetData(response.data)
-        })
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   const handleOpenEdit = () => {
     setOpenEdit(!openEdit);
@@ -75,7 +56,9 @@ const TableSocialNet = () => {
         Swal.fire('Error', "Server error", 'error');
       }else{
         if (resp.status === 200) {
+          hanleRefreshTable();
           await Swal.fire('Exito', "Social Network deleted with exit.", 'success');
+
         }else{
           await Swal.fire('Error', "Server Error", 'error');
         }

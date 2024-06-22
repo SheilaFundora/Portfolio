@@ -6,7 +6,7 @@ import {socialNet_end} from "@/constants/endpoints";
 import {fetchData} from "@/helper/fetch";
 import Swal from "sweetalert2";
 
-const ModalSocialNet = ({handleClickOpen, action, social_net}) => {
+const ModalSocialNet = ({handleClickOpen, action, social_net, hanleRefreshTable}) => {
   const { register, control, handleSubmit, formState: { errors } } = useForm('formSN');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -23,7 +23,9 @@ const ModalSocialNet = ({handleClickOpen, action, social_net}) => {
         Swal.fire('Error', "The social network already exist", 'error');
       }else{
         if (resp.status === 201) {
+          hanleRefreshTable();
           await Swal.fire('Exito', "Social Network created with exit.", 'success');
+
         }else{
           await Swal.fire('Error', "Error del servidor", 'error');
         }
@@ -44,6 +46,8 @@ const ModalSocialNet = ({handleClickOpen, action, social_net}) => {
       console.log('data',data)
       console.log('resp', resp)
       handleClickOpen();
+      hanleRefreshTable();
+
 
       if (resp.status === 500) {
         Swal.fire('Error', "The social network already exist", 'error');
