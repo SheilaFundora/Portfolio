@@ -19,11 +19,11 @@ const projects = this.ProjectIMGRep.find();
 return (await projects).map(project => plainToClass(ProjectIMG, project));
 }
 
-async findByUserId(user_id: string) {
+async findByUserId(username: string) {
   const projects = this.ProjectIMGRep.find({
     where: {
       user_id: {
-        id: user_id,
+        username: username
       },
     },
     relations: ['user_id'],
