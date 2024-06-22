@@ -4,6 +4,7 @@ import { UpdateProjectImgDto } from './dto/update-project-img.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ProjectIMG } from './entities/project-img.entity';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class ProjectImgService {
@@ -12,14 +13,22 @@ export class ProjectImgService {
 
 )
 {}
-findAll()
+async findAll()
 {
-return  this.ProjectIMGRep.find();
+const projects = this.ProjectIMGRep.find();
+return (await projects).map(project => plainToClass(ProjectIMG, project));
 }
 
-getId(id: number)
-{
-    return this.ProjectIMGRep.findOneBy({id});
+async findByUserId(user_id: string) {
+  const projects = this.ProjectIMGRep.find({
+    where: {
+      user_id: {
+        id: user_id,
+      },
+    },
+    relations: ['user_id'],
+  });
+  return (await projects).map(project => plainToClass(ProjectIMG, project));
 }
 
 async create(CreateProjectImgDto: CreateProjectImgDto): Promise<ProjectIMG> {

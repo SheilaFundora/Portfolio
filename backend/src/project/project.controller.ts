@@ -17,9 +17,9 @@ export class ProjectController {
     return this.projectService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.projectService.getId(+id);
+  @Get('user/:user_id')
+  findByUserId(@Param('user_id') user_id: string) {
+    return this.projectService.findByUserId(user_id);
   }
 
   @Patch(':id')

@@ -4,6 +4,7 @@ import { UpdatePhotoDto } from './dto/update-photo.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Photo } from './entities/photo.entity';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class PhotoService {
@@ -13,14 +14,22 @@ export class PhotoService {
 )
 {}
 
-findAll()
+async findAll()
 {
-return  this.PhotoRep.find();
+const photos =  this.PhotoRep.find();
+return (await photos).map(photo => plainToClass(Photo, photo));
 }
 
-getId(id: number)
-{
-    return this.PhotoRep.findOneBy({id});
+async findByUserId(user_id: string) {
+  const photos = this.PhotoRep.find({
+    where: {
+      user_id: {
+        id: user_id,
+      },
+    },
+    relations: ['user_id'],
+  });
+  return (await photos).map(photo => plainToClass(Photo, photo));
 }
 
 async create(CreatePhotoDto: CreatePhotoDto): Promise<Photo> {

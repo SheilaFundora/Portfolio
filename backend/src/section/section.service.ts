@@ -4,6 +4,7 @@ import { UpdateSectionDto } from './dto/update-section.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Section } from './entities/section.entity';
 import { Repository } from 'typeorm';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class SectionService {
@@ -12,14 +13,22 @@ export class SectionService {
 
 )
 {}
-findAll()
+async findAll()
 {
-return  this.SectionRep.find();
+const sections = this.SectionRep.find();
+return (await sections).map(section => plainToClass(Section, section));
 }
 
-getId(id: number)
-{
-    return this.SectionRep.findOneBy({id});
+async findByUserId(user_id: string) {
+  const sections = this.SectionRep.find({
+    where: {
+      user_id: {
+        id: user_id,
+      },
+    },
+    relations: ['user_id'],
+  });
+  return (await sections).map(section => plainToClass(Section, section));
 }
 
 async create(CreateSectionDto: CreateSectionDto): Promise<Section> {
