@@ -23,11 +23,11 @@ export class LenguajesService {
     return (await lenguajes).map(lenguaje => plainToClass(Lenguaje, lenguaje));
   }
 
-  async findByUserId(user_id: string) {
+  async findByUserId(username: string) {
     const lenguajes = this.LenguajeRepo.find({
       where: {
         user_id: {
-          id: user_id,
+          username: username
         },
       },
       relations: ['user_id'],

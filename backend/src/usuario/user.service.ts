@@ -15,6 +15,7 @@ import { resetPassword } from './dto/password-reset.dto';
 import { linkPassDto } from './dto/linkPass.dto';
 import { changePasswordDto } from './dto/change-password.dto';
 import { plainToClass } from 'class-transformer';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 
 interface LoginResponse {
@@ -119,7 +120,7 @@ async create(createUserDto: CreateUserDto, files: { cvSpanish?: Express.Multer.F
   
 
 
-async update (id:string, body:CreateUserDto){
+async update (id:string, body:UpdateUserDto){
     const user = await this.UserRep.findOneBy({id});
     if (!user) {
         throw new Error('id no encontrado');

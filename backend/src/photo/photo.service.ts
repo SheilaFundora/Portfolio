@@ -20,11 +20,11 @@ const photos =  this.PhotoRep.find();
 return (await photos).map(photo => plainToClass(Photo, photo));
 }
 
-async findByUserId(user_id: string) {
+async findByUserId(username: string) {
   const photos = this.PhotoRep.find({
     where: {
       user_id: {
-        id: user_id,
+        username: username
       },
     },
     relations: ['user_id'],

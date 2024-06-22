@@ -17,9 +17,9 @@ export class SocialNetworkController {
     return this.socialNetworkService.findAll();
   }
 
-  @Get('user/:user_id')
-  findByUserId(@Param('user_id') user_id: string) {
-    return this.socialNetworkService.findByUserId(user_id);
+  @Get('user/:username')
+  findByUsername(@Param('username') username: string) {
+    return this.socialNetworkService.findByUsername(username);
   }
 
   @Patch(':id')

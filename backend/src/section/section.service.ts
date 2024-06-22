@@ -19,11 +19,11 @@ const sections = this.SectionRep.find();
 return (await sections).map(section => plainToClass(Section, section));
 }
 
-async findByUserId(user_id: string) {
+async findByUserId(username: string) {
   const sections = this.SectionRep.find({
     where: {
       user_id: {
-        id: user_id,
+        username: username
       },
     },
     relations: ['user_id'],

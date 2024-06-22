@@ -19,11 +19,11 @@ const resumes = this.ResumeRep.find();
 return (await resumes).map(resume => plainToClass(Resume, resume));
 }
 
-async findByUserId(user_id: string) {
+async findByUserId(username: string) {
   const resumes = this.ResumeRep.find({
     where: {
       user_id: {
-        id: user_id,
+        username: username
       },
     },
     relations: ['user_id'],
