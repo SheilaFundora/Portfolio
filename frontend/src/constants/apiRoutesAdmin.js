@@ -14,45 +14,38 @@ export const routesAdmin = [
         icon: <PersonIcon/>
     },
     {
-        name: 'Social Network',
+        name: 'Social Net',
         link: '/admin/socialNetworks',
         icon: <PublicIcon/>
-
     },
     {
         name: 'Skills',
         link: '/admin/skills',
         icon: <CodeIcon/>
-
     },
     {
         name: 'Project',
         link: '/admin/project',
         icon: <WorkIcon/>
-
     },
     {
         name: 'Resume',
         link: '/admin/resume',
         icon: <LibraryBooksIcon/>
-
     },
-    {
-        name: 'Images',
-        link: '/admin/images',
-        icon: <ImageIcon/>
-    }
-    ,
     {
         name: 'Services',
         link: '/admin/services',
         icon: <DesignServicesIcon/>
-
     },
     {
       name: 'Section',
       link: '/admin/section',
       icon: <BookmarksIcon/>
-
+    },
+    {
+      name: 'Images',
+      link: '/admin/images',
+      icon: <ImageIcon/>
     }
 ];

@@ -27,7 +27,7 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const { register, control, handleSubmit } = useForm('formSN');
+  const { register, control, handleSubmit } = useForm();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
