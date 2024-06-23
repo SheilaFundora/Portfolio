@@ -1,13 +1,12 @@
 'use client'
 import React, {useEffect} from 'react';
 import Box from "@mui/material/Box";
-import TableAdmin from "@/components/adminComponents/other/TableAdmin";
 import {Button, Grid} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import ModalForm from "@/components/adminComponents/other/ModalForm";
 import ModalPerson from "@/app/admin/person/ModalPerson";
-import axios from "axios";
 import {user_end} from "@/constants/endpoints";
+import axios from "axios";
 
 const Page = () => {
   const [openEdit, setOpenEdit] = React.useState(false);
@@ -21,10 +20,10 @@ const Page = () => {
 
   console.log(personData)
   useEffect( () => {
-    getData()
+    getDataPerson()
   }, [refreshData])
 
-  const getData = async () => {
+  const getDataPerson = async () => {
     const username = window.localStorage.getItem('username')
 
     try {
@@ -74,8 +73,8 @@ const Page = () => {
               <p className={'text-style'}><b>Experience:</b> {person.experience}</p>
               <p className={'text-style'}><b>Remote:</b> {(person.remote) ? 'Available' : 'Not available'}</p>
               <p className={'text-style'}><b>Freelancer:</b> {(person.freelancer) ? 'Available' : 'Not available'}</p>
-              {/*<p className={'text-style'}><b>Cv english:</b> </p>
-            <p className={'text-style'}><b>Cv spanish:</b> </p>*/}
+              <p className={'text-style'}><b>Cv english:</b> </p>
+            <p className={'text-style'}><b>Cv spanish:</b> </p>
             </Grid>
           </Grid>
 

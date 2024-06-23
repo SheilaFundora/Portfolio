@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import {Button, DialogActions, DialogContent, DialogContentText, MenuItem, TextField} from "@mui/material";
+import {Button, DialogActions, DialogContent, MenuItem, TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import {Controller, useForm} from "react-hook-form";
 import {fetchData} from "@/helper/fetch";
-import {register_end, socialNet_end, user_end} from "@/constants/endpoints";
+import {socialNet_end, user_end} from "@/constants/endpoints";
 import Swal from "sweetalert2";
+import {handleEditData} from "@/helper/editData";
 
 const ModalPerson = ({handleClickOpen, personData, handleRefreshData}) => {
-  const { register, control, handleSubmit, formState: { errors }, setValue } = useForm('formResume');
+  const { register, control, handleSubmit, formState: { errors }, setValue } = useForm();
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect( () => {
-    console.log(personData)
     setValue('freelancer', personData.freelancer);
     setValue('remote', personData.remote);
 
@@ -21,20 +21,7 @@ const ModalPerson = ({handleClickOpen, personData, handleRefreshData}) => {
     const endpoint = user_end  + '/' + personData.id
     data.birthday = data.birthday === '' ? null : data.birthday;
 
-    try {
-      const resp = await fetchData(endpoint, data, "PATCH");
-      console.log(resp)
-      handleClickOpen();
-      if (resp.status === 200) {
-        handleRefreshData();
-        await Swal.fire('Exito', "Person edit with exit.", 'success');
-      }else{
-        await Swal.fire('Error', "Error del servidor", 'error');
-      }
-
-    } catch (error) {
-      console.error(error);
-    }
+    await handleEditData(handleClickOpen, endpoint, data, handleRefreshData, 'Person');
 
   }
 

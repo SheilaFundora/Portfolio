@@ -78,7 +78,7 @@ function Header() {
                                 <Hidden only={['md', 'lg', 'xl']}>
                                     <Image
                                         src={'/img/logotipo.jpg'}
-                                        alt={'Logotipo'}
+                                        alt={'Logotype'}
                                         width={150}
                                         height={70}
                                     />

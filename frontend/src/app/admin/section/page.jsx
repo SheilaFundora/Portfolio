@@ -1,29 +1,43 @@
 'use client'
-import React from 'react';
-import TableAdmin from "@/components/adminComponents/other/TableAdmin";
+import React, {useEffect} from 'react';
 import Box from "@mui/material/Box";
 import ModalSection from "@/app/admin/section/ModalSection";
 import ButtonAdd from "@/components/adminComponents/other/ButtonAdd";
 import ModalForm from "@/components/adminComponents/other/ModalForm";
+import {section_end} from "@/constants/endpoints";
+import TableSection from "@/app/admin/section/TableSection";
+import {getData} from "@/helper/getData";
 
 const Page = () => {
   const [openModal, setOpenModal] = React.useState(false);
+  const [refreshTable, setRefreshTable] = React.useState(false);
+  const [sectionData, setSectionData] = React.useState([]);
+
+  useEffect( () => {
+    getData(section_end, setSectionData);
+
+  }, [refreshTable])
 
   const handleClickOpen = () => {
     setOpenModal(!openModal);
-  };
+  }
+
+  const handleRefreshTable = () => {
+    setRefreshTable(!refreshTable)
+  }
+
 
   return (
     <Box sx={{ marginTop: 2}}>
       <ButtonAdd name={'Section'} handleClickOpen={handleClickOpen}/>
 
       { openModal &&
-        <ModalForm modal={<ModalSection handleClickOpen={handleClickOpen} action={'add'} />}
+        <ModalForm modal={<ModalSection handleClickOpen={handleClickOpen} action={'add'} handleRefreshTable={handleRefreshTable} />}
                    openModal={openModal}
                    handleClickOpen={handleClickOpen}
         />
       }
-      <TableAdmin />
+      <TableSection handleRefreshTable={handleRefreshTable} sectionData={sectionData} />
     </Box>
   );
 };

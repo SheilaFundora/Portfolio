@@ -5,32 +5,17 @@ import ModalSocialNet from "@/app/admin/socialNetworks/ModalSocialNet";
 import TableSocialNet from "@/app/admin/socialNetworks/TableSocialNet";
 import ModalForm from "@/components/adminComponents/other/ModalForm";
 import ButtonAdd from "@/components/adminComponents/other/ButtonAdd";
-import axios from "axios";
 import {socialNet_end} from "@/constants/endpoints";
+import {getData} from "@/helper/getData";
 
 const Page = () => {
   const [openModal, setOpenModal] = React.useState(false);
-  const [refreshTable, setRefreshTable] = React.useState(false)
+  const [refreshTable, setRefreshTable] = React.useState(false);
   const [socialNetData, setSocialNetData] = React.useState([]);
 
   useEffect( () => {
-    getData()
+    getData(socialNet_end, setSocialNetData)
   }, [refreshTable])
-
-  const getData = async () => {
-    const username = window.localStorage.getItem('username')
-
-    try {
-      await axios.get(
-        process.env.NEXT_PUBLIC_API_HOST + socialNet_end + '/user/' + username + '/'
-      )
-        .then(response => {
-          setSocialNetData(response.data)
-        })
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   const handleClickOpen = () => {
     setOpenModal(!openModal);

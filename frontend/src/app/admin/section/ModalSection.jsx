@@ -1,20 +1,44 @@
 import React, {useState} from 'react';
-import {Button, DialogActions, DialogContent, DialogContentText, TextField} from "@mui/material";
+import {Button, DialogActions, DialogContent, TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import {useForm} from "react-hook-form";
+import {section_end} from "@/constants/endpoints";
+import {handleSubmitData} from "@/helper/submitData";
+import {handleEditData} from "@/helper/editData";
 
-const ModalSection = ({handleClickOpen}) => {
+const ModalSection = ({handleClickOpen, action, sectionData = null, handleRefreshTable}) => {
   const { register, control, handleSubmit, formState: { errors } } = useForm('formSection');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmitSection= async (data) => {
-    console.log(data)
+    await handleSubmitData(handleClickOpen, section_end, data, handleRefreshTable, 'Section', setErrorMessage);
   }
+  const handleEditSection = async (data) => {
+    const endpoint = section_end + '/' + sectionData.id +'/'
+    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'Section');
+  }
+
+  const handleOperationSection= async (data) => {
+    if( action === 'add'){
+      await handleSubmitSection(data)
+    }else{
+      if ( action === 'edit'){
+        await handleEditSection(data)
+      }
+    }
+  }
+
   return (
     <Box>
-      <form onSubmit={handleSubmit(handleSubmitSection)}>
+      <form onSubmit={handleSubmit(handleOperationSection)}>
         <DialogContent>
-          <h4 className='mt-4 text-center'>Form to add Section</h4>
+          <h4 className='mt-4 text-center'>
+            {action === 'add' ?
+              "Form to add Section" :
+              "Form to edit Section"
+            }
+          </h4>
+
           <TextField
             label="Title"
             type='text'
@@ -24,11 +48,11 @@ const ModalSection = ({handleClickOpen}) => {
             })}
             error={!!errors.title}
             helperText={errors.title && errors.title.message}
+            defaultValue={action === 'edit' ? sectionData.title : ""}
           />
           <TextField
             label="Description"
             type='text'
-            required
             multiline
             rows={4}
             sx={{m: 2, width: '500px'}}
@@ -37,6 +61,7 @@ const ModalSection = ({handleClickOpen}) => {
             })}
             error={!!errors.description}
             helperText={errors.description && errors.description.message}
+            defaultValue={action === 'edit' ? sectionData.description : ""}
           />
 
           {errorMessage && <div className='error-message text-danger text-start ms-4'>{errorMessage}</div>}
