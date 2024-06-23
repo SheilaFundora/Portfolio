@@ -19,27 +19,15 @@ export const fetchData = ( endpoint, data, method = 'GET' ) => {
 }
 
 
-export const fetchConToken = ( endpoint, data, method = 'GET' ) => {
-
-  const url = `${ baseUrl }/${ endpoint }`;
+export const fetchValidateToken = ( endpoint, method = 'POST' ) => {
+  const url = `${ baseUrl }${ endpoint }`;
   const token = localStorage.getItem('token') || ''; //recibiendo el token del localStorage
 
-  console.log(token)
-  if ( method === 'GET' ) {
-    return fetch( url, {
-      method,
-      headers: {
-        'token': token //mandando el token en los headers
-      }
-    });
-  } else {
-    return fetch( url, {
-      method,
-      headers: {
-        'Content-type': 'application/json',
-        'x-token': token
-      },
-      body: JSON.stringify( data )
-    });
-  }
+  return fetch( url, {
+    method,
+    headers: {
+      'Content-type': 'application/json',
+      'authorization': `Bearer ${token}`
+    },
+  });
 }

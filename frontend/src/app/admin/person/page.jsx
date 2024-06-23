@@ -12,11 +12,17 @@ import {user_end} from "@/constants/endpoints";
 const Page = () => {
   const [openEdit, setOpenEdit] = React.useState(false);
   const [personData, setPersonData] = React.useState([]);
+  const [refreshData, setRefreshData] = React.useState(false)
+
+  const handleRefreshData = () => {
+    setRefreshData(!refreshData)
+  }
+
 
   console.log(personData)
   useEffect( () => {
     getData()
-  }, [])
+  }, [refreshData])
 
   const getData = async () => {
     const username = window.localStorage.getItem('username')
@@ -53,7 +59,11 @@ const Page = () => {
               <p className={'text-style'}><b>Last Name:</b> {person.lastName}</p>
               <p className={'text-style'}><b>Email:</b> {person.email}</p>
               <p className={'text-style'}><b>Phone:</b> {person.phone}</p>
-              <p className={'text-style'}><b>Birthday:</b> {person.birthday}</p>
+              <p className={'text-style'}><b>Birthday:</b>
+                { person.birthday === null ? '' :
+                  person.birthday.split('T')[0]
+                }
+              </p>
               <p className={'text-style'}><b>Address:</b> {person.address}</p>
               <p className={'text-style'}><b>Username:</b> {person.username}</p>
             </Grid>
@@ -84,7 +94,7 @@ const Page = () => {
 
 
         {openEdit &&
-          <ModalForm modal={<ModalPerson handleClickOpen={handleOpenEdit} action={'edit'} personData={personData[0]}/>}
+          <ModalForm modal={<ModalPerson handleClickOpen={handleOpenEdit} action={'edit'} personData={personData[0]} handleRefreshData={handleRefreshData}/>}
                      openModal={openEdit}
                      handleClickOpen={handleOpenEdit}
           />

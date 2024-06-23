@@ -22,10 +22,9 @@ const Page = () => {
 
     try {
       await axios.get(
-        process.env.NEXT_PUBLIC_API_HOST + socialNet_end /*+ '/user/' + username + '/'*/
+        process.env.NEXT_PUBLIC_API_HOST + socialNet_end + '/user/' + username + '/'
       )
         .then(response => {
-          console.log(response.data)
           setSocialNetData(response.data)
         })
     } catch (error) {
@@ -37,7 +36,7 @@ const Page = () => {
     setOpenModal(!openModal);
   }
 
-  const hanleRefreshTable = () => {
+  const handleRefreshTable = () => {
     setRefreshTable(!refreshTable)
   }
 
@@ -46,12 +45,12 @@ const Page = () => {
       <ButtonAdd name={'Social Net'} handleClickOpen={handleClickOpen} />
 
       { openModal &&
-        <ModalForm modal={<ModalSocialNet handleClickOpen={handleClickOpen} action={'add'} hanleRefreshTable={hanleRefreshTable} />}
+        <ModalForm modal={<ModalSocialNet handleClickOpen={handleClickOpen} action={'add'} handleRefreshTable={handleRefreshTable} />}
                    openModal={openModal}
                    handleClickOpen={handleClickOpen}
         />
       }
-      <TableSocialNet socialNetData={socialNetData} hanleRefreshTable={hanleRefreshTable} />
+      <TableSocialNet socialNetData={socialNetData} handleRefreshTable={handleRefreshTable} />
     </Box>
   );
 };

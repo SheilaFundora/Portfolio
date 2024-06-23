@@ -13,7 +13,7 @@ import ModalDelete from "@/components/adminComponents/other/ModalDelete";
 import Swal from "sweetalert2";
 
 
-const TableSocialNet = ({socialNetData, hanleRefreshTable}) => {
+const TableSocialNet = ({socialNetData, handleRefreshTable}) => {
   const [openEdit, setOpenEdit] = React.useState(false);
   const [openDelete, setOpenDelete] = React.useState(false);
   const [snSelect, setSnSelect] = React.useState([]);
@@ -51,18 +51,16 @@ const TableSocialNet = ({socialNetData, hanleRefreshTable}) => {
     try{
       const resp = await axios.delete(process.env.NEXT_PUBLIC_API_HOST + endpoint)
       handleOpenDelete();
+      handleOpenDelete();
 
-      if (resp.status === 500) {
-        Swal.fire('Error', "Server error", 'error');
+      if (resp.status === 200) {
+        handleRefreshTable();
+        await Swal.fire('Exito', "Social Network deleted with exit.", 'success');
+
       }else{
-        if (resp.status === 200) {
-          hanleRefreshTable();
-          await Swal.fire('Exito', "Social Network deleted with exit.", 'success');
-
-        }else{
-          await Swal.fire('Error', "Server Error", 'error');
-        }
+        await Swal.fire('Error', "Server Error", 'error');
       }
+
     } catch (error) {
       console.log(error);
     }
@@ -82,7 +80,7 @@ const TableSocialNet = ({socialNetData, hanleRefreshTable}) => {
       </DataTable>
 
       {openEdit &&
-        <ModalForm modal={<ModalSocialNet handleClickOpen={handleOpenEdit} action={'edit'} social_net={snSelect} />}
+        <ModalForm modal={<ModalSocialNet handleClickOpen={handleOpenEdit} action={'edit'} social_net={snSelect} handleRefreshTable={handleRefreshTable}/>}
                    openModal={openEdit}
                    handleClickOpen={handleOpenEdit}
         />

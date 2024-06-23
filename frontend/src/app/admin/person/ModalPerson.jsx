@@ -3,10 +3,10 @@ import {Button, DialogActions, DialogContent, DialogContentText, MenuItem, TextF
 import Box from "@mui/material/Box";
 import {Controller, useForm} from "react-hook-form";
 import {fetchData} from "@/helper/fetch";
-import {register_end, user_end} from "@/constants/endpoints";
+import {register_end, socialNet_end, user_end} from "@/constants/endpoints";
 import Swal from "sweetalert2";
 
-const ModalPerson = ({handleClickOpen, personData}) => {
+const ModalPerson = ({handleClickOpen, personData, handleRefreshData}) => {
   const { register, control, handleSubmit, formState: { errors }, setValue } = useForm('formResume');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -19,13 +19,18 @@ const ModalPerson = ({handleClickOpen, personData}) => {
 
   const handleEditPerson = async (data) => {
     const endpoint = user_end  + '/' + personData.id
+    data.birthday = data.birthday === '' ? null : data.birthday;
 
     try {
-      const resp = await fetch(endpoint, {
-        method: 'PATCH',
-        body: data,
-      });
-      console.log(resp);
+      const resp = await fetchData(endpoint, data, "PATCH");
+      console.log(resp)
+      handleClickOpen();
+      if (resp.status === 200) {
+        handleRefreshData();
+        await Swal.fire('Exito', "Person edit with exit.", 'success');
+      }else{
+        await Swal.fire('Error', "Error del servidor", 'error');
+      }
 
     } catch (error) {
       console.error(error);
@@ -54,9 +59,9 @@ const ModalPerson = ({handleClickOpen, personData}) => {
                 label="Lastname"
                 type='text'
                 sx={{mb: 1, width: '55%'}}
-                {...register("lastname")}
+                {...register("lastName")}
                 error={!!errors.lastname}
-                helperText={errors.lastname && errors.lastname.message}
+                helperText={errors.lastname && errors.lastName.message}
                 defaultValue={ personData.lastname }
               />
             </Box>

@@ -23,7 +23,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import ModalForm from "@/components/adminComponents/other/ModalForm";
 import ModalPerson from "@/app/admin/person/ModalPerson";
 import ModalChangePass from "@/components/adminComponents/other/ModalChangePass";
-import {fetchData} from "@/helper/fetch";
+import {fetchConToken, fetchData, fetchValidateToken} from "@/helper/fetch";
 import {socialNet_end, validateToken_end} from "@/constants/endpoints";
 
 const drawerWidth = 280;
@@ -93,22 +93,17 @@ export default function PersistentDrawerLeft({children}) {
     const username = window.localStorage.getItem('username');
     const id = window.localStorage.getItem('id');
     setUsername(username);
-    const json_token = {token: token};
-
 
     if (token === null || username === null || id === null) {
         router.push('/auth/login');
     }else{
-     /* fetchData(validateToken_end, json_token, "POST").then((isValid) => {
+      fetchValidateToken(validateToken_end).then((isValid) => {
         if( isValid.status === 401){
-          console.log(isValid)
-
-
-        }else{
-          console.log(isValid)
-
+          window.localStorage.clear()
+          router.push(routesAuth[0].link)
         }
-      })*/
+      })
+      handleLoading();
 
     }
 
@@ -119,8 +114,6 @@ export default function PersistentDrawerLeft({children}) {
       <Loading infoText='Loading' />
     )
   }
-
-
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
