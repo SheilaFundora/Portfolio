@@ -11,12 +11,12 @@ Content-Type: application/json
 }
 ###
 
-GET http://localhost:5000/auth/sheila
+GET http://localhost:5000/auth/
 Content-Type: application/json
 
 ###
 
-DELETE http://localhost:5000/auth/f419a6e6-faa7-4dba-b287-106a4dc6db35
+DELETE http://localhost:5000/auth/
 
 Content-Type: application/json
 

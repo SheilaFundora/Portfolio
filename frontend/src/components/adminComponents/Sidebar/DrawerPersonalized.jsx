@@ -6,7 +6,6 @@ import {styled} from "@mui/material/styles";
 import {Logo} from "@/components/adminComponents/Sidebar/logo";
 import SideBarItems from "@/components/adminComponents/Sidebar/SideBarItems";
 import {useEffect} from "react";
-import {usePathname, useRouter} from "next/navigation";
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -16,25 +15,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'space-between',
 }));
 
-const DrawerPersonalized = ({ }) => {
-  const [username, setUsername] = React.useState('');
-  const router = useRouter();
-
-
-  useEffect( () => {
-    const username = window.localStorage.getItem('username');
-
-    const hanldeUsername = () => {
-      setUsername(username)
-    }
-    hanldeUsername();
-
-  }, [])
-
-
-
-  console.log(username)
-
+const DrawerPersonalized = ({ username}) => {
   return (
 
     <Box>

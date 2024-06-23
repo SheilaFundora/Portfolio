@@ -17,3 +17,17 @@ export const fetchData = ( endpoint, data, method = 'GET' ) => {
         });
     }
 }
+
+
+export const fetchValidateToken = ( endpoint, method = 'POST' ) => {
+  const url = `${ baseUrl }${ endpoint }`;
+  const token = localStorage.getItem('token') || ''; //recibiendo el token del localStorage
+
+  return fetch( url, {
+    method,
+    headers: {
+      'Content-type': 'application/json',
+      'authorization': `Bearer ${token}`
+    },
+  });
+}

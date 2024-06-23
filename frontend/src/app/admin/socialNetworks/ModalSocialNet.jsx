@@ -6,29 +6,28 @@ import {socialNet_end} from "@/constants/endpoints";
 import {fetchData} from "@/helper/fetch";
 import Swal from "sweetalert2";
 
-const ModalSocialNet = ({handleClickOpen, action, social_net}) => {
+const ModalSocialNet = ({handleClickOpen, action, social_net = null, handleRefreshTable}) => {
   const { register, control, handleSubmit, formState: { errors } } = useForm('formSN');
   const [errorMessage, setErrorMessage] = useState('');
 
-  console.log(social_net)
   const handleSubmitSn = async (data) => {
     const id = window.localStorage.getItem('id')
     data.user_id = id
 
     try{
       const resp = await fetchData(socialNet_end, data, "POST");
-      handleClickOpen();
 
       if (resp.status === 500) {
-        Swal.fire('Error', "The social network already exist", 'error');
+        setErrorMessage("The social network already exist");
       }else{
+        handleClickOpen();
         if (resp.status === 201) {
+          handleRefreshTable();
           await Swal.fire('Exito', "Social Network created with exit.", 'success');
         }else{
           await Swal.fire('Error', "Error del servidor", 'error');
         }
       }
-
     }catch (e) {
       console.log(e);
     }
@@ -38,34 +37,27 @@ const ModalSocialNet = ({handleClickOpen, action, social_net}) => {
     const endpoint = socialNet_end + '/' + social_net.id +'/'
     data.user_id = social_net.user_id
 
-    try{
-      const resp = await fetchData(endpoint, data, "PUT");
-      console.log('id',social_net.link)
-      console.log('data',data)
-      console.log('resp', resp)
+    try {
+      const resp = await fetchData(endpoint, data, "PATCH");
+      console.log(resp)
       handleClickOpen();
-
-      if (resp.status === 500) {
-        Swal.fire('Error', "The social network already exist", 'error');
+      if (resp.status === 200) {
+        handleRefreshTable();
+        await Swal.fire('Exito', "Social Network edit with exit.", 'success');
       }else{
-        if (resp.status === 201) {
-          await Swal.fire('Exito', "Social Network created with exit.", 'success');
-        }else{
-          await Swal.fire('Error', "Error del servidor", 'error');
-        }
+        await Swal.fire('Error', "Error del servidor", 'error');
       }
-
-    }catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.error(error);
     }
   }
 
   const handleOperationSN= async (data) => {
     if( action === 'add'){
-      handleSubmitSn(data)
+      await handleSubmitSn(data)
     }else{
       if ( action === 'edit'){
-        handleEditSn(data)
+        await handleEditSn(data)
       }
     }
   }

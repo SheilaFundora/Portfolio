@@ -63,4 +63,3 @@ backend/.vscode/*
 !.vscode/launch.json
 !.vscode/extensions.json
 
-backend/.development.env

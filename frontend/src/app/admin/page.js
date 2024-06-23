@@ -1,16 +1,14 @@
 'use client'
 import React from 'react';
-import {useEffect, useState} from "react";
 import Box from "@mui/material/Box";
 import {Grid} from "@mui/material";
 import CardIndex from "@/components/adminComponents/other/index/CardIndex";
-import {CurrencyDollarIcon} from "@heroicons/react/16/solid";
 import CodeIcon from '@mui/icons-material/Code';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import LanguageIcon from '@mui/icons-material/Language';
 import {BarGraph} from "@/components/adminComponents/other/index/BarGraph";
 import PastelGraph from "@/components/adminComponents/other/index/PastelGraph";
-import axios from "axios";
+import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 
 const Page = () => {
 
@@ -42,7 +40,7 @@ const Page = () => {
               md={6}
               lg={3}
             >
-              <CardIndex name={'Money'} value={'$290'} color={'success.main'} icon={<CurrencyDollarIcon />}/>
+              <CardIndex name={'Services'} value={'4'} color={'success.main'} icon={<HomeRepairServiceIcon />}/>
             </Grid>
 
             <Grid
