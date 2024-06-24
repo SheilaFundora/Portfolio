@@ -29,6 +29,6 @@ export class SocialNetworkController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.socialNetworkService.Delete(+id);
+    return this.socialNetworkService.delete(+id);
   }
 }

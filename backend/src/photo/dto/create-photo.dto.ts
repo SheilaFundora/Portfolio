@@ -8,6 +8,6 @@ export class CreatePhotoDto {
 
     id:number;
     section:string;
-    imgs: Buffer;
+    imgs: string;
     user_id:Usuario;
 }

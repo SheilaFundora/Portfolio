@@ -4,7 +4,7 @@ import { Usuario } from "src/usuario/entities/user.entity";
 export class CreateProjectImgDto {
 
     id:number;
-    imgs: Buffer;
+    imgs: string;
     project_id:Project;
     user_id:Usuario;
 }

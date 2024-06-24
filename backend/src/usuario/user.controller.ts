@@ -10,9 +10,7 @@ import { changePasswordDto } from './dto/change-password.dto';
 import { GetUser } from './get-user.decorator';
 import { Usuario } from './entities/user.entity';
 import { AuthGuard } from '@nestjs/passport';
-import { FileFieldsInterceptor, FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
+
 import { ValidateTokenDto } from './dto/validate-token.dto';
 
 @Controller('auth')
@@ -20,31 +18,10 @@ export class UsuarioController {
   constructor(private readonly userService: UsuarioService) {}
 
   @Post('/register')
-  @UseInterceptors(
-    FileFieldsInterceptor([
-      { name: 'cvSpanish', maxCount: 1 },
-      { name: 'cvEnglish', maxCount: 1 }
-    ], {
-      storage: diskStorage({
-        destination: './uploads',
-        filename: (req, file, cb) => {
-          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-          cb(null, `${uniqueSuffix}${extname(file.originalname)}`);
-        },
-      }),
-      fileFilter: (req, file, cb) => {
-        if (file.mimetype !== 'application/pdf') {
-          return cb(new BadRequestException('Only PDF files are allowed!'), false);
-        }
-        cb(null, true);
-      },
-    }),
-  )
+
   async create(
-    @Body() createUserDto: CreateUserDto,
-    @UploadedFiles() files: { cvSpanish?: Express.Multer.File[], cvEnglish?: Express.Multer.File[] }
-  ) {
-    return this.userService.create(createUserDto, files);
+    @Body() createUserDto: CreateUserDto) {
+    return this.userService.create(createUserDto);
   }
 
 

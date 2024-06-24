@@ -10,8 +10,8 @@ export class Skill {
     id:number;
     @Column({nullable:true,type:'float'})
     porcent:string;
-    @Column({ type: 'bytea', nullable: true })
-    icon: Buffer;
+    @Column({ nullable: true })
+    icon: string;
     @Column({nullable:true})
     name:string;
     @OneToMany(() => Project, (pro) => pro.skill_id)

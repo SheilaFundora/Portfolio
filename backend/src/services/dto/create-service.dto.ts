@@ -11,5 +11,5 @@ export class CreateServiceDto {
 
     description:string;
     user_id:Usuario;
-    icon: Buffer;
+    icon: string;
 }

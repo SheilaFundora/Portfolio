@@ -1,50 +1,66 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateUserDto } from './create-user.dto';
-import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {
-    @IsNotEmpty()
-    @IsEmail()
-    email:string;
-    
-    @IsNotEmpty()
-    @IsString()
-    username:string;
-    
-    @IsNotEmpty()
-    password:string;
+  @IsNotEmpty()
+  @IsEmail()
+  email: string;
+  
+  @IsNotEmpty()
+  @IsString()
+  username: string;
+  
+ @IsNotEmpty()
+  password?: string;
 
-    firstName:string;
+  @IsOptional()
+  @IsString()
+  firstName?: string;
 
-    lastName:string;
+  @IsOptional()
+  @IsString()
+  lastName?: string;
 
-    age:string;
+  @IsOptional()
+  @IsString()
+  phone?: string;
 
-    lastname:string;
+  @IsOptional()
+  @IsString()
+  birthday?: string;
 
-    phone:string;
+  @IsOptional()
+  @IsString()
+  address?: string;
 
-    birthday:string;
+  @IsOptional()
+  @IsString()
+  degree?: string;
 
-    address:string;
+  @IsOptional()
+  @IsBoolean()
+  freelancer?: boolean;
 
-    degree:string;
+  @IsOptional()
+  @IsBoolean()
+  remote?: boolean;
 
-    freelancer:boolean;
+  @IsOptional()
+  @IsString()
+  profession?: string;
 
-    remote:boolean;
+  @IsOptional()
+  @IsString()
+  level?: string;
 
-    profession:string;
+  @IsOptional()
+  @IsString()
+  experience?: string;
 
-    logo: Buffer;
-    
-    level:string
+  @IsOptional()
+  cvPathEs?: string;
 
-    experience:string;
-    @IsOptional()
-    cvPathEs: string;
-
-    @IsOptional()
-    cvPathEn: string;
+  @IsOptional()
+  cvPathEn?: string;
 }
-

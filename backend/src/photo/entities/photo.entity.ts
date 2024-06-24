@@ -9,8 +9,8 @@ export class Photo {
     id:number;
     @Column({nullable:false})
     section:string;
-    @Column({ type: 'bytea', nullable: true })
-    imgs: Buffer;
+    @Column({  nullable: true })
+    imgs: string;
     
     @ManyToOne(() => Usuario, (user_id) => user_id.photos, {eager: true,onDelete:'CASCADE', onUpdate:'CASCADE'})
     @JoinColumn({name: 'user_id'})

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, InternalServerErrorException } from '@nestjs/common';
 import { CreateServiceDto } from './dto/create-service.dto';
 import { UpdateServiceDto } from './dto/update-service.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -9,47 +9,71 @@ import { plainToClass } from 'class-transformer';
 @Injectable()
 export class ServicesService {
   constructor(
-    @InjectRepository(Services) private ServicesRep:Repository<Services>,
+    @InjectRepository(Services) private ServicesRep: Repository<Services>,
+  ) {}
 
-)
-{}
-async findAll()
-{
-const services = this.ServicesRep.find();
-return (await services).map(service => plainToClass(Services, service));
-}
-
-async findByUserId(username: string) {
-  const services = this.ServicesRep.find({
-    where: {
-      user_id: {
-        username: username
-      },
-    },
-    relations: ['user_id'],
-  });
-  return (await services).map(service => plainToClass(Services, service));
-}
-
-async create(CreateServiceDto: CreateServiceDto): Promise<Services> {
-
-    const NewService = this.ServicesRep.create(CreateServiceDto);
-    return this.ServicesRep.save(NewService);
+  async findAll() {
+    try {
+      const services = await this.ServicesRep.find();
+      return services.map(service => plainToClass(Services, service));
+    } catch (error) {
+      throw new InternalServerErrorException('Error retrieving services');
+    }
   }
 
+  async findByUserId(username: string) {
+    try {
+      const services = await this.ServicesRep.find({
+        where: {
+          user_id: {
+            username: username
+          },
+        },
+        relations: ['user_id'],
+      });
 
-async update (id:number, body:CreateServiceDto){
-    const service = await this.ServicesRep.findOneBy({id});
-    if (!service) {
-        throw new Error('id no encontrado');
+      if (!services.length) {
+        throw new NotFoundException(`No services found for username: ${username}`);
       }
-      this.ServicesRep.merge(service, body);
-      return this.ServicesRep.save(service);
-}
 
+      return services.map(service => plainToClass(Services, service));
+    } catch (error) {
+      throw new InternalServerErrorException('Error retrieving services by user ID');
+    }
+  }
 
-async Delete(id:number){
-    await this.ServicesRep.delete(id);
-    return true;
-}
+  async create(createServiceDto: CreateServiceDto): Promise<Services> {
+    try {
+      const newService = this.ServicesRep.create(createServiceDto);
+      return await this.ServicesRep.save(newService);
+    } catch (error) {
+      throw new InternalServerErrorException('Error creating service');
+    }
+  }
+
+  async update(id: number, updateServiceDto: UpdateServiceDto) {
+    try {
+      const service = await this.ServicesRep.findOneBy({ id });
+      if (!service) {
+        throw new NotFoundException('Service not found');
+      }
+
+      this.ServicesRep.merge(service, updateServiceDto);
+      return await this.ServicesRep.save(service);
+    } catch (error) {
+      throw new InternalServerErrorException('Error updating service');
+    }
+  }
+
+  async delete(id: number) {
+    try {
+      const result = await this.ServicesRep.delete(id);
+      if (result.affected === 0) {
+        throw new NotFoundException('Service not found');
+      }
+      return true;
+    } catch (error) {
+      throw new InternalServerErrorException('Error deleting service');
+    }
+  }
 }

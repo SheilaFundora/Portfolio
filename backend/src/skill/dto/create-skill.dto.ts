@@ -5,7 +5,7 @@ export class CreateSkillDto {
 
     id:number;
     porcent:string;
-    icon: Buffer;
+    icon: string;
     user_id:Usuario;
     group:string;
     name:string;

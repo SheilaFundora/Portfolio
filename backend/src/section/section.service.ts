@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, InternalServerErrorException } from '@nestjs/common';
 import { CreateSectionDto } from './dto/create-section.dto';
 import { UpdateSectionDto } from './dto/update-section.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -9,47 +9,71 @@ import { plainToClass } from 'class-transformer';
 @Injectable()
 export class SectionService {
   constructor(
-    @InjectRepository(Section) private SectionRep:Repository<Section>,
+    @InjectRepository(Section) private SectionRep: Repository<Section>,
+  ) {}
 
-)
-{}
-async findAll()
-{
-const sections = this.SectionRep.find();
-return (await sections).map(section => plainToClass(Section, section));
-}
-
-async findByUserId(username: string) {
-  const sections = this.SectionRep.find({
-    where: {
-      user_id: {
-        username: username
-      },
-    },
-    relations: ['user_id'],
-  });
-  return (await sections).map(section => plainToClass(Section, section));
-}
-
-async create(CreateSectionDto: CreateSectionDto): Promise<Section> {
-
-    const NewSection = this.SectionRep.create(CreateSectionDto);
-    return this.SectionRep.save(NewSection);
+  async findAll() {
+    try {
+      const sections = await this.SectionRep.find();
+      return sections.map(section => plainToClass(Section, section));
+    } catch (error) {
+      throw new InternalServerErrorException('Error retrieving sections');
+    }
   }
 
+  async findByUserId(username: string) {
+    try {
+      const sections = await this.SectionRep.find({
+        where: {
+          user_id: {
+            username: username
+          },
+        },
+        relations: ['user_id'],
+      });
 
-async update (id:number, body:CreateSectionDto){
-    const section = await this.SectionRep.findOneBy({id});
-    if (!section) {
-        throw new Error('id no encontrado');
+      if (!sections.length) {
+        throw new NotFoundException(`No sections found for username: ${username}`);
       }
-      this.SectionRep.merge(section, body);
-      return this.SectionRep.save(section);
-}
 
+      return sections.map(section => plainToClass(Section, section));
+    } catch (error) {
+      throw new InternalServerErrorException('Error retrieving sections by user ID');
+    }
+  }
 
-async Delete(id:number){
-    await this.SectionRep.delete(id);
-    return true;
-}
+  async create(createSectionDto: CreateSectionDto): Promise<Section> {
+    try {
+      const newSection = this.SectionRep.create(createSectionDto);
+      return await this.SectionRep.save(newSection);
+    } catch (error) {
+      throw new InternalServerErrorException('Error creating section');
+    }
+  }
+
+  async update(id: number, updateSectionDto: UpdateSectionDto) {
+    try {
+      const section = await this.SectionRep.findOneBy({ id });
+      if (!section) {
+        throw new NotFoundException('Section not found');
+      }
+
+      this.SectionRep.merge(section, updateSectionDto);
+      return await this.SectionRep.save(section);
+    } catch (error) {
+      throw new InternalServerErrorException('Error updating section');
+    }
+  }
+
+  async delete(id: number) {
+    try {
+      const result = await this.SectionRep.delete(id);
+      if (result.affected === 0) {
+        throw new NotFoundException('Section not found');
+      }
+      return true;
+    } catch (error) {
+      throw new InternalServerErrorException('Error deleting section');
+    }
+  }
 }

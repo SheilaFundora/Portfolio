@@ -30,6 +30,6 @@ export class SectionController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.sectionService.Delete(+id);
+    return this.sectionService.delete(+id);
   }
 }

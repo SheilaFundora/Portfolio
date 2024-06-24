@@ -29,6 +29,6 @@ export class ProjectImgController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.projectImgService.Delete(+id);
+    return this.projectImgService.delete(+id);
   }
 }
