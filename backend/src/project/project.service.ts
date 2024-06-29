@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, InternalServerErrorException } from '@nestjs/common';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -9,49 +9,71 @@ import { plainToClass } from 'class-transformer';
 @Injectable()
 export class ProjectService {
   constructor(
-    @InjectRepository(Project) private ProjectRep:Repository<Project>,
+    @InjectRepository(Project) private ProjectRep: Repository<Project>,
+  ) {}
 
-)
-{}
-async findAll()
-{
-
-const projects =  this.ProjectRep.find();
-return (await projects).map(project => plainToClass(Project, project));
-}
-
-async findByUserId(username: string) {
-  const projects = this.ProjectRep.find({
-    where: {
-      user_id: {
-        username: username
-      },
-    },
-    relations: ['user_id'],
-  });
-  return (await projects).map(project => plainToClass(Project, project));
-}
-
-async create(CreateProjectDto: CreateProjectDto): Promise<Project> {
-
-    const newProject = this.ProjectRep.create(CreateProjectDto);
-    return this.ProjectRep.save(newProject);
+  async findAll() {
+    try {
+      const projects = await this.ProjectRep.find();
+      return projects.map(project => plainToClass(Project, project));
+    } catch (error) {
+      throw new InternalServerErrorException('Error retrieving projects');
+    }
   }
 
+  async findByUserId(username: string) {
+    try {
+      const projects = await this.ProjectRep.find({
+        where: {
+          user_id: {
+            username: username
+          },
+        },
+        relations: ['user_id'],
+      });
 
-async update (id:number, body:CreateProjectDto){
-    const project = await this.ProjectRep.findOneBy({id});
-    if (!project) {
-        throw new Error('id no encontrado');
+      if (!projects.length) {
+        throw new NotFoundException(`No projects found for username: ${username}`);
       }
-      project.skill_id=body.skill_id;
-      this.ProjectRep.merge(project, body);
-      return this.ProjectRep.save(project);
-}
 
+      return projects.map(project => plainToClass(Project, project));
+    } catch (error) {
+      throw new InternalServerErrorException('Error retrieving projects by user ID');
+    }
+  }
 
-async Delete(id:number){
-    await this.ProjectRep.delete(id);
-    return true;
-}
+  async create(createProjectDto: CreateProjectDto): Promise<Project> {
+    try {
+      const newProject = this.ProjectRep.create(createProjectDto);
+      return await this.ProjectRep.save(newProject);
+    } catch (error) {
+      throw new InternalServerErrorException('Error creating project');
+    }
+  }
+
+  async update(id: number, updateProjectDto: UpdateProjectDto) {
+    try {
+      const project = await this.ProjectRep.findOneBy({ id });
+      if (!project) {
+        throw new NotFoundException('Project not found');
+      }
+
+      this.ProjectRep.merge(project, updateProjectDto);
+      return await this.ProjectRep.save(project);
+    } catch (error) {
+      throw new InternalServerErrorException('Error updating project');
+    }
+  }
+
+  async delete(id: number) {
+    try {
+      const result = await this.ProjectRep.delete(id);
+      if (result.affected === 0) {
+        throw new NotFoundException('Project not found');
+      }
+      return true;
+    } catch (error) {
+      throw new InternalServerErrorException('Error deleting project');
+    }
+  }
 }

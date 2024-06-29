@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, InternalServerErrorException } from '@nestjs/common';
 import { CreatePhotoDto } from './dto/create-photo.dto';
 import { UpdatePhotoDto } from './dto/update-photo.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -9,47 +9,71 @@ import { plainToClass } from 'class-transformer';
 @Injectable()
 export class PhotoService {
   constructor(
-    @InjectRepository(Photo) private PhotoRep:Repository<Photo>,
+    @InjectRepository(Photo) private PhotoRep: Repository<Photo>,
+  ) {}
 
-)
-{}
-
-async findAll()
-{
-const photos =  this.PhotoRep.find();
-return (await photos).map(photo => plainToClass(Photo, photo));
-}
-
-async findByUserId(username: string) {
-  const photos = this.PhotoRep.find({
-    where: {
-      user_id: {
-        username: username
-      },
-    },
-    relations: ['user_id'],
-  });
-  return (await photos).map(photo => plainToClass(Photo, photo));
-}
-
-async create(CreatePhotoDto: CreatePhotoDto): Promise<Photo> {
-    const NewPhoto = this.PhotoRep.create(CreatePhotoDto);
-    return this.PhotoRep.save(NewPhoto);
+  async findAll() {
+    try {
+      const photos = await this.PhotoRep.find();
+      return photos.map(photo => plainToClass(Photo, photo));
+    } catch (error) {
+      throw new InternalServerErrorException('Error retrieving photos');
+    }
   }
 
+  async findByUserId(username: string) {
+    try {
+      const photos = await this.PhotoRep.find({
+        where: {
+          user_id: {
+            username: username
+          },
+        },
+        relations: ['user_id'],
+      });
 
-async update (id:number, body:CreatePhotoDto){
-    const photo = await this.PhotoRep.findOneBy({id});
-    if (!photo) {
-        throw new Error('id no encontrado');
+      if (!photos.length) {
+        throw new NotFoundException(`No photos found for username: ${username}`);
       }
-      this.PhotoRep.merge(photo, body);
-      return this.PhotoRep.save(photo);
-}
 
+      return photos.map(photo => plainToClass(Photo, photo));
+    } catch (error) {
+      throw new InternalServerErrorException('Error retrieving photos by user ID');
+    }
+  }
 
-async Delete(id:number){
-    await this.PhotoRep.delete(id);
-    return true;
-}
+  async create(createPhotoDto: CreatePhotoDto): Promise<Photo> {
+    try {
+      const newPhoto = this.PhotoRep.create(createPhotoDto);
+      return await this.PhotoRep.save(newPhoto);
+    } catch (error) {
+      throw new InternalServerErrorException('Error creating photo');
+    }
+  }
+
+  async update(id: number, updatePhotoDto: UpdatePhotoDto) {
+    try {
+      const photo = await this.PhotoRep.findOneBy({ id });
+      if (!photo) {
+        throw new NotFoundException('Photo not found');
+      }
+
+      this.PhotoRep.merge(photo, updatePhotoDto);
+      return await this.PhotoRep.save(photo);
+    } catch (error) {
+      throw new InternalServerErrorException('Error updating photo');
+    }
+  }
+
+  async delete(id: number) {
+    try {
+      const result = await this.PhotoRep.delete(id);
+      if (result.affected === 0) {
+        throw new NotFoundException('Photo not found');
+      }
+      return true;
+    } catch (error) {
+      throw new InternalServerErrorException('Error deleting photo');
+    }
+  }
 }

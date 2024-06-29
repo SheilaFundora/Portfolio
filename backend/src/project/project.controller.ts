@@ -29,6 +29,6 @@ export class ProjectController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.projectService.Delete(+id);
+    return this.projectService.delete(+id);
   }
 }

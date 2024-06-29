@@ -66,7 +66,7 @@ async getUser(username: string): Promise<Partial<Usuario>> {
 }
 
 
-async create(createUserDto: CreateUserDto, files: { cvSpanish?: Express.Multer.File[], cvEnglish?: Express.Multer.File[] }): Promise<Usuario> {
+async create(createUserDto: CreateUserDto): Promise<Usuario> {
   const { email, username, password, birthday } = createUserDto;
 
   // Verificación de campos requeridos
@@ -107,8 +107,6 @@ async create(createUserDto: CreateUserDto, files: { cvSpanish?: Express.Multer.F
     experience: createUserDto.experience,
     password: hashedPassword,
     activationToken: v4(),
-    cvPathEs: files.cvSpanish && files.cvSpanish[0] ? files.cvSpanish[0].path : null,
-    cvPathEn: files.cvEnglish && files.cvEnglish[0] ? files.cvEnglish[0].path : null,
   });
 
   // Guardado del nuevo usuario en la base de datos
@@ -120,15 +118,24 @@ async create(createUserDto: CreateUserDto, files: { cvSpanish?: Express.Multer.F
   
 
 
-async update (id:string, body:UpdateUserDto){
-    const user = await this.UserRep.findOneBy({id});
-    if (!user) {
-        throw new Error('id no encontrado');
-      }
+async update(id: string, body: UpdateUserDto) {
+  const user = await this.UserRep.findOneBy({ id });
+  if (!user) {
+    throw new NotFoundException(`User with id ${id} not found`);
+  }
 
-      this.UserRep.merge(user, body);
-      return this.UserRep.save(user);
+  // Actualiza los campos booleanos explícitamente si están presentes en el cuerpo de la solicitud
+  if (body.freelancer !== undefined) {
+    user.freelancer = body.freelancer;
+  }
+  if (body.remote !== undefined) {
+    user.remote = body.remote;
+  }
+
+  this.UserRep.merge(user, body);
+  return this.UserRep.save(user);
 }
+
 
 
 async Delete(id: string) {

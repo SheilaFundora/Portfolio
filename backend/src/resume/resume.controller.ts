@@ -29,6 +29,6 @@ export class ResumeController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.resumeService.Delete(+id);
+    return this.resumeService.delete(+id);
   }
 }

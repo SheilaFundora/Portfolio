@@ -11,8 +11,8 @@ export class Services {
     name:string;
     @Column({nullable:false,type:'varchar'})
     description:string;
-    @Column({ type: 'bytea', nullable: true })
-    icon: Buffer;
+    @Column({ nullable: true })
+    icon: string;
 
 
     @ManyToOne(() => Usuario, (user_id) => user_id.services, {eager: true,onDelete:'CASCADE', onUpdate:'CASCADE'})

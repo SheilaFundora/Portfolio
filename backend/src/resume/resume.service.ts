@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, InternalServerErrorException } from '@nestjs/common';
 import { CreateResumeDto } from './dto/create-resume.dto';
 import { UpdateResumeDto } from './dto/update-resume.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -9,47 +9,71 @@ import { plainToClass } from 'class-transformer';
 @Injectable()
 export class ResumeService {
   constructor(
-    @InjectRepository(Resume) private ResumeRep:Repository<Resume>,
+    @InjectRepository(Resume) private ResumeRep: Repository<Resume>,
+  ) {}
 
-)
-{}
-async findAll()
-{
-const resumes = this.ResumeRep.find();
-return (await resumes).map(resume => plainToClass(Resume, resume));
-}
-
-async findByUserId(username: string) {
-  const resumes = this.ResumeRep.find({
-    where: {
-      user_id: {
-        username: username
-      },
-    },
-    relations: ['user_id'],
-  });
-  return (await resumes).map(resume => plainToClass(Resume, resume));
-}
-
-async create(CreateResumeDto: CreateResumeDto): Promise<Resume> {
-
-    const NewResume = this.ResumeRep.create(CreateResumeDto);
-    return this.ResumeRep.save(NewResume);
+  async findAll() {
+    try {
+      const resumes = await this.ResumeRep.find();
+      return resumes.map(resume => plainToClass(Resume, resume));
+    } catch (error) {
+      throw new InternalServerErrorException('Error retrieving resumes');
+    }
   }
 
+  async findByUserId(username: string) {
+    try {
+      const resumes = await this.ResumeRep.find({
+        where: {
+          user_id: {
+            username: username
+          },
+        },
+        relations: ['user_id'],
+      });
 
-async update (id:number, body:CreateResumeDto){
-    const resume = await this.ResumeRep.findOneBy({id});
-    if (!resume) {
-        throw new Error('id no encontrado');
+      if (!resumes.length) {
+        throw new NotFoundException(`No resumes found for username: ${username}`);
       }
-      this.ResumeRep.merge(resume, body);
-      return this.ResumeRep.save(resume);
-}
 
+      return resumes.map(resume => plainToClass(Resume, resume));
+    } catch (error) {
+      throw new InternalServerErrorException('Error retrieving resumes by user ID');
+    }
+  }
 
-async Delete(id:number){
-    await this.ResumeRep.delete(id);
-    return true;
-}
+  async create(createResumeDto: CreateResumeDto): Promise<Resume> {
+    try {
+      const newResume = this.ResumeRep.create(createResumeDto);
+      return await this.ResumeRep.save(newResume);
+    } catch (error) {
+      throw new InternalServerErrorException('Error creating resume');
+    }
+  }
+
+  async update(id: number, updateResumeDto: UpdateResumeDto) {
+    try {
+      const resume = await this.ResumeRep.findOneBy({ id });
+      if (!resume) {
+        throw new NotFoundException('Resume not found');
+      }
+
+      this.ResumeRep.merge(resume, updateResumeDto);
+      return await this.ResumeRep.save(resume);
+    } catch (error) {
+      throw new InternalServerErrorException('Error updating resume');
+    }
+  }
+
+  async delete(id: number) {
+    try {
+      const result = await this.ResumeRep.delete(id);
+      if (result.affected === 0) {
+        throw new NotFoundException('Resume not found');
+      }
+      return true;
+    } catch (error) {
+      throw new InternalServerErrorException('Error deleting resume');
+    }
+  }
 }

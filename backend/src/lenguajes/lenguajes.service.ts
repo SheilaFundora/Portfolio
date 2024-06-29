@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, InternalServerErrorException } from '@nestjs/common';
 import { CreateLenguajeDto } from './dto/create-lenguaje.dto';
 import { UpdateLenguajeDto } from './dto/update-lenguaje.dto';
 import { Lenguaje } from './entities/lenguaje.entity';
@@ -9,44 +9,71 @@ import { plainToClass } from 'class-transformer';
 @Injectable()
 export class LenguajesService {
   constructor(
-    @InjectRepository(Lenguaje) private LenguajeRepo:Repository<Lenguaje>,
+    @InjectRepository(Lenguaje) private LenguajeRepo: Repository<Lenguaje>,
+  ) {}
 
-)
-{}
   async create(createLenguajeDto: CreateLenguajeDto) {
-    const NewResume = this.LenguajeRepo.create(createLenguajeDto);
-    return this.LenguajeRepo.save(NewResume);
+    try {
+      const newLenguaje = this.LenguajeRepo.create(createLenguajeDto);
+      return await this.LenguajeRepo.save(newLenguaje);
+    } catch (error) {
+      throw new InternalServerErrorException('Error creating lenguaje');
+    }
   }
 
-   async findAll() {
-    const lenguajes =  this.LenguajeRepo.find();
-    return (await lenguajes).map(lenguaje => plainToClass(Lenguaje, lenguaje));
+  async findAll() {
+    try {
+      const lenguajes = await this.LenguajeRepo.find();
+      return lenguajes.map(lenguaje => plainToClass(Lenguaje, lenguaje));
+    } catch (error) {
+      throw new InternalServerErrorException('Error retrieving lenguajes');
+    }
   }
 
   async findByUserId(username: string) {
-    const lenguajes = this.LenguajeRepo.find({
-      where: {
-        user_id: {
-          username: username
+    try {
+      const lenguajes = await this.LenguajeRepo.find({
+        where: {
+          user_id: {
+            username: username
+          },
         },
-      },
-      relations: ['user_id'],
-    });
-    return (await lenguajes).map(lenguaje => plainToClass(Lenguaje, lenguaje));
+        relations: ['user_id'],
+      });
+
+      if (!lenguajes.length) {
+        throw new NotFoundException(`No lenguajes found for username: ${username}`);
+      }
+
+      return lenguajes.map(lenguaje => plainToClass(Lenguaje, lenguaje));
+    } catch (error) {
+      throw new InternalServerErrorException('Error retrieving lenguajes by user ID');
+    }
   }
 
   async update(id: number, updateLenguajeDto: UpdateLenguajeDto) {
-    const lenguaje = await this.LenguajeRepo.findOneBy({id});
-    if (!lenguaje) {
-        throw new Error('id no encontrado');
+    try {
+      const lenguaje = await this.LenguajeRepo.findOneBy({ id });
+      if (!lenguaje) {
+        throw new NotFoundException('Lenguaje not found');
       }
-      this.LenguajeRepo.merge(lenguaje, updateLenguajeDto);
-      return this.LenguajeRepo.save(lenguaje);
-}
 
+      this.LenguajeRepo.merge(lenguaje, updateLenguajeDto);
+      return await this.LenguajeRepo.save(lenguaje);
+    } catch (error) {
+      throw new InternalServerErrorException('Error updating lenguaje');
+    }
+  }
 
   async remove(id: number) {
-    await this.LenguajeRepo.delete(id);
-    return true;
+    try {
+      const result = await this.LenguajeRepo.delete(id);
+      if (result.affected === 0) {
+        throw new NotFoundException('Lenguaje not found');
+      }
+      return true;
+    } catch (error) {
+      throw new InternalServerErrorException('Error deleting lenguaje');
+    }
   }
 }
