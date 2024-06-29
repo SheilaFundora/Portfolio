@@ -23,6 +23,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import ModalForm from "@/components/adminComponents/other/ModalForm";
 import ModalPerson from "@/app/admin/person/ModalPerson";
 import ModalChangePass from "@/components/adminComponents/other/ModalChangePass";
+import {fetchConToken, fetchData, fetchValidateToken} from "@/helper/fetch";
+import {socialNet_end, validateToken_end} from "@/constants/endpoints";
 
 const drawerWidth = 280;
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -64,6 +66,7 @@ export default function PersistentDrawerLeft({children}) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [openModalCP, setOpenModalCP] = React.useState(false);
+  const [username, setUsername] = React.useState('');
 
   const handleOpenDrawer = () => {
     setOpenDrawer(!openDrawer);
@@ -89,15 +92,19 @@ export default function PersistentDrawerLeft({children}) {
     const token = window.localStorage.getItem('token');
     const username = window.localStorage.getItem('username');
     const id = window.localStorage.getItem('id');
+    setUsername(username);
 
     if (token === null || username === null || id === null) {
         router.push('/auth/login');
     }else{
+      fetchValidateToken(validateToken_end).then((isValid) => {
+        if( isValid.status === 401){
+          window.localStorage.clear()
+          router.push(routesAuth[0].link)
+        }
+      })
       handleLoading();
 
-      /*
-           validar si token existe sino botarlo
-      */
     }
 
   }, [])
@@ -107,8 +114,6 @@ export default function PersistentDrawerLeft({children}) {
       <Loading infoText='Loading' />
     )
   }
-
-
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -189,7 +194,7 @@ export default function PersistentDrawerLeft({children}) {
             keepMounted: true, // Better open performance on mobile.
           }}
         >
-          <DrawerPersonalized/>
+          <DrawerPersonalized username={username}/>
         </Drawer>
         :
         <Drawer
@@ -211,11 +216,9 @@ export default function PersistentDrawerLeft({children}) {
             keepMounted: true, // Better open performance on mobile.
           }}
         >
-          <DrawerPersonalized/>
+          <DrawerPersonalized username={username}/>
         </Drawer>
       }
-
-
 
 
       <Main open={openDrawer}  sx={{

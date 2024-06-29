@@ -12,11 +12,12 @@ import ModalDelete from "@/components/adminComponents/other/ModalDelete";
 import {handleDelete} from "@/helper/deleteData";
 
 
-const TableSocialNet = ({socialNetData, handleRefreshTable}) => {
+const TableService = ({socialNetData, handleRefreshTable}) => {
   const [openEdit, setOpenEdit] = React.useState(false);
   const [openDelete, setOpenDelete] = React.useState(false);
   const [snSelect, setSnSelect] = React.useState([]);
-  const [snId, setSnId] = React.useState(null);
+  const [serviceId, setServiceId] = React.useState(null);
+
 
   const handleOpenEdit = () => {
     setOpenEdit(!openEdit);
@@ -26,15 +27,21 @@ const TableSocialNet = ({socialNetData, handleRefreshTable}) => {
     setOpenDelete(!openDelete);
   }
 
+  const confirmEditSN = (idEdit) =>{
+    const _service = socialNetData.filter((val) => val.id === idEdit)
+    setSnSelect(_service[0])
+    handleOpenEdit();
+  }
+
+  const confirmDeleteService = (idEdit) =>{
+    setServiceId(idEdit)
+    handleOpenDelete();
+  }
+
+
   const actionBodyTemplate = (rowData) => {
     return(
-      <ActionsTable rowData={rowData}
-                    handleOpenEdit={handleOpenEdit}
-                    handleOpenDelete={handleOpenDelete}
-                    setID={setSnId}
-                    data={socialNetData}
-                    setDataSelect={setSnSelect}
-      />
+      <ActionsTable confirmEdit={confirmEditSN} rowData={rowData} confirmDelete={confirmDeleteSN} />
     )
   }
 
@@ -76,4 +83,4 @@ const TableSocialNet = ({socialNetData, handleRefreshTable}) => {
   );
 };
 
-export default TableSocialNet;
+export default TableService;

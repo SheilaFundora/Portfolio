@@ -1,5 +1,5 @@
 'use client'
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
   Button,
   DialogContent, MenuItem, Stack,
@@ -20,14 +20,14 @@ import Link from "@mui/material/Link";
 import {routesAuth} from "@/constants/apiRoutesAuth";
 
 const steps = [
-  'Paso 1: Información personal',
-  'Paso 2: Dirección de envío',
-  'Paso 3: Método de pago',
-  'Paso 4: Cargando ',
+  'Step 1: Personal Information',
+  'Step 2: Shipping Address',
+  'Step 3: Payment Method',
+  'Step 4: Loading',
 ];
 
 const Page = () => {
-  const { register, control, handleSubmit } = useForm('formSN');
+  const { register, control, handleSubmit } = useForm();
   const [errorMessage, setErrorMessage] = useState('');
   const [activeStep, setActiveStep] = useState(0);
   const router = useRouter();
@@ -71,9 +71,9 @@ const Page = () => {
         }else{
           if (resp.status === 201) {
             router.push('/auth/login')
-            await Swal.fire('Exito', "You have successfully registered. Please login", 'success');
+            await Swal.fire('Exit', "You have successfully registered. Please login", 'success');
           }else{
-            await Swal.fire('Error', "Error del servidor", 'error');
+            await Swal.fire('Error', "Server Error", 'error');
           }
         }
       } catch (error) {

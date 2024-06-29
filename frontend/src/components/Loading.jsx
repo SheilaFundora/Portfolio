@@ -7,10 +7,10 @@ const Loading = ({ infoText }) => {
       <div className='container mt-5 pt-5 mx-auto text-center'>
         <Image
           src={'/img/favorite.jpg'}
-          alt={'Logotipo'}
+          alt={'Logotype'}
           width={100}
           height={100}
-          priority  // <-- Añade esta línea
+          priority
         />
         <div
           className='d-flex gap-4 flex-column mt-5 mx-auto align-content-center align-items-center justify-content-center'>

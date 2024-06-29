@@ -1,18 +1,33 @@
-import React, {useState} from 'react';
-import {Button, DialogActions, DialogContent, DialogContentText, MenuItem, TextField} from "@mui/material";
+import React, {useEffect, useState} from 'react';
+import {Button, DialogActions, DialogContent, MenuItem, TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import {Controller, useForm} from "react-hook-form";
+import {fetchData} from "@/helper/fetch";
+import {socialNet_end, user_end} from "@/constants/endpoints";
+import Swal from "sweetalert2";
+import {handleEditData} from "@/helper/editData";
 
-const ModalPerson = ({handleClickOpen}) => {
-  const { register, control, handleSubmit, formState: { errors } } = useForm('formResume');
+const ModalPerson = ({handleClickOpen, personData, handleRefreshData}) => {
+  const { register, control, handleSubmit, formState: { errors }, setValue } = useForm();
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmitResume= async (data) => {
-    console.log(data)
+  useEffect( () => {
+    setValue('freelancer', personData.freelancer);
+    setValue('remote', personData.remote);
+
+  }, [])
+
+  const handleEditPerson = async (data) => {
+    const endpoint = user_end  + '/' + personData.id
+    data.birthday = data.birthday === '' ? null : data.birthday;
+
+    await handleEditData(handleClickOpen, endpoint, data, handleRefreshData, 'Person');
+
   }
+
   return (
     <Box>
-      <form onSubmit={handleSubmit(handleSubmitResume)}>
+      <form onSubmit={handleSubmit(handleEditPerson)}>
         <DialogContent>
           <h4 className='mt-4 text-center'>Form to Edit Person</h4>
 
@@ -25,14 +40,16 @@ const ModalPerson = ({handleClickOpen}) => {
                 {...register("firstName")}
                 error={!!errors.firstName}
                 helperText={errors.firstName && errors.firstName.message}
+                defaultValue={ personData.firstName }
               />
               <TextField
                 label="Lastname"
                 type='text'
                 sx={{mb: 1, width: '55%'}}
-                {...register("lastname")}
+                {...register("lastName")}
                 error={!!errors.lastname}
-                helperText={errors.lastname && errors.lastname.message}
+                helperText={errors.lastname && errors.lastName.message}
+                defaultValue={ personData.lastname }
               />
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'space-between'}}>
@@ -42,6 +59,7 @@ const ModalPerson = ({handleClickOpen}) => {
                 sx={{my: 2, width: '35%'}}
                 {...register("birthday")}
                 error={!!errors.birthday}
+                defaultValue={ personData.birthday }
               />
               <TextField
                 label="Phone"
@@ -50,6 +68,7 @@ const ModalPerson = ({handleClickOpen}) => {
                 {...register("phone")}
                 error={!!errors.phone}
                 helperText={errors.phone && errors.phone.message}
+                defaultValue={ personData.phone }
               />
 
             </Box>
@@ -61,17 +80,20 @@ const ModalPerson = ({handleClickOpen}) => {
                 {...register("address")}
                 error={!!errors.address}
                 helperText={errors.address && errors.address.message}
+                defaultValue={ personData.address }
               />
               <TextField
                 label="Email"
                 type='email'
                 fullWidth
                 sx ={{ mt: 3}}
-                {...register("email")}
+                {...register("email", {
+                  required: 'Required field'
+                })}
                 error={!!errors.email}
                 helperText={errors.email && errors.email.message}
+                defaultValue={ personData.email }
               />
-
             </Box>
 
             <Box sx={{ display: 'flex', mt:3,  justifyContent: 'space-between'}}>
@@ -82,6 +104,7 @@ const ModalPerson = ({handleClickOpen}) => {
                 {...register("profession")}
                 error={!!errors.profession}
                 helperText={errors.profession && errors.profession.message}
+                defaultValue={ personData.profession }
               />
               <TextField
                 label="Degree"
@@ -90,6 +113,7 @@ const ModalPerson = ({handleClickOpen}) => {
                 {...register("degree")}
                 error={!!errors.degree}
                 helperText={errors.degree && errors.degree.message}
+                defaultValue={ personData.degree }
               />
             </Box>
 
@@ -134,6 +158,7 @@ const ModalPerson = ({handleClickOpen}) => {
                 {...register("level")}
                 error={!!errors.level}
                 helperText={errors.level && errors.level.message}
+                defaultValue={ personData.level }
               />
 
             </Box>
@@ -150,9 +175,12 @@ const ModalPerson = ({handleClickOpen}) => {
                 label="Username"
                 type='text'
                 sx={{mb:1, width: '30%'}}
-                {...register("username")}
+                {...register("username", {
+                  required: 'Required field'
+                })}
                 error={!!errors.username}
                 helperText={errors.username && errors.username.message}
+                defaultValue={ personData.username }
               />
               <TextField
                 label="Experience"
@@ -161,11 +189,9 @@ const ModalPerson = ({handleClickOpen}) => {
                 {...register("experience")}
                 error={!!errors.experience}
                 helperText={errors.experience && errors.experience.message}
+                defaultValue={ personData.experience }
               />
             </Box>
-
-
-
           </Box>
 
           {errorMessage && <div className='error-message text-danger text-start ms-4'>{errorMessage}</div>}
@@ -175,7 +201,7 @@ const ModalPerson = ({handleClickOpen}) => {
               Cancelar
             </Button>
             <Button variant="contained" type="submit" className={'ms-4'}>
-              Agregar
+              Accept
             </Button>
           </DialogActions>
         </DialogContent>

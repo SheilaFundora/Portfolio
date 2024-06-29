@@ -2,17 +2,36 @@ import React, {useState} from 'react';
 import {Button, DialogActions, DialogContent, DialogContentText, TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import {useForm} from "react-hook-form";
+import {services_end} from "@/constants/endpoints";
+import {handleSubmitData} from "@/helper/submitData";
+import {handleEditData} from "@/helper/editData";
 
-const ModalService = ({handleClickOpen}) => {
-  const { register, control, handleSubmit, formState: { errors } } = useForm('formService');
+const ModalService = ({handleClickOpen, action, handleRefreshTable, socialNet}) => {
+  const { register, handleSubmit, formState: { errors } } = useForm('formService');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmitService= async (data) => {
-    console.log( data);
+  const handleSubmitService = async (data) => {
+    await handleSubmitData(handleClickOpen, services_end, data, handleRefreshTable, 'Service', setErrorMessage);
   }
+
+  const handleEditService = async (data) => {
+    const endpoint = services_end + '/' + socialNet.id +'/'
+    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'Social Network');
+  }
+
+  const handleOperationService= async (data) => {
+    if( action === 'add'){
+      await handleSubmitService(data)
+    }else{
+      if ( action === 'edit'){
+        await handleEditService(data)
+      }
+    }
+  }
+
   return (
     <Box>
-      <form onSubmit={handleSubmit(handleSubmitService)}>
+      <form onSubmit={handleSubmit(handleOperationService)}>
         <DialogContent>
           <h4 className='mt-4 text-center'>Form to add Service</h4>
 
@@ -26,7 +45,7 @@ const ModalService = ({handleClickOpen}) => {
                 required: 'Required field'
               })}
               error={!!errors.title}
-              helperText={errors.title && errors.tttle.message}
+              helperText={errors.title && errors.title.message}
             />
             <TextField
               label="Icon"
@@ -43,7 +62,6 @@ const ModalService = ({handleClickOpen}) => {
           <TextField
             label="Description"
             type='text'
-            required
             multiline
             rows={4}
             sx={{m: 2, width: '520px'}}

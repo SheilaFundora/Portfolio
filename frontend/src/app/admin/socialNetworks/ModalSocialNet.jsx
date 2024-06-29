@@ -1,71 +1,30 @@
 import React, {useState} from 'react';
-import {Button, DialogActions, DialogContent, DialogContentText, TextField} from "@mui/material";
+import {Button, DialogActions, DialogContent, TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import {useForm} from "react-hook-form";
 import {socialNet_end} from "@/constants/endpoints";
-import {fetchData} from "@/helper/fetch";
-import Swal from "sweetalert2";
+import {handleSubmitData} from "@/helper/submitData";
+import {handleEditData} from "@/helper/editData";
 
-const ModalSocialNet = ({handleClickOpen, action, social_net}) => {
-  const { register, control, handleSubmit, formState: { errors } } = useForm('formSN');
+const ModalSocialNet = ({handleClickOpen, action, socialNet = null, handleRefreshTable}) => {
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const [errorMessage, setErrorMessage] = useState('');
 
-  console.log(social_net)
   const handleSubmitSn = async (data) => {
-    const id = window.localStorage.getItem('id')
-    data.user_id = id
-
-    try{
-      const resp = await fetchData(socialNet_end, data, "POST");
-      handleClickOpen();
-
-      if (resp.status === 500) {
-        Swal.fire('Error', "The social network already exist", 'error');
-      }else{
-        if (resp.status === 201) {
-          await Swal.fire('Exito', "Social Network created with exit.", 'success');
-        }else{
-          await Swal.fire('Error', "Error del servidor", 'error');
-        }
-      }
-
-    }catch (e) {
-      console.log(e);
-    }
+    await handleSubmitData(handleClickOpen, socialNet_end, data, handleRefreshTable, 'Social Network', setErrorMessage);
   }
 
   const handleEditSn = async (data) => {
-    const endpoint = socialNet_end + '/' + social_net.id +'/'
-    data.user_id = social_net.user_id
-
-    try{
-      const resp = await fetchData(endpoint, data, "PUT");
-      console.log('id',social_net.link)
-      console.log('data',data)
-      console.log('resp', resp)
-      handleClickOpen();
-
-      if (resp.status === 500) {
-        Swal.fire('Error', "The social network already exist", 'error');
-      }else{
-        if (resp.status === 201) {
-          await Swal.fire('Exito', "Social Network created with exit.", 'success');
-        }else{
-          await Swal.fire('Error', "Error del servidor", 'error');
-        }
-      }
-
-    }catch (e) {
-      console.log(e);
-    }
+    const endpoint = socialNet_end + '/' + socialNet.id +'/'
+    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'Social Network');
   }
 
   const handleOperationSN= async (data) => {
     if( action === 'add'){
-      handleSubmitSn(data)
+      await handleSubmitSn(data)
     }else{
       if ( action === 'edit'){
-        handleEditSn(data)
+        await handleEditSn(data)
       }
     }
   }
@@ -92,7 +51,7 @@ const ModalSocialNet = ({handleClickOpen, action, social_net}) => {
               })}
               error={!!errors.name}
               helperText={errors.name && errors.name.message}
-              defaultValue={action === 'edit' ? social_net.name : ""}
+              defaultValue={action === 'edit' ? socialNet.name : ""}
             />
 
             <TextField
@@ -104,7 +63,7 @@ const ModalSocialNet = ({handleClickOpen, action, social_net}) => {
               })}
               error={!!errors.link}
               helperText={errors.link && errors.link.message}
-              defaultValue={action === 'edit' ? social_net.link : ""}
+              defaultValue={action === 'edit' ? socialNet.link : ""}
 
             />
           </div>
