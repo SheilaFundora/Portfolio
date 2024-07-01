@@ -35,7 +35,7 @@ const About = () => {
                     initial={{x: -120}}  // Animación inicial desde la izquierda (-120px)
                     animate={{x: inView ? 0 : -120}} // Animación hacia la derecha (0px) cuando está en vista, de lo contrario -120px
                     transition={{duration: 0.6}}
-                    src={'/img/personal.jpg'}
+                    src={'https://drive.google.com/file/d/11Fhdwy7DuYRm62NPdkIio-__c80MRtc7/view?usp=drive_link'}
                     alt={'Developer'}
                     width={250}
                     height={300}

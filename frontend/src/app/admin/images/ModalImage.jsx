@@ -1,20 +1,43 @@
 import React, {useState} from 'react';
-import {Button, DialogActions, DialogContent, DialogContentText, TextField} from "@mui/material";
+import {Button, DialogActions, DialogContent, TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import {useForm} from "react-hook-form";
+import {handleSubmitData} from "@/helper/submitData";
+import {images_end} from "@/constants/endpoints";
+import {handleEditData} from "@/helper/editData";
 
-const ModalImage = ({handleClickOpen}) => {
-  const { register, control, handleSubmit, formState: { errors } } = useForm('formImage');
+const ModalImage = ({handleClickOpen, action, handleRefreshTable, imageSelect}) => {
+  const { register, handleSubmit, formState: { errors } } = useForm('formImage');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmitImage= async (data) => {
-    console.log(data)
+  const handleSubmitService = async (data) => {
+    await handleSubmitData(handleClickOpen, images_end, data, handleRefreshTable, 'Image', setErrorMessage);
+  }
+
+  const handleEditService = async (data) => {
+    const endpoint = images_end + '/' + imageSelect.id +'/'
+    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'Image');
+  }
+
+  const handleOperationService= async (data) => {
+    if( action === 'add'){
+      await handleSubmitService(data)
+    }else{
+      if ( action === 'edit'){
+        await handleEditService(data)
+      }
+    }
   }
   return (
     <Box>
-      <form onSubmit={handleSubmit(handleSubmitImage)}>
+      <form onSubmit={handleSubmit(handleOperationService)}>
         <DialogContent>
-          <h4 className='mt-4 text-center'>Form to add Image</h4>
+          <h4 className='mt-4 text-center'>
+            {action === 'add' ?
+              "Form to add Image" :
+              "Form to edit Image"
+            }
+          </h4>
           <div className='d-flex '>
             <TextField
               label="Name section"
@@ -25,15 +48,18 @@ const ModalImage = ({handleClickOpen}) => {
               })}
               error={!!errors.section}
               helperText={errors.section && errors.section.message}
+              defaultValue={action === 'edit' ? imageSelect.section : ""}
             />
             <TextField
-              type='file'
+              label="Img url"
+              type='text'
               sx={{m: 2, width: '300px'}}
-              {...register("icon", {
+              {...register("imgs", {
                 required: 'Required field'
               })}
-              error={!!errors.nombre}
-              helperText={errors.nombre && errors.nombre.message}
+              error={!!errors.imgs}
+              helperText={errors.imgs && errors.imgs.message}
+              defaultValue={action === 'edit' ? imageSelect.imgs : ""}
             />
           </div>
 
@@ -41,10 +67,10 @@ const ModalImage = ({handleClickOpen}) => {
 
           <DialogActions sx={{pb: 3, justifyContent: 'center'}}>
             <Button autoFocus onClick={handleClickOpen} variant="contained" color='error'>
-              Cancelar
+              Cancel
             </Button>
             <Button variant="contained" type="submit" className={'ms-4'}>
-              Agregar
+              Accept
             </Button>
           </DialogActions>
         </DialogContent>

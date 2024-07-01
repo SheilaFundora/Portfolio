@@ -20,6 +20,8 @@ const ModalPerson = ({handleClickOpen, personData, handleRefreshData}) => {
   const handleEditPerson = async (data) => {
     const endpoint = user_end  + '/' + personData.id
     data.birthday = data.birthday === '' ? null : data.birthday;
+    data.remote = data.remote === 'true';
+    data.freelancer = data.freelancer === 'true';
 
     await handleEditData(handleClickOpen, endpoint, data, handleRefreshData, 'Person');
 
@@ -49,7 +51,7 @@ const ModalPerson = ({handleClickOpen, personData, handleRefreshData}) => {
                 {...register("lastName")}
                 error={!!errors.lastname}
                 helperText={errors.lastname && errors.lastName.message}
-                defaultValue={ personData.lastname }
+                defaultValue={ personData.lastName }
               />
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'space-between'}}>
@@ -59,7 +61,9 @@ const ModalPerson = ({handleClickOpen, personData, handleRefreshData}) => {
                 sx={{my: 2, width: '35%'}}
                 {...register("birthday")}
                 error={!!errors.birthday}
-                defaultValue={ personData.birthday }
+                defaultValue= { personData.birthday === null ? '' :
+                  personData.birthday.split('T')[0]
+                }
               />
               <TextField
                 label="Phone"
@@ -164,13 +168,35 @@ const ModalPerson = ({handleClickOpen, personData, handleRefreshData}) => {
             </Box>
 
             <Box sx={{ display: 'flex', justifyContent: 'space-between'}}>
-              {/* <TextField
-                    type='file'
-                    helperText='CV'
-                    sx={{my: 1, width: '65%'}}
-                    {...register("cv")}
-                    error={!!errors.nombre}
-                  />*/}
+              <TextField
+                label="Cv English"
+                type='text'
+                sx={{my: 1, width: '65%'}}
+                {...register("cvPathEn")}
+                error={!!errors.cvPathEn}
+                helperText={errors.cvPathEn && errors.cvPathEn.message}
+                defaultValue={ personData.cvPathEn }
+              />
+              <TextField
+                label="Experience"
+                type='number'
+                sx={{my: 1, width: '30%'}}
+                {...register("experience")}
+                error={!!errors.experience}
+                helperText={errors.experience && errors.experience.message}
+                defaultValue={ personData.experience }
+              />
+            </Box>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between'}}>
+              <TextField
+                label="Cv Spanish"
+                type='text'
+                sx={{my: 1, width: '65%'}}
+                {...register("cvPathEs")}
+                error={!!errors.cvPathEs}
+                helperText={errors.cvPathEs && errors.cvPathEs.message}
+                defaultValue={ personData.cvPathEs }
+              />
               <TextField
                 label="Username"
                 type='text'
@@ -181,15 +207,6 @@ const ModalPerson = ({handleClickOpen, personData, handleRefreshData}) => {
                 error={!!errors.username}
                 helperText={errors.username && errors.username.message}
                 defaultValue={ personData.username }
-              />
-              <TextField
-                label="Experience"
-                type='number'
-                sx={{my: 1, width: '30%'}}
-                {...register("experience")}
-                error={!!errors.experience}
-                helperText={errors.experience && errors.experience.message}
-                defaultValue={ personData.experience }
               />
             </Box>
           </Box>

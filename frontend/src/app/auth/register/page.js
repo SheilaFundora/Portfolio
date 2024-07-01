@@ -66,7 +66,7 @@ const Page = () => {
       try {
         const resp = await fetchData(register_end, data, "POST");
 
-        if (resp.status === 400) {
+        if (resp.status === 409) {
           Swal.fire('Error', "The user already exist", 'error');
         }else{
           if (resp.status === 201) {
@@ -224,32 +224,25 @@ const Page = () => {
 
                 </Box>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between'}}>
-                  <Box sx={{ width: '65%'}}>
-                  {/*  <Controller
-                      name="cvPathEs"
-                      control={control}
-                      render={({ field }) => (
-                        <input type="file" onChange={(e) => field.onChange(e.target.files[0])} />
-                      )}
-                    />*/}
-                    {/*<Controller
-                      name="cvPathEn"
-                      control={control}
-                      render={({ field }) => (
-                        <input type="file" onChange={(e) => field.onChange(e.target.files[0])} />
-                      )}
-                    />*/}
-                  </Box>
-                  <Box sx={{width: '30%'}} >
-                    <TextField
+                  <TextField
+                    label="Cv english"
+                    type='text'
+                    sx={{my: 2, width: '30%'}}
+                    {...register("cvPathEn")}
+                  />
+                  <TextField
+                    label="Cv Spanish"
+                    type='text'
+                    sx={{my: 2, width: '30%'}}
+                    {...register("cvPathEs")}
+                  />
+
+                  <TextField
                       label="Experience"
                       type='number'
-                      sx={{my: 1, width: '100%'}}
+                      sx={{my: 1, width: '30%'}}
                       {...register("experience")}
                     />
-                  </Box>
-
-
 
                 </Box>
 

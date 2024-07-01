@@ -57,7 +57,7 @@ const TableSocialNet = ({socialNetData, handleRefreshTable}) => {
       </DataTable>
 
       {openEdit &&
-        <ModalForm modal={<ModalSocialNet handleClickOpen={handleOpenEdit} action={'edit'} socialNet={snSelect} handleRefreshTable={handleRefreshTable}/>}
+        <ModalForm modal={<ModalSocialNet handleClickOpen={handleOpenEdit} action={'edit'} snSelect={snSelect} handleRefreshTable={handleRefreshTable}/>}
                    openModal={openEdit}
                    handleClickOpen={handleOpenEdit}
         />

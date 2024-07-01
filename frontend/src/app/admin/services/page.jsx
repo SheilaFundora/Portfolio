@@ -1,6 +1,5 @@
 'use client'
 import React, {useEffect} from 'react';
-import TableAdmin from "@/components/adminComponents/other/TableAdmin";
 import Box from "@mui/material/Box";
 import ModalService from "@/app/admin/services/ModalService";
 import ModalForm from "@/components/adminComponents/other/ModalForm";
@@ -16,6 +15,7 @@ const Page = () => {
   const [serviceData, setServiceData] = React.useState([]);
 
 
+  console.log(serviceData)
   useEffect( () => {
     getData(services_end, setServiceData)
   }, [refreshTable])
@@ -28,7 +28,6 @@ const Page = () => {
   const handleClickOpen = () => {
     setOpenModal(!openModal);
   };
-
 
 
   return (

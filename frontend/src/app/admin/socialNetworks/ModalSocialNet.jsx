@@ -6,7 +6,7 @@ import {socialNet_end} from "@/constants/endpoints";
 import {handleSubmitData} from "@/helper/submitData";
 import {handleEditData} from "@/helper/editData";
 
-const ModalSocialNet = ({handleClickOpen, action, socialNet = null, handleRefreshTable}) => {
+const ModalSocialNet = ({handleClickOpen, action, snSelect = null, handleRefreshTable}) => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -15,7 +15,7 @@ const ModalSocialNet = ({handleClickOpen, action, socialNet = null, handleRefres
   }
 
   const handleEditSn = async (data) => {
-    const endpoint = socialNet_end + '/' + socialNet.id +'/'
+    const endpoint = socialNet_end + '/' + snSelect.id +'/'
     await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'Social Network');
   }
 
@@ -40,7 +40,6 @@ const ModalSocialNet = ({handleClickOpen, action, socialNet = null, handleRefres
             }
           </h4>
 
-
           <div className={'d-flex w-100 align-items-center justify-content-between'}>
             <TextField
               label="Name"
@@ -51,7 +50,7 @@ const ModalSocialNet = ({handleClickOpen, action, socialNet = null, handleRefres
               })}
               error={!!errors.name}
               helperText={errors.name && errors.name.message}
-              defaultValue={action === 'edit' ? socialNet.name : ""}
+              defaultValue={action === 'edit' ? snSelect.name : ""}
             />
 
             <TextField
@@ -63,7 +62,7 @@ const ModalSocialNet = ({handleClickOpen, action, socialNet = null, handleRefres
               })}
               error={!!errors.link}
               helperText={errors.link && errors.link.message}
-              defaultValue={action === 'edit' ? socialNet.link : ""}
+              defaultValue={action === 'edit' ? snSelect.link : ""}
 
             />
           </div>
