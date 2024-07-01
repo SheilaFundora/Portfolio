@@ -6,7 +6,7 @@ import ModalForm from "@/components/adminComponents/other/ModalForm";
 import ButtonAdd from "@/components/adminComponents/other/ButtonAdd";
 import {services_end} from "@/constants/endpoints";
 import {getData} from "@/helper/getData";
-import TableService from "@/app/admin/services/TableService";
+import ServiceTable from "@/app/admin/services/ServiceTable";
 
 
 const Page = () => {
@@ -40,7 +40,7 @@ const Page = () => {
                    handleClickOpen={handleClickOpen}
         />
       }
-      <TableService serviceData={serviceData} handleRefreshTable={handleRefreshTable}  />
+      <ServiceTable serviceData={serviceData} handleRefreshTable={handleRefreshTable}  />
     </Box>
   );
 };

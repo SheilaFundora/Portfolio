@@ -62,6 +62,8 @@ const Page = () => {
     }else {
       setErrorMessage('')
       delete data.password2;
+      data.birthday = data.birthday === '' ? null : data.birthday;
+
 
       try {
         const resp = await fetchData(register_end, data, "POST");
@@ -281,7 +283,6 @@ const Page = () => {
                 <TextField
                   label="Confirm Password"
                   autoComplete="current-password"
-                  name="password"
                   fullWidth
                   type="password"
                   required

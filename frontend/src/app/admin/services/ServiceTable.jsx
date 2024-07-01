@@ -5,18 +5,19 @@ import 'primereact/resources/themes/lara-light-indigo/theme.css'
 import 'primereact/resources/primereact.min.css'
 import Box from "@mui/material/Box";
 import ModalForm from "@/components/adminComponents/other/ModalForm";
-import ModalSocialNet from "@/app/admin/socialNetworks/ModalSocialNet";
-import {socialNet_end} from "@/constants/endpoints";
+import {services_end} from "@/constants/endpoints";
 import ActionsTable from "@/components/adminComponents/other/ActionsTable";
 import ModalDelete from "@/components/adminComponents/other/ModalDelete";
 import {handleDelete} from "@/helper/deleteData";
+import ModalService from "@/app/admin/services/ModalService";
 
 
-const TableSocialNet = ({socialNetData, handleRefreshTable}) => {
+const ServiceTable = ({serviceData, handleRefreshTable}) => {
   const [openEdit, setOpenEdit] = React.useState(false);
   const [openDelete, setOpenDelete] = React.useState(false);
-  const [snSelect, setSnSelect] = React.useState([]);
-  const [snId, setSnId] = React.useState(null);
+  const [serviceSelect, setServiceSelect] = React.useState([]);
+  const [serviceId, setServiceId] = React.useState(null);
+
 
   const handleOpenEdit = () => {
     setOpenEdit(!openEdit);
@@ -31,33 +32,34 @@ const TableSocialNet = ({socialNetData, handleRefreshTable}) => {
       <ActionsTable rowData={rowData}
                     handleOpenEdit={handleOpenEdit}
                     handleOpenDelete={handleOpenDelete}
-                    setID={setSnId}
-                    data={socialNetData}
-                    setDataSelect={setSnSelect}
+                    setID={setServiceId}
+                    data={serviceData}
+                    setDataSelect={setServiceSelect}
       />
     )
   }
 
-  const handleDeleteSN = async () => {
-    const endpoint = socialNet_end +'/'+ snId + '/';
+  const handleDeleteService = async () => {
+    const endpoint = services_end +'/'+ serviceId + '/';
     await handleDelete(handleOpenDelete, endpoint, handleRefreshTable , ' social network');
   }
 
   return (
     <Box sx={{marginTop: 4 }}>
-      <DataTable value={socialNetData }
+      <DataTable value={serviceData }
                  paginator rows={5}
                  rowsPerPageOptions={[5, 10, 25, 50]}
                  tableStyle={{ minWidth: '50rem' }}
                  className="p-datatable-hgridlines"
       >
-        <Column field="name" header="Nombre" sortable filter style={{width: '30%'}}></Column>
-        <Column field="link" header="Link" sortable filter style={{width: '35%'}}></Column>
-        <Column body={actionBodyTemplate} exportable={false} style={{width: '35%', paddingLeft: '40px'}}/>
+        <Column field="name" header="Name" sortable filter style={{width: '30%'}}></Column>
+        <Column field="description" header="Description" sortable filter style={{width: '30%'}}></Column>
+        <Column field="icon" header="Icon" sortable filter style={{width: '30%'}}></Column>
+        <Column body={actionBodyTemplate} exportable={false} style={{minWidth: '12rem', paddingLeft: '40px'}}/>
       </DataTable>
 
       {openEdit &&
-        <ModalForm modal={<ModalSocialNet handleClickOpen={handleOpenEdit} action={'edit'} snSelect={snSelect} handleRefreshTable={handleRefreshTable}/>}
+        <ModalForm modal={<ModalService handleClickOpen={handleOpenEdit} action={'edit'} serviceSelect={serviceSelect} handleRefreshTable={handleRefreshTable}/>}
                    openModal={openEdit}
                    handleClickOpen={handleOpenEdit}
         />
@@ -66,8 +68,8 @@ const TableSocialNet = ({socialNetData, handleRefreshTable}) => {
       {openDelete &&
         <ModalDelete openDelete={openDelete}
                      handleOpenDelete={handleOpenDelete}
-                     contentDelete={'social network'}
-                     handleDelete={handleDeleteSN}
+                     contentDelete={'Service'}
+                     handleDelete={handleDeleteService}
         />
 
       }
@@ -76,4 +78,4 @@ const TableSocialNet = ({socialNetData, handleRefreshTable}) => {
   );
 };
 
-export default TableSocialNet;
+export default ServiceTable;

@@ -6,15 +6,15 @@ import ButtonAdd from "@/components/adminComponents/other/ButtonAdd";
 import ModalForm from "@/components/adminComponents/other/ModalForm";
 import {getData} from "@/helper/getData";
 import {skill_end} from "@/constants/endpoints";
-import TableSkill from "@/app/admin/skills/TableSkill";
+import SkillTable from "@/app/admin/skills/SkillTable";
 
 const Page = () => {
   const [openModal, setOpenModal] = React.useState(false);
   const [refreshTable, setRefreshTable] = React.useState(false);
-  const [skillData, setSkillNetData] = React.useState([]);
+  const [skillData, setSkillData] = React.useState([]);
 
   useEffect( () => {
-    getData(skill_end, setSkillNetData)
+    getData(skill_end, setSkillData)
   }, [refreshTable])
 
   const handleClickOpen = () => {
@@ -36,7 +36,7 @@ const Page = () => {
                    handleClickOpen={handleClickOpen}
         />
       }
-      <TableSkill skillData={skillData} handleRefreshTable={handleRefreshTable}  />
+      <SkillTable skillData={skillData} handleRefreshTable={handleRefreshTable}  />
     </Box>
   );
 };

@@ -200,7 +200,8 @@ const ModalPerson = ({handleClickOpen, personData, handleRefreshData}) => {
               <TextField
                 label="Username"
                 type='text'
-                sx={{mb:1, width: '30%'}}
+                disabled={true}
+                sx={{mb:1, mt:1,  width: '30%'}}
                 {...register("username", {
                   required: 'Required field'
                 })}

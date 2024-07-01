@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from "next/link";
-import {ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
+import {ListItem, ListItemIcon, ListItemText} from "@mui/material";
 import {usePathname} from "next/navigation";
 import Box from "@mui/material/Box";
 

@@ -6,7 +6,7 @@ import ButtonAdd from "@/components/adminComponents/other/ButtonAdd";
 import ModalForm from "@/components/adminComponents/other/ModalForm";
 import {getData} from "@/helper/getData";
 import {images_end} from "@/constants/endpoints";
-import TableImages from "@/app/admin/images/TableImages";
+import ImageTable from "@/app/admin/images/ImageTable";
 
 const Page = () => {
   const [openModal, setOpenModal] = React.useState(false);
@@ -35,7 +35,7 @@ const Page = () => {
                    handleClickOpen={handleClickOpen}
         />
       }
-      <TableImages imagesData={imagesData} handleRefreshTable={handleRefreshTable} />
+      <ImageTable imagesData={imagesData} handleRefreshTable={handleRefreshTable} />
     </Box>
   );
 };
