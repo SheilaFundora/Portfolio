@@ -7,15 +7,15 @@ import {ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import {motion} from "framer-motion";
 
 const FirstSection = () => {
-    const handleDownload = () => {
-        const pdfUrl = '../cv/sheila-cv.pdf'; // Reemplaza con la ruta correcta
-        const link = document.createElement('a');
-        link.href = pdfUrl;
-        link.download = 'sheila-cv.pdf'; // Puedes cambiar el nombre del archivo si lo deseas
-        link.click();
-    };
+  const handleDownload = () => {
+    const pdfUrl = 'https://drive.google.com/uc?id=1kK-OH_EzgKrIlOyzAQc1k_IZ81OHZZsE'; // URL de descarga directa desde Google Drive
+    const link = document.createElement('a');
+    link.href = pdfUrl;
+    link.click();
+  };
 
-    return (
+
+  return (
         <Box
             sx={{
                 display: 'flex',
@@ -36,7 +36,7 @@ const FirstSection = () => {
                 </button>
             </Box>
 
-            <Box sx={{width: {xs: '100%', md: '65%'}, marginTop: {xs: 2, md: 0}}}>
+          <Box sx={{width: {xs: '100%', md: '65%'}, marginTop: {xs: 2, md: 0}}}>
 
                 <motion.img
                     src={'/img/developer.svg'}
@@ -46,10 +46,10 @@ const FirstSection = () => {
                     alt="Imagen"
                 />
 
-            </Box>
+          </Box>
 
         </Box>
-    );
+  );
 };
 
 export default FirstSection;

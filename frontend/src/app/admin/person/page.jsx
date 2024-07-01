@@ -17,7 +17,6 @@ const Page = () => {
     setRefreshData(!refreshData)
   }
 
-
   console.log(personData)
   useEffect( () => {
     getDataPerson()
@@ -58,7 +57,7 @@ const Page = () => {
               <p className={'text-style'}><b>Last Name:</b> {person.lastName}</p>
               <p className={'text-style'}><b>Email:</b> {person.email}</p>
               <p className={'text-style'}><b>Phone:</b> {person.phone}</p>
-              <p className={'text-style'}><b>Birthday:</b>
+              <p className={'text-style'}><b>Birthday: </b>
                 { person.birthday === null ? '' :
                   person.birthday.split('T')[0]
                 }
@@ -73,8 +72,11 @@ const Page = () => {
               <p className={'text-style'}><b>Experience:</b> {person.experience}</p>
               <p className={'text-style'}><b>Remote:</b> {(person.remote) ? 'Available' : 'Not available'}</p>
               <p className={'text-style'}><b>Freelancer:</b> {(person.freelancer) ? 'Available' : 'Not available'}</p>
-              <p className={'text-style'}><b>Cv english:</b> </p>
-            <p className={'text-style'}><b>Cv spanish:</b> </p>
+              <p className={'text-style'}><b>Cv english:</b>  {person.cvPathEn !== null ? 'Exist' : 'Empty' }</p>
+            <p className={'text-style'}>
+              <b>Cv spanish: </b>
+              {person.cvPathEs !== null || person.cvPathEs !== '' ? 'Empty' : 'Exist' }
+            </p>
             </Grid>
           </Grid>
 

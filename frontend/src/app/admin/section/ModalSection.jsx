@@ -6,7 +6,7 @@ import {section_end} from "@/constants/endpoints";
 import {handleSubmitData} from "@/helper/submitData";
 import {handleEditData} from "@/helper/editData";
 
-const ModalSection = ({handleClickOpen, action, sectionData = null, handleRefreshTable}) => {
+const ModalSection = ({handleClickOpen, action, sectionSelect = null, handleRefreshTable}) => {
   const { register, control, handleSubmit, formState: { errors } } = useForm('formSection');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -14,7 +14,7 @@ const ModalSection = ({handleClickOpen, action, sectionData = null, handleRefres
     await handleSubmitData(handleClickOpen, section_end, data, handleRefreshTable, 'Section', setErrorMessage);
   }
   const handleEditSection = async (data) => {
-    const endpoint = section_end + '/' + sectionData.id +'/'
+    const endpoint = section_end + '/' + sectionSelect.id +'/'
     await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'Section');
   }
 
@@ -48,7 +48,7 @@ const ModalSection = ({handleClickOpen, action, sectionData = null, handleRefres
             })}
             error={!!errors.title}
             helperText={errors.title && errors.title.message}
-            defaultValue={action === 'edit' ? sectionData.title : ""}
+            defaultValue={action === 'edit' ? sectionSelect.title : ""}
           />
           <TextField
             label="Description"
@@ -61,7 +61,7 @@ const ModalSection = ({handleClickOpen, action, sectionData = null, handleRefres
             })}
             error={!!errors.description}
             helperText={errors.description && errors.description.message}
-            defaultValue={action === 'edit' ? sectionData.description : ""}
+            defaultValue={action === 'edit' ? sectionSelect.description : ""}
           />
 
           {errorMessage && <div className='error-message text-danger text-start ms-4'>{errorMessage}</div>}

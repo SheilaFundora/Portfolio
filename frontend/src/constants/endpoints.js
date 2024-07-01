@@ -6,4 +6,5 @@ export const socialNet_end = "/api/social-network"
 export const validateToken_end = "/auth/validate-token"
 export const services_end = "/api/services"
 export const section_end = "/api/section"
-
+export const skill_end = "/api/skill"
+export const images_end = '/api/photo'

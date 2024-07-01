@@ -54,10 +54,12 @@ async getUser(username: string): Promise<Partial<Usuario>> {
       'email',
       'username',
       'experience',
-      'level'
+      'level',
+      'cvPathEn',
+      'cvPathEs',
     ],
   });
-
+  
   if (!user) {
     throw new NotFoundException(`User with username ${username} not found`);
   }
@@ -107,6 +109,8 @@ async create(createUserDto: CreateUserDto): Promise<Usuario> {
     experience: createUserDto.experience,
     password: hashedPassword,
     activationToken: v4(),
+    cvPathEn: createUserDto.cvPathEn,
+    cvPathEs: createUserDto.cvPathEs,
   });
 
   // Guardado del nuevo usuario en la base de datos

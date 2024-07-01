@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import {Button, DialogActions, DialogContent, DialogContentText, TextField} from "@mui/material";
+import {Button, DialogActions, DialogContent, TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import {useForm} from "react-hook-form";
 import {services_end} from "@/constants/endpoints";
 import {handleSubmitData} from "@/helper/submitData";
 import {handleEditData} from "@/helper/editData";
 
-const ModalService = ({handleClickOpen, action, handleRefreshTable, socialNet}) => {
+const ModalService = ({handleClickOpen, action, handleRefreshTable, serviceSelect}) => {
   const { register, handleSubmit, formState: { errors } } = useForm('formService');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -15,8 +15,8 @@ const ModalService = ({handleClickOpen, action, handleRefreshTable, socialNet}) 
   }
 
   const handleEditService = async (data) => {
-    const endpoint = services_end + '/' + socialNet.id +'/'
-    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'Social Network');
+    const endpoint = services_end + '/' + serviceSelect.id +'/'
+    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'Services');
   }
 
   const handleOperationService= async (data) => {
@@ -33,29 +33,33 @@ const ModalService = ({handleClickOpen, action, handleRefreshTable, socialNet}) 
     <Box>
       <form onSubmit={handleSubmit(handleOperationService)}>
         <DialogContent>
-          <h4 className='mt-4 text-center'>Form to add Service</h4>
-
+          <h4 className='mt-4 text-center'>
+            {action === 'add' ?
+              "Form to add Service" :
+              "Form to edit Servicr"
+            }
+          </h4>
 
           <div className={'d-flex w-100 align-items-center justify-content-between'}>
             <TextField
-              label="Title"
+              label="Name"
               type='text'
               sx={{m: 2, width: '250px'}}
-              {...register("title", {
+              {...register("name", {
                 required: 'Required field'
               })}
-              error={!!errors.title}
-              helperText={errors.title && errors.title.message}
+              error={!!errors.name}
+              helperText={errors.name && errors.name.message}
+              defaultValue={action === 'edit' ? serviceSelect.name : ""}
             />
             <TextField
               label="Icon"
               type='text'
               sx={{m: 2, width: '250px'}}
-              {...register("icon", {
-                required: 'Required field'
-              })}
+              {...register("icon")}
               error={!!errors.icon}
               helperText={errors.icon && errors.icon.message}
+              defaultValue={action === 'edit' ? serviceSelect.icon : ""}
             />
           </div>
 
@@ -70,6 +74,7 @@ const ModalService = ({handleClickOpen, action, handleRefreshTable, socialNet}) 
             })}
             error={!!errors.description}
             helperText={errors.description && errors.description.message}
+            defaultValue={action === 'edit' ? serviceSelect.description : ""}
           />
 
 
@@ -77,10 +82,10 @@ const ModalService = ({handleClickOpen, action, handleRefreshTable, socialNet}) 
 
           <DialogActions sx={{pb: 3, justifyContent: 'center'}}>
             <Button autoFocus onClick={handleClickOpen} variant="contained" color='error'>
-              Cancelar
+              Cancel
             </Button>
             <Button variant="contained" type="submit" className={'ms-4'}>
-              Agregar
+              Accept
             </Button>
           </DialogActions>
         </DialogContent>

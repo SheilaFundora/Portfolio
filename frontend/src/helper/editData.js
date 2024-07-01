@@ -10,7 +10,7 @@ export const handleEditData = async (handleClickOpen, endpoint, data, handleRefr
 
     if (resp.status === 200) {
       await handleRefreshTable();
-      await Swal.fire('Exit', name + " edit with exit.", 'success');
+      await Swal.fire('Success', name + " edit with exit.", 'success');
     }else{
       await Swal.fire('Error', "Server Error", 'error');
     }
