@@ -68,7 +68,7 @@ const TableService = ({serviceData, handleRefreshTable}) => {
       {openDelete &&
         <ModalDelete openDelete={openDelete}
                      handleOpenDelete={handleOpenDelete}
-                     contentDelete={'social network'}
+                     contentDelete={'Service'}
                      handleDelete={handleDeleteService}
         />
 

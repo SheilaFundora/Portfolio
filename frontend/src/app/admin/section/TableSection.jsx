@@ -40,7 +40,7 @@ const TableSection = ({sectionData, handleRefreshTable}) => {
 
   const handleDeleteSection = async () => {
     const endpoint = section_end +'/'+ sectionId + '/';
-    await handleDelete(handleOpenDelete, endpoint, handleRefreshTable , ' section');
+    await handleDelete(handleOpenDelete, endpoint, handleRefreshTable , 'section');
   }
 
   return (

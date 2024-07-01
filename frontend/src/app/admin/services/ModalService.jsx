@@ -16,7 +16,7 @@ const ModalService = ({handleClickOpen, action, handleRefreshTable, serviceSelec
 
   const handleEditService = async (data) => {
     const endpoint = services_end + '/' + serviceSelect.id +'/'
-    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'Services');
+    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'Service');
   }
 
   const handleOperationService= async (data) => {
