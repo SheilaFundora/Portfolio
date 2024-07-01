@@ -47,7 +47,7 @@ const ModalProject = ({handleClickOpen}) => {
         <DialogContent>
           <h4 className='mt-4 text-center'>Form to add Projects</h4>
           <TextField
-            label="Name"
+            label="Title"
             type='text'
             sx={{m: 2, width: '500px'}}
             {...register("name", {

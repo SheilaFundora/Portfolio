@@ -1,30 +1,75 @@
 import React, {useState} from 'react';
-import {Button, DialogActions, DialogContent, DialogContentText, TextField} from "@mui/material";
+import {Button, DialogActions, DialogContent, TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import {useForm} from "react-hook-form";
+import {handleSubmitData} from "@/helper/submitData";
+import {resume_end} from "@/constants/endpoints";
+import {handleEditData} from "@/helper/editData";
 
-const ModalResume = ({handleClickOpen}) => {
-  const { register, control, handleSubmit, formState: { errors } } = useForm('formResume');
+const ModalResume = ({handleClickOpen, handleRefreshTable, action, resumeSelect = null }) => {
+  const { register, handleSubmit, formState: { errors } } = useForm('formResume');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmitResume= async (data) => {
-    console.log(data)
+    if(data.date_init > data.date_end  ){
+      setErrorMessage('Error in dates')
+    }else{
+      data.date_init = data.date_init === '' ? null : data.date_init;
+      data.date_end = data.date_end === '' ? null : data.date_end;
+
+      await handleSubmitData(handleClickOpen, resume_end, data, handleRefreshTable, 'Resume', setErrorMessage);
+    }
   }
+
+  const handleEditResume = async (data) => {
+    const endpoint = resume_end + '/' + resumeSelect.id +'/'
+    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'Resume');
+  }
+
+  const handleOperationResume= async (data) => {
+    if( action === 'add'){
+      await handleSubmitResume(data)
+    }else{
+      if ( action === 'edit'){
+        await handleEditResume(data)
+      }
+    }
+  }
+
   return (
     <Box>
-      <form onSubmit={handleSubmit(handleSubmitResume)}>
+      <form onSubmit={handleSubmit(handleOperationResume)}>
         <DialogContent>
-          <h4 className='mt-4 text-center'>Form to add Resume</h4>
+          <h4 className='mt-4 text-center'>
+            {action === 'add' ?
+              "Form to add Resume" :
+              "Form to edit Resume"
+            }
+          </h4>
+          <div className={'d-flex'}>
+            <TextField
+              label="Name Section"
+              type='text'
+              sx={{m: 2, width: '700px'}}
+              {...register("name_section")}
+              error={!!errors.name_section}
+              helperText={errors.name_section && errors.name_section.message}
+              defaultValue={action === 'edit' ? resumeSelect.name_section : ""}
+            />
+
+          </div>
 
           <div className={'d-flex'}>
             <TextField
-              label="Section Name "
+              label="Important Title"
               type='text'
               sx={{m: 2, width: '700px'}}
-              {...register("nameSection")}
-              error={!!errors.sectionName}
-              helperText={errors.sectionName && errors.sectionName.message}
+              {...register("titleImpt")}
+              error={!!errors.titleImpt}
+              helperText={errors.titleImpt && errors.titleImpt.message}
+              defaultValue={action === 'edit' ? resumeSelect.titleImpt : ""}
             />
+
             <TextField
               label="Link"
               type='text'
@@ -32,17 +77,7 @@ const ModalResume = ({handleClickOpen}) => {
               {...register("link")}
               error={!!errors.link}
               helperText={errors.link && errors.link.message}
-            />
-          </div>
-
-          <div className={'d-flex'}>
-            <TextField
-              label="Title Important"
-              type='text'
-              sx={{m: 2, width: '700px'}}
-              {...register("titleImportant")}
-              error={!!errors.titleImportant}
-              helperText={errors.titleImportant && errors.titleImportant.message}
+              defaultValue={action === 'edit' ? resumeSelect.link : ""}
             />
 
           </div>
@@ -54,6 +89,7 @@ const ModalResume = ({handleClickOpen}) => {
             {...register("titleSecondary")}
             error={!!errors.titleSecondary}
             helperText={errors.titleSecondary && errors.titleSecondary.message}
+            defaultValue={action === 'edit' ? resumeSelect.titleSecondary : ""}
           />
 
 
@@ -61,16 +97,22 @@ const ModalResume = ({handleClickOpen}) => {
             <TextField
               type='date'
               sx={{m: 2, width: '700px'}}
-              {...register("dateinit")}
-              error={!!errors.dateinit}
-              helperText={errors.dateinit && errors.dateinit.message}
+              {...register("date_init")}
+              error={!!errors.date_init}
+              helperText={errors.date_init && errors.date_init.message}
+              defaultValue= {  action === 'edit' ? ( resumeSelect.date_init === null ? '' :
+                resumeSelect.date_init.split('T')[0] ) : ''
+              }
             />
             <TextField
               type='date'
               sx={{m: 2, width: '700px'}}
-              {...register("dateEnd")}
-              error={!!errors.dateEnd}
-              helperText={errors.dateEnd && errors.dateEnd.message}
+              {...register("date_end")}
+              error={!!errors.date_end}
+              helperText={errors.date_end && errors.date_end.message}
+              defaultValue= {action === 'edit' ? ( resumeSelect.date_end === null ? '' :
+                resumeSelect.date_end.split('T')[0]) : ''
+              }
             />
           </div>
 
@@ -83,6 +125,7 @@ const ModalResume = ({handleClickOpen}) => {
               {...register("city")}
               error={!!errors.city}
               helperText={errors.city && errors.city.message}
+              defaultValue={action === 'edit' ? resumeSelect.city : ""}
             />
             <TextField
               label="Country"
@@ -91,6 +134,7 @@ const ModalResume = ({handleClickOpen}) => {
               {...register("country")}
               error={!!errors.country}
               helperText={errors.country && errors.country.message}
+              defaultValue={action === 'edit' ? resumeSelect.country : ""}
             />
           </div>
           <TextField
@@ -100,6 +144,7 @@ const ModalResume = ({handleClickOpen}) => {
             {...register("subtitle")}
             error={!!errors.subtitle}
             helperText={errors.subtitle && errors.subtitle.message}
+            defaultValue={action === 'edit' ? resumeSelect.subtitle : ""}
           />
           <TextField
             label="Description"
@@ -110,17 +155,17 @@ const ModalResume = ({handleClickOpen}) => {
             {...register("description")}
             error={!!errors.description}
             helperText={errors.description && errors.description.message}
+            defaultValue={action === 'edit' ? resumeSelect.description : ""}
           />
-
 
           {errorMessage && <div className='error-message text-danger text-start ms-4'>{errorMessage}</div>}
 
           <DialogActions sx={{pb: 3, justifyContent: 'center'}}>
             <Button autoFocus onClick={handleClickOpen} variant="contained" color='error'>
-              Cancelar
+              Cancel
             </Button>
             <Button variant="contained" type="submit" className={'ms-4'}>
-              Agregar
+              Accept
             </Button>
           </DialogActions>
         </DialogContent>

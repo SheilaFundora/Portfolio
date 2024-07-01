@@ -2,7 +2,7 @@
 import React, {useEffect} from 'react';
 import Box from "@mui/material/Box";
 import ModalSocialNet from "@/app/admin/socialNetworks/ModalSocialNet";
-import TableSocialNet from "@/app/admin/socialNetworks/TableSocialNet";
+import SocialNetTable from "@/app/admin/socialNetworks/SocialNetTable";
 import ModalForm from "@/components/adminComponents/other/ModalForm";
 import ButtonAdd from "@/components/adminComponents/other/ButtonAdd";
 import {socialNet_end} from "@/constants/endpoints";
@@ -35,7 +35,7 @@ const Page = () => {
                    handleClickOpen={handleClickOpen}
         />
       }
-      <TableSocialNet socialNetData={socialNetData} handleRefreshTable={handleRefreshTable} />
+      <SocialNetTable socialNetData={socialNetData} handleRefreshTable={handleRefreshTable} />
     </Box>
   );
 };

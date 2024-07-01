@@ -5,7 +5,7 @@ import ModalSection from "@/app/admin/section/ModalSection";
 import ButtonAdd from "@/components/adminComponents/other/ButtonAdd";
 import ModalForm from "@/components/adminComponents/other/ModalForm";
 import {section_end} from "@/constants/endpoints";
-import TableSection from "@/app/admin/section/TableSection";
+import SectionTable from "@/app/admin/section/SectionTable";
 import {getData} from "@/helper/getData";
 
 const Page = () => {
@@ -37,7 +37,7 @@ const Page = () => {
                    handleClickOpen={handleClickOpen}
         />
       }
-      <TableSection handleRefreshTable={handleRefreshTable} sectionData={sectionData} />
+      <SectionTable handleRefreshTable={handleRefreshTable} sectionData={sectionData} />
     </Box>
   );
 };

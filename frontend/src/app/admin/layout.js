@@ -21,10 +21,9 @@ import Loading from "@/components/Loading";
 import DrawerPersonalized from "@/components/adminComponents/Sidebar/DrawerPersonalized";
 import LogoutIcon from '@mui/icons-material/Logout';
 import ModalForm from "@/components/adminComponents/other/ModalForm";
-import ModalPerson from "@/app/admin/person/ModalPerson";
 import ModalChangePass from "@/components/adminComponents/other/ModalChangePass";
-import {fetchConToken, fetchData, fetchValidateToken} from "@/helper/fetch";
-import {socialNet_end, validateToken_end} from "@/constants/endpoints";
+import {fetchValidateToken} from "@/helper/fetch";
+import { validateToken_end} from "@/constants/endpoints";
 
 const drawerWidth = 280;
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
