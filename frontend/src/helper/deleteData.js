@@ -9,7 +9,7 @@ export const handleDelete = async (handleOpenDelete, end, handleRefreshTable, na
 
     if (resp.status === 200) {
       await handleRefreshTable();
-      await Swal.fire('Success', name + "deleted with exit.", 'success');
+      await Swal.fire('Success', name + " deleted with exit.", 'success');
 
     }else{
       await Swal.fire('Error', "Server Error", 'error');

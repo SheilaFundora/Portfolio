@@ -7,7 +7,7 @@ import {handleSubmitData} from "@/helper/submitData";
 import {handleEditData} from "@/helper/editData";
 
 const ModalSection = ({handleClickOpen, action, sectionSelect = null, handleRefreshTable}) => {
-  const { register, control, handleSubmit, formState: { errors } } = useForm('formSection');
+  const { register, handleSubmit, formState: { errors } } = useForm('formSection');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmitSection= async (data) => {
@@ -68,10 +68,10 @@ const ModalSection = ({handleClickOpen, action, sectionSelect = null, handleRefr
 
           <DialogActions sx={{pb: 3, justifyContent: 'center'}}>
             <Button autoFocus onClick={handleClickOpen} variant="contained" color='error'>
-              Cancelar
+              Cancel
             </Button>
             <Button variant="contained" type="submit" className={'ms-4'}>
-              Agregar
+              Accept
             </Button>
           </DialogActions>
         </DialogContent>
