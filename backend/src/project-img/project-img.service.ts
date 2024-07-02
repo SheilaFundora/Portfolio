@@ -5,11 +5,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ProjectIMG } from './entities/project-img.entity';
 import { plainToClass } from 'class-transformer';
+import { Usuario } from 'src/usuario/entities/user.entity';
 
 @Injectable()
 export class ProjectImgService {
   constructor(
     @InjectRepository(ProjectIMG) private ProjectIMGRep: Repository<ProjectIMG>,
+    @InjectRepository(Usuario) private UserRep: Repository<Usuario>,
   ) {}
 
   async findAll() {
@@ -23,22 +25,27 @@ export class ProjectImgService {
 
   async findByUserId(username: string) {
     try {
-      const projects = await this.ProjectIMGRep.find({
+      const user = await this.UserRep.findOne({
+        where: { username },
+      });
+  
+      if (!user) {
+        throw new NotFoundException(`User not found for username: ${username}`);
+      }
+  
+      const skills = await this.ProjectIMGRep.find({
         where: {
-          user_id: {
-            username: username
-          },
+          user_id: user, // Aquí usamos el objeto `user` directamente
         },
         relations: ['user_id'],
       });
-
-      if (!projects.length) {
-        throw new NotFoundException(`No project images found for username: ${username}`);
-      }
-
-      return projects.map(project => plainToClass(ProjectIMG, project));
+  
+      return skills.map(skill => plainToClass(ProjectIMG, skill));
     } catch (error) {
-      throw new InternalServerErrorException('Error retrieving project images by user ID');
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException('Error retrieving skills by user ID');
     }
   }
 

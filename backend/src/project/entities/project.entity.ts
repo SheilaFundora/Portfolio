@@ -1,7 +1,7 @@
 import { Usuario } from 'src/usuario/entities/user.entity';
 import { ProjectIMG } from '../../project-img/entities/project-img.entity';
 import { Skill } from '../../skill/entities/skill.entity';
-import {Entity, Column, PrimaryGeneratedColumn, Unique, OneToMany, ManyToOne, JoinColumn} from 'typeorm';
+import {Entity, Column, PrimaryGeneratedColumn, Unique, OneToMany, ManyToOne, JoinColumn, JoinTable, ManyToMany} from 'typeorm';
 
 
 @Entity()
@@ -9,22 +9,33 @@ export class Project {
 
     @PrimaryGeneratedColumn()
     id:number;
-    @Column({nullable:false})
+    @Column({nullable:true})
     name:string;
-    @Column({nullable:false})
+    @Column({nullable:true})
     category:string;
-    @Column({nullable:false})
+    @Column({nullable:true})
     client:string;
-    @Column({nullable:false, type:"timestamp without time zone"})
+    @Column({nullable:true, type:"timestamp without time zone"})
     dateProject:string;
-    @Column({nullable:false, type:'varchar'})
+    @Column({nullable:true, type:'varchar'})
     description:string;
-    @Column({nullable:false,unique:true})
+    @Column({nullable:true,unique:true})
     url:string;
 
-    @ManyToOne(() => Skill, (skill_id) => skill_id.pros, {eager: true,onDelete:'CASCADE', onUpdate:'CASCADE'})
-    @JoinColumn({name: 'skill_id'})
-    skill_id:Skill;
+
+    @ManyToMany(() => Skill, { eager: true })
+    @JoinTable({
+      name: 'project_skills',
+      joinColumn: {
+        name: 'project_id',
+        referencedColumnName: 'id'
+      },
+      inverseJoinColumn: {
+        name: 'skill_id',
+        referencedColumnName: 'id'
+      }
+    })
+    skills: Skill[];
 
 
     @OneToMany(() => ProjectIMG, (prosImg) => prosImg.project_id)

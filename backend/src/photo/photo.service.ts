@@ -5,11 +5,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Photo } from './entities/photo.entity';
 import { plainToClass } from 'class-transformer';
+import { Usuario } from 'src/usuario/entities/user.entity';
 
 @Injectable()
 export class PhotoService {
   constructor(
     @InjectRepository(Photo) private PhotoRep: Repository<Photo>,
+    @InjectRepository(Usuario) private UserRep: Repository<Usuario>,
   ) {}
 
   async findAll() {
@@ -23,22 +25,27 @@ export class PhotoService {
 
   async findByUserId(username: string) {
     try {
-      const photos = await this.PhotoRep.find({
+      const user = await this.UserRep.findOne({
+        where: { username },
+      });
+  
+      if (!user) {
+        throw new NotFoundException(`User not found for username: ${username}`);
+      }
+  
+      const skills = await this.PhotoRep.find({
         where: {
-          user_id: {
-            username: username
-          },
+          user_id: user, // Aquí usamos el objeto `user` directamente
         },
         relations: ['user_id'],
       });
-
-      if (!photos.length) {
-        throw new NotFoundException(`No photos found for username: ${username}`);
-      }
-
-      return photos.map(photo => plainToClass(Photo, photo));
+  
+      return skills.map(skill => plainToClass(Photo, skill));
     } catch (error) {
-      throw new InternalServerErrorException('Error retrieving photos by user ID');
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException('Error retrieving skills by user ID');
     }
   }
 

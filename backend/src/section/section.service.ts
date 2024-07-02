@@ -5,11 +5,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Section } from './entities/section.entity';
 import { Repository } from 'typeorm';
 import { plainToClass } from 'class-transformer';
+import { Usuario } from 'src/usuario/entities/user.entity';
 
 @Injectable()
 export class SectionService {
   constructor(
     @InjectRepository(Section) private SectionRep: Repository<Section>,
+    @InjectRepository(Usuario) private UserRep: Repository<Usuario>,
   ) {}
 
   async findAll() {
@@ -23,24 +25,30 @@ export class SectionService {
 
   async findByUserId(username: string) {
     try {
-      const sections = await this.SectionRep.find({
+      const user = await this.UserRep.findOne({
+        where: { username },
+      });
+  
+      if (!user) {
+        throw new NotFoundException(`User not found for username: ${username}`);
+      }
+  
+      const skills = await this.SectionRep.find({
         where: {
-          user_id: {
-            username: username
-          },
+          user_id: user, // Aquí usamos el objeto `user` directamente
         },
         relations: ['user_id'],
       });
-
-      if (!sections.length) {
-        throw new NotFoundException(`No sections found for username: ${username}`);
-      }
-
-      return sections.map(section => plainToClass(Section, section));
+  
+      return skills.map(skill => plainToClass(Section, skill));
     } catch (error) {
-      throw new InternalServerErrorException('Error retrieving sections by user ID');
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException('Error retrieving skills by user ID');
     }
   }
+  
 
   async create(createSectionDto: CreateSectionDto): Promise<Section> {
     try {

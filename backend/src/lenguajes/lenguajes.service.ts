@@ -5,11 +5,13 @@ import { Lenguaje } from './entities/lenguaje.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { plainToClass } from 'class-transformer';
+import { Usuario } from 'src/usuario/entities/user.entity';
 
 @Injectable()
 export class LenguajesService {
   constructor(
     @InjectRepository(Lenguaje) private LenguajeRepo: Repository<Lenguaje>,
+    @InjectRepository(Usuario) private UserRep: Repository<Usuario>,
   ) {}
 
   async create(createLenguajeDto: CreateLenguajeDto) {
@@ -32,22 +34,27 @@ export class LenguajesService {
 
   async findByUserId(username: string) {
     try {
-      const lenguajes = await this.LenguajeRepo.find({
+      const user = await this.UserRep.findOne({
+        where: { username },
+      });
+  
+      if (!user) {
+        throw new NotFoundException(`User not found for username: ${username}`);
+      }
+  
+      const skills = await this.LenguajeRepo.find({
         where: {
-          user_id: {
-            username: username
-          },
+          user_id: user, // Aquí usamos el objeto `user` directamente
         },
         relations: ['user_id'],
       });
-
-      if (!lenguajes.length) {
-        throw new NotFoundException(`No lenguajes found for username: ${username}`);
-      }
-
-      return lenguajes.map(lenguaje => plainToClass(Lenguaje, lenguaje));
+  
+      return skills.map(skill => plainToClass(Lenguaje, skill));
     } catch (error) {
-      throw new InternalServerErrorException('Error retrieving lenguajes by user ID');
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException('Error retrieving skills by user ID');
     }
   }
 

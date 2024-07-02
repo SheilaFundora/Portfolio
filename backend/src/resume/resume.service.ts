@@ -5,11 +5,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Resume } from './entities/resume.entity';
 import { Repository } from 'typeorm';
 import { plainToClass } from 'class-transformer';
+import { Usuario } from 'src/usuario/entities/user.entity';
 
 @Injectable()
 export class ResumeService {
   constructor(
     @InjectRepository(Resume) private ResumeRep: Repository<Resume>,
+    @InjectRepository(Usuario) private UserRep: Repository<Usuario>,
   ) {}
 
   async findAll() {
@@ -23,22 +25,27 @@ export class ResumeService {
 
   async findByUserId(username: string) {
     try {
-      const resumes = await this.ResumeRep.find({
+      const user = await this.UserRep.findOne({
+        where: { username },
+      });
+  
+      if (!user) {
+        throw new NotFoundException(`User not found for username: ${username}`);
+      }
+  
+      const skills = await this.ResumeRep.find({
         where: {
-          user_id: {
-            username: username
-          },
+          user_id: user, // Aquí usamos el objeto `user` directamente
         },
         relations: ['user_id'],
       });
-
-      if (!resumes.length) {
-        throw new NotFoundException(`No resumes found for username: ${username}`);
-      }
-
-      return resumes.map(resume => plainToClass(Resume, resume));
+  
+      return skills.map(skill => plainToClass(Resume, skill));
     } catch (error) {
-      throw new InternalServerErrorException('Error retrieving resumes by user ID');
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException('Error retrieving skills by user ID');
     }
   }
 

@@ -1,6 +1,6 @@
 import { Usuario } from 'src/usuario/entities/user.entity';
 import { Project } from '../../project/entities/project.entity';
-import {Entity, Column, PrimaryGeneratedColumn, Unique, OneToMany, ManyToOne, JoinColumn} from 'typeorm';
+import {Entity, Column, PrimaryGeneratedColumn, Unique, OneToMany, ManyToOne, JoinColumn, ManyToMany} from 'typeorm';
 
 
 @Entity()
@@ -14,8 +14,8 @@ export class Skill {
     icon: string;
     @Column({nullable:true})
     name:string;
-    @OneToMany(() => Project, (pro) => pro.skill_id)
-    pros: Project[];
+    @ManyToMany(() => Project, (project) => project.skills)
+    projects: Project[];
     @Column({nullable:true})
     group:string;
 

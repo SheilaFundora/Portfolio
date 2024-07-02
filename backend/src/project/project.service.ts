@@ -1,15 +1,19 @@
-import { Injectable, NotFoundException, InternalServerErrorException } from '@nestjs/common';
+import { Injectable, NotFoundException, InternalServerErrorException, ConflictException } from '@nestjs/common';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Project } from './entities/project.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { plainToClass } from 'class-transformer';
+import { Usuario } from 'src/usuario/entities/user.entity';
+import { Skill } from 'src/skill/entities/skill.entity';
 
 @Injectable()
 export class ProjectService {
   constructor(
     @InjectRepository(Project) private ProjectRep: Repository<Project>,
+    @InjectRepository(Usuario) private UserRep: Repository<Usuario>,
+    @InjectRepository(Skill) private SkillRep: Repository<Skill>,
   ) {}
 
   async findAll() {
@@ -23,33 +27,77 @@ export class ProjectService {
 
   async findByUserId(username: string) {
     try {
-      const projects = await this.ProjectRep.find({
+      const user = await this.UserRep.findOne({
+        where: { username },
+      });
+  
+      if (!user) {
+        throw new NotFoundException(`User not found for username: ${username}`);
+      }
+  
+      const skills = await this.ProjectRep.find({
         where: {
-          user_id: {
-            username: username
-          },
+          user_id: user, // Aquí usamos el objeto `user` directamente
         },
         relations: ['user_id'],
       });
-
-      if (!projects.length) {
-        throw new NotFoundException(`No projects found for username: ${username}`);
-      }
-
-      return projects.map(project => plainToClass(Project, project));
+  
+      return skills.map(skill => plainToClass(Project, skill));
     } catch (error) {
-      throw new InternalServerErrorException('Error retrieving projects by user ID');
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException('Error retrieving skills by user ID');
     }
   }
 
+
+
   async create(createProjectDto: CreateProjectDto): Promise<Project> {
+    const { skill_ids, user_id, dateProject, url, ...projectData } = createProjectDto;
+
     try {
-      const newProject = this.ProjectRep.create(createProjectDto);
+      // Verificar si la URL del proyecto ya existe
+      const existingProject = await this.ProjectRep.findOne({ where: { url } });
+      if (existingProject) {
+        throw new ConflictException(`Project with URL ${url} already exists`);
+      }
+
+      const user = await this.UserRep.findOne({ where: { id: user_id.id } });
+      if (!user) {
+        throw new NotFoundException(`User not found with ID: ${user_id.id}`);
+      }
+
+      const skills = await this.SkillRep.find({
+        where: { id: In(skill_ids) },
+      });
+
+      if (!skills.length) {
+        throw new NotFoundException(`Skills not found with the provided IDs`);
+      }
+
+      const newProject = this.ProjectRep.create({
+        ...projectData,
+        dateProject: dateProject ? dateProject : null,
+        url,
+        user_id: user, // Aquí asignamos el user_id directamente
+        skills,  // Asignar las habilidades correctamente
+      });
+
       return await this.ProjectRep.save(newProject);
     } catch (error) {
+      if (error instanceof ConflictException) {
+        throw error;
+      }
       throw new InternalServerErrorException('Error creating project');
     }
   }
+  
+  
+  
+  
+  
+
 
   async update(id: number, updateProjectDto: UpdateProjectDto) {
     try {
