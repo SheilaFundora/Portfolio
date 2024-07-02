@@ -5,11 +5,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Services } from './entities/service.entity';
 import { Repository } from 'typeorm';
 import { plainToClass } from 'class-transformer';
+import { Usuario } from 'src/usuario/entities/user.entity';
 
 @Injectable()
 export class ServicesService {
   constructor(
     @InjectRepository(Services) private ServicesRep: Repository<Services>,
+    @InjectRepository(Usuario) private UserRep: Repository<Usuario>,
   ) {}
 
   async findAll() {
@@ -23,24 +25,31 @@ export class ServicesService {
 
   async findByUserId(username: string) {
     try {
-      const services = await this.ServicesRep.find({
+      const user = await this.UserRep.findOne({
+        where: { username },
+      });
+  
+      if (!user) {
+        throw new NotFoundException(`User not found for username: ${username}`);
+      }
+  
+      const skills = await this.ServicesRep.find({
         where: {
-          user_id: {
-            username: username
-          },
+          user_id: user, // Aquí usamos el objeto `user` directamente
         },
         relations: ['user_id'],
       });
-
-      if (!services.length) {
-        throw new NotFoundException(`No services found for username: ${username}`);
-      }
-
-      return services.map(service => plainToClass(Services, service));
+  
+      return skills.map(skill => plainToClass(Services, skill));
     } catch (error) {
-      throw new InternalServerErrorException('Error retrieving services by user ID');
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException('Error retrieving skills by user ID');
     }
   }
+  
+  
 
   async create(createServiceDto: CreateServiceDto): Promise<Services> {
     try {

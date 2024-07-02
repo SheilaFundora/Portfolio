@@ -25,24 +25,32 @@ export class SkillService {
 
   async findByUserId(username: string) {
     try {
+      const user = await this.UserRep.findOne({
+        where: { username },
+      });
+  
+      if (!user) {
+        throw new NotFoundException(`User not found for username: ${username}`);
+      }
+  
       const skills = await this.SkillRep.find({
         where: {
-          user_id: {
-            username: username
-          },
+          user_id: user, // Aquí usamos el objeto `user` directamente
         },
         relations: ['user_id'],
       });
-
-      if (!skills.length) {
-        throw new NotFoundException(`No skills found for username: ${username}`);
-      }
-
+  
       return skills.map(skill => plainToClass(Skill, skill));
     } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
       throw new InternalServerErrorException('Error retrieving skills by user ID');
     }
   }
+  
+  
+  
 
   async create(createSkillDto: CreateSkillDto): Promise<Skill> {
     const { porcent } = createSkillDto;
