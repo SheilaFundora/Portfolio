@@ -20,7 +20,6 @@ export class CreateResumeDto {
 
     city:string;
     
-    name_section:string;
 
     subtitle:string;
     user_id:Usuario;
