@@ -16,7 +16,7 @@ export class Project {
     @Column({nullable:false})
     client:string;
     @Column({nullable:false, type:"timestamp without time zone"})
-    Date:string;
+    dateProject:string;
     @Column({nullable:false, type:'varchar'})
     description:string;
     @Column({nullable:false,unique:true})

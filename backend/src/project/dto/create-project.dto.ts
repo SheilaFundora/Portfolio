@@ -10,7 +10,7 @@ export class CreateProjectDto {
     name:string;
     category:string;
     client:string;
-    Date:string;
+    dateProject:string;
     description:string;
     url:string;
     skill_id:Skill;
