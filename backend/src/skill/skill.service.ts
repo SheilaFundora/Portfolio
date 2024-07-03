@@ -6,6 +6,7 @@ import { Skill } from './entities/skill.entity';
 import { Repository } from 'typeorm';
 import { Usuario } from 'src/usuario/entities/user.entity';
 import { plainToClass } from 'class-transformer';
+import { use } from 'passport';
 
 @Injectable()
 export class SkillService {
@@ -67,6 +68,7 @@ export class SkillService {
           name: createSkillDto.name,
           icon: createSkillDto.icon,
           group: createSkillDto.group,
+          user_id:createSkillDto.user_id,
           porcent: porcent ? porcent : null}
       );
       return await this.SkillRep.save(newSkill);
