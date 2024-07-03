@@ -6,7 +6,7 @@ import {skill_end} from "@/constants/endpoints";
 import {handleEditData} from "@/helper/editData";
 import {handleSubmitData} from "@/helper/submitData";
 
-const ModalSkill = ({handleClickOpen, handleRefreshTable, action, skillSelect = null}) => {
+const SkillModal = ({handleClickOpen, handleRefreshTable, action, skillSelect = null}) => {
   const { register, handleSubmit, formState: { errors } } = useForm('formSkill');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -102,4 +102,4 @@ const ModalSkill = ({handleClickOpen, handleRefreshTable, action, skillSelect = 
   );
 };
 
-export default ModalSkill;
+export default SkillModal;

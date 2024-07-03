@@ -2,11 +2,8 @@ import React, {useState} from 'react';
 import Box from "@mui/material/Box";
 import {Button, DialogActions, DialogContent, TextField} from "@mui/material";
 import {useForm} from "react-hook-form";
-import {handleSubmitData} from "@/helper/submitData";
-import {resume_end} from "@/constants/endpoints";
-import {handleEditData} from "@/helper/editData";
 
-const ModalCategory = ({handleClickOpen, handleRefreshTable, action}) => {
+const CategoryModal = ({handleClickOpen, handleRefreshTable, action}) => {
   const { register, handleSubmit, formState: { errors } } = useForm('formResume');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -66,4 +63,4 @@ const ModalCategory = ({handleClickOpen, handleRefreshTable, action}) => {
   );
 };
 
-export default ModalCategory;
+export default CategoryModal;

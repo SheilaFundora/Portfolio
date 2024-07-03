@@ -139,7 +139,7 @@ const Page = () => {
                     label="Lastname"
                     type='text'
                     sx={{mb: 1, width: '55%'}}
-                    {...register("lastname")}
+                    {...register("lastName")}
                   />
                 </Box>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between'}}>

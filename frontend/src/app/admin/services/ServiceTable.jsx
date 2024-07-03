@@ -9,7 +9,7 @@ import {services_end} from "@/constants/endpoints";
 import ActionsTable from "@/components/adminComponents/other/ActionsTable";
 import ModalDelete from "@/components/adminComponents/other/ModalDelete";
 import {handleDelete} from "@/helper/deleteData";
-import ModalService from "@/app/admin/services/ModalService";
+import ServiceModal from "@/app/admin/services/ServiceModal";
 
 
 const ServiceTable = ({serviceData, handleRefreshTable}) => {
@@ -59,7 +59,7 @@ const ServiceTable = ({serviceData, handleRefreshTable}) => {
       </DataTable>
 
       {openEdit &&
-        <ModalForm modal={<ModalService handleClickOpen={handleOpenEdit} action={'edit'} serviceSelect={serviceSelect} handleRefreshTable={handleRefreshTable}/>}
+        <ModalForm modal={<ServiceModal handleClickOpen={handleOpenEdit} action={'edit'} serviceSelect={serviceSelect} handleRefreshTable={handleRefreshTable}/>}
                    openModal={openEdit}
                    handleClickOpen={handleOpenEdit}
         />

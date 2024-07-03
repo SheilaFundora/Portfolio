@@ -7,6 +7,7 @@ export const getData = async (endpoint, setData) => {
     const response = await axios.get(
       process.env.NEXT_PUBLIC_API_HOST + endpoint + '/user/' + username + '/'
     )
+    console.log(response)
     await setData(response.data)
   } catch (error) {
     console.log(error)

@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import {Button, Grid} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import ModalForm from "@/components/adminComponents/other/ModalForm";
-import ModalPerson from "@/app/admin/person/ModalPerson";
+import PersonModal from "@/app/admin/person/PersonModal";
 import {user_end} from "@/constants/endpoints";
 import axios from "axios";
 
@@ -95,7 +95,7 @@ const Page = () => {
 
 
         {openEdit &&
-          <ModalForm modal={<ModalPerson handleClickOpen={handleOpenEdit} action={'edit'} personData={personData[0]} handleRefreshData={handleRefreshData}/>}
+          <ModalForm modal={<PersonModal handleClickOpen={handleOpenEdit} action={'edit'} personData={personData[0]} handleRefreshData={handleRefreshData}/>}
                      openModal={openEdit}
                      handleClickOpen={handleOpenEdit}
           />

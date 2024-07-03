@@ -9,7 +9,7 @@ import {skill_end} from "@/constants/endpoints";
 import ActionsTable from "@/components/adminComponents/other/ActionsTable";
 import ModalDelete from "@/components/adminComponents/other/ModalDelete";
 import {handleDelete} from "@/helper/deleteData";
-import ModalSkill from "@/app/admin/skills/ModalSkill";
+import SkillModal from "@/app/admin/skills/SkillModal";
 
 
 const SkillTable = ({skillData, handleRefreshTable}) => {
@@ -58,7 +58,7 @@ const SkillTable = ({skillData, handleRefreshTable}) => {
       </DataTable>
 
       {openEdit &&
-        <ModalForm modal={<ModalSkill handleClickOpen={handleOpenEdit} action={'edit'} skillSelect={skillSelect} handleRefreshTable={handleRefreshTable}/>}
+        <ModalForm modal={<SkillModal handleClickOpen={handleOpenEdit} action={'edit'} skillSelect={skillSelect} handleRefreshTable={handleRefreshTable}/>}
                    openModal={openEdit}
                    handleClickOpen={handleOpenEdit}
         />

@@ -1,7 +1,7 @@
 'use client'
 import React, {useEffect} from 'react';
 import Box from "@mui/material/Box";
-import ModalImage from "@/app/admin/images/ModalImage";
+import ImageModal from "@/app/admin/images/ImageModal";
 import ButtonAdd from "@/components/adminComponents/other/ButtonAdd";
 import ModalForm from "@/components/adminComponents/other/ModalForm";
 import {getData} from "@/helper/getData";
@@ -30,7 +30,7 @@ const Page = () => {
       <ButtonAdd name={'Image'} handleClickOpen={handleClickOpen}/>
 
       { openModal &&
-        <ModalForm modal={<ModalImage handleClickOpen={handleClickOpen} action={'add'} handleRefreshTable={handleRefreshTable} />}
+        <ModalForm modal={<ImageModal handleClickOpen={handleClickOpen} action={'add'} handleRefreshTable={handleRefreshTable} />}
                    openModal={openModal}
                    handleClickOpen={handleClickOpen}
         />

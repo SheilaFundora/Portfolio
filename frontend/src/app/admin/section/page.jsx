@@ -1,7 +1,7 @@
 'use client'
 import React, {useEffect} from 'react';
 import Box from "@mui/material/Box";
-import ModalSection from "@/app/admin/section/ModalSection";
+import SectionModal from "@/app/admin/section/SectionModal";
 import ButtonAdd from "@/components/adminComponents/other/ButtonAdd";
 import ModalForm from "@/components/adminComponents/other/ModalForm";
 import {section_end} from "@/constants/endpoints";
@@ -32,7 +32,7 @@ const Page = () => {
       <ButtonAdd name={'Section'} handleClickOpen={handleClickOpen}/>
 
       { openModal &&
-        <ModalForm modal={<ModalSection handleClickOpen={handleClickOpen} action={'add'} handleRefreshTable={handleRefreshTable} />}
+        <ModalForm modal={<SectionModal handleClickOpen={handleClickOpen} action={'add'} handleRefreshTable={handleRefreshTable} />}
                    openModal={openModal}
                    handleClickOpen={handleClickOpen}
         />

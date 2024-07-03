@@ -6,7 +6,7 @@ import {handleSubmitData} from "@/helper/submitData";
 import {images_end} from "@/constants/endpoints";
 import {handleEditData} from "@/helper/editData";
 
-const ModalImage = ({handleClickOpen, action, handleRefreshTable, imageSelect}) => {
+const ImageModal = ({handleClickOpen, action, handleRefreshTable, imageSelect}) => {
   const { register, handleSubmit, formState: { errors } } = useForm('formImage');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -80,4 +80,4 @@ const ModalImage = ({handleClickOpen, action, handleRefreshTable, imageSelect}) 
   );
 };
 
-export default ModalImage;
+export default ImageModal;
