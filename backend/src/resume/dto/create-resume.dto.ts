@@ -1,3 +1,4 @@
+import { Category } from "src/category/entities/category.entity";
 import { Usuario } from "src/usuario/entities/user.entity";
 
 export class CreateResumeDto {
@@ -20,8 +21,10 @@ export class CreateResumeDto {
 
     city:string;
     
-    name_section:string;
 
     subtitle:string;
+    
     user_id:Usuario;
+
+    category_id:Category;
 }

@@ -9,6 +9,8 @@ import { Skill } from 'src/skill/entities/skill.entity';
 import { SocialNetwork } from 'src/social-network/entities/social-network.entity';
 import { ProjectIMG } from 'src/project-img/entities/project-img.entity';
 import { Exclude } from 'class-transformer';
+import { Catch } from '@nestjs/common';
+import { Category } from 'src/category/entities/category.entity';
 
 
 @Entity()
@@ -64,6 +66,9 @@ export class Usuario {
     
     @OneToMany(() => Photo, (photo) => photo.user_id)
     photos: Photo[];
+
+    @OneToMany(() => Category, (cat) => cat.user_id)
+    categories: Category[];
 
     @OneToMany(() => Project, (project) => project.user_id)
     projects: Project[];

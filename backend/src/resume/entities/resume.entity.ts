@@ -1,3 +1,4 @@
+import { Category } from 'src/category/entities/category.entity';
 import { Usuario } from 'src/usuario/entities/user.entity';
 import {Entity, Column, PrimaryGeneratedColumn, Unique, OneToMany, ManyToOne, JoinColumn} from 'typeorm';
 
@@ -19,12 +20,10 @@ export class Resume {
     description:string;
     @Column({nullable:true})
     country:string;
-    @Column({nullable:true,unique:true})
+    @Column({nullable:true})
     link:string;
     @Column({nullable:true,type:'varchar'})
     city:string;
-    @Column({nullable:true,type:'varchar'})
-    name_section:string;
     @Column({nullable:true})
     subtitle:string;
 
@@ -32,4 +31,7 @@ export class Resume {
     @JoinColumn({name: 'user_id'})
     user_id:Usuario;
 
+    @ManyToOne(() => Category, (category_id) => category_id.resumens, {eager: true,onDelete:'CASCADE', onUpdate:'CASCADE'})
+    @JoinColumn({name: 'category_id'})
+    category_id:Category;
 }

@@ -1,3 +1,4 @@
+import { ArrayNotEmpty, IsArray, IsString } from "class-validator";
 import { Skill } from "src/skill/entities/skill.entity";
 import { Usuario } from "src/usuario/entities/user.entity";
 
@@ -10,9 +11,12 @@ export class CreateProjectDto {
     name:string;
     category:string;
     client:string;
-    Date:string;
+    dateProject:string;
     description:string;
     url:string;
-    skill_id:Skill;
     user_id:Usuario;
+    @IsArray()
+    @ArrayNotEmpty()
+    skill_ids: number[];
+
 }
