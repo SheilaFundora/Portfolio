@@ -6,7 +6,7 @@ import {services_end} from "@/constants/endpoints";
 import {handleSubmitData} from "@/helper/submitData";
 import {handleEditData} from "@/helper/editData";
 
-const ModalService = ({handleClickOpen, action, handleRefreshTable, serviceSelect}) => {
+const ServiceModal = ({handleClickOpen, action, handleRefreshTable, serviceSelect}) => {
   const { register, handleSubmit, formState: { errors } } = useForm('formService');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -95,4 +95,4 @@ const ModalService = ({handleClickOpen, action, handleRefreshTable, serviceSelec
   );
 };
 
-export default ModalService;
+export default ServiceModal;

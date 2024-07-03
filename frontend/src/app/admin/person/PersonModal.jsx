@@ -7,7 +7,7 @@ import {socialNet_end, user_end} from "@/constants/endpoints";
 import Swal from "sweetalert2";
 import {handleEditData} from "@/helper/editData";
 
-const ModalPerson = ({handleClickOpen, personData, handleRefreshData}) => {
+const PersonModal = ({handleClickOpen, personData, handleRefreshData}) => {
   const { register, control, handleSubmit, formState: { errors }, setValue } = useForm();
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -229,4 +229,4 @@ const ModalPerson = ({handleClickOpen, personData, handleRefreshData}) => {
   );
 };
 
-export default ModalPerson;
+export default PersonModal;

@@ -9,7 +9,7 @@ import {section_end} from "@/constants/endpoints";
 import ActionsTable from "@/components/adminComponents/other/ActionsTable";
 import ModalDelete from "@/components/adminComponents/other/ModalDelete";
 import {handleDelete} from "@/helper/deleteData";
-import ModalSection from "@/app/admin/section/ModalSection";
+import SectionModal from "@/app/admin/section/SectionModal";
 
 
 const SectionTable = ({sectionData, handleRefreshTable}) => {
@@ -57,7 +57,7 @@ const SectionTable = ({sectionData, handleRefreshTable}) => {
       </DataTable>
 
       {openEdit &&
-        <ModalForm modal={<ModalSection handleClickOpen={handleOpenEdit} action={'edit'} sectionSelect={sectionSelect} handleRefreshTable={handleRefreshTable}/>}
+        <ModalForm modal={<SectionModal handleClickOpen={handleOpenEdit} action={'edit'} sectionSelect={sectionSelect} handleRefreshTable={handleRefreshTable}/>}
                    openModal={openEdit}
                    handleClickOpen={handleOpenEdit}
         />

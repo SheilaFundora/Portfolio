@@ -6,7 +6,7 @@ import {handleSubmitData} from "@/helper/submitData";
 import {resume_end} from "@/constants/endpoints";
 import {handleEditData} from "@/helper/editData";
 
-const ModalResume = ({handleClickOpen, handleRefreshTable, action, resumeSelect = null }) => {
+const ResumeModal = ({handleClickOpen, handleRefreshTable, action, resumeSelect = null }) => {
   const { register, handleSubmit, formState: { errors } } = useForm('formResume');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -23,7 +23,14 @@ const ModalResume = ({handleClickOpen, handleRefreshTable, action, resumeSelect 
 
   const handleEditResume = async (data) => {
     const endpoint = resume_end + '/' + resumeSelect.id +'/'
-    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'Resume');
+    if(data.date_init > data.date_end  ){
+      setErrorMessage('Error in dates')
+    }else{
+      data.date_init = data.date_init === '' ? null : data.date_init;
+      data.date_end = data.date_end === '' ? null : data.date_end;
+
+      await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'Resume');
+    }
   }
 
   const handleOperationResume= async (data) => {
@@ -64,7 +71,9 @@ const ModalResume = ({handleClickOpen, handleRefreshTable, action, resumeSelect 
               label="Important Title"
               type='text'
               sx={{m: 2, width: '700px'}}
-              {...register("titleImpt")}
+              {...register("titleImpt",{
+                required: 'Required field'
+              })}
               error={!!errors.titleImpt}
               helperText={errors.titleImpt && errors.titleImpt.message}
               defaultValue={action === 'edit' ? resumeSelect.titleImpt : ""}
@@ -152,7 +161,9 @@ const ModalResume = ({handleClickOpen, handleRefreshTable, action, resumeSelect 
             multiline
             rows={4}
             sx={{m: 2, width: '500px'}}
-            {...register("description")}
+            {...register("description",{
+              required: 'Required field'
+            })}
             error={!!errors.description}
             helperText={errors.description && errors.description.message}
             defaultValue={action === 'edit' ? resumeSelect.description : ""}
@@ -175,4 +186,4 @@ const ModalResume = ({handleClickOpen, handleRefreshTable, action, resumeSelect 
   );
 };
 
-export default ModalResume;
+export default ResumeModal;

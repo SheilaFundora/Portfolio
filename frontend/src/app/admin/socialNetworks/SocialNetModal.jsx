@@ -6,7 +6,7 @@ import {socialNet_end} from "@/constants/endpoints";
 import {handleSubmitData} from "@/helper/submitData";
 import {handleEditData} from "@/helper/editData";
 
-const ModalSocialNet = ({handleClickOpen, action, snSelect = null, handleRefreshTable}) => {
+const SocialNetModal = ({handleClickOpen, action, snSelect = null, handleRefreshTable}) => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -84,4 +84,4 @@ const ModalSocialNet = ({handleClickOpen, action, snSelect = null, handleRefresh
   );
 };
 
-export default ModalSocialNet;
+export default SocialNetModal;

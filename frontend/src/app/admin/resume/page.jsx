@@ -1,13 +1,13 @@
 'use client'
 import React, {useEffect} from 'react';
 import Box from "@mui/material/Box";
-import ModalResume from "@/app/admin/resume/ModalResume";
+import ResumeModal from "@/app/admin/resume/ResumeModal";
 import ModalForm from "@/components/adminComponents/other/ModalForm";
 import {getData} from "@/helper/getData";
 import {resume_end} from "@/constants/endpoints";
 import ResumeTable from "@/app/admin/resume/ResumeTable";
 import {Button} from "@mui/material";
-import ModalCategory from "@/app/admin/resume/ModalCategory";
+import CategoryModal from "@/app/admin/resume/CategoryModal";
 
 const Page = () => {
   const [openModal, setOpenModal] = React.useState(false);
@@ -52,15 +52,15 @@ const Page = () => {
       </Box>
 
       {openModal &&
-        <ModalForm modal={<ModalResume handleClickOpen={handleClickOpen} action={'add'}
+        <ModalForm modal={<ResumeModal handleClickOpen={handleClickOpen} action={'add'}
                                        handleRefreshTable={handleRefreshTable}/>}
                    openModal={openModal}
                    handleClickOpen={handleClickOpen}
         />
       }
       {openModalCategory &&
-        <ModalForm modal={<ModalCategory handleClickOpen={handleClickOpenCategory} action={'add'}
-                                       handleRefreshTable={handleRefreshTable}/>}
+        <ModalForm modal={<CategoryModal handleClickOpen={handleClickOpenCategory} action={'add'}
+                                         handleRefreshTable={handleRefreshTable}/>}
                    openModal={openModalCategory}
                    handleClickOpen={handleClickOpenCategory}
         />

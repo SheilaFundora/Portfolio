@@ -9,7 +9,7 @@ import {images_end} from "@/constants/endpoints";
 import ActionsTable from "@/components/adminComponents/other/ActionsTable";
 import ModalDelete from "@/components/adminComponents/other/ModalDelete";
 import {handleDelete} from "@/helper/deleteData";
-import ModalImage from "@/app/admin/images/ModalImage";
+import ImageModal from "@/app/admin/images/ImageModal";
 
 
 const ImageTable = ({imagesData, handleRefreshTable}) => {
@@ -57,7 +57,7 @@ const ImageTable = ({imagesData, handleRefreshTable}) => {
       </DataTable>
 
       {openEdit &&
-        <ModalForm modal={<ModalImage handleClickOpen={handleOpenEdit} action={'edit'} imageSelect={imageSelect} handleRefreshTable={handleRefreshTable}/>}
+        <ModalForm modal={<ImageModal handleClickOpen={handleOpenEdit} action={'edit'} imageSelect={imageSelect} handleRefreshTable={handleRefreshTable}/>}
                    openModal={openEdit}
                    handleClickOpen={handleOpenEdit}
         />

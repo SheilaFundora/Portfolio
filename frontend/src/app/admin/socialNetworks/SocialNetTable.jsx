@@ -5,7 +5,7 @@ import 'primereact/resources/themes/lara-light-indigo/theme.css'
 import 'primereact/resources/primereact.min.css'
 import Box from "@mui/material/Box";
 import ModalForm from "@/components/adminComponents/other/ModalForm";
-import ModalSocialNet from "@/app/admin/socialNetworks/ModalSocialNet";
+import SocialNetModal from "@/app/admin/socialNetworks/SocialNetModal";
 import {socialNet_end} from "@/constants/endpoints";
 import ActionsTable from "@/components/adminComponents/other/ActionsTable";
 import ModalDelete from "@/components/adminComponents/other/ModalDelete";
@@ -57,7 +57,7 @@ const SocialNetTable = ({socialNetData, handleRefreshTable}) => {
       </DataTable>
 
       {openEdit &&
-        <ModalForm modal={<ModalSocialNet handleClickOpen={handleOpenEdit} action={'edit'} snSelect={snSelect} handleRefreshTable={handleRefreshTable}/>}
+        <ModalForm modal={<SocialNetModal handleClickOpen={handleOpenEdit} action={'edit'} snSelect={snSelect} handleRefreshTable={handleRefreshTable}/>}
                    openModal={openEdit}
                    handleClickOpen={handleOpenEdit}
         />
