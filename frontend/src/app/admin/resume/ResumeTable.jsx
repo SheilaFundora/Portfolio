@@ -10,6 +10,7 @@ import ActionsTable from "@/components/adminComponents/other/ActionsTable";
 import ModalDelete from "@/components/adminComponents/other/ModalDelete";
 import {handleDelete} from "@/helper/deleteData";
 import ResumeModal from "@/app/admin/resume/ResumeModal";
+import {formatDate} from "@/helper/convertDate";
 
 
 const ResumeTable = ({resumeData, handleRefreshTable}) => {
@@ -24,14 +25,6 @@ const ResumeTable = ({resumeData, handleRefreshTable}) => {
   const handleOpenDelete= () => {
     setOpenDelete(!openDelete);
   }
-
-  const formatDate = (dateString) => {
-    if ( dateString === null|| dateString === ''){
-      return ''
-    }else {
-      return dateString.split('T')[0];
-    }
-  };
 
   const actionBodyTemplate = (rowData) => {
     return(

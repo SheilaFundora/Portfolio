@@ -16,6 +16,8 @@ const Page = () => {
   const [refreshTable, setRefreshTable] = React.useState(false);
   const [projectData, setProjectData] = React.useState([]);
 
+  console.log(projectData)
+
   useEffect( () => {
     getData(project_end, setProjectData)
   }, [refreshTable])

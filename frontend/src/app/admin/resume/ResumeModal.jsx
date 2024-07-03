@@ -23,7 +23,14 @@ const ResumeModal = ({handleClickOpen, handleRefreshTable, action, resumeSelect 
 
   const handleEditResume = async (data) => {
     const endpoint = resume_end + '/' + resumeSelect.id +'/'
-    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'Resume');
+    if(data.date_init > data.date_end  ){
+      setErrorMessage('Error in dates')
+    }else{
+      data.date_init = data.date_init === '' ? null : data.date_init;
+      data.date_end = data.date_end === '' ? null : data.date_end;
+
+      await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'Resume');
+    }
   }
 
   const handleOperationResume= async (data) => {

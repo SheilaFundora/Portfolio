@@ -3,7 +3,7 @@ import {
   Button,
   DialogActions,
   DialogContent,
-  FormControl, Input,
+  FormControl, FormHelperText, Input,
   InputLabel,
   MenuItem, Select,
   TextField
@@ -16,23 +16,30 @@ import {project_end, skill_end} from "@/constants/endpoints";
 import {getData} from "@/helper/getData";
 
 const ProjectModal = ({handleClickOpen, handleRefreshTable, action, projectSelect}) => {
-  const { register, control,  handleSubmit, formState: { errors } } = useForm('formProject');
+  const { register, setValue, control,  handleSubmit, formState: { errors } } = useForm('formProject');
   const [errorMessage, setErrorMessage] = useState('');
   const [skillData, setSkillData] = React.useState([]);
 
   useEffect( () => {
     getData(skill_end, setSkillData)
+
+    if ( action === 'edit'){
+      const skillIds = projectSelect.skills.map(skill => skill.id);
+      setValue('skill_ids', skillIds);
+    }
+
   }, [])
 
 
   const handleSubmitProject = async (data) => {
-    console.log(data);
-
+    data.dateProject = data.dateProject === '' ? null : data.dateProject;
     await handleSubmitData(handleClickOpen, project_end, data, handleRefreshTable, 'Project', setErrorMessage);
   }
 
   const handleEditProject = async (data) => {
-    const endpoint = project_end + '/' + projectSelect.id +'/'
+    const endpoint = project_end + '/' + projectSelect.id +'/';
+    data.dateProject = data.dateProject === '' ? null : data.dateProject;
+
     await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'Project');
   }
 
@@ -65,6 +72,7 @@ const ProjectModal = ({handleClickOpen, handleRefreshTable, action, projectSelec
             })}
             error={!!errors.name}
             helperText={errors.name && errors.name.message}
+            defaultValue={action === 'edit' ? projectSelect.name : ""}
           />
 
           <div className={'d-flex w-100 align-items-center justify-content-between'}>
@@ -75,6 +83,7 @@ const ProjectModal = ({handleClickOpen, handleRefreshTable, action, projectSelec
               {...register("category" )}
               error={!!errors.category}
               helperText={errors.category && errors.category.message}
+              defaultValue={action === 'edit' ? projectSelect.category : ""}
             />
             <TextField
               label="Client"
@@ -83,38 +92,46 @@ const ProjectModal = ({handleClickOpen, handleRefreshTable, action, projectSelec
               {...register("client")}
               error={!!errors.client}
               helperText={errors.client && errors.client.message}
+              defaultValue={action === 'edit' ? projectSelect.client : ""}
             />
           </div>
           <div className={'d-flex'}>
             <TextField
               type='date'
               sx={{m: 2, width: '700px'}}
-              {...register("Date")}
-              error={!!errors.Date}
-              helperText={errors.Date && errors.Date.message}
+              {...register("dateProject")}
+              error={!!errors.dateProject}
+              helperText={errors.dateProject && errors.dateProject.message}
+              defaultValue= {  action === 'edit' ? ( projectSelect.dateProject === null ? '' :
+                projectSelect.dateProject.split('T')[0] ) : ''
+              }
             />
             <TextField
               label="Url"
               type='text'
               sx={{m: 2, width: '700px'}}
-              {...register("url")}
+              {...register("url", {
+                required: 'Required field'
+              })}
               error={!!errors.url}
               helperText={errors.url && errors.url.message}
+              defaultValue={action === 'edit' ? projectSelect.url : ""}
             />
           </div>
 
           <FormControl  sx={{ width: '500px', marginX: 2 }}>
             <InputLabel>Skill</InputLabel>
             <Controller
-              name="skill_id"
+              name="skill_ids"
               control={control}
               defaultValue={[]}
+              rules={{ validate: (value) => value.length > 0 || 'You must select at least one skill' }}
               render={({ field }) => (
                 <Select
                   {...field}
                   multiple
                   input={<Input />}
-                  renderValue={(selected) => selected.join(', ')}
+                  renderValue={(selected) => Array.isArray(selected) ? selected.join(', ') : ''}
                 >
                   {skillData.map((skill) => (
                     <MenuItem key={skill.id} value={skill.id}>
@@ -124,6 +141,7 @@ const ProjectModal = ({handleClickOpen, handleRefreshTable, action, projectSelec
                 </Select>
               )}
             />
+            {errors.skill_ids && <FormHelperText error>{errors.skill_ids.message}</FormHelperText>}
           </FormControl>
 
           <TextField
@@ -135,6 +153,7 @@ const ProjectModal = ({handleClickOpen, handleRefreshTable, action, projectSelec
             {...register("description")}
             error={!!errors.description}
             helperText={errors.description && errors.description.message}
+            defaultValue={action === 'edit' ? projectSelect.description : ""}
           />
 
           {errorMessage && <div className='error-message text-danger text-start ms-4'>{errorMessage}</div>}
