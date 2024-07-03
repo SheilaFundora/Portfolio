@@ -1,7 +1,7 @@
 'use client'
 import React, {useEffect} from 'react';
 import Box from "@mui/material/Box";
-import ModalSocialNet from "@/app/admin/socialNetworks/ModalSocialNet";
+import SocialNetModal from "@/app/admin/socialNetworks/SocialNetModal";
 import SocialNetTable from "@/app/admin/socialNetworks/SocialNetTable";
 import ModalForm from "@/components/adminComponents/other/ModalForm";
 import ButtonAdd from "@/components/adminComponents/other/ButtonAdd";
@@ -30,7 +30,7 @@ const Page = () => {
       <ButtonAdd name={'Social Net'} handleClickOpen={handleClickOpen} />
 
       { openModal &&
-        <ModalForm modal={<ModalSocialNet handleClickOpen={handleClickOpen} action={'add'} handleRefreshTable={handleRefreshTable} />}
+        <ModalForm modal={<SocialNetModal handleClickOpen={handleClickOpen} action={'add'} handleRefreshTable={handleRefreshTable} />}
                    openModal={openModal}
                    handleClickOpen={handleClickOpen}
         />

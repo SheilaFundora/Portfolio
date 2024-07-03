@@ -6,7 +6,7 @@ import {handleSubmitData} from "@/helper/submitData";
 import {resume_end} from "@/constants/endpoints";
 import {handleEditData} from "@/helper/editData";
 
-const ModalResume = ({handleClickOpen, handleRefreshTable, action, resumeSelect = null }) => {
+const ResumeModal = ({handleClickOpen, handleRefreshTable, action, resumeSelect = null }) => {
   const { register, handleSubmit, formState: { errors } } = useForm('formResume');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -64,7 +64,9 @@ const ModalResume = ({handleClickOpen, handleRefreshTable, action, resumeSelect 
               label="Important Title"
               type='text'
               sx={{m: 2, width: '700px'}}
-              {...register("titleImpt")}
+              {...register("titleImpt",{
+                required: 'Required field'
+              })}
               error={!!errors.titleImpt}
               helperText={errors.titleImpt && errors.titleImpt.message}
               defaultValue={action === 'edit' ? resumeSelect.titleImpt : ""}
@@ -152,7 +154,9 @@ const ModalResume = ({handleClickOpen, handleRefreshTable, action, resumeSelect 
             multiline
             rows={4}
             sx={{m: 2, width: '500px'}}
-            {...register("description")}
+            {...register("description",{
+              required: 'Required field'
+            })}
             error={!!errors.description}
             helperText={errors.description && errors.description.message}
             defaultValue={action === 'edit' ? resumeSelect.description : ""}
@@ -175,4 +179,4 @@ const ModalResume = ({handleClickOpen, handleRefreshTable, action, resumeSelect 
   );
 };
 
-export default ModalResume;
+export default ResumeModal;

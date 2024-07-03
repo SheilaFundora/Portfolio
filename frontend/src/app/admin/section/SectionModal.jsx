@@ -6,7 +6,7 @@ import {section_end} from "@/constants/endpoints";
 import {handleSubmitData} from "@/helper/submitData";
 import {handleEditData} from "@/helper/editData";
 
-const ModalSection = ({handleClickOpen, action, sectionSelect = null, handleRefreshTable}) => {
+const SectionModal = ({handleClickOpen, action, sectionSelect = null, handleRefreshTable}) => {
   const { register, handleSubmit, formState: { errors } } = useForm('formSection');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -81,4 +81,4 @@ const ModalSection = ({handleClickOpen, action, sectionSelect = null, handleRefr
   );
 };
 
-export default ModalSection;
+export default SectionModal;
