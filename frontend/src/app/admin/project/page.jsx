@@ -1,26 +1,29 @@
 'use client'
 import React, {useEffect} from 'react';
-import TableAdmin from "@/components/adminComponents/other/TableAdmin";
 import Box from "@mui/material/Box";
 import ProjectModal from "@/app/admin/project/ProjectModal";
 import ModalForm from "@/components/adminComponents/other/ModalForm";
 import {Button} from "@mui/material";
 import {getData} from "@/helper/getData";
-import {project_end, resume_end} from "@/constants/endpoints";
 import ProjectImgModal from "@/app/admin/project/ProjectImgModal";
 import ProjectTable from "@/app/admin/project/ProjectTable";
+import ProjectImageTable from "@/app/admin/project/ProjectImageTable";
+import {imgProject_end, project_end} from "@/constants/endpoints";
 
 const Page = () => {
   const [openModal, setOpenModal] = React.useState(false);
   const [openModalProjImg, setOpenModalProjImg] = React.useState(false);
   const [refreshTable, setRefreshTable] = React.useState(false);
   const [projectData, setProjectData] = React.useState([]);
-
-  console.log(projectData)
+  const [projectImageData, setProjectImageData] = React.useState([]);
 
   useEffect( () => {
     getData(project_end, setProjectData)
+    getData(imgProject_end, setProjectImageData)
+
   }, [refreshTable])
+
+  console.log(projectImageData)
 
   const handleClickOpen = () => {
     setOpenModal(!openModal);
@@ -61,12 +64,14 @@ const Page = () => {
       }
       {openModalProjImg &&
         <ModalForm modal={<ProjectImgModal handleClickOpen={handleClickOpenProjImg} action={'add'}
-                                           handleRefreshTable={handleRefreshTable}/>}
+                                           handleRefreshTable={handleRefreshTable} projectData={projectData}/>}
                    openModal={openModalProjImg}
                    handleClickOpen={handleClickOpenProjImg}
         />
       }
       <ProjectTable handleRefreshTable={handleRefreshTable} projectData={projectData}  />
+      <h4 className={'mt-4'}>Images</h4>
+      <ProjectImageTable handleRefreshTable={handleRefreshTable} projectImageData={projectImageData} projectData={projectData}/>
     </Box>
   );
 };

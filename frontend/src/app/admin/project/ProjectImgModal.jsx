@@ -1,17 +1,39 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Box from "@mui/material/Box";
-import {Button, DialogActions, DialogContent, TextField} from "@mui/material";
-import {useForm} from "react-hook-form";
+import {
+  Button,
+  DialogActions,
+  DialogContent,
+  FormControl, FormHelperText,
+  Input,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField
+} from "@mui/material";
+import {Controller, useForm} from "react-hook-form";
+import {handleSubmitData} from "@/helper/submitData";
+import {imgProject_end} from "@/constants/endpoints";
+import {handleEditData} from "@/helper/editData";
 
-const ProjectImgModal = ({handleClickOpen, handleRefreshTable, action}) => {
-  const { register, handleSubmit, formState: { errors } } = useForm('formResume');
+const ProjectImgModal = ({handleClickOpen, handleRefreshTable, action, projectData=null, projectImageSelect=null}) => {
+  const { register,setValue, control, handleSubmit, formState: { errors } } = useForm('formResume');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmitProjectImg = async (data) => {
+  useEffect( () => {
+    if ( action === 'edit'){
+      setValue('project_id', projectImageSelect.project_id.name);
+    }
 
+  }, [])
+
+  const handleSubmitProjectImg = async (data) => {
+    await handleSubmitData(handleClickOpen, imgProject_end, data, handleRefreshTable, 'Category', setErrorMessage);
   }
 
   const handleEditResumeProjectImg = async (data) => {
+    const endpoint = imgProject_end + '/' + projectImageSelect.id +'/';
+    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'Project');
   }
 
   const handleOperationProjectImg = async (data) => {
@@ -38,16 +60,36 @@ const ProjectImgModal = ({handleClickOpen, handleRefreshTable, action}) => {
           <TextField
             label="Url"
             type='text'
-            multiline
-            rows={4}
             sx={{m: 2, width: '500px'}}
             {...register("imgs")}
             error={!!errors.imgs}
             helperText={errors.imgs && errors.imgs.message}
-/*
-            defaultValue={action === 'edit' ? resumeSelect.description : ""}
-*/
+            defaultValue={action === 'edit' ? projectImageSelect.imgs : ""}
           />
+
+          <FormControl  sx={{ width: '500px', marginX: 2 , marginTop: 2}}>
+            <InputLabel>Project Title</InputLabel>
+            <Controller
+              name="project_id"
+              control={control}
+              defaultValue=''
+              rules={{ validate: (value) => value !== '' || 'You must select a project' }}
+
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  input={<Input />}
+                  renderValue={(selected) => selected || ''}                >
+                  {projectData.map((project) => (
+                    <MenuItem key={project.id} value={project.id}>
+                      {project.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              )}
+            />
+            {errors.project_id && <FormHelperText error>{errors.project_id.message}</FormHelperText>}
+          </FormControl>
 
           {errorMessage && <div className='error-message text-danger text-start ms-4'>{errorMessage}</div>}
 
