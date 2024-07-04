@@ -11,4 +11,4 @@ import { CategoryService } from './category.service';
   controllers: [CategoryController],
   providers: [CategoryService],
 })
-export class SkillModule {}
+export class CategoryModule {}

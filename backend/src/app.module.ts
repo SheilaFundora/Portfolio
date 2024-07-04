@@ -14,6 +14,7 @@ import { ResumeModule } from './resume/resume.module';
 import { SkillModule } from './skill/skill.module';
 import { DataSourceConfig } from './database/data.source';
 import { LenguajesModule } from './lenguajes/lenguajes.module';
+import { CategoryModule } from './category/category.module';
 
 
 @Module({
@@ -24,7 +25,7 @@ import { LenguajesModule } from './lenguajes/lenguajes.module';
     }),
     TypeOrmModule.forRoot({...DataSourceConfig}),
     UsuarioModule,PhotoModule,
-     ProjectModule, ProjectImgModule, SectionModule, SocialNetworkModule, ServicesModule, ResumeModule, SkillModule, LenguajesModule],
+     ProjectModule, ProjectImgModule, SectionModule, SocialNetworkModule, ServicesModule, ResumeModule, SkillModule, LenguajesModule,CategoryModule],
   controllers: [],
   providers: [],
 })
