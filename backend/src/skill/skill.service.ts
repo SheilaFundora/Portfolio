@@ -81,14 +81,30 @@ export class SkillService {
   }
   
 
-  async update(id: number, CreateSkillDto: CreateSkillDto) {
+  async update(id: number, updateSkillDto: UpdateSkillDto): Promise<Skill> {
+    const { user_id, porcent, ...skillData } = updateSkillDto;
+
     try {
-      const skill = await this.SkillRep.findOneBy({ id });
+      const skill = await this.SkillRep.findOne({ where: { id }, relations: ['user_id'] });
       if (!skill) {
         throw new NotFoundException('Skill not found');
       }
 
-      this.SkillRep.merge(skill, CreateSkillDto);
+      if (user_id) {
+        const user = await this.UserRep.findOne({ where: { id: user_id.id } });
+        if (!user) {
+          throw new NotFoundException(`User not found with ID: ${user_id.id}`);
+        }
+        skill.user_id = user;
+      }
+
+      if (porcent === '') {
+        skill.porcent = null;
+      } else if (porcent !== undefined) {
+        skill.porcent = porcent;
+      }
+
+      this.SkillRep.merge(skill, skillData);
       return await this.SkillRep.save(skill);
     } catch (error) {
       throw new InternalServerErrorException('Error updating skill');
