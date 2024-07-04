@@ -2,7 +2,13 @@ import {fetchData} from "@/helper/fetch";
 import Swal from "sweetalert2";
 
 export const handleSubmitData = async (handleClickOpen, endpoint, data, handleRefreshTable, name, setErrorMessage ) => {
-  data.user_id = window.localStorage.getItem('id')
+
+  if (name === 'Project'){
+    data.user_id = { id: window.localStorage.getItem('id')}
+
+  }else{
+    data.user_id = window.localStorage.getItem('id')
+  }
 
   try{
     const resp = await fetchData(endpoint, data, "POST");

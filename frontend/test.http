@@ -24,3 +24,18 @@ Content-Type: application/json
 
 GET http://localhost:5000/api/project
 Content-Type: application/json
+
+{
+  "name": "tesyt",
+  "category": "Web Development",
+  "client": "Example Client",
+  "dateProject": "",
+  "description": "This is a new web development project.",
+  "url": "lkmlkmk",
+  "user_id": "ee132269-9bdb-4942-9fe8-1fa44a04f20d"
+  ,
+  "skill_ids": [
+    18,
+    19
+  ]
+}
