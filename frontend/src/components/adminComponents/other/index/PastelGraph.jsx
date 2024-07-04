@@ -11,7 +11,19 @@ const datas = [
   { label: 'Group E', value: 908 },
 ];
 
-const PastelGraph = () => {
+const PastelGraph = ({skill}) => {
+
+  const groupCounts = skill.reduce((acc, item) => {
+    acc[item.group] = (acc[item.group] || 0) + 1;
+    return acc;
+  }, {});
+
+  const transformedData = Object.entries(groupCounts).map(([group, count]) => ({
+    label: group,
+    value: count,
+  }));
+
+
   return (
     <Card sx={'100%'}>
       <CardHeader
@@ -19,12 +31,13 @@ const PastelGraph = () => {
       />
       <CardContent>
         <PieChart
-          series={[{data: datas}]}
+          series={[{data: transformedData}]}
           width={370}
           height={190}
           slotProps={{
             legend: { hidden: true },
-          }}        />
+          }}
+        />
 
       </CardContent>
     </Card>

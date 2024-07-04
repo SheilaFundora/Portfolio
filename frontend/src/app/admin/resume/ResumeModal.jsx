@@ -55,19 +55,6 @@ const ResumeModal = ({handleClickOpen, handleRefreshTable, action, resumeSelect 
           </h4>
           <div className={'d-flex'}>
             <TextField
-              label="Name Section"
-              type='text'
-              sx={{m: 2, width: '700px'}}
-              {...register("name_section")}
-              error={!!errors.name_section}
-              helperText={errors.name_section && errors.name_section.message}
-              defaultValue={action === 'edit' ? resumeSelect.name_section : ""}
-            />
-
-          </div>
-
-          <div className={'d-flex'}>
-            <TextField
               label="Important Title"
               type='text'
               sx={{m: 2, width: '700px'}}
@@ -79,10 +66,25 @@ const ResumeModal = ({handleClickOpen, handleRefreshTable, action, resumeSelect 
               defaultValue={action === 'edit' ? resumeSelect.titleImpt : ""}
             />
 
+          </div>
+
+          <div className={'d-flex'}>
+            <TextField
+              label="Important Title"
+              type='text'
+              sx={{m: 2, width: '500px'}}
+              {...register("titleImpt",{
+                required: 'Required field'
+              })}
+              error={!!errors.titleImpt}
+              helperText={errors.titleImpt && errors.titleImpt.message}
+              defaultValue={action === 'edit' ? resumeSelect.titleImpt : ""}
+            />
+
             <TextField
               label="Link"
               type='text'
-              sx={{m: 2, width: '700px'}}
+              sx={{m: 2, width: '500px'}}
               {...register("link")}
               error={!!errors.link}
               helperText={errors.link && errors.link.message}

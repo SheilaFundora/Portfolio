@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 
 const CardIndex = ({sx='100%', name, value, color, icon}) => {
+
   return (
     <Card sx={sx}>
       <CardContent>

@@ -72,6 +72,7 @@ const ProjectImgModal = ({handleClickOpen, handleRefreshTable, action, projectDa
             <Controller
               name="project_id"
               control={control}
+              disabled={action === 'edit' ? true : false}
               defaultValue=''
               rules={{ validate: (value) => value !== '' || 'You must select a project' }}
 
