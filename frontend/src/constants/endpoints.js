@@ -9,5 +9,5 @@ export const skill_end = "/api/skill"
 export const images_end = '/api/photo'
 export const resume_end = '/api/resume'
 export const project_end = '/api/project'
-export const category_end = '/api/project'
+export const category_end = '/api/category'
 export const imgProject_end = '/api/project-img'

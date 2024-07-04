@@ -11,7 +11,6 @@ const monthsAbbreviated = [
 
 const data = [4, 3, 5, 1, 6, 3, 2, 5, 6, 4, 3, 5];
 
-
 export const BarGraph = ({sx='100%'}) => {
 
   return (

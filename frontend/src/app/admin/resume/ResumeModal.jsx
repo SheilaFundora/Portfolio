@@ -1,14 +1,31 @@
-import React, {useState} from 'react';
-import {Button, DialogActions, DialogContent, TextField} from "@mui/material";
+import React, {useEffect, useState} from 'react';
+import {
+  Button,
+  DialogActions,
+  DialogContent,
+  FormControl, FormHelperText,
+  Input,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField
+} from "@mui/material";
 import Box from "@mui/material/Box";
-import {useForm} from "react-hook-form";
+import {Controller, useForm} from "react-hook-form";
 import {handleSubmitData} from "@/helper/submitData";
 import {resume_end} from "@/constants/endpoints";
 import {handleEditData} from "@/helper/editData";
 
-const ResumeModal = ({handleClickOpen, handleRefreshTable, action, resumeSelect = null }) => {
-  const { register, handleSubmit, formState: { errors } } = useForm('formResume');
+const ResumeModal = ({handleClickOpen, handleRefreshTable, action, resumeSelect = null, categoryData = null}) => {
+  const { register, control, setValue, handleSubmit, formState: { errors } } = useForm('formResume');
   const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect( () => {
+    if ( action === 'edit'){
+      setValue('category_id', resumeSelect.category_id.name);
+    }
+
+  }, [])
 
   const handleSubmitResume= async (data) => {
     if(data.date_init > data.date_end  ){
@@ -55,19 +72,6 @@ const ResumeModal = ({handleClickOpen, handleRefreshTable, action, resumeSelect 
           </h4>
           <div className={'d-flex'}>
             <TextField
-              label="Name Section"
-              type='text'
-              sx={{m: 2, width: '700px'}}
-              {...register("name_section")}
-              error={!!errors.name_section}
-              helperText={errors.name_section && errors.name_section.message}
-              defaultValue={action === 'edit' ? resumeSelect.name_section : ""}
-            />
-
-          </div>
-
-          <div className={'d-flex'}>
-            <TextField
               label="Important Title"
               type='text'
               sx={{m: 2, width: '700px'}}
@@ -79,16 +83,41 @@ const ResumeModal = ({handleClickOpen, handleRefreshTable, action, resumeSelect 
               defaultValue={action === 'edit' ? resumeSelect.titleImpt : ""}
             />
 
+          </div>
+
+          <div className={'d-flex'}>
             <TextField
               label="Link"
               type='text'
-              sx={{m: 2, width: '700px'}}
+              sx={{m: 2, width: '500px'}}
               {...register("link")}
               error={!!errors.link}
               helperText={errors.link && errors.link.message}
               defaultValue={action === 'edit' ? resumeSelect.link : ""}
             />
+            <FormControl  sx={{ width: '500px', marginX: 2 , marginTop: 2}}>
+              <InputLabel>Categories</InputLabel>
+              <Controller
+                name="category_id"
+                control={control}
+                defaultValue=''
+                rules={{ validate: (value) => value !== '' || 'You must select a project' }}
 
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    input={<Input />}
+                    renderValue={(selected) => selected || ''}                >
+                    {categoryData.map((cat) => (
+                      <MenuItem key={cat.id} value={cat.id}>
+                        {cat.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                )}
+              />
+              {errors.category_id && <FormHelperText error>{errors.category_id.message}</FormHelperText>}
+            </FormControl>
           </div>
 
           <TextField

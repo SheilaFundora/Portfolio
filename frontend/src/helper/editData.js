@@ -6,6 +6,7 @@ export const handleEditData = async (handleClickOpen, endpoint, data, handleRefr
 
   try {
     const resp = await fetchData(endpoint, data, "PATCH");
+     console.log(resp)
     await handleClickOpen();
 
     if (resp.status === 200) {

@@ -4,19 +4,22 @@ import Box from "@mui/material/Box";
 import ResumeModal from "@/app/admin/resume/ResumeModal";
 import ModalForm from "@/components/adminComponents/other/ModalForm";
 import {getData} from "@/helper/getData";
-import {resume_end} from "@/constants/endpoints";
+import {category_end, resume_end} from "@/constants/endpoints";
 import ResumeTable from "@/app/admin/resume/ResumeTable";
 import {Button} from "@mui/material";
-import CategoryModal from "@/app/admin/resume/CategoryModal";
+import CategoryModal from "@/app/admin/resume/category/CategoryModal";
+import CategoryTable from "@/app/admin/resume/category/CategoryTable";
 
 const Page = () => {
   const [openModal, setOpenModal] = React.useState(false);
   const [openModalCategory, setOpenModalCategory] = React.useState(false);
   const [refreshTable, setRefreshTable] = React.useState(false);
   const [resumeData, setResumeData] = React.useState([]);
+  const [categoryData, setCategoryData] = React.useState([]);
 
   useEffect( () => {
     getData(resume_end, setResumeData)
+    getData(category_end, setCategoryData)
   }, [refreshTable])
 
   const handleClickOpen = () => {
@@ -32,7 +35,7 @@ const Page = () => {
   }
 
   return (
-    <Box sx={{ marginTop: 2}}>
+    <Box sx={{marginTop: 2}}>
 
       <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
         <div>
@@ -53,7 +56,7 @@ const Page = () => {
 
       {openModal &&
         <ModalForm modal={<ResumeModal handleClickOpen={handleClickOpen} action={'add'}
-                                       handleRefreshTable={handleRefreshTable}/>}
+                                       handleRefreshTable={handleRefreshTable} categoryData={categoryData}/>}
                    openModal={openModal}
                    handleClickOpen={handleClickOpen}
         />
@@ -65,7 +68,9 @@ const Page = () => {
                    handleClickOpen={handleClickOpenCategory}
         />
       }
-      <ResumeTable resumeData={resumeData} handleRefreshTable={handleRefreshTable} />
+      <ResumeTable resumeData={resumeData} handleRefreshTable={handleRefreshTable} categoryData={categoryData}/>
+      <h4 className={'mt-4'}>Images</h4>
+      <CategoryTable handleRefreshTable={handleRefreshTable} categoryData={categoryData}/>
     </Box>
   );
 };

@@ -3,18 +3,20 @@ import Box from "@mui/material/Box";
 import {Button, DialogActions, DialogContent, TextField} from "@mui/material";
 import {useForm} from "react-hook-form";
 import {handleSubmitData} from "@/helper/submitData";
-import {project_end} from "@/constants/endpoints";
+import {category_end} from "@/constants/endpoints";
+import {handleEditData} from "@/helper/editData";
 
-const CategoryModal = ({handleClickOpen, handleRefreshTable, action}) => {
+const CategoryModal = ({handleClickOpen, handleRefreshTable, action, categorySelect}) => {
   const { register, handleSubmit, formState: { errors } } = useForm('formResume');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmitResumeCat= async (data) => {
-    await handleSubmitData(handleClickOpen, project_end, data, handleRefreshTable, 'Project', setErrorMessage);
-
+    await handleSubmitData(handleClickOpen, category_end, data, handleRefreshTable, 'Category', setErrorMessage);
   }
 
   const handleEditResumeCat = async (data) => {
+    const endpoint = category_end + '/' + categorySelect.id +'/';
+    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'Category');
   }
 
   const handleOperationResumeCat= async (data) => {
@@ -45,9 +47,7 @@ const CategoryModal = ({handleClickOpen, handleRefreshTable, action}) => {
             {...register("name")}
             error={!!errors.name}
             helperText={errors.name && errors.name.message}
-/*
-            defaultValue={action === 'edit' ? resumeSelect.description : ""}
-*/
+            defaultValue={action === 'edit' ? categorySelect.name : ""}
           />
 
           {errorMessage && <div className='error-message text-danger text-start ms-4'>{errorMessage}</div>}
