@@ -13,7 +13,7 @@ import ResumeModal from "@/app/admin/resume/ResumeModal";
 import {formatDate} from "@/helper/convertDate";
 
 
-const ResumeTable = ({resumeData, handleRefreshTable}) => {
+const ResumeTable = ({resumeData, handleRefreshTable, categoryData}) => {
   const [openEdit, setOpenEdit] = React.useState(false);
   const [openDelete, setOpenDelete] = React.useState(false);
   const [resumeSelect, setResumeSelect] = React.useState([]);
@@ -51,7 +51,7 @@ const ResumeTable = ({resumeData, handleRefreshTable}) => {
                  tableStyle={{ minWidth: '50rem' }}
                  className="p-datatable-hgridlines"
       >
-        <Column field="name_section" header="Category" sortable filter style={{width: '25%'}}></Column>
+        <Column field="category_id.name" header="Category" sortable filter style={{width: '25%'}}></Column>
         <Column field="titleImpt" header="Imp Title" sortable filter style={{width: '25%'}}></Column>
         <Column field="titleSecondary" header="Sec Title" sortable filter style={{width: '25%'}}></Column>
         <Column
@@ -76,7 +76,7 @@ const ResumeTable = ({resumeData, handleRefreshTable}) => {
       </DataTable>
 
       {openEdit &&
-        <ModalForm modal={<ResumeModal handleClickOpen={handleOpenEdit} action={'edit'} resumeSelect={resumeSelect} handleRefreshTable={handleRefreshTable}/>}
+        <ModalForm modal={<ResumeModal handleClickOpen={handleOpenEdit} action={'edit'} resumeSelect={resumeSelect} handleRefreshTable={handleRefreshTable} categoryData={categoryData}/>}
                    openModal={openEdit}
                    handleClickOpen={handleOpenEdit}
         />

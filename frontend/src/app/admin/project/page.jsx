@@ -5,9 +5,9 @@ import ProjectModal from "@/app/admin/project/ProjectModal";
 import ModalForm from "@/components/adminComponents/other/ModalForm";
 import {Button} from "@mui/material";
 import {getData} from "@/helper/getData";
-import ProjectImgModal from "@/app/admin/project/ProjectImgModal";
+import ProjectImgModal from "@/app/admin/project/projectImage/ProjectImgModal";
 import ProjectTable from "@/app/admin/project/ProjectTable";
-import ProjectImageTable from "@/app/admin/project/ProjectImageTable";
+import ProjectImageTable from "@/app/admin/project/projectImage/ProjectImageTable";
 import {imgProject_end, project_end} from "@/constants/endpoints";
 
 const Page = () => {
@@ -70,7 +70,7 @@ const Page = () => {
         />
       }
       <ProjectTable handleRefreshTable={handleRefreshTable} projectData={projectData}  />
-      <h4 className={'mt-4'}>Images</h4>
+      <h4 className={'mt-4'}>Categories</h4>
       <ProjectImageTable handleRefreshTable={handleRefreshTable} projectImageData={projectImageData} projectData={projectData}/>
     </Box>
   );

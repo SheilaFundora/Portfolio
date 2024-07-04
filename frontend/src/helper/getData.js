@@ -5,7 +5,7 @@ export const getData = async (endpoint, setData) => {
 
   try {
     const response = await axios.get(
-      process.env.NEXT_PUBLIC_API_HOST + endpoint + '/user/' + username  + '/'
+      process.env.NEXT_PUBLIC_API_HOST + endpoint +  '/user/' + username  + '/'
     )
 
     await setData(response.data)

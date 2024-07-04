@@ -69,14 +69,6 @@ export class ResumeService {
         throw new NotFoundException('Resume not found');
       }
 
-      if (user_id) {
-        const user = await this.UserRep.findOne({ where: { id: user_id.id } });
-        if (!user) {
-          throw new NotFoundException(`User not found with ID: ${user_id.id}`);
-        }
-        resume.user_id = user;
-      }
-
       if (category_id) {
         const category = await this.CatRep.findOne({ where: { id: category_id.id } });
         if (!category) {

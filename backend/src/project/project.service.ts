@@ -108,14 +108,6 @@ export class ProjectService {
         throw new NotFoundException('Project not found');
       }
 
-      if (user_id) {
-        const user = await this.UserRep.findOne({ where: { id: user_id.id } });
-        if (!user) {
-          throw new NotFoundException(`User not found with ID: ${user_id.id}`);
-        }
-        project.user_id = user;
-      }
-
       if (skill_ids) {
         const skills = await this.SkillRep.find({
           where: { id: In(skill_ids) },

@@ -90,13 +90,6 @@ export class SkillService {
         throw new NotFoundException('Skill not found');
       }
 
-      if (user_id) {
-        const user = await this.UserRep.findOne({ where: { id: user_id.id } });
-        if (!user) {
-          throw new NotFoundException(`User not found with ID: ${user_id.id}`);
-        }
-        skill.user_id = user;
-      }
 
       if (porcent === '') {
         skill.porcent = null;
