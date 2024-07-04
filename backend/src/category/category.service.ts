@@ -11,6 +11,7 @@ import { plainToClass } from 'class-transformer';
 export class CategoryService {
   constructor(
     @InjectRepository(Category) private CatRep: Repository<Category>,
+    @InjectRepository(Usuario) private UserRep: Repository<Usuario>,
   ) {}
 
   async findAll() {
@@ -24,22 +25,27 @@ export class CategoryService {
 
   async findByUserId(username: string) {
     try {
-      const categories = await this.CatRep.find({
+      const user = await this.UserRep.findOne({
+        where: { username },
+      });
+  
+      if (!user) {
+        throw new NotFoundException(`User not found for username: ${username}`);
+      }
+  
+      const skills = await this.CatRep.find({
         where: {
-          user_id: {
-            username: username
-          },
+          user_id: user, // Aquí usamos el objeto `user` directamente
         },
         relations: ['user_id'],
       });
-
-      if (!categories.length) {
-        throw new NotFoundException(`No skills found for username: ${username}`);
-      }
-
-      return categories.map(cat => plainToClass(Category, cat));
+  
+      return skills.map(skill => plainToClass(Category, skill));
     } catch (error) {
-      throw new InternalServerErrorException('Error retrieving Category by user ID');
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      throw new InternalServerErrorException('Error retrieving skills by user ID');
     }
   }
 

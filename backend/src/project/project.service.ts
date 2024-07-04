@@ -99,14 +99,40 @@ export class ProjectService {
   
 
 
-  async update(id: number, updateProjectDto: UpdateProjectDto) {
+  async update(id: number, updateProjectDto: UpdateProjectDto): Promise<Project> {
+    const { skill_ids, user_id, dateProject, ...projectData } = updateProjectDto;
+
     try {
-      const project = await this.ProjectRep.findOneBy({ id });
+      const project = await this.ProjectRep.findOne({ where: { id }, relations: ['user', 'skills'] });
       if (!project) {
         throw new NotFoundException('Project not found');
       }
 
-      this.ProjectRep.merge(project, updateProjectDto);
+      if (user_id) {
+        const user = await this.UserRep.findOne({ where: { id: user_id.id } });
+        if (!user) {
+          throw new NotFoundException(`User not found with ID: ${user_id.id}`);
+        }
+        project.user_id = user;
+      }
+
+      if (skill_ids) {
+        const skills = await this.SkillRep.find({
+          where: { id: In(skill_ids) },
+        });
+        if (!skills.length) {
+          throw new NotFoundException(`Skills not found with the provided IDs`);
+        }
+        project.skills = skills;
+      }
+
+      if (dateProject === '') {
+        project.dateProject = null;
+      } else if (dateProject !== undefined) {
+        project.dateProject = dateProject;
+      }
+
+      this.ProjectRep.merge(project, projectData);
       return await this.ProjectRep.save(project);
     } catch (error) {
       throw new InternalServerErrorException('Error updating project');

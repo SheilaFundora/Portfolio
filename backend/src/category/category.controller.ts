@@ -16,9 +16,9 @@ export class CategoryController {
     return this.CategoryService.findAll();
   }
 
-  @Get('user/:user_id')
-  findByUserId(@Param('user_id') user_id: string) {
-    return this.CategoryService.findByUserId(user_id);
+  @Get('user/:username')
+  findByUserId(@Param('username') username: string) {
+    return this.CategoryService.findByUserId(username);
   }
 
   @Patch(':id')
