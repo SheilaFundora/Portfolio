@@ -7,6 +7,7 @@ import ModalForm from "@/components/adminComponents/other/ModalForm";
 import PersonModal from "@/app/admin/person/PersonModal";
 import {user_end} from "@/constants/endpoints";
 import axios from "axios";
+import {getDataPerson} from "@/helper/getDataPerson";
 
 const Page = () => {
   const [openEdit, setOpenEdit] = React.useState(false);
@@ -17,25 +18,10 @@ const Page = () => {
     setRefreshData(!refreshData)
   }
 
-  console.log(personData)
   useEffect( () => {
-    getDataPerson()
+    getDataPerson( setPersonData)
   }, [refreshData])
 
-  const getDataPerson = async () => {
-    const username = window.localStorage.getItem('username')
-
-    try {
-      await axios.get(
-        process.env.NEXT_PUBLIC_API_HOST + user_end + '/' + username + '/'
-      )
-        .then(response => {
-          setPersonData([response.data])
-        })
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   const handleOpenEdit = () => {
     setOpenEdit(!openEdit);

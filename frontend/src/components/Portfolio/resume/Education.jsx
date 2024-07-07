@@ -2,8 +2,8 @@ import React from 'react';
 import TitleSection from "@/components/Portfolio/resume/ContentResume/TitleSection";
 import Title from "@/components/Portfolio/resume/ContentResume/Title";
 import DatesAndPlace from "@/components/Portfolio/resume/ContentResume/DatesAndPlace";
-import TextDescriptive from "@/components/Portfolio/resume/ContentResume/TextDescriptive";
-import ListInfo from "@/components/Portfolio/resume/ContentResume/ListInfo";
+import Subtitle from "@/components/Portfolio/resume/ContentResume/Subtitle";
+import ListDescription from "@/components/Portfolio/resume/ContentResume/ListDescription";
 
 const educationInfo = [
     "Informatic Science Engineer",
@@ -32,10 +32,10 @@ const Education = () => {
             <div className={'resume-item'}>
                 <Title name={'UCI'} subinfo={'Universidad de las Ciencias Informáticas'} linkPlace={'dd'}/>
                 <DatesAndPlace info={'2021 - Present | La Habana Cuba'}/>
-                <TextDescriptive text={'Informatic Science Engineer'}/>
-                <ListInfo info={educationInfo}/>
+                <Subtitle text={'Informatic Science Engineer'}/>
+                <ListDescription info={educationInfo}/>
                 <Title name={'Awards'} />
-                <ListInfo info={awards}/>
+                <ListDescription info={awards}/>
             </div>
 
         </div>

@@ -1,10 +1,10 @@
 import React from 'react';
 
-const ListInfo = ({info}) => {
+const ListDescription = ({info, dataDescription=[]}) => {
     return (
         <div>
             <ul>
-                {info.map((item, index) => (
+                {dataDescription.map((item, index) => (
                     <li key={index} className="test-resume-style my-1">{item}</li>
                 ))}
             </ul>
@@ -12,4 +12,4 @@ const ListInfo = ({info}) => {
     );
 };
 
-export default ListInfo;
+export default ListDescription;

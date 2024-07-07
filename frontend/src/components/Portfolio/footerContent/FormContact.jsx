@@ -2,12 +2,10 @@ import React, {useState} from 'react';
 import Box from "@mui/material/Box";
 import {Button, Snackbar, TextField} from "@mui/material";
 import { useForm, ValidationError } from '@formspree/react';
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
 import {Alert} from "@mui/lab";
 
 const FormContact = () => {
-    const [state, handleSubmit] = useForm("xkndvaao");
+    const [state, handleSubmit] = useForm(process.env.NEXT_PUBLIC_KEY_EMAIL);
     const [open, setOpen] = React.useState(false);
     const [formData, setFormData] = React.useState({
         email: "",
@@ -144,7 +142,7 @@ const FormContact = () => {
                           style={{ margin: 'auto' }}
                 >
                     <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                        "El correo se ha enviado con éxito, muchas gracias!!"
+                      "The email has been sent successfully, thank you very much!!"
                     </Alert>
                 </Snackbar>
             </form>

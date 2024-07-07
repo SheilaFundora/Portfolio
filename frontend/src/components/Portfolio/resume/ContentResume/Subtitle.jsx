@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TextDescriptive = ({text}) => {
+const Subtitle = ({text}) => {
     return (
         <div>
             <p className={'test-resume-style'}>
@@ -10,4 +10,4 @@ const TextDescriptive = ({text}) => {
     );
 };
 
-export default TextDescriptive;
+export default Subtitle;

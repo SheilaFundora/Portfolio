@@ -3,11 +3,15 @@ import Box from "@mui/material/Box";
 import {Grid} from "@mui/material";
 import {motion} from "framer-motion";
 import { useInView } from 'react-intersection-observer';
+import {useSelector} from "react-redux";
+import {formatDate} from "@/helper/convertDate";
 
 
 
 const About = () => {
-    const { ref, inView } = useInView({
+  const {user} = useSelector((state) => state.person)
+
+  const { ref, inView } = useInView({
         triggerOnce: true, // Para que la animación solo se active una vez
         threshold: 0.1, // Umbral de visibilidad, 0.5 significa que al menos la mitad del elemento debe estar visible
     });
@@ -47,22 +51,26 @@ const About = () => {
                 >
                     <Box sx={{paddingTop: {xs: 3, md: 0}}}>
                         <h2 style={{color: '#545556', fontFamily: '"Playfair Display", serif'}}>
-                            Software Engineer Developer
+                          {user ? user.profession : ''}
                         </h2>
                     </Box>
 
                     <Grid container spacing={2} sx={{marginTop: {xs: 0, md: 1}}}>
                         <Grid item xs={12} md={8} lg={6}>
-                            <p className={'text-style'}><b>Birthday:</b> 04/09/2000</p>
-                            <p className={'text-style'}><b>Phone:</b> +1 754 610 0521</p>
-                            <p className={'text-style'}><b>City: </b>Estados Unidos, Florida</p>
-                            <p className={'text-style'}><b>Email: </b>sheilafundora04@gmail.com</p>
+                            <p className={'text-style'}><b>Birthday:</b> {user ? formatDate(user.birthday) : ''}</p>
+                            <p className={'text-style'}><b>Phone:</b> {user ? user.phone : ''}</p>
+                            <p className={'text-style'}><b>City: </b> {user ? user.address: ''}</p>
+                            <p className={'text-style'}><b>Email: </b>{user ? user.email : ''}</p>
                         </Grid>
                         <Grid item xs={12} md={8} lg={6}>
-                            <p className={'text-style'}><b>Degree:</b> Engineer</p>
-                            <p className={'text-style'}><b>Level: </b>Junior</p>
-                            <p className={'text-style'}><b>Freelance: </b>Available</p>
-                            <p className={'text-style'}><b>Remote:</b> Available</p>
+                            <p className={'text-style'}><b>Degree:</b> {user ? user.degree : ''}</p>
+                            <p className={'text-style'}><b>Level: </b>{user ? user.level : ''}</p>
+                            <p className={'text-style'}><b>Freelance: </b>
+                              {user ? user.freelancer ? 'Available' : 'No Available' : ''}
+                            </p>
+                            <p className={'text-style'}><b>Remote: </b>
+                              {user ? user.remote ? 'Available' : 'No Available' : ''}
+                            </p>
                         </Grid>
                     </Grid>
 

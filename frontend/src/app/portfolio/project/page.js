@@ -51,7 +51,7 @@ const Page = () => {
     const renderTabContent = (tipo_model) => {
         return(
             <Box className={'d-flex justify-content-center flex-wrap'} sx={{ gap: '30px' }}>
-                <Link  href={'/portafolio/proyectos/view'} style={{ textDecoration: 'none' }}>
+                <Link  href={'/portfolio/project/view'} style={{ textDecoration: 'none' }}>
                     <Card sx={{ width: 330, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)' }}>
                         <CardActionArea>
                             <CardMedia
@@ -77,7 +77,7 @@ const Page = () => {
                         </CardActionArea>
                     </Card>
                 </Link>
-                <Link  href={'/portafolio/proyectos/view'} style={{ textDecoration: 'none' }}>
+                <Link  href={'/portfolio/project/view'} style={{ textDecoration: 'none' }}>
                     <Card sx={{ width: 330, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)' }}>
                         <CardActionArea>
                             <CardMedia
@@ -103,7 +103,7 @@ const Page = () => {
                         </CardActionArea>
                     </Card>
                 </Link>
-                <Link  href={'/portafolio/proyectos/view'} style={{ textDecoration: 'none' }}>
+                <Link  href={'/portfolio/project/view'} style={{ textDecoration: 'none' }}>
                     <Card sx={{ width: 330, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)' }}>
                         <CardActionArea>
                             <CardMedia
@@ -129,7 +129,7 @@ const Page = () => {
                         </CardActionArea>
                     </Card>
                 </Link>
-                <Link  href={'/portafolio/proyectos/view'} style={{ textDecoration: 'none' }}>
+                <Link  href={'/portfolio/project/view'} style={{ textDecoration: 'none' }}>
                     <Card sx={{ width: 330, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)' }}>
                         <CardActionArea>
                             <CardMedia
@@ -155,7 +155,7 @@ const Page = () => {
                         </CardActionArea>
                     </Card>
                 </Link>
-                <Link  href={'/portafolio/proyectos/view'} style={{ textDecoration: 'none' }}>
+                <Link  href={'/portfolio/project/view'} style={{ textDecoration: 'none' }}>
                     <Card sx={{ width: 330, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)' }}>
                         <CardActionArea>
                             <CardMedia

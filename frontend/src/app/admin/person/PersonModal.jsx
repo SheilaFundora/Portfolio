@@ -202,9 +202,7 @@ const PersonModal = ({handleClickOpen, personData, handleRefreshData}) => {
                 type='text'
                 disabled={true}
                 sx={{mb:1, mt:1,  width: '30%'}}
-                {...register("username", {
-                  required: 'Required field'
-                })}
+                {...register("username")}
                 error={!!errors.username}
                 helperText={errors.username && errors.username.message}
                 defaultValue={ personData.username }

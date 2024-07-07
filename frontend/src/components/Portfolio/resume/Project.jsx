@@ -1,8 +1,8 @@
 import React from 'react';
 import TitleSection from "@/components/Portfolio/resume/ContentResume/TitleSection";
 import Title from "@/components/Portfolio/resume/ContentResume/Title";
-import TextDescriptive from "@/components/Portfolio/resume/ContentResume/TextDescriptive";
-import ListInfo from "@/components/Portfolio/resume/ContentResume/ListInfo";
+import Subtitle from "@/components/Portfolio/resume/ContentResume/Subtitle";
+import ListDescription from "@/components/Portfolio/resume/ContentResume/ListDescription";
 import DatesAndPlace from "@/components/Portfolio/resume/ContentResume/DatesAndPlace";
 
 const text = 'Project dedicated to offering employment services to software developers, helping them\n' +
@@ -18,8 +18,8 @@ const Project = () => {
                 <Title name={'Full Stack Developer on the Cuban Dev Jobs website'}/>
 
                 <DatesAndPlace info={'7/2022 - 11/2022 | La Habana, Cuba'}/>
-                <TextDescriptive text={text}/>
-                <ListInfo info={technologiesUsed}/>
+                <Subtitle text={text}/>
+                <ListDescription info={technologiesUsed}/>
             </div>
 
             <p></p>

@@ -92,7 +92,7 @@
     transition: all;
     transition-duration: 0.3s;
     transition-timing-function: ease;
-    background-color: #2196f3;
+    background-color: var(--blue-port);
     color: white;
 }
 .card-hov p{
@@ -117,7 +117,7 @@
     transition: all;
     transition-duration: 0.3s;
     transition-timing-function: ease;
-    color: #2196f3;
+    color: var(--blue-port);
 }
 .img-hover {
     transition: transform 0.3s; /* Agrega una transición suave */
