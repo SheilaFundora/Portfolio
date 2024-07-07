@@ -14,8 +14,6 @@ const Page = () => {
   const [refreshTable, setRefreshTable] = React.useState(false);
   const [serviceData, setServiceData] = React.useState([]);
 
-
-  console.log(serviceData)
   useEffect( () => {
     getData(services_end, setServiceData)
   }, [refreshTable])

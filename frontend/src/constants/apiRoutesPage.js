@@ -1,14 +1,14 @@
 export const routesPage = [
     {
-        name: 'Inicio',
-        link: '/portafolio'
+        name: 'Home',
+        link: '/portfolio'
     },
     {
-        name: 'Resumen',
-        link: '/portafolio/resumen'
+        name: 'Resume',
+        link: '/portfolio/resume'
     },
     {
-        name: 'Proyectos',
-        link: '/portafolio/proyectos'
+        name: 'Project',
+        link: '/portfolio/project'
     }
 ];

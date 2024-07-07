@@ -1,8 +1,8 @@
 import React from 'react';
 import TitleSection from "@/components/Portfolio/resume/ContentResume/TitleSection";
 import Title from "@/components/Portfolio/resume/ContentResume/Title";
-import TextDescriptive from "@/components/Portfolio/resume/ContentResume/TextDescriptive";
-import ListInfo from "@/components/Portfolio/resume/ContentResume/ListInfo";
+import Subtitle from "@/components/Portfolio/resume/ContentResume/Subtitle";
+import ListDescription from "@/components/Portfolio/resume/ContentResume/ListDescription";
 import DatesAndPlace from "@/components/Portfolio/resume/ContentResume/DatesAndPlace";
 
 const professionalExperience = [
@@ -27,12 +27,12 @@ const Experience = () => {
             <div className={'resume-item'}>
                 <Title name={'FORTESS CENTER'} subinfo={'Technology Center for Training (Cuba)'} linkPlace={'dd'}/>
                 <DatesAndPlace info={'2021 - Present | La Habana Cuba'}/>
-                <TextDescriptive text={text}/>
-                <ListInfo info={professionalExperience}/>
+                <Subtitle text={text}/>
+                <ListDescription info={professionalExperience}/>
                 <Title name={'UCI'} subinfo={'Universidad de las Ciencias Informáticas'} linkPlace={'dd'}/>
                 <DatesAndPlace info={'2021 - Present | La Habana Cuba'}/>
-                <TextDescriptive text={'Tasks performed\n'}/>
-                <ListInfo info={professionalExperience2}/>
+                <Subtitle text={'Tasks performed\n'}/>
+                <ListDescription info={professionalExperience2}/>
             </div>
 
 

@@ -1,12 +1,14 @@
 'use client'
 import React, {useEffect, useState} from 'react';
 import {Typography} from "@mui/material";
-import FooterInfo from "@/components/FooterInfo";
+import FooterInfo from "@/components/Portfolio/footerContent/FooterInfo";
 import IconButton from "@mui/material/IconButton";
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import {useSelector} from "react-redux";
 
 const Footer = () => {
-    const [isVisible, setIsVisible] = useState(false);
+  const {user} = useSelector((state) => state.person)
+  const [isVisible, setIsVisible] = useState(false);
 
     const handleScrollToTop = () => {
         window.scrollTo({
@@ -29,11 +31,11 @@ const Footer = () => {
 
     return (
         <div>
-            <FooterInfo />
+            <FooterInfo user={user} />
 
             <div className={'my-3'}>
                 <Typography variant="body1" align="center" color="textSecondary">
-                    © {new Date().getFullYear()} <span  style={{color: '#05097c'}}>Sheila</span>. Todos los derechos reservados.
+                    © {new Date().getFullYear()} <span  style={{color: '#05097c'}}>{user ? user.firstName : ''}</span>. All rights reserved.
                 </Typography>
             </div>
 

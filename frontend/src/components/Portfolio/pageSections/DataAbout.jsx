@@ -1,19 +1,38 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Box from "@mui/material/Box";
 import {motion} from "framer-motion";
 import CounterItem from "@/components/Portfolio/other/CounterItem";
 import { useCountUp } from 'react-countup';
 import {useInView} from "react-intersection-observer";
+import {useSelector} from "react-redux";
+import {getData} from "@/helper/getData";
+import {project_end, services_end, skill_end} from "@/constants/endpoints";
 
 const DataAbout = () => {
-    const { ref, inView } = useInView({
+  const { user } = useSelector((state) => state.person);
+
+  const [project, setProject] = useState([]);
+  const [skill, setSkill] = useState([]);
+  const [service, setService] = useState([]);
+
+  useEffect( () => {
+    getData(project_end, setProject)
+    getData(skill_end, setSkill)
+    getData(services_end, setService)
+
+  }, [])
+  const { ref, inView } = useInView({
         triggerOnce: true, // Para que la animación se active solo una vez
         threshold: 0.5, // Umbral de visibilidad, 0.5 significa que al menos la mitad del elemento debe estar visible
     });
-    useCountUp({ ref: 'experienceCounter', end: 12, duration: 2 });
-    useCountUp({ ref: 'githubStarsCounter', end: 20, duration: 2 });
-    useCountUp({ ref: 'feedbackCounter', end: 92, duration: 2 });
-    useCountUp({ ref: 'projectsCounter', end: 77, duration: 2 });
+
+  console.log(project)
+
+
+  useCountUp({ ref: 'experienceCounter', end: user ? user.experience : '', duration: 2 });
+  useCountUp({ ref: 'servicesCounter', end: service.length, duration: 2 });
+  useCountUp({ ref: 'skillCounter', end: skill.length, duration: 2 });
+  useCountUp({ ref: 'projectsCounter', end: project.length, duration: 2 });
 
     return (
         <div>
@@ -34,57 +53,29 @@ const DataAbout = () => {
                 }
             }}
             >
-                <motion.div
-                    ref={ref} // Ref para el elemento que queremos observar
-                    initial={{scale: 0}} // Escala inicial de 0 (invisible)
-                    animate={{scale: inView ? 1 : 0}} // Escala al tamaño original cuando está en vista, a 0 cuando no lo está
-                    transition={{duration: 0.5}} // Duración de la animación
-                >
-                    <CounterItem
-                        title="Years of experience"
-                        counter={<span id="experienceCounter"/>}
-                        measurement=""
-                    />
-                </motion.div>
+              <CounterItem
+                title="Years of experience"
+                counter={<span id="experienceCounter"/>}
+                measurement=""
+              />
 
-                <motion.div
-                    ref={ref} // Ref para el elemento que queremos observar
-                    initial={{scale: 0}} // Escala inicial de 0 (invisible)
-                    animate={{scale: inView ? 1 : 0}} // Escala al tamaño original cuando está en vista, a 0 cuando no lo está
-                    transition={{duration: 0.8}} // Duración de la animación
-                >
-                    <CounterItem
-                        title="Stars on GitHub"
-                        counter={<span id="githubStarsCounter"/>}
-                        measurement="k+"
-                    />
-                </motion.div>
+              <CounterItem
+                title="Core Skill"
+                counter={<span id="skillCounter"/>}
+                measurement=""
+              />
 
-                <motion.div
-                    ref={ref} // Ref para el elemento que queremos observar
-                    initial={{scale: 0}} // Escala inicial de 0 (invisible)
-                    animate={{scale: inView ? 1 : 0}} // Escala al tamaño original cuando está en vista, a 0 cuando no lo está
-                    transition={{duration: 0.8}} // Duración de la animación
-                >
-                    <CounterItem
-                        title="Positive feedback"
-                        counter={<span id="feedbackCounter"/>}
-                        measurement="%"
-                    />
-                </motion.div>
+              <CounterItem
+                  title="Services Offered"
+                  counter={<span id="servicesCounter"/>}
+                  measurement=""
+              />
 
-                <motion.div
-                    ref={ref} // Ref para el elemento que queremos observar
-                    initial={{scale: 0}} // Escala inicial de 0 (invisible)
-                    animate={{scale: inView ? 1 : 0}} // Escala al tamaño original cuando está en vista, a 0 cuando no lo está
-                    transition={{duration: 0.8}} // Duración de la animación
-                >
-                    <CounterItem
-                        title="Projects completed"
-                        counter={<span id="projectsCounter"/>}
-                        measurement="%"
-                    />
-                </motion.div>
+              <CounterItem
+                  title="Projects completed"
+                  counter={<span id="projectsCounter"/>}
+                  measurement=""
+              />
             </Box>
 
         </div>

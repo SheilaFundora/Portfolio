@@ -8,7 +8,7 @@ export default function Home() {
   const router = useRouter();
 
   useEffect( () => {
-        return router.push('/portafolio');
+        return router.push('/portfolio');
     }, [])
 
     return (
