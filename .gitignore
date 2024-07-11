@@ -30,6 +30,7 @@ frontend/.vercel
 # compiled output
 backend/dist
 backend/node_modules
+backend/.development.env
 
 # Logs
 backend/logs

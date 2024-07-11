@@ -32,4 +32,8 @@ export class SectionController {
   remove(@Param('id') id: string) {
     return this.sectionService.delete(+id);
   }
+  @Get('title/:title')
+  async getSectionByTitle(@Param('title') title: string){
+    return this.sectionService.findByTitle(title);
+  }
 }
