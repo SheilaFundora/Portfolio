@@ -26,5 +26,4 @@ export class CreateResumeDto {
     
     user_id:Usuario;
 
-    category_id:Category;
 }
