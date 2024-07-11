@@ -31,7 +31,6 @@ export class Resume {
     @JoinColumn({name: 'user_id'})
     user_id:Usuario;
 
-    @ManyToOne(() => Category, (category_id) => category_id.resumens, {eager: true,onDelete:'CASCADE', onUpdate:'CASCADE'})
-    @JoinColumn({name: 'category_id'})
-    category_id:Category;
+    @OneToMany(() => Category, (category) => category.resume)
+    categories: Category[];
 }

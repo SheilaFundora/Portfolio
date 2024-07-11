@@ -61,20 +61,12 @@ export class ResumeService {
   }
 
   async update(id: number, updateResumeDto: UpdateResumeDto): Promise<Resume> {
-    const { user_id, category_id, ...resumeData } = updateResumeDto;
+    const { ...resumeData } = updateResumeDto;
 
     try {
-      const resume = await this.ResumeRep.findOne({ where: { id }, relations: ['user', 'category'] });
+      const resume = await this.ResumeRep.findOne({ where: { id }});
       if (!resume) {
         throw new NotFoundException('Resume not found');
-      }
-
-      if (category_id) {
-        const category = await this.CatRep.findOne({ where: { id: category_id.id } });
-        if (!category) {
-          throw new NotFoundException(`Category not found with ID: ${category_id.id}`);
-        }
-        resume.category_id = category;
       }
 
       this.ResumeRep.merge(resume, resumeData);

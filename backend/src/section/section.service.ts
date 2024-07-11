@@ -49,7 +49,18 @@ export class SectionService {
     }
   }
   
-
+  async findByTitle(title: string): Promise<Section> {
+    try {
+      const section = await this.SectionRep.findOne({ where: { title } });
+      if (!section) {
+        throw new NotFoundException(`Section not found with title: ${title}`);
+      }
+      return plainToClass(Section, section);
+    } catch (error) {
+      throw new InternalServerErrorException('Error retrieving section by title');
+    }
+  }
+  
   async create(createSectionDto: CreateSectionDto): Promise<Section> {
     try {
       const newSection = this.SectionRep.create(createSectionDto);

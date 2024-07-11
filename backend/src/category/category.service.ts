@@ -6,12 +6,14 @@ import { Category } from './entities/category.entity';
 import { Repository } from 'typeorm';
 import { Usuario } from 'src/usuario/entities/user.entity';
 import { plainToClass } from 'class-transformer';
+import { Resume } from 'src/resume/entities/resume.entity';
 
 @Injectable()
 export class CategoryService {
   constructor(
     @InjectRepository(Category) private CatRep: Repository<Category>,
     @InjectRepository(Usuario) private UserRep: Repository<Usuario>,
+    @InjectRepository(Resume) private ResumeRep: Repository<Resume>,
   ) {}
 
   async findAll() {
@@ -71,15 +73,26 @@ export class CategoryService {
   }
   
 
-  async update(id: number, CreateCategoryDTO: CreateCategoryDTO) {
+
+  async update(id: number, createCategoryDTO: CreateCategoryDTO): Promise<Category> {
+    const { resume, ...categoryData } = createCategoryDTO;
+
     try {
-      const Category = await this.CatRep.findOneBy({ id });
-      if (!Category) {
+      const category = await this.CatRep.findOne({ where: { id }, relations: ['resume', 'user_id'] });
+      if (!category) {
         throw new NotFoundException('Category not found');
       }
 
-      this.CatRep.merge(Category, CreateCategoryDTO);
-      return await this.CatRep.save(Category);
+      if (resume) {
+        const resumeEntity = await this.ResumeRep.findOne({ where: { id: resume.id } });
+        if (!resumeEntity) {
+          throw new NotFoundException(`Resume not found with ID: ${resume.id}`);
+        }
+        category.resume = resumeEntity;
+      }
+
+      this.CatRep.merge(category, categoryData);
+      return await this.CatRep.save(category);
     } catch (error) {
       throw new InternalServerErrorException('Error updating Category');
     }
