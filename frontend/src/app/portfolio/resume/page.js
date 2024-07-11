@@ -20,11 +20,11 @@ const Page = () => {
   console.log(resumeData)
 
   return (
-    <Box  sx={{paddingX: {xs: 4, md: '120px'},paddingY: 1, backgroundColor: 'rgb(247 248 252 )',
+    <Box  sx={{paddingX: {xs: 4, md: '120px', mt:5},paddingY: 1, mt:3,  backgroundColor: 'rgb(247 248 252 )',
     }}>
-        <NameSections name={'Resumen'}/>
+        <NameSections name={'Resume'}/>
 
-        <Grid container spacing={2} justifyContent="space-between">
+        <Grid container spacing={2} justifyContent="space-between" sx={{mt: 3}}>
             <Grid item xs={12} md={5}>
               {resumeData.map((item) => (
                   <DataResume key={item.id} {...item} />
