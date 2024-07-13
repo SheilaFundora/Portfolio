@@ -11,12 +11,12 @@ const SocialNetModal = ({handleClickOpen, action, snSelect = null, handleRefresh
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmitSn = async (data) => {
-    await handleSubmitData(handleClickOpen, socialNet_end, data, handleRefreshTable, 'Social Network', setErrorMessage);
+    await handleSubmitData(handleClickOpen, socialNet_end, data, handleRefreshTable, 'social network', setErrorMessage);
   }
 
   const handleEditSn = async (data) => {
     const endpoint = socialNet_end + '/' + snSelect.id +'/'
-    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'Social Network');
+    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'social network');
   }
 
   const handleOperationSN= async (data) => {

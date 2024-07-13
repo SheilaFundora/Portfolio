@@ -5,18 +5,22 @@ import {useForm} from "react-hook-form";
 import {skill_end} from "@/constants/endpoints";
 import {handleEditData} from "@/helper/editData";
 import {handleSubmitData} from "@/helper/submitData";
+import {convertViewUrl} from "@/helper/ViewPublicUrl";
 
 const SkillModal = ({handleClickOpen, handleRefreshTable, action, skillSelect = null}) => {
   const { register, handleSubmit, formState: { errors } } = useForm('formSkill');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmitSkills= async (data) => {
-    await handleSubmitData(handleClickOpen, skill_end, data, handleRefreshTable, 'Skill', setErrorMessage);
+    data.icon = convertViewUrl(data.icon)
+    await handleSubmitData(handleClickOpen, skill_end, data, handleRefreshTable, 'skill', setErrorMessage);
   }
 
   const handleEditSkill = async (data) => {
-    const endpoint = skill_end + '/' + skillSelect.id +'/'
-    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'Skill');
+    const endpoint = skill_end + '/' + skillSelect.id +'/';
+    data.icon = convertViewUrl(data.icon);
+
+    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'skill');
   }
 
   const handleOperationSkill= async (data) => {

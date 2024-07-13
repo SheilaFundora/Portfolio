@@ -11,12 +11,12 @@ const CategoryModal = ({handleClickOpen, handleRefreshTable, action, categorySel
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmitResumeCat= async (data) => {
-    await handleSubmitData(handleClickOpen, category_end, data, handleRefreshTable, 'Category', setErrorMessage);
+    await handleSubmitData(handleClickOpen, category_end, data, handleRefreshTable, 'category', setErrorMessage);
   }
 
   const handleEditResumeCat = async (data) => {
     const endpoint = category_end + '/' + categorySelect.id +'/';
-    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'Category');
+    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'category');
   }
 
   const handleOperationResumeCat= async (data) => {

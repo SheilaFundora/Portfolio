@@ -2,14 +2,12 @@ import React, {useEffect, useState} from 'react';
 import {Button, DialogActions, DialogContent, MenuItem, TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import {Controller, useForm} from "react-hook-form";
-import {fetchData} from "@/helper/fetch";
-import {socialNet_end, user_end} from "@/constants/endpoints";
-import Swal from "sweetalert2";
+import {user_end} from "@/constants/endpoints";
 import {handleEditData} from "@/helper/editData";
+import {convertViewUrl} from "@/helper/ViewPublicUrl";
 
 const PersonModal = ({handleClickOpen, personData, handleRefreshData}) => {
   const { register, control, handleSubmit, formState: { errors }, setValue } = useForm();
-  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect( () => {
     setValue('freelancer', personData.freelancer);
@@ -22,8 +20,10 @@ const PersonModal = ({handleClickOpen, personData, handleRefreshData}) => {
     data.birthday = data.birthday === '' ? null : data.birthday;
     data.remote = data.remote === 'true';
     data.freelancer = data.freelancer === 'true';
+    data.cvPathEs = convertViewUrl(data.cvPathEs)
+    data.cvPathEn = convertViewUrl(data.cvPathEn)
 
-    await handleEditData(handleClickOpen, endpoint, data, handleRefreshData, 'Person');
+    await handleEditData(handleClickOpen, endpoint, data, handleRefreshData, 'person');
 
   }
 
@@ -210,11 +210,9 @@ const PersonModal = ({handleClickOpen, personData, handleRefreshData}) => {
             </Box>
           </Box>
 
-          {errorMessage && <div className='error-message text-danger text-start ms-4'>{errorMessage}</div>}
-
           <DialogActions sx={{pb: 3, justifyContent: 'center'}}>
             <Button autoFocus onClick={handleClickOpen} variant="contained" color='error'>
-              Cancelar
+              Cancel
             </Button>
             <Button variant="contained" type="submit" className={'ms-4'}>
               Accept

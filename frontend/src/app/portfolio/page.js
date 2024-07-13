@@ -23,7 +23,7 @@ export default function Home() {
             <DataAbout />
 
             <Box sx={{paddingX: {xs: 4, md: '120px'}}}>
-                <NameSections name={'skill'}/>
+                <NameSections name={'Skill'}/>
             </Box>
 
             <Skills />

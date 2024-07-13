@@ -14,7 +14,7 @@ export const handleSubmitData = async (handleClickOpen, endpoint, data, handleRe
     const resp = await fetchData(endpoint, data, "POST");
 
     if (resp.status === 409) {
-     await setErrorMessage("The " + name + " already exist");
+     await setErrorMessage("That " + name + " already exist");
     }else{
       await handleClickOpen();
       if (resp.status === 201) {

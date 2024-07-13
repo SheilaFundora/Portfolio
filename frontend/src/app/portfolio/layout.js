@@ -42,7 +42,6 @@ function InnerLayout({ children }) {
   return (
     <>
       {children}
-      <Footer />
     </>
   );
 }

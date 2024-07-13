@@ -18,59 +18,51 @@ const DataAbout = () => {
     getData(project_end, setProject)
     getData(skill_end, setSkill)
     getData(services_end, setService)
-
-
   }, [])
-
-  useCountUp({ ref: 'experienceCounter', end: user ? user.experience : '', duration: 2 });
-  useCountUp({ ref: 'servicesCounter', end: service.length, duration: 2 });
-  useCountUp({ ref: 'skillCounter', end: skill.length, duration: 2 });
-  useCountUp({ ref: 'projectsCounter', end: project.length, duration: 2 });
-
 
   return (
       <div>
-          <Box sx={{
-              marginTop: 10,
-              backgroundColor: 'rgb(247 248 252 )',
-              display: 'flex',
-              textAlign: 'center',
-              paddingY: 8,
-              paddingX: { xs: 3, md: 10},
-              alignItems: 'center', // Centrar verticalmente en dispositivos móviles
-              justifyContent: 'space-around', // Ajustar el espacio entre los elementos
-              flexWrap: 'wrap', // Envolver los elementos si no caben en una sola fila
-              gap: '10px', // Espacio entre los elementos
-              '& > div': {
-                  width: '100%', // Asegurar que cada elemento ocupe todo el ancho disponible
-                  maxWidth: 'calc(25% - 20px)', // Establecer el ancho máximo para quepan los 4 elementos
-              }
-          }}
-          >
-            <CounterItem
-              title="Years of experience"
-              counter={<span id="experienceCounter"/>}
-              measurement=""
-            />
+        <Box sx={{
+          marginTop: 10,
+          backgroundColor: 'rgb(247 248 252 )',
+          display: 'flex',
+          textAlign: 'center',
+          paddingY: 8,
+          paddingX: {xs: 3, md: 10},
+          alignItems: 'center', // Centrar verticalmente en dispositivos móviles
+          justifyContent: 'space-around', // Ajustar el espacio entre los elementos
+          flexWrap: 'wrap', // Envolver los elementos si no caben en una sola fila
+          gap: '10px', // Espacio entre los elementos
+          '& > div': {
+            width: '100%', // Asegurar que cada elemento ocupe todo el ancho disponible
+            maxWidth: 'calc(25% - 20px)', // Establecer el ancho máximo para quepan los 4 elementos
+          }
+        }}
+        >
 
-            <CounterItem
-              title="Core Skill"
-              counter={<span id="skillCounter"/>}
-              measurement=""
-            />
+          <div style={{marginTop: '5px'}}>
+            <span style={{fontSize: '1.9em', fontWeight: '500'}}>{user.experience}</span>
+            <p style={{marginTop: '5px'}}>Years of experience</p>
+          </div>
 
-            <CounterItem
-                title="Services Offered"
-                counter={<span id="servicesCounter"/>}
-                measurement=""
-            />
 
-            <CounterItem
-                title="Projects completed"
-                counter={<span id="projectsCounter"/>}
-                measurement=""
-            />
-          </Box>
+          <div style={{marginTop: '5px'}}>
+            <span style={{fontSize: '1.9em', fontWeight: '500'}}>{skill.length}</span>
+            <p style={{marginTop: '5px'}}>Core Skill</p>
+          </div>
+
+
+          <div style={{marginTop: '5px'}}>
+            <span style={{fontSize: '1.9em', fontWeight: '500'}}>{service.length}</span>
+            <p style={{marginTop: '5px'}}>Services Offered</p>
+          </div>
+
+          <div style={{marginTop: '5px'}}>
+            <span style={{fontSize: '1.9em', fontWeight: '500'}}>{project.length}</span>
+            <p style={{marginTop: '5px'}}>Projects completed</p>
+          </div>
+
+        </Box>
 
       </div>
   );

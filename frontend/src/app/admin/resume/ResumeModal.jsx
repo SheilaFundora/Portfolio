@@ -34,7 +34,7 @@ const ResumeModal = ({handleClickOpen, handleRefreshTable, action, resumeSelect 
       data.date_init = data.date_init === '' ? null : data.date_init;
       data.date_end = data.date_end === '' ? null : data.date_end;
 
-      await handleSubmitData(handleClickOpen, resume_end, data, handleRefreshTable, 'Resume', setErrorMessage);
+      await handleSubmitData(handleClickOpen, resume_end, data, handleRefreshTable, 'resume', setErrorMessage);
     }
   }
 
@@ -46,7 +46,7 @@ const ResumeModal = ({handleClickOpen, handleRefreshTable, action, resumeSelect 
       data.date_init = data.date_init === '' ? null : data.date_init;
       data.date_end = data.date_end === '' ? null : data.date_end;
 
-      await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'Resume');
+      await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'resume');
     }
   }
 

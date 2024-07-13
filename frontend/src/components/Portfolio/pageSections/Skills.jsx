@@ -1,14 +1,25 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Image from "next/image";
 import Box from "@mui/material/Box";
-import {motion} from "framer-motion";
 import {useInView} from "react-intersection-observer";
+import {getData} from "@/helper/getData";
+import {skill_end} from "@/constants/endpoints";
+import Tooltip from '@mui/material/Tooltip';
+
 
 const Skills = () => {
-    const { ref, inView } = useInView({
-        triggerOnce: true, // Para que la animación solo se active una vez
-        threshold: 0.2, // Umbral de visibilidad, 0.5 significa que al menos la mitad del elemento debe estar visible
-    });
+  const [skillData, setSkillData] = React.useState([]);
+
+  useEffect( () => {
+    getData(skill_end, setSkillData)
+  }, [])
+
+  console.log(skillData)
+
+  const { ref, inView } = useInView({
+      triggerOnce: true, // Para que la animación solo se active una vez
+      threshold: 0.2, // Umbral de visibilidad, 0.5 significa que al menos la mitad del elemento debe estar visible
+  });
 
     return (
         <div>
@@ -29,217 +40,21 @@ const Skills = () => {
                 }
             }}
             >
-                <Image
-                    src="/img/tech/React.svg.png"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />
+              {skillData.map((skill) => (
+                <Box key={skill.id}>
+                  <Tooltip title={skill.name} placement="top">
+                    <Image
+                      src={skill.icon}
+                      alt={skill.name}
+                      width={50}
+                      height={40}
+                      className="img-hover"
+                    />
+                  </Tooltip>
+                </Box>
+              ))}
 
-                <Image
-                    src="/img/tech/Bootstrap_logo.svg.png"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />
 
-                <Image
-                    src="/img/tech/GitHub_Invertocat_Logo.svg"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />
-
-                <Image
-                    src="/img/tech/1 n4w4forIbc05mYiIbUwSmA.png"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />
-
-                <Image
-                    src="/img/tech/Angular_full_color_logo.svg.png"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />
-
-                <Image
-                    src="/img/tech/mysql.png"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />
-
-                <Image
-                    src="/img/tech/PHP-logo.svg.png"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />
-
-                <Image
-                    src="/img/tech/Postgresql_elephant.svg.png"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />
-
-                <Image
-                    src="/img/tech/Python-logo-notext.svg.png"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />                <Image
-                    src="/img/tech/React.svg.png"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />
-
-                <Image
-                    src="/img/tech/Bootstrap_logo.svg.png"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />
-
-                <Image
-                    src="/img/tech/GitHub_Invertocat_Logo.svg"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />
-
-                <Image
-                    src="/img/tech/1 n4w4forIbc05mYiIbUwSmA.png"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />
-
-                <Image
-                    src="/img/tech/Angular_full_color_logo.svg.png"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />
-
-                <Image
-                    src="/img/tech/mysql.png"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />
-
-                <Image
-                    src="/img/tech/PHP-logo.svg.png"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />
-
-                <Image
-                    src="/img/tech/Postgresql_elephant.svg.png"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />
-
-                <Image
-                    src="/img/tech/Python-logo-notext.svg.png"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />                <Image
-                    src="/img/tech/React.svg.png"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />
-
-                <Image
-                    src="/img/tech/Bootstrap_logo.svg.png"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />
-
-                <Image
-                    src="/img/tech/GitHub_Invertocat_Logo.svg"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />
-
-                <Image
-                    src="/img/tech/1 n4w4forIbc05mYiIbUwSmA.png"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />
-
-                <Image
-                    src="/img/tech/Angular_full_color_logo.svg.png"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />
-
-                <Image
-                    src="/img/tech/mysql.png"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />
-
-                <Image
-                    src="/img/tech/PHP-logo.svg.png"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />
-
-                <Image
-                    src="/img/tech/Postgresql_elephant.svg.png"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />
-
-                <Image
-                    src="/img/tech/Python-logo-notext.svg.png"
-                    alt="Logotipo"
-                    width={50}
-                    height={40}
-                    className="img-hover"
-                />
             </Box>
 
         </div>

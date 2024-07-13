@@ -15,6 +15,7 @@ import {Controller, useForm} from "react-hook-form";
 import {handleSubmitData} from "@/helper/submitData";
 import {imgProject_end} from "@/constants/endpoints";
 import {handleEditData} from "@/helper/editData";
+import {convertViewUrl} from "@/helper/ViewPublicUrl";
 
 const ProjectImgModal = ({handleClickOpen, handleRefreshTable, action, projectData=null, projectImageSelect=null}) => {
   const { register,setValue, control, handleSubmit, formState: { errors } } = useForm('formResume');
@@ -28,12 +29,15 @@ const ProjectImgModal = ({handleClickOpen, handleRefreshTable, action, projectDa
   }, [])
 
   const handleSubmitProjectImg = async (data) => {
-    await handleSubmitData(handleClickOpen, imgProject_end, data, handleRefreshTable, 'Category', setErrorMessage);
+    data.imgs = convertViewUrl(data.imgs)
+    await handleSubmitData(handleClickOpen, imgProject_end, data, handleRefreshTable, 'category', setErrorMessage);
   }
 
   const handleEditResumeProjectImg = async (data) => {
     const endpoint = imgProject_end + '/' + projectImageSelect.id +'/';
-    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'Project');
+    data.imgs = convertViewUrl(data.imgs)
+
+    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'category');
   }
 
   const handleOperationProjectImg = async (data) => {

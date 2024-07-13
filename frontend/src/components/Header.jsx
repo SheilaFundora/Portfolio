@@ -66,7 +66,8 @@ function Header() {
                                 {/* Oculta la imagen en dispositivos móviles */}
                                 <Hidden only={['xs', 'sm']}>
                                     <Image
-                                        src={'/img/logotipo.jpg'}
+                                        src={'https://drive.google.com/uc?export=view&id=11Fhdwy7DuYRm62NPdkIio-__c80MRtc7'}
+
                                         alt={'Logotipo'}
                                         width={180}
                                         height={70}
