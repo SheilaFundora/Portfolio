@@ -5,18 +5,22 @@ import {useForm} from "react-hook-form";
 import {handleSubmitData} from "@/helper/submitData";
 import {images_end} from "@/constants/endpoints";
 import {handleEditData} from "@/helper/editData";
+import {convertViewUrl} from "@/helper/ViewPublicUrl";
 
 const ImageModal = ({handleClickOpen, action, handleRefreshTable, imageSelect}) => {
   const { register, handleSubmit, formState: { errors } } = useForm('formImage');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmitService = async (data) => {
-    await handleSubmitData(handleClickOpen, images_end, data, handleRefreshTable, 'Image', setErrorMessage);
+    data.imgs = convertViewUrl(data.imgs)
+    await handleSubmitData(handleClickOpen, images_end, data, handleRefreshTable, 'image', setErrorMessage);
   }
 
   const handleEditService = async (data) => {
-    const endpoint = images_end + '/' + imageSelect.id +'/'
-    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'Image');
+    const endpoint = images_end + '/' + imageSelect.id +'/';
+    data.imgs = convertViewUrl(data.imgs)
+
+    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'image');
   }
 
   const handleOperationService= async (data) => {

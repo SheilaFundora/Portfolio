@@ -5,8 +5,6 @@ import {Button, Grid} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import ModalForm from "@/components/adminComponents/other/ModalForm";
 import PersonModal from "@/app/admin/person/PersonModal";
-import {user_end} from "@/constants/endpoints";
-import axios from "axios";
 import {getDataPerson} from "@/helper/getDataPerson";
 
 const Page = () => {

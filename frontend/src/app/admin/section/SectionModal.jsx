@@ -11,11 +11,11 @@ const SectionModal = ({handleClickOpen, action, sectionSelect = null, handleRefr
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmitSection= async (data) => {
-    await handleSubmitData(handleClickOpen, section_end, data, handleRefreshTable, 'Section', setErrorMessage);
+    await handleSubmitData(handleClickOpen, section_end, data, handleRefreshTable, 'section', setErrorMessage);
   }
   const handleEditSection = async (data) => {
     const endpoint = section_end + '/' + sectionSelect.id +'/'
-    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'Section');
+    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'section');
   }
 
   const handleOperationSection= async (data) => {
@@ -65,6 +65,10 @@ const SectionModal = ({handleClickOpen, action, sectionSelect = null, handleRefr
           />
 
           {errorMessage && <div className='error-message text-danger text-start ms-4'>{errorMessage}</div>}
+
+          <div className='error-message text-secondary text-start ms-4'>
+            You must have a section titled About and Footer.
+          </div>
 
           <DialogActions sx={{pb: 3, justifyContent: 'center'}}>
             <Button autoFocus onClick={handleClickOpen} variant="contained" color='error'>

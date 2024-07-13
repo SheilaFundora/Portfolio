@@ -18,6 +18,7 @@ import Swal from "sweetalert2";
 import {useRouter} from "next/navigation";
 import Link from "@mui/material/Link";
 import {routesAuth} from "@/constants/apiRoutesAuth";
+import {convertViewUrl} from "@/helper/ViewPublicUrl";
 
 const steps = [
   'Step 1: Personal Information',
@@ -63,6 +64,8 @@ const Page = () => {
       setErrorMessage('')
       delete data.password2;
       data.birthday = data.birthday === '' ? null : data.birthday;
+      data.cvPathEs = convertViewUrl(data.cvPathEs)
+      data.cvPathEn = convertViewUrl(data.cvPathEn)
 
 
       try {

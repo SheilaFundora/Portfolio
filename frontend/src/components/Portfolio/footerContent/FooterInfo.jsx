@@ -3,9 +3,30 @@ import Box from "@mui/material/Box";
 import SocialNet from "@/components/Portfolio/footerContent/SocialNet";
 import DataUserFoot from "@/components/Portfolio/footerContent/DataUserFoot";
 import FormContact from "@/components/Portfolio/footerContent/FormContact";
+import {section_end} from "@/constants/endpoints";
+import axios from "axios";
 
 
 const FooterInfo = ({user}) => {
+  const [sectionData, setSectionData] = React.useState([]);
+
+  useEffect( () => {
+    getDataSection(section_end);
+
+  }, [])
+
+  const getDataSection = async () => {
+    const username = window.localStorage.getItem('username')
+
+    try {
+      const response = await axios.get(
+        process.env.NEXT_PUBLIC_API_HOST + section_end  +  '/title/' +  'Footer/'
+      )
+      await setSectionData(response.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
       <Box sx={{
@@ -24,8 +45,7 @@ const FooterInfo = ({user}) => {
         <Box sx={{ flex: '1 1 calc(33% - 80px)'}}>
           <h2 className={'name-footer'}>{user ? user.firstName : ''}</h2>
           <p className={'text-secondary my-3 text-justify'}  style={{ textAlign: 'justify' }} >
-            I am a dedicated person in all aspects of my life, committed to professional training, seeking
-            to acquire everything necessary to excel professionally.
+            {sectionData.description}
           </p>
           <SocialNet />
         </Box>

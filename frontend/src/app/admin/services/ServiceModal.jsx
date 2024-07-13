@@ -11,12 +11,12 @@ const ServiceModal = ({handleClickOpen, action, handleRefreshTable, serviceSelec
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmitService = async (data) => {
-    await handleSubmitData(handleClickOpen, services_end, data, handleRefreshTable, 'Service', setErrorMessage);
+    await handleSubmitData(handleClickOpen, services_end, data, handleRefreshTable, 'service', setErrorMessage);
   }
 
   const handleEditService = async (data) => {
     const endpoint = services_end + '/' + serviceSelect.id +'/'
-    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'Service');
+    await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'service');
   }
 
   const handleOperationService= async (data) => {
