@@ -69,7 +69,7 @@ const Page = () => {
         />
       }
       <ResumeTable resumeData={resumeData} handleRefreshTable={handleRefreshTable} categoryData={categoryData}/>
-      <h4 className={'mt-4'}>Images</h4>
+      <h4 className={'mt-4'}>Categories</h4>
       <CategoryTable handleRefreshTable={handleRefreshTable} categoryData={categoryData}/>
     </Box>
   );
