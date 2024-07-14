@@ -23,8 +23,6 @@ const Page = () => {
 
   }, [refreshTable])
 
-  console.log(projectImageData)
-
   const handleClickOpen = () => {
     setOpenModal(!openModal);
   }
@@ -70,7 +68,7 @@ const Page = () => {
         />
       }
       <ProjectTable handleRefreshTable={handleRefreshTable} projectData={projectData}  />
-      <h4 className={'mt-4'}>Categories</h4>
+      <h4 className={'mt-4'}>Projects Images</h4>
       <ProjectImageTable handleRefreshTable={handleRefreshTable} projectImageData={projectImageData} projectData={projectData}/>
     </Box>
   );

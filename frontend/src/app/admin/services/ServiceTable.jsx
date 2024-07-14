@@ -41,7 +41,7 @@ const ServiceTable = ({serviceData, handleRefreshTable}) => {
 
   const handleDeleteService = async () => {
     const endpoint = services_end +'/'+ serviceId + '/';
-    await handleDelete(handleOpenDelete, endpoint, handleRefreshTable , ' social network');
+    await handleDelete(handleOpenDelete, endpoint, handleRefreshTable , ' service');
   }
 
   return (
