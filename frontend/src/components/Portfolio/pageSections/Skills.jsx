@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import Image from "next/image";
 import Box from "@mui/material/Box";
 import {useInView} from "react-intersection-observer";
-import {getData} from "@/helper/getData";
+import {getData} from "@/helper/crud/getData";
 import {skill_end} from "@/constants/endpoints";
 import Tooltip from '@mui/material/Tooltip';
 

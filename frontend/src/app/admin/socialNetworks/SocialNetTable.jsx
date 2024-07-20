@@ -9,7 +9,7 @@ import SocialNetModal from "@/app/admin/socialNetworks/SocialNetModal";
 import {socialNet_end} from "@/constants/endpoints";
 import ActionsTable from "@/components/adminComponents/other/ActionsTable";
 import ModalDelete from "@/components/adminComponents/other/ModalDelete";
-import {handleDelete} from "@/helper/deleteData";
+import {handleDelete} from "@/helper/crud/deleteData";
 
 
 const SocialNetTable = ({socialNetData, handleRefreshTable}) => {

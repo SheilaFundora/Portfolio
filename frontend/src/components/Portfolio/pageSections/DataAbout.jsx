@@ -5,7 +5,7 @@ import CounterItem from "@/components/Portfolio/other/CounterItem";
 import { useCountUp } from 'react-countup';
 import {useInView} from "react-intersection-observer";
 import {useSelector} from "react-redux";
-import {getData} from "@/helper/getData";
+import {getData} from "@/helper/crud/getData";
 import {project_end, services_end, skill_end} from "@/constants/endpoints";
 
 const DataAbout = () => {

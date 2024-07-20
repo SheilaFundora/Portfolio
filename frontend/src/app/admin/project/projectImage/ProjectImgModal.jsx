@@ -12,9 +12,9 @@ import {
   TextField
 } from "@mui/material";
 import {Controller, useForm} from "react-hook-form";
-import {handleSubmitData} from "@/helper/submitData";
+import {handleSubmitData} from "@/helper/crud/submitData";
 import {imgProject_end} from "@/constants/endpoints";
-import {handleEditData} from "@/helper/editData";
+import {handleEditData} from "@/helper/crud/editData";
 import {convertViewUrl} from "@/helper/ViewPublicUrl";
 
 const ProjectImgModal = ({handleClickOpen, handleRefreshTable, action, projectData=null, projectImageSelect=null}) => {

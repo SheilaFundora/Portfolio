@@ -5,7 +5,7 @@ import {Button, Grid} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import ModalForm from "@/components/adminComponents/other/ModalForm";
 import PersonModal from "@/app/admin/person/PersonModal";
-import {getDataPerson} from "@/helper/getDataPerson";
+import {getDataPerson} from "@/helper/crud/getDataPerson";
 
 const Page = () => {
   const [openEdit, setOpenEdit] = React.useState(false);

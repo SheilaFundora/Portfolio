@@ -6,7 +6,7 @@ import ModalDelete from "@/components/adminComponents/other/ModalDelete";
 import Box from "@mui/material/Box";
 import ActionsTable from "@/components/adminComponents/other/ActionsTable";
 import {imgProject_end} from "@/constants/endpoints";
-import {handleDelete} from "@/helper/deleteData";
+import {handleDelete} from "@/helper/crud/deleteData";
 import ProjectImgModal from "@/app/admin/project/projectImage/ProjectImgModal";
 
 const ProjectImageTable = ({handleRefreshTable, projectImageData, projectData}) => {

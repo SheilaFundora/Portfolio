@@ -3,7 +3,7 @@ import {Button, DialogActions, DialogContent, MenuItem, TextField} from "@mui/ma
 import Box from "@mui/material/Box";
 import {Controller, useForm} from "react-hook-form";
 import {user_end} from "@/constants/endpoints";
-import {handleEditData} from "@/helper/editData";
+import {handleEditData} from "@/helper/crud/editData";
 import {convertViewUrl} from "@/helper/ViewPublicUrl";
 
 const PersonModal = ({handleClickOpen, personData, handleRefreshData}) => {

@@ -3,8 +3,8 @@ import {Button, DialogActions, DialogContent, TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import {useForm} from "react-hook-form";
 import {services_end} from "@/constants/endpoints";
-import {handleSubmitData} from "@/helper/submitData";
-import {handleEditData} from "@/helper/editData";
+import {handleSubmitData} from "@/helper/crud/submitData";
+import {handleEditData} from "@/helper/crud/editData";
 
 const ServiceModal = ({handleClickOpen, action, handleRefreshTable, serviceSelect}) => {
   const { register, handleSubmit, formState: { errors } } = useForm('formService');
@@ -36,7 +36,7 @@ const ServiceModal = ({handleClickOpen, action, handleRefreshTable, serviceSelec
           <h4 className='mt-4 text-center'>
             {action === 'add' ?
               "Form to add Service" :
-              "Form to edit Servicr"
+              "Form to edit Service"
             }
           </h4>
 

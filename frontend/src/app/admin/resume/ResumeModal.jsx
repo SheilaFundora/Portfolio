@@ -12,9 +12,9 @@ import {
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import {Controller, useForm} from "react-hook-form";
-import {handleSubmitData} from "@/helper/submitData";
+import {handleSubmitData} from "@/helper/crud/submitData";
 import {resume_end} from "@/constants/endpoints";
-import {handleEditData} from "@/helper/editData";
+import {handleEditData} from "@/helper/crud/editData";
 
 const ResumeModal = ({handleClickOpen, handleRefreshTable, action, resumeSelect = null, categoryData = null}) => {
   const { register, control, setValue, handleSubmit, formState: { errors } } = useForm('formResume');

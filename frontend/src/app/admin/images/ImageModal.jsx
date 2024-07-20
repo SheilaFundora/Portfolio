@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import {Button, DialogActions, DialogContent, TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import {useForm} from "react-hook-form";
-import {handleSubmitData} from "@/helper/submitData";
+import {handleSubmitData} from "@/helper/crud/submitData";
 import {images_end} from "@/constants/endpoints";
-import {handleEditData} from "@/helper/editData";
+import {handleEditData} from "@/helper/crud/editData";
 import {convertViewUrl} from "@/helper/ViewPublicUrl";
 
 const ImageModal = ({handleClickOpen, action, handleRefreshTable, imageSelect}) => {

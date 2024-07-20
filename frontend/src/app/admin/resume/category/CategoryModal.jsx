@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import Box from "@mui/material/Box";
 import {Button, DialogActions, DialogContent, TextField} from "@mui/material";
 import {useForm} from "react-hook-form";
-import {handleSubmitData} from "@/helper/submitData";
+import {handleSubmitData} from "@/helper/crud/submitData";
 import {category_end} from "@/constants/endpoints";
-import {handleEditData} from "@/helper/editData";
+import {handleEditData} from "@/helper/crud/editData";
 
 const CategoryModal = ({handleClickOpen, handleRefreshTable, action, categorySelect}) => {
   const { register, handleSubmit, formState: { errors } } = useForm('formResume');

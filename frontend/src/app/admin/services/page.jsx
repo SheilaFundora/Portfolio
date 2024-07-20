@@ -5,7 +5,7 @@ import ServiceModal from "@/app/admin/services/ServiceModal";
 import ModalForm from "@/components/adminComponents/other/ModalForm";
 import ButtonAdd from "@/components/adminComponents/other/ButtonAdd";
 import {services_end} from "@/constants/endpoints";
-import {getData} from "@/helper/getData";
+import {getData} from "@/helper/crud/getData";
 import ServiceTable from "@/app/admin/services/ServiceTable";
 
 

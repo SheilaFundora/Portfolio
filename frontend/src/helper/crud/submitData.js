@@ -1,4 +1,4 @@
-import {fetchData} from "@/helper/fetch";
+import {fetchData, fetchDataToken} from "@/helper/fetch";
 import Swal from "sweetalert2";
 
 export const handleSubmitData = async (handleClickOpen, endpoint, data, handleRefreshTable, name, setErrorMessage ) => {
@@ -11,7 +11,7 @@ export const handleSubmitData = async (handleClickOpen, endpoint, data, handleRe
   }
 
   try{
-    const resp = await fetchData(endpoint, data, "POST");
+    const resp = await fetchDataToken(endpoint, data, "POST");
 
     if (resp.status === 409) {
      await setErrorMessage("That " + name + " already exist");

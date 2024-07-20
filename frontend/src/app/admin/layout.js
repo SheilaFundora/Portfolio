@@ -22,7 +22,7 @@ import DrawerPersonalized from "@/components/adminComponents/Sidebar/DrawerPerso
 import LogoutIcon from '@mui/icons-material/Logout';
 import ModalForm from "@/components/adminComponents/other/ModalForm";
 import ModalChangePass from "@/components/adminComponents/other/ModalChangePass";
-import {fetchValidateToken} from "@/helper/fetch";
+import {fetchDataToken, fetchValidateToken} from "@/helper/fetch";
 import { validateToken_end} from "@/constants/endpoints";
 
 const drawerWidth = 280;
@@ -87,26 +87,32 @@ export default function PersistentDrawerLeft({children}) {
     router.push(routesAuth[0].link)
   };
 
-  useEffect( () => {
+  const verifyToken = async () => {
     const token = window.localStorage.getItem('token');
     const username = window.localStorage.getItem('username');
     const id = window.localStorage.getItem('id');
     setUsername(username);
 
-    if (token === null || username === null || id === null) {
-        router.push('/auth/login');
-    }else{
-      fetchValidateToken(validateToken_end).then((isValid) => {
-        if( isValid.status === 401){
-          window.localStorage.clear()
-          router.push(routesAuth[0].link)
+    if (!token || !username || !id) {
+      router.push('/auth/login');
+    } else {
+      try {
+        const response = await fetchDataToken(validateToken_end);
+        if (response.status === 401) {
+          window.localStorage.clear();
+          router.push(routesAuth[0].link);
         }
-      })
-      handleLoading();
-
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+      }
     }
+  };
 
-  }, [])
+
+  useEffect( () => {
+    verifyToken()
+  }, [router.asPath])
 
   if (isLoading ) {
     return (

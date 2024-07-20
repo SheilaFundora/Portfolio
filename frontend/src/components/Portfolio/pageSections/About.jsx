@@ -6,7 +6,7 @@ import { useInView } from 'react-intersection-observer';
 import {useSelector} from "react-redux";
 import {formatDate} from "@/helper/convertDate";
 import axios from "axios";
-import {getData} from "@/helper/getData";
+import {getData} from "@/helper/crud/getData";
 import {section_end} from "@/constants/endpoints";
 
 

@@ -8,7 +8,7 @@ import ModalForm from "@/components/adminComponents/other/ModalForm";
 import {resume_end} from "@/constants/endpoints";
 import ActionsTable from "@/components/adminComponents/other/ActionsTable";
 import ModalDelete from "@/components/adminComponents/other/ModalDelete";
-import {handleDelete} from "@/helper/deleteData";
+import {handleDelete} from "@/helper/crud/deleteData";
 import ResumeModal from "@/app/admin/resume/ResumeModal";
 import {formatDate} from "@/helper/convertDate";
 
@@ -53,7 +53,6 @@ const ResumeTable = ({resumeData, handleRefreshTable, categoryData}) => {
       >
         <Column field="category_id.name" header="Category" sortable filter style={{width: '25%'}}></Column>
         <Column field="titleImpt" header="Imp Title" sortable filter style={{width: '25%'}}></Column>
-        <Column field="titleSecondary" header="Sec Title" sortable filter style={{width: '25%'}}></Column>
         <Column
           field="date_init"
           header="Date init"
