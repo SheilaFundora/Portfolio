@@ -6,7 +6,7 @@ import ButtonAdd from "@/components/adminComponents/other/ButtonAdd";
 import ModalForm from "@/components/adminComponents/other/ModalForm";
 import {section_end} from "@/constants/endpoints";
 import SectionTable from "@/app/admin/section/SectionTable";
-import {getData} from "@/helper/getData";
+import {getData} from "@/helper/crud/getData";
 
 const Page = () => {
   const [openModal, setOpenModal] = React.useState(false);

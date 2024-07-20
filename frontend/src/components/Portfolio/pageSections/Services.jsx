@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import CardServices from "@/components/Portfolio/other/CardServices";
 import Box from "@mui/material/Box";
-import {getData} from "@/helper/getData";
+import {getData} from "@/helper/crud/getData";
 import {services_end} from "@/constants/endpoints";
 
 

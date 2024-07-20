@@ -6,7 +6,7 @@ import ModalDelete from "@/components/adminComponents/other/ModalDelete";
 import Box from "@mui/material/Box";
 import ActionsTable from "@/components/adminComponents/other/ActionsTable";
 import {category_end} from "@/constants/endpoints";
-import {handleDelete} from "@/helper/deleteData";
+import {handleDelete} from "@/helper/crud/deleteData";
 import CategoryModal from "@/app/admin/resume/category/CategoryModal";
 
 const CategoryTable = ({handleRefreshTable, categoryData}) => {

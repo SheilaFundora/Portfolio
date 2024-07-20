@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import SkillModal from "@/app/admin/skills/SkillModal";
 import ButtonAdd from "@/components/adminComponents/other/ButtonAdd";
 import ModalForm from "@/components/adminComponents/other/ModalForm";
-import {getData} from "@/helper/getData";
+import {getData} from "@/helper/crud/getData";
 import {skill_end} from "@/constants/endpoints";
 import SkillTable from "@/app/admin/skills/SkillTable";
 

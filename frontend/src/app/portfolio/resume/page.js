@@ -7,7 +7,7 @@ import Education from "@/components/Portfolio/resume/Education";
 import DataResume from "@/components/Portfolio/resume/DataResume";
 import Project from "@/components/Portfolio/resume/Project";
 import Experience from "@/components/Portfolio/resume/Experience";
-import {getData} from "@/helper/getData";
+import {getData} from "@/helper/crud/getData";
 import {resume_end} from "@/constants/endpoints";
 
 const Page = () => {

@@ -9,7 +9,7 @@ import LanguageIcon from '@mui/icons-material/Language';
 import {BarGraph} from "@/components/adminComponents/other/index/BarGraph";
 import PastelGraph from "@/components/adminComponents/other/index/PastelGraph";
 import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
-import {getData} from "@/helper/getData";
+import {getData} from "@/helper/crud/getData";
 import {project_end, services_end, skill_end} from "@/constants/endpoints";
 
 const Page = () => {

@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import ImageModal from "@/app/admin/images/ImageModal";
 import ButtonAdd from "@/components/adminComponents/other/ButtonAdd";
 import ModalForm from "@/components/adminComponents/other/ModalForm";
-import {getData} from "@/helper/getData";
+import {getData} from "@/helper/crud/getData";
 import {images_end} from "@/constants/endpoints";
 import ImageTable from "@/app/admin/images/ImageTable";
 

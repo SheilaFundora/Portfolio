@@ -8,7 +8,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import IconButton from "@mui/material/IconButton";
-import {getData} from "@/helper/getData";
+import {getData} from "@/helper/crud/getData";
 import {socialNet_end} from "@/constants/endpoints";
 
 

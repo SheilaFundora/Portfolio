@@ -6,7 +6,7 @@ import ModalForm from "@/components/adminComponents/other/ModalForm";
 import ModalDelete from "@/components/adminComponents/other/ModalDelete";
 import ActionsTable from "@/components/adminComponents/other/ActionsTable";
 import {project_end} from "@/constants/endpoints";
-import {handleDelete} from "@/helper/deleteData";
+import {handleDelete} from "@/helper/crud/deleteData";
 import ProjectModal from "@/app/admin/project/ProjectModal";
 import {formatDate} from "@/helper/convertDate";
 
