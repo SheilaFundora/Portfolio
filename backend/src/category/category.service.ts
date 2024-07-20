@@ -18,10 +18,17 @@ export class CategoryService {
 
   async findAll() {
     try {
-      const skills = await this.CatRep.find();
-      return skills.map(category => plainToClass(Category, category));
+      const categories = await this.CatRep.find({ relations: ['user_id'] });
+
+      return categories.map(category => {
+        const categoryWithUserId = {
+          ...plainToClass(Category, category),
+          user_id: category.user_id.id,  // Include only the user_id
+        };
+        return categoryWithUserId;
+      });
     } catch (error) {
-      throw new InternalServerErrorException('Error retrieving skills');
+      throw new InternalServerErrorException('Error retrieving categories');
     }
   }
 
@@ -75,21 +82,14 @@ export class CategoryService {
 
 
   async update(id: number, createCategoryDTO: CreateCategoryDTO): Promise<Category> {
-    const { resume, ...categoryData } = createCategoryDTO;
+    const { ...categoryData } = createCategoryDTO;
 
     try {
-      const category = await this.CatRep.findOne({ where: { id }, relations: ['resume', 'user_id'] });
+      const category = await this.CatRep.findOne({ where: { id }, relations: ['user_id'] });
       if (!category) {
         throw new NotFoundException('Category not found');
       }
 
-      if (resume) {
-        const resumeEntity = await this.ResumeRep.findOne({ where: { id: resume.id } });
-        if (!resumeEntity) {
-          throw new NotFoundException(`Resume not found with ID: ${resume.id}`);
-        }
-        category.resume = resumeEntity;
-      }
 
       this.CatRep.merge(category, categoryData);
       return await this.CatRep.save(category);

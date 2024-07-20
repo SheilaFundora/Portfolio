@@ -12,6 +12,7 @@ import { Usuario } from './entities/user.entity';
 import { AuthGuard } from '@nestjs/passport';
 
 import { ValidateTokenDto } from './dto/validate-token.dto';
+import { JwtAuthGuard } from './jwt-auth.guard';
 
 @Controller('auth')
 export class UsuarioController {
@@ -36,17 +37,19 @@ export class UsuarioController {
     return this.userService.activateUser(ActivateUserDto);
   }
   @Patch('/reset-pass')
+  @UseGuards(JwtAuthGuard)
   resetPass(@Body()resetPassword:resetPassword){
     return this.userService.requestResetPass(resetPassword)
   }
 
   @Patch('/link-pass')
+  @UseGuards(JwtAuthGuard)
   linkPass(@Body()linkPassDto:linkPassDto){
     return this.userService.linkPass(linkPassDto)
   }
 
   @Patch('/change-password')
-  @UseGuards(AuthGuard())
+  @UseGuards(JwtAuthGuard)
   changePassword(@Body()changePasswordDto:changePasswordDto,@GetUser()user:Usuario){
     return this.userService.changePass(changePasswordDto,user)
   }
@@ -80,11 +83,13 @@ export class UsuarioController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto);
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: string) {
     return this.userService.Delete(id);
   }

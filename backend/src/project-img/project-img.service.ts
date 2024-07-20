@@ -16,8 +16,17 @@ export class ProjectImgService {
 
   async findAll() {
     try {
-      const projects = await this.ProjectIMGRep.find();
-      return projects.map(project => plainToClass(ProjectIMG, project));
+      const projectImages = await this.ProjectIMGRep.find({ relations: ['project_id', 'project_id.user_id', 'project_id.skills'] });
+
+      return projectImages.map(projectImage => {
+        const projectWithFilteredFields = {
+          ...plainToClass(ProjectIMG, projectImage),
+            user_id: projectImage.user_id.id,
+            project_id: projectImage.project_id.id
+
+        };
+        return projectWithFilteredFields;
+      });
     } catch (error) {
       throw new InternalServerErrorException('Error retrieving project images');
     }

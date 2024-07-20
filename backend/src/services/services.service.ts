@@ -16,8 +16,15 @@ export class ServicesService {
 
   async findAll() {
     try {
-      const services = await this.ServicesRep.find();
-      return services.map(service => plainToClass(Services, service));
+      const services = await this.ServicesRep.find({ relations: ['user_id'] });
+
+      return services.map(service => {
+        const serviceWithFilteredFields = {
+          ...plainToClass(Services, service),
+          user_id: service.user_id.id  // Include only the user_id
+        };
+        return serviceWithFilteredFields;
+      });
     } catch (error) {
       throw new InternalServerErrorException('Error retrieving services');
     }

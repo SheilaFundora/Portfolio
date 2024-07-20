@@ -25,5 +25,6 @@ export class CreateResumeDto {
     subtitle:string;
     
     user_id:Usuario;
+    category_id:Category
 
 }

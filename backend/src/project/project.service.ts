@@ -18,8 +18,16 @@ export class ProjectService {
 
   async findAll() {
     try {
-      const projects = await this.ProjectRep.find();
-      return projects.map(project => plainToClass(Project, project));
+      const projects = await this.ProjectRep.find({ relations: ['user_id', 'skills'] });
+
+      return projects.map(project => {
+        const projectWithFilteredSkills = {
+          ...plainToClass(Project, project),
+          user_id: project.user_id.id,  // Include only the user_id
+          skills: project.skills.map(skill => ({ id: skill.id }))  // Include only the id of each skill
+        };
+        return projectWithFilteredSkills;
+      });
     } catch (error) {
       throw new InternalServerErrorException('Error retrieving projects');
     }
@@ -100,10 +108,10 @@ export class ProjectService {
 
 
   async update(id: number, updateProjectDto: UpdateProjectDto): Promise<Project> {
-    const { skill_ids, user_id, dateProject, ...projectData } = updateProjectDto;
+    const { skill_ids, dateProject, ...projectData } = updateProjectDto;
 
     try {
-      const project = await this.ProjectRep.findOne({ where: { id }, relations: ['user', 'skills'] });
+      const project = await this.ProjectRep.findOne({ where: { id }, relations: ['user_id', 'skills'] });
       if (!project) {
         throw new NotFoundException('Project not found');
       }
@@ -124,12 +132,21 @@ export class ProjectService {
         project.dateProject = dateProject;
       }
 
-      this.ProjectRep.merge(project, projectData);
+      // Excluir user_id y id de ser actualizados
+      const { user_id, id: dtoId, ...allowedUpdates } = projectData;
+
+      // Verificar los campos opcionales antes de fusionar
+      Object.keys(allowedUpdates).forEach(key => {
+        if (allowedUpdates[key] !== undefined) {
+          project[key] = allowedUpdates[key];
+        }
+      });
+
       return await this.ProjectRep.save(project);
     } catch (error) {
       throw new InternalServerErrorException('Error updating project');
     }
-  }
+  } 
 
   async delete(id: number) {
     try {

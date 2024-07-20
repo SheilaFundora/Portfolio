@@ -17,8 +17,15 @@ export class SkillService {
 
   async findAll() {
     try {
-      const skills = await this.SkillRep.find();
-      return skills.map(skill => plainToClass(Skill, skill));
+      const skills = await this.SkillRep.find({ relations: ['user_id'] });
+
+      return skills.map(skill => {
+        const skillWithFilteredFields = {
+          ...plainToClass(Skill, skill),
+          user_id: skill.user_id.id  // Include only the user_id
+        };
+        return skillWithFilteredFields;
+      });
     } catch (error) {
       throw new InternalServerErrorException('Error retrieving skills');
     }

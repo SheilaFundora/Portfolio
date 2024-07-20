@@ -1,13 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { ResumeService } from './resume.service';
 import { CreateResumeDto } from './dto/create-resume.dto';
 import { UpdateResumeDto } from './dto/update-resume.dto';
+import { JwtAuthGuard } from 'src/usuario/jwt-auth.guard';
 
 @Controller('api/resume')
 export class ResumeController {
   constructor(private readonly resumeService: ResumeService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
   create(@Body() createResumeDto: CreateResumeDto) {
     return this.resumeService.create(createResumeDto);
   }
@@ -23,11 +25,13 @@ export class ResumeController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() CreateResumeDto: CreateResumeDto) {
-    return this.resumeService.update(+id, CreateResumeDto);
+  @UseGuards(JwtAuthGuard)
+  update(@Param('id') id: string, @Body() UpdateResumeDto: UpdateResumeDto) {
+    return this.resumeService.update(+id, UpdateResumeDto);
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: string) {
     return this.resumeService.delete(+id);
   }
