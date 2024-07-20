@@ -1,13 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { PhotoService } from './photo.service';
 import { CreatePhotoDto } from './dto/create-photo.dto';
 import { UpdatePhotoDto } from './dto/update-photo.dto';
+import { JwtAuthGuard } from 'src/usuario/jwt-auth.guard';
 
 @Controller('api/photo')
 export class PhotoController {
   constructor(private readonly photoService: PhotoService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
   create(@Body() createPhotoDto: CreatePhotoDto) {
     return this.photoService.create(createPhotoDto);
   }
@@ -23,11 +25,13 @@ export class PhotoController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
   update(@Param('id') id: string, @Body() CreatePhotoDto: CreatePhotoDto) {
     return this.photoService.update(+id, CreatePhotoDto);
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: string) {
     return this.photoService.delete(+id);
   }

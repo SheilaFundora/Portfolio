@@ -8,6 +8,5 @@ export class CreateCategoryDTO {
     id:number;
     name:string;
 
-    resume: Resume;
     user_id:Usuario;
 }

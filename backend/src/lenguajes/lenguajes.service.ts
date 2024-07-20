@@ -25,8 +25,15 @@ export class LenguajesService {
 
   async findAll() {
     try {
-      const lenguajes = await this.LenguajeRepo.find();
-      return lenguajes.map(lenguaje => plainToClass(Lenguaje, lenguaje));
+      const lenguajes = await this.LenguajeRepo.find({ relations: ['user_id'] });
+
+      return lenguajes.map(lenguaje => {
+        const lenguajeWithUserId = {
+          ...plainToClass(Lenguaje, lenguaje),
+          user_id: lenguaje.user_id.id,  // Include only the user_id
+        };
+        return lenguajeWithUserId;
+      });
     } catch (error) {
       throw new InternalServerErrorException('Error retrieving lenguajes');
     }

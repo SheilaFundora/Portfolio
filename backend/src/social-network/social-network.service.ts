@@ -14,8 +14,15 @@ export class SocialNetworkService {
 
   async findAll() {
     try {
-      const socials = await this.SocialNetworkRep.find();
-      return socials.map(social => plainToClass(SocialNetwork, social));
+      const socials = await this.SocialNetworkRep.find({ relations: ['user_id'] });
+
+      return socials.map(social => {
+        const socialWithFilteredFields = {
+          ...plainToClass(SocialNetwork, social),
+          user_id: social.user_id.id  // Include only the user_id
+        };
+        return socialWithFilteredFields;
+      });
     } catch (error) {
       throw new InternalServerErrorException('Error retrieving social networks');
     }

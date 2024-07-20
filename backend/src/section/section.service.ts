@@ -16,8 +16,15 @@ export class SectionService {
 
   async findAll() {
     try {
-      const sections = await this.SectionRep.find();
-      return sections.map(section => plainToClass(Section, section));
+      const sections = await this.SectionRep.find({ relations: ['user_id'] });
+
+      return sections.map(section => {
+        const sectionWithFilteredFields = {
+          ...plainToClass(Section, section),
+          user_id: section.user_id.id  // Include only the user_id
+        };
+        return sectionWithFilteredFields;
+      });
     } catch (error) {
       throw new InternalServerErrorException('Error retrieving sections');
     }

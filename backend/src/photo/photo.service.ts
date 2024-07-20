@@ -16,8 +16,15 @@ export class PhotoService {
 
   async findAll() {
     try {
-      const photos = await this.PhotoRep.find();
-      return photos.map(photo => plainToClass(Photo, photo));
+      const photos = await this.PhotoRep.find({ relations: ['user_id'] });
+
+      return photos.map(photo => {
+        const photoWithUserId = {
+          ...plainToClass(Photo, photo),
+          user_id: photo.user_id.id,  // Include only the user_id
+        };
+        return photoWithUserId;
+      });
     } catch (error) {
       throw new InternalServerErrorException('Error retrieving photos');
     }

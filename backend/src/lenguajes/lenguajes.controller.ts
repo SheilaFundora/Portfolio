@@ -1,13 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { LenguajesService } from './lenguajes.service';
 import { CreateLenguajeDto } from './dto/create-lenguaje.dto';
 import { UpdateLenguajeDto } from './dto/update-lenguaje.dto';
+import { JwtAuthGuard } from 'src/usuario/jwt-auth.guard';
 
 @Controller('api/lenguajes')
 export class LenguajesController {
   constructor(private readonly lenguajesService: LenguajesService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
   create(@Body() createLenguajeDto: CreateLenguajeDto) {
     return this.lenguajesService.create(createLenguajeDto);
   }
@@ -23,11 +25,13 @@ export class LenguajesController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
   update(@Param('id') id: string, @Body() updateLenguajeDto: UpdateLenguajeDto) {
     return this.lenguajesService.update(+id, updateLenguajeDto);
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: string) {
     return this.lenguajesService.remove(+id);
   }

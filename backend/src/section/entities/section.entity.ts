@@ -8,7 +8,7 @@ export class Section {
 
     @PrimaryGeneratedColumn()
     id:number;
-    @Column({nullable:false})
+    @Column({nullable:false,unique:true})
     title:string;
 
     @Column({nullable:false,type:'varchar'})
