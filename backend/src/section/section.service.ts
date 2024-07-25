@@ -47,7 +47,13 @@ export class SectionService {
         relations: ['user_id'],
       });
   
-      return skills.map(skill => plainToClass(Section, skill));
+      return skills.map(service => {
+        const serviceWithFilteredFields = {
+          ...plainToClass(Section, service),
+          user_id: service.user_id.id  // Include only the user_id
+        };
+        return serviceWithFilteredFields;
+      });
     } catch (error) {
       if (error instanceof NotFoundException) {
         throw error;

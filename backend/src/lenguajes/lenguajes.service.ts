@@ -56,7 +56,13 @@ export class LenguajesService {
         relations: ['user_id'],
       });
   
-      return skills.map(skill => plainToClass(Lenguaje, skill));
+      return skills.map(service => {
+        const serviceWithFilteredFields = {
+          ...plainToClass(Lenguaje, service),
+          user_id: service.user_id.id  // Include only the user_id
+        };
+        return serviceWithFilteredFields;
+      });
     } catch (error) {
       if (error instanceof NotFoundException) {
         throw error;

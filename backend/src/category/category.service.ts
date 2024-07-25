@@ -18,15 +18,11 @@ export class CategoryService {
 
   async findAll() {
     try {
-      const categories = await this.CatRep.find({ relations: ['user_id'] });
+      const categories = await this.CatRep.find({ relations: ['user_id','resumes'] });
 
-      return categories.map(category => {
-        const categoryWithUserId = {
-          ...plainToClass(Category, category),
-          user_id: category.user_id.id,  // Include only the user_id
-        };
-        return categoryWithUserId;
-      });
+
+        return categories;
+
     } catch (error) {
       throw new InternalServerErrorException('Error retrieving categories');
     }
@@ -46,10 +42,16 @@ export class CategoryService {
         where: {
           user_id: user, // Aquí usamos el objeto `user` directamente
         },
-        relations: ['user_id'],
+        relations: ['user_id','resumes'],
       });
   
-      return skills.map(skill => plainToClass(Category, skill));
+      return skills.map(service => {
+        const serviceWithFilteredFields = {
+          ...plainToClass(Category, service),
+          user_id: service.user_id.id  // Include only the user_id
+        };
+        return serviceWithFilteredFields;
+      });
     } catch (error) {
       if (error instanceof NotFoundException) {
         throw error;

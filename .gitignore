@@ -30,7 +30,7 @@ frontend/.vercel
 # compiled output
 backend/dist
 backend/node_modules
-backend/.development.env
+
 
 # Logs
 backend/logs
@@ -56,6 +56,8 @@ backend/.c9/
 backend.launch
 backend/.settings/
 backend.sublime-workspace
+backend/.development.env
+backend.development.env
 
 # IDE - VSCode
 backend/.vscode/*

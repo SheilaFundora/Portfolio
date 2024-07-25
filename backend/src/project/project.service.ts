@@ -18,16 +18,11 @@ export class ProjectService {
 
   async findAll() {
     try {
-      const projects = await this.ProjectRep.find({ relations: ['user_id', 'skills'] });
+      const projects = await this.ProjectRep.find({ relations: ['user_id', 'skills','prosImgs'] });
 
-      return projects.map(project => {
-        const projectWithFilteredSkills = {
-          ...plainToClass(Project, project),
-          user_id: project.user_id.id,  // Include only the user_id
-          skills: project.skills.map(skill => ({ id: skill.id }))  // Include only the id of each skill
-        };
-        return projectWithFilteredSkills;
-      });
+
+        return projects;
+
     } catch (error) {
       throw new InternalServerErrorException('Error retrieving projects');
     }
@@ -47,7 +42,7 @@ export class ProjectService {
         where: {
           user_id: user, // Aquí usamos el objeto `user` directamente
         },
-        relations: ['user_id'],
+        relations: ['user_id', 'prosImgs','skills'],
       });
   
       return skills.map(skill => plainToClass(Project, skill));

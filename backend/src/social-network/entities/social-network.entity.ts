@@ -7,7 +7,7 @@ export class SocialNetwork {
 
     @PrimaryGeneratedColumn()
     id:number;
-    @Column({nullable:false})
+    @Column({nullable:false,unique:true})
     name:string;
 
     @Column({nullable:false,unique:true})
