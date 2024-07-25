@@ -18,6 +18,11 @@ export class PhotoController {
   findAll() {
     return this.photoService.findAll();
   }
+  
+  @Get('section/:section')
+  async findBySection(@Param('section') section: string) {
+    return this.photoService.findBySection(section);
+  }
 
   @Get('user/:user_id')
   findByUserId(@Param('user_id') user_id: string) {

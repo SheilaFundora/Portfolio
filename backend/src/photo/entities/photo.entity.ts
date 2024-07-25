@@ -7,7 +7,7 @@ export class Photo {
 
     @PrimaryGeneratedColumn()
     id:number;
-    @Column({nullable:false})
+    @Column({nullable:false,unique:true})
     section:string;
     @Column({  nullable: true })
     imgs: string;

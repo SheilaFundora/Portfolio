@@ -47,12 +47,38 @@ export class PhotoService {
         relations: ['user_id'],
       });
   
-      return skills.map(skill => plainToClass(Photo, skill));
+      return skills.map(service => {
+        const serviceWithFilteredFields = {
+          ...plainToClass(Photo, service),
+          user_id: service.user_id.id  // Include only the user_id
+        };
+        return serviceWithFilteredFields;
+      });
     } catch (error) {
       if (error instanceof NotFoundException) {
         throw error;
       }
       throw new InternalServerErrorException('Error retrieving skills by user ID');
+    }
+  }
+  
+  async findBySection(section: string) {
+    try {
+      const photos = await this.PhotoRep.find({ where: { section }, relations: ['user_id'] });
+
+      if (!photos.length) {
+        throw new NotFoundException('No photos found for the given section');
+      }
+
+      return photos.map(photo => {
+        const photoWithFilteredFields = {
+          ...plainToClass(Photo, photo),
+          user_id: photo.user_id.id  // Include only the user_id
+        };
+        return photoWithFilteredFields;
+      });
+    } catch (error) {
+      throw new InternalServerErrorException('Error retrieving photos by section');
     }
   }
 

@@ -7,11 +7,11 @@ export class Services {
 
     @PrimaryGeneratedColumn()
     id:number;
-    @Column({nullable:false})
+    @Column({nullable:false,unique:true})
     name:string;
-    @Column({nullable:false,type:'varchar'})
+    @Column({nullable:false,type:'varchar',unique:true})
     description:string;
-    @Column({ nullable: true })
+    @Column({ nullable: true,unique:true})
     icon: string;
 
 

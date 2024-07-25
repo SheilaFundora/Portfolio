@@ -9,7 +9,6 @@ export class ServicesController {
   constructor(private readonly servicesService: ServicesService) {}
 
   @Post()
-  @UseGuards(JwtAuthGuard)
   create(@Body() createServiceDto: CreateServiceDto) {
     return this.servicesService.create(createServiceDto);
   }
@@ -22,10 +21,9 @@ export class ServicesController {
   findByUserId(@Param('username') username: string) {
     return this.servicesService.findByUserId(username);
   }
-
-  @UseGuards(JwtAuthGuard)
-  update(@Param('id') id: string, @Body() CreateServiceDto: CreateServiceDto) {
-    return this.servicesService.update(+id, CreateServiceDto);
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() UpdateServiceDto: UpdateServiceDto) {
+    return this.servicesService.update(+id, UpdateServiceDto);
   }
 
   @Delete(':id')

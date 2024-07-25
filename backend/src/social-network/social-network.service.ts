@@ -43,7 +43,13 @@ export class SocialNetworkService {
         throw new NotFoundException(`No social networks found for username: ${username}`);
       }
 
-      return socials.map(social => plainToClass(SocialNetwork, social));
+      return socials.map(service => {
+        const serviceWithFilteredFields = {
+          ...plainToClass(SocialNetwork, service),
+          user_id: service.user_id.id  // Include only the user_id
+        };
+        return serviceWithFilteredFields;
+      });
     } catch (error) {
       throw new InternalServerErrorException('Error retrieving social networks by username');
     }
