@@ -23,8 +23,6 @@ export const fetchDataToken = ( endpoint, data, method = 'GET' ) => {
   const url = `${ baseUrl }${ endpoint }`;
   const token = localStorage.getItem('token') || '';
 
-  console.log(token)
-
   if ( method === 'GET' ) {
     return fetch( url );
   } else {
@@ -37,5 +35,18 @@ export const fetchDataToken = ( endpoint, data, method = 'GET' ) => {
       body: JSON.stringify( data )
     });
   }
+}
+
+export const fetchValidateToken = ( endpoint, method = 'POST' ) => {
+  const url = `${ baseUrl }${ endpoint }`;
+  const token = localStorage.getItem('token') || ''; //recibiendo el token del localStorage
+
+  return fetch( url, {
+    method,
+    headers: {
+      'Content-type': 'application/json',
+      'authorization': `Bearer ${token}`
+    },
+  });
 }
 

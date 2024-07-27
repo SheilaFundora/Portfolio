@@ -97,11 +97,13 @@ export default function PersistentDrawerLeft({children}) {
       router.push('/auth/login');
     } else {
       try {
-        const response = await fetchDataToken(validateToken_end);
-        if (response.status === 401) {
-          window.localStorage.clear();
-          router.push(routesAuth[0].link);
-        }
+        fetchValidateToken(validateToken_end).then((isValid) => {
+          console.log(isValid)
+          if( isValid.status === 401){
+            window.localStorage.clear()
+            router.push(routesAuth[0].link)
+          }
+        })
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
