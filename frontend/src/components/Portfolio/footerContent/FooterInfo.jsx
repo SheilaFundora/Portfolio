@@ -4,29 +4,18 @@ import SocialNet from "@/components/Portfolio/footerContent/SocialNet";
 import DataUserFoot from "@/components/Portfolio/footerContent/DataUserFoot";
 import FormContact from "@/components/Portfolio/footerContent/FormContact";
 import {section_end} from "@/constants/endpoints";
-import axios from "axios";
+import {getDataByParamer} from "@/helper/getDataByParamer";
 
 
 const FooterInfo = ({user}) => {
   const [sectionData, setSectionData] = React.useState([]);
 
   useEffect( () => {
-    getDataSection(section_end);
+    const endSectByTitle =  section_end  +  '/title/' +  'Footer/'
+
+    getDataByParamer(endSectByTitle, setSectionData)
 
   }, [])
-
-  const getDataSection = async () => {
-    const username = window.localStorage.getItem('username')
-
-    try {
-      const response = await axios.get(
-        process.env.NEXT_PUBLIC_API_HOST + section_end  +  '/title/' +  'Footer/'
-      )
-      await setSectionData(response.data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   return (
       <Box sx={{

@@ -64,19 +64,13 @@ export class PhotoService {
   
   async findBySection(section: string) {
     try {
-      const photos = await this.PhotoRep.find({ where: { section }, relations: ['user_id'] });
+      const photo = await this.PhotoRep.findOne({ where: { section }} );
 
-      if (!photos.length) {
+      if (!photo) {
         throw new NotFoundException('No photos found for the given section');
       }
 
-      return photos.map(photo => {
-        const photoWithFilteredFields = {
-          ...plainToClass(Photo, photo),
-          user_id: photo.user_id.id  // Include only the user_id
-        };
-        return photoWithFilteredFields;
-      });
+      return plainToClass(Photo, photo);
     } catch (error) {
       throw new InternalServerErrorException('Error retrieving photos by section');
     }

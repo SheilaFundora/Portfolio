@@ -9,9 +9,9 @@ export class Services {
     id:number;
     @Column({nullable:false,unique:true})
     name:string;
-    @Column({nullable:false,type:'varchar',unique:true})
+    @Column({nullable:false,type:'varchar'})
     description:string;
-    @Column({ nullable: true,unique:true})
+    @Column({ nullable: true})
     icon: string;
 
 

@@ -29,13 +29,13 @@ const ProjectImgModal = ({handleClickOpen, handleRefreshTable, action, projectDa
   }, [])
 
   const handleSubmitProjectImg = async (data) => {
-    data.imgs = convertViewUrl(data.imgs)
+    data.imgs = [convertViewUrl(data.imgs)]
     await handleSubmitData(handleClickOpen, imgProject_end, data, handleRefreshTable, 'category', setErrorMessage);
   }
 
   const handleEditResumeProjectImg = async (data) => {
     const endpoint = imgProject_end + '/' + projectImageSelect.id +'/';
-    data.imgs = convertViewUrl(data.imgs)
+    data.imgs = [convertViewUrl(data.imgs)]
 
     await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'category');
   }
@@ -56,8 +56,8 @@ const ProjectImgModal = ({handleClickOpen, handleRefreshTable, action, projectDa
         <DialogContent>
           <h4 className='mt-4 text-center'>
             {action === 'add' ?
-              "Form to add Image for Project" :
-              "Form to edit Image for Project"
+              "Form to add Project Images" :
+              "Form to edit Project Images"
             }
           </h4>
 

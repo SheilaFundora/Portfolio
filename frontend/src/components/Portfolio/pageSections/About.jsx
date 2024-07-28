@@ -5,9 +5,8 @@ import {motion} from "framer-motion";
 import { useInView } from 'react-intersection-observer';
 import {useSelector} from "react-redux";
 import {formatDate} from "@/helper/convertDate";
-import axios from "axios";
-import {getData} from "@/helper/crud/getData";
 import {section_end} from "@/constants/endpoints";
+import {getDataByParamer} from "@/helper/getDataByParamer";
 
 
 
@@ -16,22 +15,10 @@ const About = () => {
   const [sectionData, setSectionData] = React.useState([]);
 
   useEffect( () => {
-    getDataSection(section_end);
+    const endSectByTitle =  section_end  +  '/title/' +  'About/'
+    getDataByParamer(endSectByTitle, setSectionData);
 
   }, [])
-
-  const getDataSection = async () => {
-    const username = window.localStorage.getItem('username')
-
-    try {
-      const response = await axios.get(
-        process.env.NEXT_PUBLIC_API_HOST + section_end  +  '/title/' +  'About/'
-      )
-      await setSectionData(response.data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   const { ref, inView } = useInView({
     triggerOnce: true, // Para que la animación solo se active una vez

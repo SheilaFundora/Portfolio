@@ -1,10 +1,13 @@
 import React from 'react';
 
-const ListDescription = ({info, dataDescription=[]}) => {
-    return (
+const ListDescription = ({ dataDescription}) => {
+  const dataLink = [1,2,3]
+  console.log(dataDescription)
+
+  return (
         <div>
             <ul>
-                {dataDescription.map((item, index) => (
+                {dataLink.map((item, index) => (
                     <li key={index} className="test-resume-style my-1">{item}</li>
                 ))}
             </ul>

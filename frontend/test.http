@@ -1,34 +1,12 @@
 
-
-POST http://localhost:5000/auth/register
+POST http://localhost:5000/api/project-img
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVlMTMyMjY5LTliZGItNDk0Mi05ZmU4LTFmYTQ0YTA0ZjIwZCIsInVzZXJuYW1lIjoic2hlaWxhIiwiYWN0aXZlIjpmYWxzZSwiaWF0IjoxNzIyMTMyOTcyLCJleHAiOjE3MjIxMzY1NzJ9.FGO_PrltNkWEd145onKTrrHimNBrJsucMY44KJLX8mI
+
+{"imgs":["https://drive.google.com/uc?export=view&id=11Fhdwy7DuYRm62NPdkIio-__c80MRtc7"],"project_id":42,"user_id":"ee132269-9bdb-4942-9fe8-1fa44a04f20d"}
 
 
-{
-  "username": "sheila",
-  "email": "sheilafuora0@4gmail.com",
-  "password": "12345"
-}
-###
-
-GET http://localhost:5000/auth/
-Content-Type: application/json
 
 
 ###
 
-GET http://localhost:5000/api/social-network/
-Content-Type: application/json
-###
-
-
-PATCH http://localhost:5000/api/skill/33
-Content-Type: application/json
-
-{"name":"2", "group":"","porcent":"","icon":"","user_id":"ee132269-9bdb-4942-9fe8-1fa44a04f20d"}
-
-###
-
-
-GET http://localhost:5000/api/skill/
-Content-Type: application/json

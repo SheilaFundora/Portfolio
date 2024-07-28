@@ -14,8 +14,6 @@ const Skills = () => {
     getData(skill_end, setSkillData)
   }, [])
 
-  console.log(skillData)
-
   const { ref, inView } = useInView({
       triggerOnce: true, // Para que la animación solo se active una vez
       threshold: 0.2, // Umbral de visibilidad, 0.5 significa que al menos la mitad del elemento debe estar visible
