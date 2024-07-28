@@ -5,7 +5,7 @@ import CounterItem from "@/components/Portfolio/other/CounterItem";
 import { useCountUp } from 'react-countup';
 import {useInView} from "react-intersection-observer";
 import {useSelector} from "react-redux";
-import {getData} from "@/helper/crud/getData";
+import {getData, getDataPortfolio} from "@/helper/crud/getData";
 import {project_end, services_end, skill_end} from "@/constants/endpoints";
 
 const DataAbout = () => {
@@ -15,9 +15,9 @@ const DataAbout = () => {
   const [service, setService] = useState([]);
 
   useEffect( () => {
-    getData(project_end, setProject)
-    getData(skill_end, setSkill)
-    getData(services_end, setService)
+    getDataPortfolio(project_end, setProject)
+    getDataPortfolio(skill_end, setSkill)
+    getDataPortfolio(services_end, setService)
   }, [])
 
   return (

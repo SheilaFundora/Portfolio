@@ -16,143 +16,158 @@ import {routesPage} from "@/constants/apiRoutesPage";
 import {routesAuth} from "@/constants/apiRoutesAuth";
 import PersonIcon from '@mui/icons-material/Person';
 import {motion} from "framer-motion";
+import {useSelector} from "react-redux";
 
 function Header() {
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [showShadow, setShowShadow] = useState(false);
-    const pathname = usePathname();
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [showShadow, setShowShadow] = useState(false);
+  const {img} = useSelector((state) => state.images)
+  const imgHeader = (img || []).find(item => item.section === 'Header' || item.section === 'header');
 
 
-    useEffect(() => {
-        const handleScroll = () => {
-            // Determina si la posición de desplazamiento es mayor que 0 para mostrar la sombra
-            const shouldShowShadow = window.scrollY > 0;
-            setShowShadow(shouldShowShadow);
-        };
+  const pathname = usePathname();
 
-        // Agrega un listener de scroll cuando el componente se monta
-        window.addEventListener('scroll', handleScroll);
-
-        // Limpia el listener cuando el componente se desmonta
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
-
-    const handleOpenNavMenu = (event) => {
-        setAnchorElNav(event.currentTarget);
+  useEffect(() => {
+    const handleScroll = () => {
+        // Determina si la posición de desplazamiento es mayor que 0 para mostrar la sombra
+        const shouldShowShadow = window.scrollY > 0;
+        setShowShadow(shouldShowShadow);
     };
 
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
+    // Agrega un listener de scroll cuando el componente se monta
+    window.addEventListener('scroll', handleScroll);
+
+    // Limpia el listener cuando el componente se desmonta
+    return () => {
+        window.removeEventListener('scroll', handleScroll);
     };
+  }, []);
 
 
-    return (
-        <AppBar
-            position="sticky"
-            className={'bg-white'}
-            elevation={0}
-            style={{
-                boxShadow: showShadow ? '0px 4px 8px rgba(0, 0, 0, 0.08)' : 'none',
-            }}
-        >
-            <motion.div initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 1}}>
+  const handleOpenNavMenu = (event) => {
+      setAnchorElNav(event.currentTarget);
+  };
 
-                <Container maxWidth="lg">
-                    <Toolbar className={'justify-content-between'}>
-                        <Link href={'/'}>
-                            <div>
-                                {/* Oculta la imagen en dispositivos móviles */}
-                                <Hidden only={['xs', 'sm']}>
+  const handleCloseNavMenu = () => {
+      setAnchorElNav(null);
+  };
+
+
+  return (
+      <AppBar
+          position="sticky"
+          className={'bg-white'}
+          elevation={0}
+          style={{
+              boxShadow: showShadow ? '0px 4px 8px rgba(0, 0, 0, 0.08)' : 'none',
+          }}
+      >
+          <motion.div initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 1}}>
+
+              <Container maxWidth="lg">
+                  <Toolbar className={'justify-content-between'}>
+                      <Link href={'/'}>
+                          <div>
+                              {/* Oculta la imagen en dispositivos móviles */}
+                              <Hidden only={['xs', 'sm']}>
+                                {
+                                  imgHeader && imgHeader.imgs ?
                                     <Image
-                                        src={'https://drive.google.com/uc?export=view&id=11Fhdwy7DuYRm62NPdkIio-__c80MRtc7'}
-
-                                        alt={'Logotipo'}
-                                        width={180}
-                                        height={70}
-                                        priority
+                                      src={ imgHeader.imgs }
+                                      alt={'Logotipo'}
+                                      width={180}
+                                      height={70}
+                                      priority
                                     />
-                                </Hidden>
+                                    :
+                                    ''
+                                }
 
-                                {/* Muestra la imagen pequeña en pantallas pequeñas */}
-                                <Hidden only={['md', 'lg', 'xl']}>
+                              </Hidden>
+
+                              {/* Muestra la imagen pequeña en pantallas pequeñas */}
+                              <Hidden only={['md', 'lg', 'xl']}>
+                                {
+                                  imgHeader && imgHeader.imgs ?
                                     <Image
-                                        src={'/img/logotipo.jpg'}
-                                        alt={'Logotype'}
-                                        width={150}
-                                        height={70}
+                                      src={ imgHeader.imgs }
+                                      alt={'Logotipo'}
+                                      width={180}
+                                      height={70}
+                                      priority
                                     />
-                                </Hidden>
-                            </div>
-                        </Link>
+                                    :
+                                    ''
+                                }
+                              </Hidden>
+                          </div>
+                      </Link>
 
 
-                        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                            <div>
-                                <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
-                                    <IconButton
-                                        size="large"
-                                        aria-label="account of current user"
-                                        aria-controls="menu-appbar"
-                                        aria-haspopup="true"
-                                        onClick={handleOpenNavMenu}
-                                        color="black"
-                                    >
-                                        <MenuIcon style={{fontSize: 35}}/>
-                                    </IconButton>
-                                    <MyMenuModal pathname={pathname} open={Boolean(anchorElNav)}
-                                                 onClose={handleCloseNavMenu}
-                                                 pages={routesPage}/>
+                      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                          <div>
+                              <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
+                                  <IconButton
+                                      size="large"
+                                      aria-label="account of current user"
+                                      aria-controls="menu-appbar"
+                                      aria-haspopup="true"
+                                      onClick={handleOpenNavMenu}
+                                      color="black"
+                                  >
+                                      <MenuIcon style={{fontSize: 35}}/>
+                                  </IconButton>
+                                  <MyMenuModal pathname={pathname} open={Boolean(anchorElNav)}
+                                               onClose={handleCloseNavMenu}
+                                               pages={routesPage}/>
 
-                                </Box>
+                              </Box>
 
-                                <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
-                                    <List sx={{display: 'flex', flexDirection: 'row'}}>
-                                        {routesPage.map((page) => (
-                                            <ListItem key={page.name}>
-                                                <Link
-                                                    href={page.link}
-                                                    underline="none"
-                                                    className={`link-sidebar ${pathname === page.link ? 'active' : ''}`}
-                                                >
+                              <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
+                                  <List sx={{display: 'flex', flexDirection: 'row'}}>
+                                      {routesPage.map((page) => (
+                                          <ListItem key={page.name}>
+                                              <Link
+                                                  href={page.link}
+                                                  underline="none"
+                                                  className={`link-sidebar ${pathname === page.link ? 'active' : ''}`}
+                                              >
 
-                                                    <ListItemText>
-                                                <span style={{
-                                                    fontSize: '19px',
-                                                    fontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'
-                                                }}>{page.name}</span>
-                                                    </ListItemText>
-                                                </Link>
-                                            </ListItem>
+                                                  <ListItemText>
+                                              <span style={{
+                                                  fontSize: '19px',
+                                                  fontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'
+                                              }}>{page.name}</span>
+                                                  </ListItemText>
+                                              </Link>
+                                          </ListItem>
 
-                                        ))}
-                                    </List>
-                                </Box>
-                            </div>
+                                      ))}
+                                  </List>
+                              </Box>
+                          </div>
 
-                            <Box sx={{marginLeft: '20px', display: {xs: 'none', md: 'flex'}}}>
-                              <Link href={routesAuth[0].link} underline="none" className={`link-sidebar-admin ${pathname === '/auth/login' ? 'active' : ''}`}>
-                                    <ListItemIcon>
-                                        <PersonIcon style={{fontSize: '35px'}}
-                                                    onMouseOver={(e) => e.target.style.color = '#05097c '}
-                                                    onMouseOut={(e) => e.target.style.color = 'black'}
-                                        />
-                                    </ListItemIcon>
-                                </Link>
-                            </Box>
+                          <Box sx={{marginLeft: '20px', display: {xs: 'none', md: 'flex'}}}>
+                            <Link href={routesAuth[0].link} underline="none" className={`link-sidebar-admin ${pathname === '/auth/login' ? 'active' : ''}`}>
+                                  <ListItemIcon>
+                                      <PersonIcon style={{fontSize: '35px'}}
+                                                  onMouseOver={(e) => e.target.style.color = '#05097c '}
+                                                  onMouseOut={(e) => e.target.style.color = 'black'}
+                                      />
+                                  </ListItemIcon>
+                              </Link>
+                          </Box>
 
-                        </div>
+                      </div>
 
 
-                    </Toolbar>
-                </Container>
+                  </Toolbar>
+              </Container>
 
-            </motion.div>
+          </motion.div>
 
-        </AppBar>
-)
-    ;
+      </AppBar>
+  )
 }
 
 export default Header;

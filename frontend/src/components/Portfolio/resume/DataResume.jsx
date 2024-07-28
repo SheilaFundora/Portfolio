@@ -5,25 +5,28 @@ import Subtitle from "@/components/Portfolio/resume/ContentResume/Subtitle";
 import ListDescription from "@/components/Portfolio/resume/ContentResume/ListDescription";
 import DatesAndPlace from "@/components/Portfolio/resume/ContentResume/DatesAndPlace";
 
-const text = 'Innovative full stack developer, 5th year student of the "Information\n' +
-    '                Science Engineering"\n' +
-    '                career, eager to learn new technologies, teamwork and above all continue polishing my\n' +
-    '                skills.'
 const DataResume = (props) => {
-    const contactInfo = ["Estados Unidos, Florida", "+1 754 610 0521", "sheilafundora04@gmail.com"];
-    const { id, titleImpt, description, titleSecondary, link, city, country, date_init, date_end , category_id, subtitle} = props;
-    const dataDescription = description.split('\n');
+    const {name, resumes} = props;
 
     return (
         <div>
-            <TitleSection name={category_id.name} />
+          {
+            resumes.length > 0 ?
+              <TitleSection name={name} />
+              :
+              ''
+          }
 
-            <div className={'resume-item'}>
-              <Title name={titleImpt} subinfo={titleSecondary} linkPlace={link}/>
-              <DatesAndPlace dateInit={date_init} city={city} country={country} date_end={date_end}/>
-              <Subtitle text={subtitle} />
-              <ListDescription info={contactInfo} dataDescription={dataDescription}/>
+          {resumes.map((item) => (
+            <div className={'resume-item'} key={item.id}>
+              <Title name={item.titleImpt} subinfo={item.titleSecondary} linkPlace={item.link}/>
+              <DatesAndPlace dateInit={item.date_init} city={item.city} country={item.country}
+                             date_end={item.date_end}/>
+              <Subtitle text={item.subtitle}/>
+              <ListDescription dataDescription={item.description}/>
             </div>
+
+          ))}
 
 
         </div>

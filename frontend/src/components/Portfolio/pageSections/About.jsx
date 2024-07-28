@@ -5,33 +5,23 @@ import {motion} from "framer-motion";
 import { useInView } from 'react-intersection-observer';
 import {useSelector} from "react-redux";
 import {formatDate} from "@/helper/convertDate";
-import axios from "axios";
-import {getData} from "@/helper/crud/getData";
 import {section_end} from "@/constants/endpoints";
+import {getDataByParamer} from "@/helper/getDataByParamer";
+import Image from "next/image";
 
 
 
 const About = () => {
   const { user } = useSelector((state) => state.person);
   const [sectionData, setSectionData] = React.useState([]);
+  const {img} = useSelector((state) => state.images)
+  const imgMe = (img || []).find(item => item.section === 'Me' || item.section === 'me');
 
   useEffect( () => {
-    getDataSection(section_end);
+    const endSectByTitle =  section_end  +  '/title/' +  'About/'
+    getDataByParamer(endSectByTitle, setSectionData);
 
   }, [])
-
-  const getDataSection = async () => {
-    const username = window.localStorage.getItem('username')
-
-    try {
-      const response = await axios.get(
-        process.env.NEXT_PUBLIC_API_HOST + section_end  +  '/title/' +  'About/'
-      )
-      await setSectionData(response.data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   const { ref, inView } = useInView({
     triggerOnce: true, // Para que la animación solo se active una vez
@@ -52,30 +42,34 @@ const About = () => {
               }}
           >
 
-              <motion.img
-                  ref={ref} // Ref para el elemento que queremos observar
-                  initial={{x: -120}}  // Animación inicial desde la izquierda (-120px)
-                  animate={{x: inView ? 0 : -120}} // Animación hacia la derecha (0px) cuando está en vista, de lo contrario -120px
-                  transition={{duration: 0.6}}
-                  src={'https://drive.google.com/file/d/11Fhdwy7DuYRm62NPdkIio-__c80MRtc7/view?usp=drive_link'}
-                  alt={'Developer'}
-                  width={250}
-                  height={300}
-              />
-              <Box
-                  sx={{
-                      marginLeft: {xs: 0, md: '100px'}, width: '100%'
-                  }}
-              >
-                  <Box sx={{paddingTop: {xs: 3, md: 0}}}>
-                      <h2 style={{color: '#545556', fontFamily: '"Playfair Display", serif'}}>
-                        {user ? user.profession : ''}
-                      </h2>
-                  </Box>
 
-                  <Grid container spacing={2} sx={{marginTop: {xs: 0, md: 1}}}>
-                      <Grid item xs={12} md={8} lg={6}>
-                          <p className={'text-style'}><b>Birthday:</b> {user ? formatDate(user.birthday) : ''}</p>
+
+            {
+              imgMe && imgMe.imgs ?
+                <Image
+                  src={ imgMe.imgs }
+                  alt={'Me'}
+                  width={230}
+                  height={230}
+                  priority
+                />
+                :
+                ''
+            }
+            <Box
+              sx={{
+                marginLeft: {xs: 0, md: '100px'}, width: '100%'
+              }}
+            >
+              <Box sx={{paddingTop: {xs: 3, md: 0}}}>
+                <h2 style={{color: '#545556', fontFamily: '"Playfair Display", serif'}}>
+                  {user ? user.profession : ''}
+                </h2>
+              </Box>
+
+              <Grid container spacing={2} sx={{marginTop: {xs: 0, md: 1}}}>
+                <Grid item xs={12} md={8} lg={6}>
+                <p className={'text-style'}><b>Birthday:</b> {user ? formatDate(user.birthday) : ''}</p>
                           <p className={'text-style'}><b>Phone:</b> {user ? user.phone : ''}</p>
                           <p className={'text-style'}><b>City: </b> {user ? user.address: ''}</p>
                           <p className={'text-style'}><b>Email: </b>{user ? user.email : ''}</p>

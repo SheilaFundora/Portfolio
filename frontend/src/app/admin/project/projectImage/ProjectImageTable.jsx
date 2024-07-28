@@ -37,7 +37,7 @@ const ProjectImageTable = ({handleRefreshTable, projectImageData, projectData}) 
 
   const handleDeleteProjectImage = async () => {
     const endpoint = imgProject_end +'/'+ projectImageId + '/';
-    await handleDelete(handleOpenDelete, endpoint, handleRefreshTable , 'project');
+    await handleDelete(handleOpenDelete, endpoint, handleRefreshTable , 'image');
   }
 
   return (
@@ -63,7 +63,7 @@ const ProjectImageTable = ({handleRefreshTable, projectImageData, projectData}) 
       {openDelete &&
         <ModalDelete openDelete={openDelete}
                      handleOpenDelete={handleOpenDelete}
-                     contentDelete={'image project'}
+                     contentDelete={'project image'}
                      handleDelete={handleDeleteProjectImage}
         />
 

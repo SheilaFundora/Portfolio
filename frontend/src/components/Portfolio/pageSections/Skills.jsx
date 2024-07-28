@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import Image from "next/image";
 import Box from "@mui/material/Box";
 import {useInView} from "react-intersection-observer";
-import {getData} from "@/helper/crud/getData";
+import {getDataPortfolio} from "@/helper/crud/getData";
 import {skill_end} from "@/constants/endpoints";
 import Tooltip from '@mui/material/Tooltip';
 
@@ -11,10 +11,8 @@ const Skills = () => {
   const [skillData, setSkillData] = React.useState([]);
 
   useEffect( () => {
-    getData(skill_end, setSkillData)
+    getDataPortfolio(skill_end, setSkillData)
   }, [])
-
-  console.log(skillData)
 
   const { ref, inView } = useInView({
       triggerOnce: true, // Para que la animación solo se active una vez

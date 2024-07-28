@@ -19,7 +19,7 @@ export class Project {
     dateProject:string;
     @Column({nullable:true, type:'varchar'})
     description:string;
-    @Column({nullable:true,unique:true})
+    @Column({nullable:true})
     url:string;
 
 
