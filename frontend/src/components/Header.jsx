@@ -16,22 +16,18 @@ import {routesPage} from "@/constants/apiRoutesPage";
 import {routesAuth} from "@/constants/apiRoutesAuth";
 import PersonIcon from '@mui/icons-material/Person';
 import {motion} from "framer-motion";
-import {images_end} from "@/constants/endpoints";
-import {getDataByParamer} from "@/helper/getDataByParamer";
+import {useSelector} from "react-redux";
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [showShadow, setShowShadow] = useState(false);
-/*
-  const [imgSection, setImgSection] = React.useState([]);
-*/
+  const {img} = useSelector((state) => state.images)
+  const imgHeader = (img || []).find(item => item.section === 'Header' || item.section === 'header');
+
 
   const pathname = usePathname();
 
   useEffect(() => {
-    /*const endImgBySection =  images_end  +  '/section/' +  'header/'
-    getDataByParamer(endImgBySection, setImgSection);
-*/
     const handleScroll = () => {
         // Determina si la posición de desplazamiento es mayor que 0 para mostrar la sombra
         const shouldShowShadow = window.scrollY > 0;
@@ -74,11 +70,10 @@ function Header() {
                           <div>
                               {/* Oculta la imagen en dispositivos móviles */}
                               <Hidden only={['xs', 'sm']}>
-                               {/* {
-                                  imgSection.length > 0 && imgSection ?
+                                {
+                                  imgHeader && imgHeader.imgs ?
                                     <Image
-                                      src={ imgSection.imgs}
-
+                                      src={ imgHeader.imgs }
                                       alt={'Logotipo'}
                                       width={180}
                                       height={70}
@@ -86,18 +81,24 @@ function Header() {
                                     />
                                     :
                                     ''
-                                }*/}
+                                }
 
                               </Hidden>
 
                               {/* Muestra la imagen pequeña en pantallas pequeñas */}
                               <Hidden only={['md', 'lg', 'xl']}>
-                                  <Image
-                                      src={'/img/logotipo.jpg'}
-                                      alt={'Logotype'}
-                                      width={150}
+                                {
+                                  imgHeader && imgHeader.imgs ?
+                                    <Image
+                                      src={ imgHeader.imgs }
+                                      alt={'Logotipo'}
+                                      width={180}
                                       height={70}
-                                  />
+                                      priority
+                                    />
+                                    :
+                                    ''
+                                }
                               </Hidden>
                           </div>
                       </Link>

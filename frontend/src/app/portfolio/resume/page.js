@@ -4,14 +4,14 @@ import {Grid} from "@mui/material";
 import NameSections from "@/components/Portfolio/pageSections/NameSections";
 import Box from "@mui/material/Box";
 import DataResume from "@/components/Portfolio/resume/DataResume";
-import {getData} from "@/helper/crud/getData";
-import {category_end, resume_end} from "@/constants/endpoints";
+import {getDataPortfolio} from "@/helper/crud/getData";
+import {category_end} from "@/constants/endpoints";
 
 const Page = () => {
   const [categoryData, setCategoryData] = React.useState([]);
 
   useEffect( () => {
-    getData(category_end, setCategoryData)
+    getDataPortfolio(category_end, setCategoryData)
   }, [])
 
 

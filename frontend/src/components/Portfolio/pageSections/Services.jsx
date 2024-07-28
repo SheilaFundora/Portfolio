@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import CardServices from "@/components/Portfolio/other/CardServices";
 import Box from "@mui/material/Box";
-import {getData} from "@/helper/crud/getData";
+import {getDataPortfolio} from "@/helper/crud/getData";
 import {services_end} from "@/constants/endpoints";
 
 
@@ -9,7 +9,7 @@ function Services() {
   const [serviceData, setServiceData] = React.useState([]);
 
   useEffect( () => {
-    getData(services_end, setServiceData)
+    getDataPortfolio(services_end, setServiceData)
   }, [])
 
   return (

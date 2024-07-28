@@ -23,7 +23,9 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import ModalForm from "@/components/adminComponents/other/ModalForm";
 import ModalChangePass from "@/components/adminComponents/other/ModalChangePass";
 import {fetchDataToken, fetchValidateToken} from "@/helper/fetch";
-import { validateToken_end} from "@/constants/endpoints";
+import {images_end, validateToken_end} from "@/constants/endpoints";
+import {getData} from "@/helper/crud/getData";
+import Image from "next/image";
 
 const drawerWidth = 280;
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -66,6 +68,13 @@ export default function PersistentDrawerLeft({children}) {
   const [isLoading, setIsLoading] = useState(true);
   const [openModalCP, setOpenModalCP] = React.useState(false);
   const [username, setUsername] = React.useState('');
+  const [imagesData, setImagesData] = React.useState([]);
+  const imgMe = (imagesData || []).find(item => item.section === 'Me' || item.section === 'me');
+
+console.log(imgMe)
+  useEffect( () => {
+    getData(images_end, setImagesData)
+  }, [])
 
   const handleOpenDrawer = () => {
     setOpenDrawer(!openDrawer);

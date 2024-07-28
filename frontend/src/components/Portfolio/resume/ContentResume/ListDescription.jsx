@@ -1,8 +1,7 @@
 import React from 'react';
 
 const ListDescription = ({ dataDescription}) => {
-  const dataLink = [1,2,3]
-  console.log(dataDescription)
+  const dataLink = dataDescription.split('\n')
 
   return (
         <div>

@@ -1,12 +1,10 @@
 import React from 'react';
 import Box from "@mui/material/Box";
-import Image from "next/image";
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import {ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import {motion} from "framer-motion";
 import {useSelector} from "react-redux";
 import ModalForm from "@/components/adminComponents/other/ModalForm";
-import PersonModal from "@/app/admin/person/PersonModal";
 import DownloadModal from "@/components/Portfolio/other/DownloadModal";
 
 const FirstSection = () => {
@@ -49,12 +47,13 @@ const FirstSection = () => {
                   animate={{y: 0}}
                   transition={{duration: 1}}
                   alt="Imagen"
-              />
+          />
 
         </Box>
 
-        {openModal &&
-          <ModalForm modal={<DownloadModal  handleClickOpen={handleOpenModal}  user={user}/>}
+        {
+          openModal &&
+          <ModalForm modal={<DownloadModal handleClickOpen={handleOpenModal} user={user}/>}
                      openModal={openModal}
                      handleClickOpen={handleOpenModal}
           />
