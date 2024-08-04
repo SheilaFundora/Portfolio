@@ -111,7 +111,7 @@ export default function PersistentDrawerLeft({children}) {
               </Typography>
               <img
                 alt=""
-                src="/assets/auth-illustration.svg"
+                src="/img/auth-illustration.svg"
               />
             </Box>
           </Grid>

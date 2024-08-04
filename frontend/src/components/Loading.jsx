@@ -3,10 +3,11 @@ import { CircularProgress } from '@mui/material'
 import Image from "next/image";
 
 const Loading = ({ infoText }) => {
-    return (
+
+  return (
       <div className='container mt-5 pt-5 mx-auto text-center'>
         <Image
-          src={'/img/favorite.jpg'}
+          src={'/img/logo.jpg'}
           alt={'Logotype'}
           width={100}
           height={100}
