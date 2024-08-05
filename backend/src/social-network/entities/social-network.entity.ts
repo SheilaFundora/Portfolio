@@ -3,11 +3,12 @@ import {Entity, Column, PrimaryGeneratedColumn, Unique, OneToMany, ManyToOne, Jo
 
 
 @Entity()
+@Unique(['name', 'user_id'])
 export class SocialNetwork {
 
     @PrimaryGeneratedColumn()
     id:number;
-    @Column({nullable:false,unique:true})
+    @Column({nullable:false})
     name:string;
 
     @Column({nullable:false,unique:true})

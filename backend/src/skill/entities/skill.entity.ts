@@ -4,6 +4,7 @@ import {Entity, Column, PrimaryGeneratedColumn, Unique, OneToMany, ManyToOne, Jo
 
 
 @Entity()
+@Unique(['name', 'user_id'])
 export class Skill {
 
     @PrimaryGeneratedColumn()
@@ -12,7 +13,7 @@ export class Skill {
     porcent:string;
     @Column({ nullable: true })
     icon: string;
-    @Column({nullable:true,unique:true})
+    @Column({nullable:true})
     name:string;
     @ManyToMany(() => Project, (project) => project.skills)
     projects: Project[];
