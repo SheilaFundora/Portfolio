@@ -1,16 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, NotFoundException, InternalServerErrorException } from '@nestjs/common';
 import { SectionService } from './section.service';
 import { CreateSectionDto } from './dto/create-section.dto';
 import { UpdateSectionDto } from './dto/update-section.dto';
 import { SectionModule } from './section.module';
 import { JwtAuthGuard } from 'src/usuario/jwt-auth.guard';
+import { Section } from './entities/section.entity';
 
 @Controller('api/section')
 export class SectionController {
   constructor(private readonly sectionService: SectionService) {}
 
   @Post()
-  @UseGuards(JwtAuthGuard)
   create(@Body() createSectionDto: CreateSectionDto) {
     return this.sectionService.create(createSectionDto);
   }
@@ -20,9 +20,19 @@ export class SectionController {
     return this.sectionService.findAll();
   }
 
-  @Get('user/:user_id')
-  findByUserId(@Param('user_id') user_id: string) {
-    return this.sectionService.findByUserId(user_id);
+  @Get('find/:title/:username')
+  async findByTitleAndUsername(
+    @Param('title') title: string,
+    @Param('username') username: string
+  ) {
+    try {
+      return await this.sectionService.findByTitleAndUsername(title, username);
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw new NotFoundException(error.message);
+      }
+      throw new InternalServerErrorException(error.message);
+    }
   }
 
   @Patch(':id')
@@ -36,8 +46,5 @@ export class SectionController {
   remove(@Param('id') id: string) {
     return this.sectionService.delete(+id);
   }
-  @Get('title/:title')
-  async getSectionByTitle(@Param('title') title: string){
-    return this.sectionService.findByTitle(title);
-  }
+
 }
