@@ -4,61 +4,48 @@ import NameSections from "@/components/Portfolio/pageSections/NameSections";
 import Box from "@mui/material/Box";
 import Tab from '@mui/material/Tab';
 import {Card, CardActionArea, CardContent, CardMedia, Tabs, Typography} from "@mui/material";
-import PropTypes from "prop-types";
 import Link from "next/link";
 import {getData} from "@/helper/crud/getData";
 import {imgProject_end, project_end} from "@/constants/endpoints";
-import CardServices from "@/components/Portfolio/other/CardServices";
 
 
 function CustomTabPanel(props) {
-    const { children, value, index, ...other } = props;
+  const { children, value, index, ...other } = props;
 
-    return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
-            {...other}
-        >
-            {value === index && (
-                <Box sx={{ p: 3 }}>
-                    {children}
-                </Box>
-            )}
-        </div>
-    );
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          {children}
+        </Box>
+      )}
+    </div>
+  );
 }
 
-CustomTabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.number.isRequired,
-    value: PropTypes.number.isRequired,
-};
 
 function a11yProps(index) {
-    return {
-        id: `${index}`,
-        'aria-controls': `simple-tabpanel-${index}`,
-    };
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
 }
 
 const getCategories = (projects) => {
-  console.log('entra j')
-
-  // Crear un mapa para almacenar las categorías únicas junto con sus IDs
   const categoryMap = new Map();
 
-  // Iterar sobre cada proyecto y agregar su categoría al mapa
   projects.forEach(project => {
-    console.log(project)
     if (project.category && !categoryMap.has(project.category)) {
       categoryMap.set(project.category, project.id);
     }
   });
 
-  // Convertir el mapa de vuelta a un array de objetos y devolverlo
   return Array.from(categoryMap, ([category, id]) => ({ id, category }));
 };
 
@@ -70,13 +57,11 @@ const Page = () => {
 
   const handleCategory = async (cat) => {
     setCategories(cat);
-
   }
 
-  useEffect( () => {
+  useEffect(() => {
     getData(project_end, setProjectData)
     getData(imgProject_end, setProjectImageData)
-
   }, [])
 
   useEffect(() => {
@@ -87,121 +72,91 @@ const Page = () => {
 
   console.log('projectData', projectData);
   console.log('categories', categories);
+  console.log('value', value);
 
 
   const handleChangeTab = (event, newValue) => {
-      setValue(newValue);
+    setValue(newValue);
   };
 
-  const renderTabContent = (tipo_model) => {
-      return(
-          <Box className={'d-flex justify-content-center flex-wrap'} sx={{ gap: '30px' }}>
-              <Link  href={'/portfolio/project/view'} style={{ textDecoration: 'none' }}>
-                  <Card sx={{ width: 330, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)' }}>
-                      <CardActionArea>
-                          <CardMedia
-                              component="img"
-                              height="140"
-                              image='/img/ui-project-1.jpg'
-                              alt="green iguana"
-                              sx={{
-                                  transition: 'transform 0.2s',
-                                  '&:hover': {
-                                      transform: 'scale(1.1)',
-                                  },
-                              }}
-                          />
-                          <CardContent sx={{ textAlign: 'center' }}>
-                              <Typography gutterBottom variant="h5" component="div">
-                                  Google Health Platform
-                              </Typography>
-                              <Typography variant="body6" color="text.secondary">
-                                  Web Application
-                              </Typography>
-                          </CardContent>
-                      </CardActionArea>
-                  </Card>
-              </Link>
-              <Link  href={'/portfolio/project/view'} style={{ textDecoration: 'none' }}>
-                  <Card sx={{ width: 330, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)' }}>
-                      <CardActionArea>
-                          <CardMedia
-                              component="img"
-                              height="140"
-                              image='/img/ui-project-2.jpg'
-                              alt="green iguana"
-                              sx={{
-                                  transition: 'transform 0.2s',
-                                  '&:hover': {
-                                      transform: 'scale(1.1)',
-                                  },
-                              }}
-                          />
-                          <CardContent sx={{ textAlign: 'center' }}>
-                              <Typography gutterBottom variant="h5" component="div">
-                                  Google Health Platform
-                              </Typography>
-                              <Typography variant="body6" color="text.secondary">
-                                  Web Application
-                              </Typography>
-                          </CardContent>
-                      </CardActionArea>
-                  </Card>
-              </Link>
-          </Box>
-      )
-  }
-
-
-  return (
-      <Box sx={{paddingX: {xs: 4, md: '120px'}}}>
-          <NameSections name={'Proyectos'}/>
-
-          <Box sx={{ display: 'flex', justifyContent: 'center'  }} >
-              <Box sx={{ borderColor: 'divider', backgroundColor: 'primary' }}>
-                <Tabs
-                  value={value}
-                  onChange={handleChangeTab}
-                  aria-label="wrapped label tabs example"
-                  indicatorColor="none"  // Color de la línea indicadora (no se utiliza)
+  const renderTabContent = (projects) => {
+    return(
+      <Box className={'d-flex justify-content-center flex-wrap'} sx={{ gap: '30px' }}>
+        {projects.map((project, idx) => (
+          <Link href={'/portfolio/project/view'} style={{ textDecoration: 'none' }} key={idx}>
+            <Card sx={{ width: 330, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)' }}>
+              <CardActionArea>
+                <CardMedia
+                  component="img"
+                  height="140"
+                  image='/img/ui-project-1.jpg'
+                  alt="project"
                   sx={{
-                    backgroundColor: "#FFFFFF",  // Color de fondo blanco de las pestañas
-                    borderRadius: "20px",  // Bordes redondeados de las pestañas
-                    boxShadow: "0px 4px 10px rgba(128,128,128,0.55)",  // Sombra gris
-                    "& .Mui-selected": {  // Establece el color de la pestaña activa
-                      color: "#05097c !important" ,  // Color del texto de la pestaña activa                                fontWeight: "normal",  // Letra normal para las pestañas no activas
-                      fontWeight: "bold",  // Letra normal para las pestañas no activas
-                    },
-                    "&.Mui-selected .MuiTab-label": {  // Establece el color del texto de la pestaña activa
-                      color: "#05097c",  // Color del texto de la pestaña activa (azul oscuro)
-                      fontWeight: "normal",  // Letra normal para las pestañas no activas
+                    transition: 'transform 0.2s',
+                    '&:hover': {
+                      transform: 'scale(1.1)',
                     },
                   }}
-                >
-                  {categories.map(({ id, category }) => (
-                    <Tab label={category} {...a11yProps(id)} key={id} />
-                  ))}
-                </Tabs>
-
-              </Box>
-          </Box>
-
-          <Box> {/* Contenedor para el contenido de las pestañas */}
-
-            {projectData.map(({ id }) => (
-              <CustomTabPanel value={value} index={id}>
-                {renderTabContent()}
-              </CustomTabPanel>
-            ))}
-            <CustomTabPanel value={value} index={0}>
-              {renderTabContent()}
-            </CustomTabPanel>
-          </Box>
-
-
-
+                />
+                <CardContent sx={{ textAlign: 'center' }}>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {project.name}
+                  </Typography>
+                  <Typography variant="body6" color="text.secondary">
+                    {project.type}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Link>
+        ))}
       </Box>
-    );
+    )
+  }
+
+  return (
+    <Box sx={{paddingX: {xs: 4, md: '120px'}}}>
+      <NameSections name={'Proyectos'}/>
+
+      <Box sx={{ display: 'flex', justifyContent: 'center'  }} >
+        <Box sx={{ borderColor: 'divider', backgroundColor: 'primary' }}>
+          <Tabs
+            value={value}
+            onChange={handleChangeTab}
+            aria-label="wrapped label tabs example"
+            indicatorColor="none"
+            sx={{
+              backgroundColor: "#FFFFFF",
+              borderRadius: "20px",
+              boxShadow: "0px 4px 10px rgba(128,128,128,0.55)",
+              "& .Mui-selected": {
+                color: "#05097c !important",
+                fontWeight: "bold",
+              }
+            }}
+          >
+            <Tab label="All project" {...a11yProps(0)} />
+
+            {categories.map((category, idx) => (
+              <Tab label={category.category} {...a11yProps(category.category)} key={idx} />
+            ))}
+          </Tabs>
+        </Box>
+      </Box>
+
+      <Box>
+        <CustomTabPanel value={value} index={0}>
+          {renderTabContent(projectData)}
+        </CustomTabPanel>
+
+        {categories.map((category, idx) => (
+          <CustomTabPanel value={value} index={idx+1} key={idx}>
+            {renderTabContent(projectData.filter(proj => proj.category === category.category))}
+          </CustomTabPanel>
+        ))}
+      </Box>
+    </Box>
+  );
 };
 
 export default Page;
