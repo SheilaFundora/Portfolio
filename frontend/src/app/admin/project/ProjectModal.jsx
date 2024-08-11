@@ -33,12 +33,14 @@ const ProjectModal = ({handleClickOpen, handleRefreshTable, action, projectSelec
 
   const handleSubmitProject = async (data) => {
     data.dateProject = data.dateProject === '' ? null : data.dateProject;
+    data.category = (data.category.charAt(0).toUpperCase() + data.category.slice(1).toLowerCase());
     await handleSubmitData(handleClickOpen, project_end, data, handleRefreshTable, 'project', setErrorMessage);
   }
 
   const handleEditProject = async (data) => {
     const endpoint = project_end + '/' + projectSelect.id +'/';
     data.dateProject = data.dateProject === '' ? null : data.dateProject;
+    data.category = (data.category.charAt(0).toUpperCase() + data.category.slice(1).toLowerCase());
 
     await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'project');
   }

@@ -22,6 +22,8 @@ export const fetchDataToken = ( endpoint, data, method = 'GET' ) => {
   const url = `${ baseUrl }${ endpoint }`;
   const token = localStorage.getItem('token') || '';
 
+  console.log(JSON.stringify( data ))
+
   if ( method === 'GET' ) {
     return fetch( url );
   } else {
