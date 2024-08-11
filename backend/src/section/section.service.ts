@@ -30,49 +30,44 @@ export class SectionService {
     }
   }
 
-  async findByUserId(username: string) {
+  async findByTitleAndUsername(title: string, username: string){
     try {
       const user = await this.UserRep.findOne({
         where: { username },
       });
-  
+
       if (!user) {
         throw new NotFoundException(`User not found for username: ${username}`);
       }
-  
-      const skills = await this.SectionRep.find({
+
+      const section = await this.SectionRep.find({
         where: {
-          user_id: user, // Aquí usamos el objeto `user` directamente
+          title,
+          user_id: user,
         },
         relations: ['user_id'],
       });
-  
-      return skills.map(service => {
-        const serviceWithFilteredFields = {
-          ...plainToClass(Section, service),
-          user_id: service.user_id.id  // Include only the user_id
-        };
-        return serviceWithFilteredFields;
-      });
+
+      if (!section) {
+        throw new NotFoundException(`Section not found with title: ${title} for username: ${username}`);
+      }
+      return section.map(section => {
+      const sectionWithFilteredFields= {
+        ...plainToClass(Section, section),
+        user_id: section.user_id.id,  // Include only the user_id
+      };
+
+      return sectionWithFilteredFields;
+    });
     } catch (error) {
       if (error instanceof NotFoundException) {
         throw error;
       }
-      throw new InternalServerErrorException('Error retrieving skills by user ID');
+      throw new InternalServerErrorException('Error retrieving section by title and username');
     }
   }
   
-  async findByTitle(title: string): Promise<Section> {
-    try {
-      const section = await this.SectionRep.findOne({ where: { title } });
-      if (!section) {
-        throw new NotFoundException(`Section not found with title: ${title}`);
-      }
-      return plainToClass(Section, section);
-    } catch (error) {
-      throw new InternalServerErrorException('Error retrieving section by title');
-    }
-  }
+
   
   async create(createSectionDto: CreateSectionDto): Promise<Section> {
     try {

@@ -9,7 +9,6 @@ export class PhotoController {
   constructor(private readonly photoService: PhotoService) {}
 
   @Post()
-  @UseGuards(JwtAuthGuard)
   create(@Body() createPhotoDto: CreatePhotoDto) {
     return this.photoService.create(createPhotoDto);
   }
