@@ -4,7 +4,7 @@ import NameSections from "@/components/Portfolio/pageSections/NameSections";
 import Box from "@mui/material/Box";
 import Tab from '@mui/material/Tab';
 import {Card, CardActionArea, CardContent, CardMedia, Tabs, Typography} from "@mui/material";
-import Link from "next/link";
+import {useRouter} from "next/navigation";
 import {getData} from "@/helper/crud/getData";
 import {imgProject_end, project_end} from "@/constants/endpoints";
 
@@ -54,6 +54,8 @@ const Page = () => {
   const [projectData, setProjectData] = React.useState([]);
   const [projectImageData, setProjectImageData] = React.useState([]);
   const [categories, setCategories] = React.useState([]);
+  const router = useRouter();
+
 
   const handleCategory = async (cat) => {
     setCategories(cat);
@@ -70,20 +72,19 @@ const Page = () => {
     }
   }, [projectData]);
 
-  console.log('projectData', projectData);
-  console.log('categories', categories);
-  console.log('value', value);
-
-
   const handleChangeTab = (event, newValue) => {
     setValue(newValue);
   };
+
+  const handleViewProject = (project) => {
+    router.push(`/portfolio/project/${project.id}`);
+  }
 
   const renderTabContent = (projects) => {
     return(
       <Box className={'d-flex justify-content-center flex-wrap'} sx={{ gap: '30px' }}>
         {projects.map((project, idx) => (
-          <Link href={'/portfolio/project/view'} style={{ textDecoration: 'none' }} key={idx}>
+          <Box onClick={() => handleViewProject(project)} key={idx}>
             <Card sx={{ width: 330, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)' }}>
               <CardActionArea>
                 <CardMedia
@@ -103,12 +104,12 @@ const Page = () => {
                     {project.name}
                   </Typography>
                   <Typography variant="body6" color="text.secondary">
-                    {project.type}
+                    {project.category}
                   </Typography>
                 </CardContent>
               </CardActionArea>
             </Card>
-          </Link>
+          </Box>
         ))}
       </Box>
     )
@@ -148,6 +149,11 @@ const Page = () => {
         <CustomTabPanel value={value} index={0}>
           {renderTabContent(projectData)}
         </CustomTabPanel>
+
+       {/* xq funciona esto, los tab cada vez q se selecciona uno se pone su valo, ejemplo hay 3 tab
+        empieza en 0, 1 , 2. Estos seran los value, luego abao index debe coincidir con vakue para q sepa
+        a cual pertence, x lo q el map tiene indice 0 y losto */}
+
 
         {categories.map((category, idx) => (
           <CustomTabPanel value={value} index={idx+1} key={idx}>

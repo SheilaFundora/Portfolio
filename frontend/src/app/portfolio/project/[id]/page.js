@@ -54,7 +54,8 @@ const items = [
     }
 ]
 
-const Page = () => {
+const Page = ({params}) => {
+  console.log(params)
     return (
         <Box sx={{marginTop: '50px', paddingX: {xs: 4, md: '120px'}}}>
             <h2>Google Health Platform</h2>

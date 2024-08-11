@@ -11,7 +11,6 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import "../../styles/adminStyle.css"
 import { Menu, MenuItem} from "@mui/material";
-import Avatar from "@mui/material/Avatar";
 import {useEffect, useState} from "react";
 import 'primereact/resources/themes/lara-light-indigo/theme.css'
 import 'primereact/resources/primereact.min.css'
@@ -22,7 +21,7 @@ import DrawerPersonalized from "@/components/adminComponents/Sidebar/DrawerPerso
 import LogoutIcon from '@mui/icons-material/Logout';
 import ModalForm from "@/components/adminComponents/other/ModalForm";
 import ModalChangePass from "@/components/adminComponents/other/ModalChangePass";
-import {fetchDataToken, fetchValidateToken} from "@/helper/fetch";
+import { fetchValidateToken} from "@/helper/fetch";
 import {images_end, validateToken_end} from "@/constants/endpoints";
 import {getData} from "@/helper/crud/getData";
 import Image from "next/image";
@@ -156,9 +155,33 @@ console.log(imgMe)
           </Toolbar>
 
           <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginY: 2, marginX: 3 }}>
-            <IconButton onClick={handleSetAnchor}>
-              <Avatar alt="Cindy Baker" src={'/img/me.jpg'} sx={{ width: 50, height: 50 }} />
-            </IconButton>
+            <Box
+              sx={{
+                width: 60,
+                height: 60,
+                borderRadius: '50%',
+                overflow: 'hidden',  // Para asegurar que la imagen se ajuste al contenedor circular
+                display: 'inline-block',
+              }}
+              onClick={handleSetAnchor}
+              cursor='pointer'
+            >
+
+              {
+                imgMe && imgMe.imgs ?
+                  <Image
+                    src={imgMe.imgs}
+                    alt={'me'}
+                    layout="responsive"  // Ajusta la imagen al contenedor
+                    width={60}  // Ancho del contenedor
+                    height={60}  // Altura del contenedor
+                    objectFit="cover"  // Para cubrir el contenedor sin distorsionar la imagen
+                  />
+                  :
+                  ''
+              }
+            </Box>
+
             <Menu
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
