@@ -17,56 +17,53 @@ const Page = ({params}) => {
     const username = process.env.NEXT_PUBLIC_USERNAME
 
     const endProjectById =  project_end + '/'   + username  + '/' + params.id  + '/'
-    console.log(endProjectById)
-
 
     getProjectById(endProjectById, setProjectData)
 
   }, [])
-  console.log(projectData)
-    return (
-        <Box sx={{marginTop: '50px', paddingX: {xs: 4, md: '120px'}}}>
-          <h2>{projectData.name}</h2>
-          <div className={'d-flex gap-5 mt-3'}>
-            {
-              projectData.dateProject === null ? '' :
-                <div style={{color: '#333', fontSize: '1rem'}}>
-                  <AccessTimeIcon/>
-                  <span className={'ms-2'}>{formatDate(projectData.dateProject)}</span>
-                </div>
-            }
-            {
-              projectData.category === null ? '' :
-                <div style={{color: '#333', fontSize: '1rem'}}>
-                  <SellOutlinedIcon/>
-                  <span className={'ms-2'}>{formatDate(projectData.category)}</span>
-                </div>
-            }
+  return (
+      <Box sx={{marginTop: '50px', paddingX: {xs: 4, md: '120px'}}}>
+        <h2>{projectData.name}</h2>
+        <div className={'d-flex gap-5 mt-3'}>
+          {
+            projectData.dateProject === null ? '' :
+              <div style={{color: '#333', fontSize: '1rem'}}>
+                <AccessTimeIcon/>
+                <span className={'ms-2'}>{formatDate(projectData.dateProject)}</span>
+              </div>
+          }
+          {
+            projectData.category === null ? '' :
+              <div style={{color: '#333', fontSize: '1rem'}}>
+                <SellOutlinedIcon/>
+                <span className={'ms-2'}>{formatDate(projectData.category)}</span>
+              </div>
+          }
 
+      </div>
+
+        <div style={{
+          marginTop: '25px',
+          display: 'flex',
+          justifyContent: 'space-between',
+              flexDirection: {xs: 'column', md: 'row'},
+              flexWrap: 'wrap'
+          }}>
+
+          {
+            projectData.prosImgs !== null || true ?
+              <CarrouselImage projectImages={projectData.prosImgs}/>
+              :
+              ''
+          }
+
+
+          <CardInformation projectData={projectData}/>
         </div>
 
-          <div style={{
-            marginTop: '25px',
-            display: 'flex',
-            justifyContent: 'space-between',
-                flexDirection: {xs: 'column', md: 'row'},
-                flexWrap: 'wrap'
-            }}>
-
-            {
-              projectData.prosImgs !== null || true ?
-                <CarrouselImage projectImages={projectData.prosImgs}/>
-                :
-                ''
-            }
-
-
-            <CardInformation projectData={projectData}/>
-          </div>
-
-            <InformationProject projectData={projectData}/>
-        </Box>
-    );
+          <InformationProject projectData={projectData}/>
+      </Box>
+  );
 };
 
 export default Page;
