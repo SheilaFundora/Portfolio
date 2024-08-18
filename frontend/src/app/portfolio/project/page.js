@@ -8,7 +8,6 @@ import {useRouter} from "next/navigation";
 import {getData} from "@/helper/crud/getData";
 import {imgProject_end, project_end} from "@/constants/endpoints";
 
-
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -76,6 +75,15 @@ const Page = () => {
     setValue(newValue);
   };
 
+  const imageMap = projectImageData.reduce((acc, item) => {
+    if (item.imgs.length > 0) {
+      acc[item.project_id] = item.imgs[0]; // Ajusta esto si `imgs` tiene un formato diferente
+    }
+    console.log( acc)
+
+    return acc;
+  }, {});
+
   const handleViewProject = (project) => {
     router.push(`/portfolio/project/${project.id}`);
   }
@@ -87,11 +95,12 @@ const Page = () => {
           <Box onClick={() => handleViewProject(project)} key={idx}>
             <Card sx={{ width: 330, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)' }}>
               <CardActionArea>
-                <CardMedia
+                <Box
                   component="img"
-                  height="140"
-                  image='/img/ui-project-1.jpg'
+                  src={imageMap[project.id] || '/img/project.jpeg'}
                   alt="project"
+                  width={'100%'}
+                  height={'100%'}
                   sx={{
                     transition: 'transform 0.2s',
                     '&:hover': {

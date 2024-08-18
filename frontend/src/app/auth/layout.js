@@ -2,16 +2,15 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import "../../styles/adminStyle.css"
-import {Button, Grid, ListItemText, Menu, MenuItem, Stack} from "@mui/material";
+import {Grid} from "@mui/material";
 import 'primereact/resources/themes/lara-light-indigo/theme.css'
 import 'primereact/resources/primereact.min.css'
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
-import {useSelector} from "react-redux";
 import {useEffect} from "react";
-import {getData, getDataPortfolio} from "@/helper/crud/getData";
+import { getDataPortfolio} from "@/helper/crud/getData";
 import {images_end} from "@/constants/endpoints";
 
 export default function PersistentDrawerLeft({children}) {
@@ -69,10 +68,6 @@ export default function PersistentDrawerLeft({children}) {
                 >
                   {children}
                 </Box>
-               {/* <Typography variant="body1" align="center" color="textSecondary" style={{ marginTop: '20px', marginBottom: '20px' }}>
-                  © {new Date().getFullYear()} <span style={{ color: '#05097c' }}>Sheila</span>. Todos los derechos reservados.
-                </Typography>
-*/}
               </Container>
           </Grid>
           <Grid

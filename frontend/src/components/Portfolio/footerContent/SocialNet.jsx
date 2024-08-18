@@ -8,15 +8,16 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import IconButton from "@mui/material/IconButton";
-import {getData} from "@/helper/crud/getData";
+import {getData, getDataPortfolio} from "@/helper/crud/getData";
 import {socialNet_end} from "@/constants/endpoints";
+import {getDataByParamer} from "@/helper/getDataByParamer";
 
 
 const SocialNet = () => {
   const [socialNetData, setSocialNetData] = React.useState([]);
 
   useEffect( () => {
-    getData(socialNet_end, setSocialNetData)
+    getDataPortfolio(socialNet_end, setSocialNetData)
   }, [])
 
   const icons = {
