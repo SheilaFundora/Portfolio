@@ -18,7 +18,9 @@ const About = () => {
   const imgMe = (img || []).find(item => item.section === 'Me' || item.section === 'me');
 
   useEffect( () => {
-    const endSectByTitle =  section_end  +  '/title/' +  'About/'
+    const username = process.env.NEXT_PUBLIC_USERNAME
+
+    const endSectByTitle =  section_end  +  '/find/' +  'About/'  + username  + '/'
     getDataByParamer(endSectByTitle, setSectionData);
 
   }, [])

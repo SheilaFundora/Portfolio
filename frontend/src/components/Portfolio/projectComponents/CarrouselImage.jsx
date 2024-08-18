@@ -2,7 +2,7 @@ import React from 'react';
 import Carousel from "react-material-ui-carousel";
 import Image from "next/image";
 
-const CarrouselImage = ({items}) => {
+const CarrouselImage = ({projectImages}) => {
     return (
         <Carousel sx={{
             width: {xs: '100%', md: '65%'},
@@ -13,11 +13,12 @@ const CarrouselImage = ({items}) => {
         }}
                   indicatorIconButtonProps={{ style: { display: 'none' } }}
         >
-            {items.map((item, i) => (
+          {
+            projectImages !== undefined ? ( projectImages.map((item, i) => (
                 <div style={{width: '100%', paddingTop: '100%'}}>
                     <Image
-                        src={item.src}
-                        alt={'Logotipo'}
+                        src={item.imgs[0]}
+                        alt={'project image'}
                         layout="fill"
                         key={i}
                         objectFit="contain"
@@ -25,7 +26,9 @@ const CarrouselImage = ({items}) => {
                         style={{borderRadius: '5px'}}
                     />
                 </div>
-            ))}
+              ))
+            ) : ''
+          }
         </Carousel>
     );
 };

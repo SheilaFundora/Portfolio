@@ -1,6 +1,6 @@
 'use client'
 import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -25,6 +25,8 @@ import { fetchValidateToken} from "@/helper/fetch";
 import {images_end, validateToken_end} from "@/constants/endpoints";
 import {getData} from "@/helper/crud/getData";
 import Image from "next/image";
+import PersonIcon from '@mui/icons-material/Person';
+import Avatar from "@mui/material/Avatar";
 
 const drawerWidth = 280;
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -41,12 +43,12 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open, showShadow }) => ({
+})(({ theme }) => ({
   transition: theme.transitions.create(['margin', 'width'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  border: 'none', // Quita el borde
+  border: 'none',
   backgroundColor: '#f5f5f5',
   boxShadow: 'none',
 }));
@@ -70,7 +72,6 @@ export default function PersistentDrawerLeft({children}) {
   const [imagesData, setImagesData] = React.useState([]);
   const imgMe = (imagesData || []).find(item => item.section === 'Me' || item.section === 'me');
 
-console.log(imgMe)
   useEffect( () => {
     getData(images_end, setImagesData)
   }, [])
@@ -178,7 +179,9 @@ console.log(imgMe)
                     objectFit="cover"  // Para cubrir el contenedor sin distorsionar la imagen
                   />
                   :
-                  ''
+                  <Avatar>
+                    <PersonIcon />
+                  </Avatar>
               }
             </Box>
 

@@ -11,7 +11,8 @@ const FooterInfo = ({user}) => {
   const [sectionData, setSectionData] = React.useState([]);
 
   useEffect( () => {
-    const endSectByTitle =  section_end  +  '/title/' +  'Footer/'
+    const username = process.env.NEXT_PUBLIC_USERNAME
+    const endSectByTitle =  section_end  +  '/find/' +  'Footer/' + username  + '/'
 
     getDataByParamer(endSectByTitle, setSectionData)
 
