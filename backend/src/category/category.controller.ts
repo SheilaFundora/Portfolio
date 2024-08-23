@@ -8,7 +8,7 @@ export class CategoryController {
   constructor(private readonly CategoryService: CategoryService) {}
 
   @Post()
-  @UseGuards(JwtAuthGuard)
+
   create(@Body() CreateCategoryDTO: CreateCategoryDTO) {
     return this.CategoryService.create(CreateCategoryDTO);
   }
