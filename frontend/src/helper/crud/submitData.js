@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 
 export const handleSubmitData = async (handleClickOpen, endpoint, data, handleRefreshTable, name, setErrorMessage ) => {
 
-  if (name === 'project'){
+  if (name === 'project' || name === 'skill'){
     data.user_id = { id: window.localStorage.getItem('id')}
 
   }else{
@@ -13,8 +13,8 @@ export const handleSubmitData = async (handleClickOpen, endpoint, data, handleRe
   try{
     const resp = await fetchDataToken(endpoint, data, "POST");
 
-    console.log(JSON.stringify( data ))
     console.log(resp)
+    console.log(endpoint)
 
     if (resp.status === 409) {
      await setErrorMessage("That " + name + " already exist");

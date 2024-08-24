@@ -107,7 +107,6 @@ export default function PersistentDrawerLeft({children}) {
     } else {
       try {
         fetchValidateToken(validateToken_end).then((isValid) => {
-          console.log(isValid)
           if( isValid.status === 401){
             window.localStorage.clear()
             router.push(routesAuth[0].link)
