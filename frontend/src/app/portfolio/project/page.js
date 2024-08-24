@@ -7,6 +7,7 @@ import {Card, CardActionArea, CardContent, CardMedia, Tabs, Typography} from "@m
 import {useRouter} from "next/navigation";
 import {getData} from "@/helper/crud/getData";
 import {imgProject_end, project_end} from "@/constants/endpoints";
+import Image from "next/image";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -55,6 +56,7 @@ const Page = () => {
   const [categories, setCategories] = React.useState([]);
   const router = useRouter();
 
+  console.log(projectData); // Debería devolver "lk;lk;l" o el valor correspondiente
 
   const handleCategory = async (cat) => {
     setCategories(cat);
@@ -75,14 +77,15 @@ const Page = () => {
     setValue(newValue);
   };
 
-  const imageMap = projectImageData.reduce((acc, item) => {
-    if (item.imgs.length > 0) {
-      acc[item.project_id] = item.imgs[0]; // Ajusta esto si `imgs` tiene un formato diferente
+  function getFirstImageByProjectID(project) {
+    // Verificar si el proyecto tiene imágenes y devolver la URL de la primera imagen
+    if (project && project.prosImgs && project.prosImgs.length > 0) {
+      return project.prosImgs[0].imgs[0]; // Retorna la URL de la primera imagen
+    } else {
+      return null; // Si no hay imágenes, retorna null o puedes retornar una imagen por defecto
     }
-    console.log( acc)
+  }
 
-    return acc;
-  }, {});
 
   const handleViewProject = (project) => {
     router.push(`/portfolio/project/${project.id}`);
@@ -93,22 +96,31 @@ const Page = () => {
       <Box className={'d-flex justify-content-center flex-wrap'} sx={{ gap: '30px' }}>
         {projects.map((project, idx) => (
           <Box onClick={() => handleViewProject(project)} key={idx}>
-            <Card sx={{ width: 330, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)' }}>
+            <Card sx={{ width: 330, height: 220, paddingBottom: 3, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)' }}>
               <CardActionArea>
-                <Box
-                  component="img"
-                  src={imageMap[project.id] || '/img/project.jpeg'}
-                  alt="project"
-                  width={'100%'}
-                  height={'100%'}
-                  sx={{
+                <div
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    overflow: 'hidden',
                     transition: 'transform 0.2s',
-                    '&:hover': {
-                      transform: 'scale(1.1)',
-                    },
                   }}
-                />
-                <CardContent sx={{ textAlign: 'center' }}>
+                >
+
+                  <div style={{width: '100%',  height: '150px', position: 'relative' }}>
+                    <Image
+                      src={getFirstImageByProjectID(project) || '/img/project.jpeg'}
+                      alt="project"
+                      layout='fill'
+                      objectFit='cover'
+                      priority
+                    />
+                  </div>
+
+
+                </div>
+
+                <CardContent sx={{textAlign: 'center'}}>
                   <Typography gutterBottom variant="h5" component="div">
                     {project.name}
                   </Typography>
@@ -128,8 +140,8 @@ const Page = () => {
     <Box sx={{paddingX: {xs: 4, md: '120px'}}}>
       <NameSections name={'Proyectos'}/>
 
-      <Box sx={{ display: 'flex', justifyContent: 'center'  }} >
-        <Box sx={{ borderColor: 'divider', backgroundColor: 'primary' }}>
+      <Box sx={{display: 'flex', justifyContent: 'center'}}>
+      <Box sx={{borderColor: 'divider', backgroundColor: 'primary'}}>
           <Tabs
             value={value}
             onChange={handleChangeTab}

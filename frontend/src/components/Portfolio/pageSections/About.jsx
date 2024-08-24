@@ -33,7 +33,7 @@ const About = () => {
   return (
       <Box>
           <p className={'text-style'}>
-            {sectionData.description}
+            {sectionData ? sectionData.description : ''}
           </p>
 
           <Box
