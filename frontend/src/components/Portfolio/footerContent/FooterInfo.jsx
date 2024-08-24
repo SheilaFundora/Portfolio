@@ -35,7 +35,7 @@ const FooterInfo = ({user}) => {
         <Box sx={{ flex: '1 1 calc(33% - 80px)'}}>
           <h2 className={'name-footer'}>{user ? user.firstName : ''}</h2>
           <p className={'text-secondary my-3 text-justify'}  style={{ textAlign: 'justify' }} >
-            {sectionData.description}
+            {sectionData ? sectionData.description : ''}
           </p>
           <SocialNet />
         </Box>

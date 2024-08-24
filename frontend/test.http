@@ -1,9 +1,7 @@
 
-POST http://localhost:5000/api/project-img
+DELETE https://backend-webservice-wslm.onrender.com/auth/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVlMTMyMjY5LTliZGItNDk0Mi05ZmU4LTFmYTQ0YTA0ZjIwZCIsInVzZXJuYW1lIjoic2hlaWxhIiwiYWN0aXZlIjpmYWxzZSwiaWF0IjoxNzIyMTMyOTcyLCJleHAiOjE3MjIxMzY1NzJ9.FGO_PrltNkWEd145onKTrrHimNBrJsucMY44KJLX8mI
-
-{"imgs":["https://drive.google.com/uc?export=[id]&id=11Fhdwy7DuYRm62NPdkIio-__c80MRtc7"],"project_id":42,"user_id":"ee132269-9bdb-4942-9fe8-1fa44a04f20d"}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI3YWNkYjZkLTdhZDYtNGQ1ZS04MDk3LTIzZDlkNTA5ZDAwMyIsInVzZXJuYW1lIjoicnViZW4iLCJhY3RpdmUiOmZhbHNlLCJpYXQiOjE3MjQ1MTMxODAsImV4cCI6MTcyNDUxNjc4MH0.1IXMNSSbeVJ59K5ntnU-3ySA0uP38lYskA_HE_fpyg4
 
 
 
