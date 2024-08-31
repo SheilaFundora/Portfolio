@@ -13,8 +13,11 @@ const CardServices = ({titulo, contenido}) => {
     backend: <CodeOffIcon sx={{ color: 'white', fontSize: '36px' }} className={'card-hov-icon-text'} />,
     frontend: <CodeOffIcon sx={{ color: 'white', fontSize: '36px' }} className={'card-hov-icon-text'} />,
     database: <StorageIcon sx={{ color: 'white', fontSize: '36px' }} className={'card-hov-icon-text'} />,
+    datos: <StorageIcon sx={{ color: 'white', fontSize: '36px' }} className={'card-hov-icon-text'} />,
     support: <BuildIcon sx={{ color: 'white', fontSize: '36px' }} className={'card-hov-icon-text'} />,
+    soporte: <BuildIcon sx={{ color: 'white', fontSize: '36px' }} className={'card-hov-icon-text'} />,
     office: <WorkIcon sx={{ color: 'white', fontSize: '36px' }} className={'card-hov-icon-text'} />,
+    oficina: <WorkIcon sx={{ color: 'white', fontSize: '36px' }} className={'card-hov-icon-text'} />,
     web: <WebIcon sx={{ color: 'white', fontSize: '36px' }} className={'card-hov-icon-text'} />,
   };
 

@@ -56,11 +56,14 @@ const Page = () => {
               <p className={'text-style'}><b>Experience:</b> {person.experience}</p>
               <p className={'text-style'}><b>Remote:</b> {(person.remote) ? 'Available' : 'Not available'}</p>
               <p className={'text-style'}><b>Freelancer:</b> {(person.freelancer) ? 'Available' : 'Not available'}</p>
-              <p className={'text-style'}><b>Cv english:</b>  {person.cvPathEn !== null ? 'Exist' : 'Empty' }</p>
-            <p className={'text-style'}>
-              <b>Cv spanish: </b>
-              {person.cvPathEs !== null || person.cvPathEs !== '' ? 'Empty' : 'Exist' }
-            </p>
+              <p className={'text-style'}>
+                <b>Cv english:</b>
+                {person.cvPathEn !== null || person.cvPathEn ? 'Exist' : 'Empty' }
+              </p>
+              <p className={'text-style'}>
+                <b>Cv spanish: </b>
+                {person.cvPathEs !== null || person.cvPathEs !== '' ? 'Exist' : 'Empty' }
+              </p>
             </Grid>
           </Grid>
 

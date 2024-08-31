@@ -101,7 +101,7 @@ export default function PersistentDrawerLeft({children}) {
                   sx={{ color: '#15B79E' }}
                   target="_blank"
                 >
-                  sheila's portfolio
+                  my portfolio
                 </Box>
               </Typography>
               <img
@@ -115,4 +115,3 @@ export default function PersistentDrawerLeft({children}) {
       </Box>
     );
 }
-
