@@ -27,7 +27,7 @@ const PastelGraph = ({skill}) => {
   return (
     <Card sx={'100%'}>
       <CardHeader
-        title="Skiils"
+        title="Skills"
       />
       <CardContent>
         <PieChart

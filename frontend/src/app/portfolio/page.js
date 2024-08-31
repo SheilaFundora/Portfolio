@@ -14,7 +14,7 @@ export default function Home() {
   return (
       <motion.div initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 1.56}}>
             <Box sx={{paddingX: {xs: 4, md: '120px'}}}>
-                <FirstSection/>
+                <FirstSection />
 
                 <NameSections name={'About me'}/>
                 <About/>
@@ -23,7 +23,7 @@ export default function Home() {
             <DataAbout />
 
             <Box sx={{paddingX: {xs: 4, md: '120px'}}}>
-                <NameSections name={'Skill'}/>
+                <NameSections name={'Skills'}/>
             </Box>
 
             <Skills />

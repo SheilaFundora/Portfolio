@@ -69,7 +69,7 @@ const ImageModal = ({handleClickOpen, action, handleRefreshTable, imageSelect}) 
 
           {errorMessage && <div className='error-message text-danger text-start ms-4'>{errorMessage}</div>}
           <div className='error-message text-secondary text-start ms-4'>
-            You must have a img with section header, me, logo, icon.
+            You must have a img with section header, me, logo.
           </div>
 
           <DialogActions sx={{pb: 3, justifyContent: 'center'}}>

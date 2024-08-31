@@ -22,9 +22,24 @@ const DownloadModal = ({handleClickOpen, user}) => {
   return (
     <Box>
         <DialogContent>
-          <h4 className='mt-4 text-center'>Form to Download Curriculum Vitae ( CV )</h4>
+          <h4 className='mt-4 text-center'>Download Curriculum Vitae ( CV )</h4>
 
-          <Box sx={{ pb: 3,  display: 'flex', justifyContent: 'space-between', mx: 5 }}>
+          <Box sx={{ pb: 3,
+            display: 'flex',
+            alignItems: 'center',
+            mx:{
+              xs: 'auto',
+              md: 5,
+            },
+            justifyContent: {
+              xs: 'center',
+              md: 'space-between'
+            },
+            flexDirection: {
+              xs: 'column',
+              md: 'row',
+            },
+          }}>
             <Box>
               <button className={'dow-cv'} onClick={handleDownloadEn}>
                 <ListItemButton>
@@ -34,7 +49,7 @@ const DownloadModal = ({handleClickOpen, user}) => {
               </button>
             </Box>
 
-            <Box>
+            <Box  sx={{ ml: { xs: 0, md: 4 } }}>
               <button className={'dow-cv'} onClick={handleDownloadEs}>
                 <ListItemButton>
                   <ArrowCircleDownIcon/>

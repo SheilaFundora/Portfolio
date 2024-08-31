@@ -30,7 +30,7 @@ const FirstSection = () => {
             HI, I AM {user ? user.firstName : '...'}
           </h2>
 
-          <h4 style={{color: 'gray', marginTop: '15px'}}>A {user ? user.profession : '...'}t</h4>
+          <h4 style={{color: 'gray', marginTop: '15px'}}>A {user ? user.profession : '...'}</h4>
           <button className={'dow-cv'} onClick={handleOpenModal}>
             <ListItemButton>
               <ArrowCircleDownIcon/>
@@ -58,6 +58,7 @@ const FirstSection = () => {
                      handleClickOpen={handleOpenModal}
           />
         }
+
 
       </Box>
   );

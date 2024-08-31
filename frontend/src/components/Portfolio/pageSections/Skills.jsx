@@ -31,7 +31,7 @@ const Skills = () => {
                 alignItems: 'center', // Centrar verticalmente en dispositivos móviles
                 justifyContent: 'center', // Ajustar el espacio entre los elementos
                 flexWrap: 'wrap', // Envolver los elementos si no caben en una sola fila
-                gap: '30px', // Espacio entre los elementos
+                gap: '15px', // Espacio entre los elementos
                 '& > div': {
                     width: '100%', // Asegurar que cada elemento ocupe todo el ancho disponible
                     maxWidth: 'calc(25% - 20px)', // Establecer el ancho máximo para quepan los 4 elementos
