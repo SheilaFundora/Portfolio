@@ -88,15 +88,24 @@ const ProjectModal = ({handleClickOpen, handleRefreshTable, action, projectSelec
               defaultValue={action === 'edit' ? projectSelect.category : ""}
             />
             <TextField
-              label="Client"
+              label="Category Detail"
               type='text'
               sx={{m: 2, width: '500px'}}
-              {...register("client")}
-              error={!!errors.client}
-              helperText={errors.client && errors.client.message}
-              defaultValue={action === 'edit' ? projectSelect.client : ""}
+              {...register("categoryDetail")}
+              error={!!errors.categoryDetail}
+              helperText={errors.categoryDetail && errors.categoryDetail.message}
+              defaultValue={action === 'edit' ? projectSelect.categoryDetail : ""}
             />
           </div>
+          <TextField
+            label="Client"
+            type='text'
+            sx={{m: 2, width: '500px'}}
+            {...register("client")}
+            error={!!errors.client}
+            helperText={errors.client && errors.client.message}
+            defaultValue={action === 'edit' ? projectSelect.client : ""}
+          />
           <div className={'d-flex'}>
             <TextField
               type='date'

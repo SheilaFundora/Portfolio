@@ -3,10 +3,10 @@ import React, {useEffect} from 'react';
 import NameSections from "@/components/Portfolio/pageSections/NameSections";
 import Box from "@mui/material/Box";
 import Tab from '@mui/material/Tab';
-import {Card, CardActionArea, CardContent, CardMedia, Tabs, Typography} from "@mui/material";
+import {Card, CardActionArea, CardContent, Tabs, Typography} from "@mui/material";
 import {useRouter} from "next/navigation";
 import {getData} from "@/helper/crud/getData";
-import {imgProject_end, project_end} from "@/constants/endpoints";
+import { project_end} from "@/constants/endpoints";
 import Image from "next/image";
 
 function CustomTabPanel(props) {
@@ -52,7 +52,6 @@ const getCategories = (projects) => {
 const Page = () => {
   const [value, setValue] = React.useState(0);
   const [projectData, setProjectData] = React.useState([]);
-  const [projectImageData, setProjectImageData] = React.useState([]);
   const [categories, setCategories] = React.useState([]);
   const router = useRouter();
 
@@ -64,7 +63,6 @@ const Page = () => {
 
   useEffect(() => {
     getData(project_end, setProjectData)
-    getData(imgProject_end, setProjectImageData)
   }, [])
 
   useEffect(() => {
@@ -96,7 +94,7 @@ const Page = () => {
       <Box className={'d-flex justify-content-center flex-wrap'} sx={{ gap: '30px' }}>
         {projects.map((project, idx) => (
           <Box onClick={() => handleViewProject(project)} key={idx}>
-            <Card sx={{ width: 330, height: 220, paddingBottom: 3, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)' }}>
+            <Card sx={{ width: 330, height: 250, paddingBottom: 3, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)' }}>
               <CardActionArea>
                 <div
                   style={{

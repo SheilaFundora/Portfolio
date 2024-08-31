@@ -41,27 +41,27 @@ const Page = ({params}) => {
           }
 
       </div>
-
         <div style={{
           marginTop: '25px',
           display: 'flex',
           justifyContent: 'space-between',
-              flexDirection: {xs: 'column', md: 'row'},
-              flexWrap: 'wrap'
-          }}>
-
+          flexDirection: {xs: 'column', md: 'row'},
+          flexWrap: 'wrap'
+        }}>
           {
             projectData.prosImgs !== null || true ?
               <CarrouselImage projectImages={projectData.prosImgs}/>
               :
               ''
           }
-
-
-          <CardInformation projectData={projectData}/>
+          <Box sx={{
+            width: {xs: '100%', md: '30%'},
+          }}>
+            <CardInformation projectData={projectData}/>
+          </Box>
         </div>
 
-          <InformationProject projectData={projectData}/>
+        <InformationProject projectData={projectData}/>
       </Box>
   );
 };
