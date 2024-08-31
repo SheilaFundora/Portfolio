@@ -60,6 +60,7 @@ function Header() {
           elevation={0}
           style={{
               boxShadow: showShadow ? '0px 4px 8px rgba(0, 0, 0, 0.08)' : 'none',
+              paddingY: 1
           }}
       >
           <motion.div initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 1}}>

@@ -18,8 +18,6 @@ const PersonModal = ({handleClickOpen, personData, handleRefreshData}) => {
   const handleEditPerson = async (data) => {
     const endpoint = user_end  + '/' + personData.id
     data.birthday = data.birthday === '' ? null : data.birthday;
-    data.remote = data.remote === 'true';
-    data.freelancer = data.freelancer === 'true';
     data.cvPathEs = convertViewUrl(data.cvPathEs)
     data.cvPathEn = convertViewUrl(data.cvPathEn)
 
