@@ -18,7 +18,11 @@ export class UpdateProjectDto extends PartialType(CreateProjectDto) {
     @IsOptional()
     @IsString()
     dateProject?: string;
-  
+    
+    @IsOptional()
+    @IsString()
+    categoryDetail:string;
+
     @IsOptional()
     @IsString()
     description?: string;

@@ -18,5 +18,6 @@ export class CreateProjectDto {
     @IsArray()
     @ArrayNotEmpty()
     skill_ids: number[];
+    categoryDetail:string;
 
 }

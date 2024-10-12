@@ -21,6 +21,8 @@ export class Project {
     description:string;
     @Column({nullable:true})
     url:string;
+    @Column({nullable:true})
+    categoryDetail:string;
 
 
     @ManyToMany(() => Skill, { eager: true })
