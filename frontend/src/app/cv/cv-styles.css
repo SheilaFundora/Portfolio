@@ -1,16 +1,28 @@
 
-.cv-left-style{
-  background: center center / cover no-repeat rgb(58, 125, 107);
-  width: 50%;
-  max-width: 50%;
-  color: rgb(248, 251, 250);
-  padding: 19.4708mm 14.4mm 19.4708mm 18mm;
-
-}
 @media print {
   @page {
     size: landscape; /* Orientación horizontal */
     margin: 0;
+  }
+  .cv-container {
+    display: block !important; /* Asegura que el Grid sea visible */
+    background-color: transparent !important; /* Quita el fondo si es necesario */
+    height: auto !important;
+  }
+
+  /* Asegura que el contenedor del CV esté completamente visible y con 100 */
+  .cv-style {
+    display: flex !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+  .cv-left-style {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .cv-right-style {
+    width: 100% !important;
   }
 
   body {
@@ -19,6 +31,30 @@
     margin: 0; /* Elimina márgenes del body */
     padding: 0; /* Elimina padding del body */
   }
+
+}
+
+
+
+.cv-container {
+  background-color: rgba(0, 0, 0, 0.7); /* Fondo negro semi-transparente */
+}
+
+.cv-style {
+  width: 75%; /* Ajusta el ancho del CV */
+  margin: 0 auto; /* Centrar horizontalmente */
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.cv-left-style{
+  background: center center / cover no-repeat rgb(58, 125, 107);
+  width: 50%;
+  max-width: 50%;
+  color: rgb(248, 251, 250);
+  padding: 19.4708mm 14.4mm 19.4708mm 18mm;
 
 }
 

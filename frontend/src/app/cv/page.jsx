@@ -4,21 +4,23 @@ import {Grid, Typography} from "@mui/material";
 import Box from "@mui/material/Box";
 import {getDataPerson} from "@/helper/crud/getDataPerson";
 import './cv-styles.css'
-import Image from "next/image";
-import {getData} from "@/helper/crud/getData";
-import {images_end} from "@/constants/endpoints";
-
+import {section_end} from "@/constants/endpoints";
 import ContactInfo from "@/components/cv/ContactInfo";
+import TittleWhite from "@/components/cv/TittleWhite";
+import ImagenMe from "@/components/cv/ImagenMe";
+import {getDataByParamer} from "@/helper/getDataByParamer";
+import SkillsCv from "@/components/cv/SkillsCv";
 
 const Page = () => {
   const [personData, setPersonData] = React.useState([]);
-  const [imagesData, setImagesData] = React.useState([]);
-  const imgMe = (imagesData || []).find(item => item.section === 'Me' || item.section === 'me');
-
+  const [sectionData, setSectionData] = React.useState([]);
 
   useEffect( () => {
     getDataPerson( setPersonData)
-    getData(images_end, setImagesData)
+    const username = process.env.NEXT_PUBLIC_USERNAME
+
+    const endSectByTitle =  section_end  +  '/find/' +  'About/'  + username  + '/'
+    getDataByParamer(endSectByTitle, setSectionData);
 
   }, [])
 
@@ -29,10 +31,9 @@ const Page = () => {
   }, [personData]);
 
   return (
-    <Grid  container spacing={0} sx={{ height: '100vh', width: '100%', margin: 0 }} >
-      <Grid item md={6} className={'cv-left-style'} sx={{ width: '50%' }} >
-        <Box
-        >
+    <Box className="cv-container">
+      <Grid className="cv-style" container spacing={0}>
+        <Grid item md={6} className={'cv-left-style'} sx={{width: '50%'}}>
           <Typography component="h1" className="person-name">
             {personData.firstName + ' ' + personData.lastName}
           </Typography>
@@ -41,31 +42,26 @@ const Page = () => {
             {personData.profession}
           </Typography>
 
-          <Box className="image-container">
-            {imgMe && imgMe.imgs &&
-              <Image
-                src={imgMe.imgs}
-                alt="me"
-                layout="responsive"
-                width={60}
-                height={60}
-                objectFit="cover"
-              />
-            }
-          </Box>
+          <ImagenMe/>
 
           <ContactInfo personData={personData}/>
 
-        </Box>
+          <TittleWhite title={'Profile'}/>
+          <p>{sectionData ? sectionData.description : ''}</p>
 
+          <SkillsCv />
+
+
+        </Grid>
+
+        <Grid item md={6} sx={{width: '50%'}}>
+          <Typography>
+            Contenido de la primera columna. Puedes poner cualquier cosa aquí: texto, imágenes, etc.
+          </Typography>
+        </Grid>
       </Grid>
 
-      <Grid item md={6} sx={{width: '50%'}}>
-        <Typography>
-          Contenido de la primera columna. Puedes poner cualquier cosa aquí: texto, imágenes, etc.
-        </Typography>
-      </Grid>
-    </Grid>
+    </Box>
   );
 };
 
