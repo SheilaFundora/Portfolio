@@ -7,6 +7,7 @@ export const handleEditData = async (handleClickOpen, endpoint, data, handleRefr
   try {
     const resp = await fetchDataToken(endpoint, data, "PATCH");
 
+    console.log(data)
     if (resp.status === 409) {
       await setErrorMessage("That " + name + " already exist");
     }else{
