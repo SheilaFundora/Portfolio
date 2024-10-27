@@ -15,7 +15,7 @@ const Title = ({name, subinfo='', linkPlace = ''}) => {
                 </Link>
             </span> : ''}
         </div>
-);
+  );
 };
 
 export default Title;

@@ -3,7 +3,7 @@ import React from 'react';
 const Subtitle = ({text}) => {
     return (
         <div>
-            <p className={'test-resume-style'}>
+            <p className={'text-resume-style '}>
                 {text}
             </p>
         </div>

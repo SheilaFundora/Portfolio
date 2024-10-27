@@ -18,7 +18,7 @@ const Page = () => {
   return (
     <Box  sx={{paddingX: {xs: 4, md: '120px', mt:5},paddingY: 1, mt:3,  backgroundColor: 'rgb(247 248 252 )',
     }}>
-        <NameSections name={'Resume'}/>
+      <NameSections name={'Resume'}/>
 
       <Grid container spacing={2} justifyContent="space-between" sx={{ mt: 3 }}>
         <Grid item xs={12} md={6} >

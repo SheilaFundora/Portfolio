@@ -18,7 +18,7 @@ const DataResume = (props) => {
           }
 
           {resumes.map((item) => (
-            <div className={'resume-item'} key={item.id}>
+            <div className={'resume-item text-resume-style-color'} key={item.id}>
               <Title name={item.titleImpt} subinfo={item.titleSecondary} linkPlace={item.link}/>
               <DatesAndPlace dateInit={item.date_init} city={item.city} country={item.country}
                              date_end={item.date_end}/>

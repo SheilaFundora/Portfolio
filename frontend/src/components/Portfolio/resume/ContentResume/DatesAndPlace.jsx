@@ -11,7 +11,7 @@ const DatesAndPlace = ({dateInit, city, country, date_end}) => {
 
     return (
       <div className={'my-2'}>
-          <span className={'test-resume-style'}>
+          <span className={'text-resume-style'}>
             {formattedDateRange()}
             {country !== '' ? ` | ${city ? `${city}, ` : ''}${country}` : ''}
           </span>
