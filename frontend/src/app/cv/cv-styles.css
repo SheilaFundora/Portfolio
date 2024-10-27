@@ -55,7 +55,13 @@
   max-width: 50%;
   color: rgb(248, 251, 250);
   padding: 19.4708mm 14.4mm 19.4708mm 18mm;
-
+}
+.cv-right-style{
+  background: center center / cover no-repeat rgb(255, 255, 255);
+  width: 50%;
+  max-width: 50%;
+  color: black;
+  padding: 12mm 14mm 12mm 14mm;
 }
 
 .person-name {

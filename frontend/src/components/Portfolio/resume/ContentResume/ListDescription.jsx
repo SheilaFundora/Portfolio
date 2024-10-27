@@ -7,7 +7,7 @@ const ListDescription = ({ dataDescription}) => {
         <div>
             <ul>
                 {dataLink.map((item, index) => (
-                    <li key={index} className="test-resume-style my-1">{item}</li>
+                    <li key={index} className="text-resume-style my-1">{item}</li>
                 ))}
             </ul>
         </div>

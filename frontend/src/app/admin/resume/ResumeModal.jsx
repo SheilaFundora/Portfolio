@@ -45,7 +45,7 @@ const ResumeModal = ({handleClickOpen, handleRefreshTable, action, resumeSelect 
     }else{
       data.date_init = data.date_init === '' ? null : data.date_init;
       data.date_end = data.date_end === '' ? null : data.date_end;
-      data.category_id = { id: data.category_id}
+      data.category_id = { id: typeof data.category_id === 'string' ?  resumeSelect.category_id.id : data.category_id}
 
       await handleEditData(handleClickOpen, endpoint, data, handleRefreshTable, 'resume');
     }

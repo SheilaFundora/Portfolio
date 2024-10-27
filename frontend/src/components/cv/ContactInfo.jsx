@@ -20,13 +20,7 @@ const ContactInfo = ({personData}) => {
       item.name.toLowerCase()  === name
     )
     if( linkSocialNet.length > 0){
-      const text = linkSocialNet[0].link
-      const lines = text.split('\n');
-      const formattedLinks = lines.map(line => {
-        return line.replace(/https?:\/\//, '').replace('www.', '');
-      });
-
-      return formattedLinks.filter(link => link); // Filtrar líneas vacías
+      return linkSocialNet[0].link
 
       }else{
         return ''
@@ -60,8 +54,6 @@ const ContactInfo = ({personData}) => {
     },
 
   ];
-
-
 
   return (
     <Box sx={{ width: '100%' }}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from "@mui/material/Box";
 
-const TittleWhite = ({title}) => {
+const TitleWhite = ({title}) => {
   return (
     <Box
       display="flex"
@@ -12,7 +12,7 @@ const TittleWhite = ({title}) => {
       fontSize="11.5pt"
       lineHeight="20px"
       color="rgb(255, 255, 255)"
-      marginTop={2}
+      marginTop={3}
     >
       <Box
         width="100%"
@@ -33,4 +33,4 @@ const TittleWhite = ({title}) => {
   );
 };
 
-export default TittleWhite;
+export default TitleWhite;

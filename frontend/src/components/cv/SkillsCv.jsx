@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import TittleWhite from "@/components/cv/TittleWhite";
+import TitleWhite from "@/components/cv/TitleWhite";
 import Box from "@mui/material/Box";
 import {getData} from "@/helper/crud/getData";
 import {skill_end} from "@/constants/endpoints";
@@ -16,7 +16,7 @@ const SkillsCv = () => {
 
   return (
     <Box>
-      <TittleWhite title={'Skills'}/>
+      <TitleWhite title={'Skills'}/>
         <ul style={{listStyleType: "none", padding: 0, margin: 0, display: "flex", flexWrap: "wrap"}}>
           {skillData.map((skill, index) => (
             <li key={skill.id} style={{
